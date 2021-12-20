@@ -1,0 +1,127 @@
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.CartPage_Wrapper{
+ padding: 110px 80px 70px;   
+ max-width: 1660px;
+ min-height: 300px;
+ height: auto;
+ margin: 0 auto;
+}
+.CartPage_HeadLine{
+    color: #0A0A0A;
+    font-family: Gilroy!important;
+    font-weight: 700;
+    letter-spacing: 0em;
+    line-height: 1.9em;
+    font-size: 36px;
+}
+#sod_list{
+    width: 100%;
+    font-family: Gilroy!important;
+    font-size: 17px;
+}
+table > thead > tr > th {
+    text-align: center;
+    font-size: 14px;
+}
+table > tbody > tr  {
+    border-bottom:1px solid #ddd;
+}
+table > tbody > tr > td {
+    text-align: center;
+}
+.text_left{
+    text-align: left;
+}
+.sod_list_head{
+    border-bottom:1px solid #ddd;
+    height: 60px;;
+    padding:17px 0 15px;
+    color:#777777;
+}
+.thumb_img{
+    max-width: 80px;
+}
+.thumb_text{
+    display: inline-block;
+    vertical-align: middle;
+    /* width: 250px; */
+}
+.first_td{
+    text-align: left;
+    padding:20px 0;
+}
+.input_qty{
+    width:35px;
+    height: 32px;
+    text-align: center;
+    border: 1px solid #cccccc;
+    background-color: transparent;
+    color: inherit;
+    font-family: Gilroy!important;
+    font-size: 13px;
+}
+.Cart_empty{
+    padding: 10px;
+    font-weight: 600;
+    font-size: 13px;
+}
+.thumb_text_Detail{
+    font-size: 13px;
+    color: #909090;
+    margin-top: 6px;
+}
+.product-link2{
+    display: inline-grid;
+    padding-left: 3%;
+    vertical-align: middle;
+}
+.total_Price{
+    text-align: right;
+}
+.total_Price_wrpper{
+    float: right;
+    padding:20px 0;
+    width: 40%;
+    font-family: 'Gilroy';
+    font-size: 15px;
+    text-align: right;
+    padding-right: 40px;
+}
+.total_Price_Text{
+    display: inline-block;
+    
+}
+.total_post_price{
+    margin: 20px 0;
+    text-align: right;
+    
+}
+.total_Price_Number{
+    float: right;
+    width: 40%;
+    text-align: right;
+}
+.last_total_price{
+    border-top:1px solid #ddd;
+    padding: 20px 0;
+    text-align: right;
+}
+.textAlignB{
+    font-weight: bold;
+}
+.DeleteButton{
+    cursor: pointer;
+    font-size: 15px;
+}
+#purChase_Button{
+    width: 50%;
+    background: black;
+    color: white;
+    font-family: 'Gilroy';
+    margin: 20px 0;
+}

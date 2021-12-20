@@ -1,0 +1,252 @@
+* {
+  margin: 0;
+  padding: 0;
+  line-height: normal;
+}
+
+html,
+body,
+#root,
+#root > div {
+  height: 100%;
+}
+body{
+  background-color: #fff!important;
+}
+#header {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid gray;
+  /* position: absolute;
+  top: 0; */
+  z-index: 1;
+}
+
+#header-area {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  justify-content: center;
+}
+
+#body {
+  min-height: 100vh;
+  max-width: 1024px;
+  width: 100%;
+  margin: 0 auto;
+  padding-bottom: 24px;
+}
+
+#footer {
+  height: 200px;
+  background-color: rgb(230, 230, 230);
+}
+
+
+.slider-slide > a {
+  pointer-events: none;
+}
+.am-carousel-wrap-dot > span{background:white!important;
+}
+.am-carousel-wrap-dot-active > span{
+  background:rgb(255, 167, 233)!important;
+}
+.am-carousel-wrap-dot-active > span {
+  width: 7px!important;
+  height: 7px!important;
+  background: #ea2027!important;
+  position: relative!important;
+  transform: rotate(45deg)!important;
+  border-radius: 0!important;
+}
+.am-carousel-wrap-dot-active > span::before,
+.am-carousel-wrap-dot-active > span::after {
+  content: ""!important;
+  width: 7px!important;
+  height: 7px!important;
+  position: absolute!important;
+  border-radius: 50%!important;
+  background: #ea2027!important;
+  left: -0%!important;
+}
+.am-carousel-wrap-dot-active > span::before {
+  left: -50%!important;
+}
+.am-carousel-wrap-dot-active > span::after {
+  top: -50%!important;
+}
+.slider-slide{
+  /* width: 1000px !important; */
+  /* -ms-transform: translateX(50%);
+	-webkit-transform: translateX(50%);
+	-moz-transform: translateX(50%);
+	transform: translateX(50%); */
+}
+
+.slider-list{text-align: center!important;margin:0 auto!important;}
+.am-carousel{
+  width:700px!important;
+  margin:0 auto!important;
+}
+
+
+
+/* 추가된 내역들  210720 */
+
+.createPostPage {
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100vw;
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 500px;
+  height: auto;
+  padding: 20px;
+  border: 5px solid dodgerblue;
+  border-radius: 5px;
+  margin: 200px auto;
+}
+
+.formContainer #inputCreatePost {
+  height: 40px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 2px solid grey;
+  border-radius: 5px;
+  padding-left: 10px;
+  font-size: 20px;
+}
+
+.formContainer button {
+  margin-top: 15px;
+  height: 40px;
+  border: none;
+  background-color: lightskyblue;
+  border-radius: 5px;
+  color: white;
+}
+
+.formContainer button:hover {
+  cursor: pointer;
+  background-color: dodgerblue;
+}
+
+form > span {
+  color: red;
+}
+/* login */
+
+/* LOGIN */
+
+.loginContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  padding-top: 100px;
+}
+
+.loginContainer input,
+button {
+  /* width: 200px; */
+  height: 50px;
+  border-radius: 8px;
+  border: none;
+  margin: 10px;
+}
+
+.loginContainer button {
+  background-color: dodgerblue;
+  color: white;
+}
+
+.loginContainer input {
+  border: 2px solid dodgerblue;
+}
+
+#Logo_style {
+  width:75px;
+}
+button{
+  cursor: pointer;
+}
+/* 페이지네이션 */
+.container {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.container li {
+  list-style: none;
+  border: 1px solid #828282;
+}
+
+.pagination li {
+  display: inline-block;
+  background: #dedede;
+  overflow: hidden;
+}
+
+.pagination li a {
+  text-decoration: none;
+  width: 10px;
+  height: 10px;
+}
+
+.pagination li a:focus{
+ background-color: yellow;
+}
+
+.react-audio-player  {
+    right: -160px;
+    width: 137px;
+    top: -15px;
+    opacity: 0.6;
+    position: absolute;
+}
+.react-audio-player:nth-of-type(2){
+  /* display:none; */
+}
+
+/* 400px까지는 이렇게 하겠다 */
+@media screen and (max-width:600px) {
+  .product-card{
+    width:calc(50% - 20px)!important;
+    margin-right:10px!important;
+
+  }
+  .menuBar{
+    width: 100% !important;
+  }
+  #header { 
+    padding:0 8px;
+  }
+  #body{
+    padding:0 8px;
+  }
+  .ant-carousel {
+    margin: 0 -8px;
+  }
+  .am-carousel{
+    width: inherit;
+  }
+  .am-carousel{width:inherit!important;}
+  #product-list{width:100%!important;}
+  /* .menuCon{
+    padding: 45px 0px !important;
+  } */
+  .barsMenu{
+    width: 35px !important;
+  }
+}

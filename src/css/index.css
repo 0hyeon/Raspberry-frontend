@@ -1,0 +1,218 @@
+@import url("//vendor-cdn.imweb.me/css/gilroy.css");
+@import url("https://use.typekit.net/sfa0iuf.css");
+#banner {
+    /* max-height: 300px; */
+  }
+  
+  #banner > img {
+    width: 100%;
+    /* max-height: 300px; */
+  }
+  
+  #body > h1 {
+    margin-top: 16px;
+  }
+  
+  #product-list,#product-list_third {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 12px;
+    width: 100%px;
+    margin:0 auto;
+    padding:0 50px;
+  }
+  
+  .product-card {
+    width: calc(100%/4 - 20px);
+    margin:10px 10px;
+    border: 1px solid rgb(230, 230, 230);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+  }
+  #product-list_third > .product-card {
+    width: calc(100%/3 - 20px);
+    margin:10px 10px;
+    border: 1px solid rgb(230, 230, 230);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+  }
+  .product-blur{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right:0;
+    background-color: #ffffffaa;
+    pointer-events: none;
+  }
+
+  .product-img {
+    width: 100%;
+    /* height: 210px; */
+    object-fit: contain;
+  }
+  
+  .product-contents {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 8px;
+  }
+  
+  .product-name {
+    font-size: 22px;
+    text-align: center;
+    line-height: 27px;
+    letter-spacing: 1px;
+    font-family: 'proxima-nova';
+    word-spacing: -4px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .product-price {
+    font-size: 14px;
+    font-weight: 600;
+    /* margin-top: 12px; */
+    text-align: center;
+    font-family: Gilroy;
+    
+  }
+  
+  .product-seller {
+    display: flex;
+    align-items: center;
+  }
+  
+  .product-avatar {
+    width: 24px;
+  }
+  
+  .product-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .product-footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+    display: none;
+    
+  }
+  .product-date{
+    font-size: 12px;
+    color: rgb(136,136,136);
+  }
+  #product-headline{
+    margin: 100px 0px 30PX;
+    text-align: center;
+    font-size: 50px;
+    font-weight: 100;
+  }
+  #top_banner{
+    width:100%;
+    /* background: blue; */
+  }
+  #top_banner > img{
+    width:100%;
+  }
+  .ant-carousel .slick-dots li.slick-active button{
+    background: deepskyblue!important;
+  }
+  .ant-carousel .slick-dots li button{
+    height: 6px!important;
+  }
+  .swiper-pagination-bullet{
+    width:18px!important;
+    height: 18px!important;
+  }
+
+
+  #image-box {
+    /* max-height: 300px; */
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+  }
+  
+  #name {
+    font-size: 20px;
+    font-weight: 400;
+  }
+  
+  #price {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  #createdAt {
+    font-size: 12px;
+    color: rgb(204, 204, 204);
+  }
+  
+  #description {
+    margin-top: 16px;
+    font-size: 16px;
+  }
+  #purchase-button{
+    margin-top: 8px;
+    margin-bottom: 16px;;
+  }
+  .ant-menu{
+    background:inherit!important;
+    font-family: Gilroy!important;
+    font-size: 18px!important;
+  }
+  .ant-menu-sub{
+    -webkit-box-shadow: 0 6px 12px rgb(0 0 0 / 50%)!important;
+    box-shadow: 0 6px 12px rgb(0 0 0 / 50%)!important;
+    background: #fff!important;
+    border-radius: 3px;
+  }
+  .am-wingblank-lg{
+    padding:40px;
+  }
+  .product-color_1{
+    width: 18px;
+    height: 18px;
+    margin: 0px 1px;
+    margin-top:7px;
+    border-radius: 5px;
+    border:1px solid #909090;
+    display:inline-block;
+  }
+  @media screen and (max-width:1500px) {
+    #product-list,.product-list-wrapper{
+      width: 1250px!important;
+    }
+  }
+  @media screen and (max-width:600px) {
+    .ant-menu-sub{
+      box-shadow: 1px 0px 0px rgb(0 0 0 / 50%)!important;
+    }
+    .product-img {
+      height: auto!important;
+    }
+    #product-list,.product-list-wrapper{
+      width: 100%!important;
+      padding: 0px 14px!important;
+    }
+    .product-card{
+      border: none!important;
+      border-radius: inherit!important;
+    }
+    .product-name{
+      line-height: inherit!important;
+      font-size: 15px;
+      height:inherit!important;
+    }
+    .product-img:nth-of-type(2n-1){
+
+    }
+  }

@@ -1,0 +1,234 @@
+@import "~antd/dist/antd.css";
+
+.menuBar {
+  /* position: fixed; */
+  top: 0px;
+  z-index: 2;
+  padding: 0 20px;
+  /* border-bottom: solid 1px #e8e8e8; */
+  overflow: auto;
+  box-shadow: 1px 0px 0px 0px #f3f1f1;
+  background-color: #fff;
+  width: 100%;
+  margin: 0 auto;
+  text-align: right;
+  text-align: -moz-right;
+  text-align: -o-right; 
+  text-align: -ms-right;
+  text-align: -webkit-right;
+}
+
+.logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.logo a {
+  display: inline-block;
+  font-size: 20px;
+  text-transform: capitalize;
+}
+
+.menuCon {
+  width: 100%;
+  height: 75px;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.menuCon .ant-menu-item {
+  padding: 0px 5px;
+
+  text-align: center;
+}
+
+.menuCon .ant-menu-submenu-title {
+  padding: 10px 20px;
+}
+
+.menuCon .ant-menu-item a {
+  padding: 10px 15px;
+  position: relative;
+}
+
+
+.menuCon .ant-menu-submenu-title a {
+  padding: 10px 15px;
+}
+
+/* .menuCon .ant-menu-horizontal {
+  border-bottom: none;
+} */
+
+.menuCon .leftMenu {
+  width: 750px;
+  position: absolute;
+  left: 100px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.menuCon .rightMenu {
+  position: absolute;
+  right: 100px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 400px;
+}
+
+.barsMenu {
+  float: right;
+  height: 32px;
+  padding: 6px;
+  display: none;
+  background: none;
+}
+
+.barsBtn {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: #000;
+  position: relative;
+}
+
+.barsBtn:after,
+.barsBtn:before {
+  content: attr(x);
+  width: 20px;
+  position: absolute;
+  top: -6px;
+  left: 0;
+  height: 2px;
+  background: #000;
+}
+.barsBtn:after {
+  top: auto;
+  bottom: -6px;
+}
+
+.ant-drawer-body {
+  padding: 0;
+}
+
+.barsMenu>span {
+  display: block;
+}
+
+.ant-drawer-body .ant-menu-horizontal>.ant-menu-item,
+.ant-drawer-body .ant-menu-horizontal>.ant-menu-submenu {
+  display: inline-block;
+  width: 100%;
+}
+
+.ant-drawer-body .ant-menu-horizontal {
+  border-bottom: none;
+}
+
+.ant-drawer-body .ant-menu-horizontal>.ant-menu-item:hover {
+  border-bottom-color: transparent;
+}
+.ant-menu-overflow-item{ height:25px!important;}
+.ant-menu-horizontal{
+  border-bottom: inherit;
+}
+
+
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu {
+  width:auto!important;
+  text-align: center;
+  padding:0 10px;
+}
+.Menu_Bar{
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 1px solid #000;
+}
+
+/* .ant-menu-submenu{
+  transition: 0.1s;
+} */
+.ant-menu-title-content{
+  font-size: 20px!important;
+  width: auto;
+}
+.rightMenu > ul > li {
+  width:150px !important;
+}
+.anticon-shopping-cart{
+  font-size: 22px!important;
+}
+.cartCount{
+  font-size: 13px;
+  position: absolute;
+  top: -20%;
+  left: 55%;
+  width: 15px;
+  height: 15px;
+  background-color: black;
+  color: white;
+  border-radius: 50%;
+}
+.cartCount_in_a{
+  padding:inherit!important;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  z-index: 2;
+}
+.ant-btn-primary{
+  border-color: #000;
+}
+.ant-menu{
+  color:inherit;
+}
+.ant-menu-horizontal > .ant-menu-item a{
+  color:inherit;
+} 
+.menuBar:hover{
+  background-color: rgb(0, 0, 0,0.3);
+} 
+.rightMenu > .ant-menu {
+  width: 500px;
+}
+.rightMenu > .ant-menu > li:nth-of-type(3){
+  /* display: none; */
+}
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected::after{
+  border-bottom:inherit!important;
+}
+@media (max-width: 767px) {
+  .barsMenu {
+    display: inline-block;
+    background-color: #fff;
+  }
+
+  .leftMenu,
+  .rightMenu {
+    display: none;
+  }
+
+  .logo a {
+    /* margin-left: -20px; */
+  }
+
+  .menuCon .ant-menu-item,
+  .menuCon .ant-menu-submenu-title {
+    padding: 1px 20px;
+  }
+
+  .logo a {
+    /* padding: 25px 20px; */
+  }
+  .menuCon{
+    height: 60px!important;
+  }
+  #Logo_style {
+    width: 64px!important;
+  }
+}

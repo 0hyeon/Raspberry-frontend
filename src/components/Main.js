@@ -1,0 +1,171 @@
+import React, {useState} from 'react';
+import "../css/index.css";
+import "../css/Paging.css";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime"
+import {API_URL} from "../config/constants.js";
+import MainPage from "../swiperSlide";
+import Post from "./Post"
+import Pagination from "./Pagination"
+import HotItem from "./HotItem"
+import { useDispatch, useSelector } from "react-redux";
+import {setProducts, setCartItem,setRequestLoding2} from "../_actions/userAction";
+
+dayjs.extend(relativeTime);//dayjs에서 확장된 기능 사용 
+
+function Main(props) {
+    // 슬라이드,상품
+    // const [products, setProducts] = React.useState([]);// state형태
+    const [posts, setPosts] = useState([]);
+    // const [loading, setLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1); //현재 페이지
+    const [postPerPage] = useState(4); //페이지당 포스트 개수
+
+    // const [banners, setBanners] = React.useState([]);
+    // const state = useSelector((state) => state);
+    const state = useSelector((state) => state);
+    const products = useSelector((state) => state.allProducts.products);
+    const dispatch = useDispatch();
+    const fetchProducts = async () => { 
+        await axios
+        
+          .get(`${API_URL}/products`)
+        //   .get('https://jsonplaceholder.typicode.com/posts')
+          .then(function(result){
+            // setLoading(true);
+            // const products = result.data.products;
+            // setProducts(products);
+            // console.log(result.data.products);
+            dispatch(setProducts(result.data));
+            setPosts(result.data.products);
+            // setLoading(false);
+            // console.log(result.data.products);
+            
+        })
+        .catch((err) => {
+            console.log("Err: ", err);
+        });
+        
+        // dispatch(setProducts(result.data));
+    };
+     //현재 페이지 가져오기
+    // console.log(posts);
+    const indexOfLastPost = currentPage * postPerPage; //1*10 = 10번 포스트
+    const indexOfFirstPost = indexOfLastPost - postPerPage; //10-10 = 0번 포스트
+    const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost); //0~10번까지 포스트
+    const paginate = pageNum => setCurrentPage(pageNum);
+
+    const fetchCartItem = async () => {
+
+        let Session = sessionStorage.getItem('user_id');
+        let body = {
+          seSsionId: Session
+          // heyt: session_redux
+        }
+        // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
+        await axios
+          .post(`${API_URL}/setCartItem`, body)
+          .then(function(result){
+            // const products = result.data.products;
+            // setProducts(products);
+            // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
+            dispatch(setCartItem(result.data));
+            // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
+            // console.log(result.data);
+            // console.log(result.data.cartItem);
+            // console.log('state : ',state);
+        })
+        .catch((err) => {
+            console.log("Err: ", err);
+            dispatch(setRequestLoding2())//loding true로 장바구니 랜더링
+        });
+        
+        // dispatch(setProducts(result.data));
+    };
+    React.useEffect(function () {
+        // 상품관련
+        fetchProducts();
+        fetchCartItem();
+        // console.log(state.allProducts.cartItem)
+        
+    }, []);
+    //로그아웃
+	// App 컴포넌트에서 전달받은 props 값은 아래와 같이 받아온다.
+	const isLogin = props.isLogin
+    
+    const onLogout = () => {
+    	// sessionStorage 에 user_id 로 저장되어있는 아이템을 삭제한다.
+        sessionStorage.removeItem('user_id')
+        // App 으로 이동(새로고침)
+        document.location.href = '/'
+    }
+    //콤마 함수
+    function AddComma(value) {
+        return Number(value).toLocaleString('en');
+    }
+ 
+    return(
+        <div>
+            {/* <div>
+                <button type='button' onClick={onLogout}>Logout</button>
+            </div> */}
+            <MainPage />
+            <h1 id="product-headline">NEW ARRIVALS</h1>
+            <div className="product-list-wrapper" id="product-list">
+                {/* 상품리스트 */}
+                {products.products && products.products.map(function (product, index) {
+                return (
+                    <div className="product-card">
+                    {
+                        product.soldout === 1 && <div className="product-blur" />
+                    }
+                    <Link
+                        style={{ color: "inherit" }}
+                        className="product-link"
+                        to={`/products/${product.id}`}
+                    >
+                        <div>
+                        <img className="product-img" src={`${API_URL}/${product.imageUrl}`} alt="" />
+                        </div>
+                        <div className="product-contents">
+                        <span className="product-name">{product.name}</span>
+                        <span className="product-price">{AddComma(product.price)} won</span>
+                        <div className="product-color">
+                                {product.color1 ? <div className="product-color_1" style={{backgroundColor:product.color1}}></div> : null}
+                                {product.color2 ? <div className="product-color_1" style={{backgroundColor:product.color2}}></div> : null}
+                                {product.color3 ? <div className="product-color_1" style={{backgroundColor:product.color3}}></div> : null}
+                        </div>
+                        <div className="product-footer">
+                            
+                            <div className="product-seller">
+                            <img
+                                className="product-avatar"
+                                src="images/icons/avatar.png" alt=""
+                            />
+                            <span>{product.seller}</span>
+                            </div>
+                            <span className="product-date">{dayjs(product.createdAt).fromNow()}</span>
+                        </div>
+                        </div>
+                    </Link>
+                    </div>
+                );
+                })}
+            </div>
+            <div id="product-headline">Best Items</div>
+            <div className="product-list-wrapper" id="product-list">
+                <Post posts={currentPosts}/>
+            </div>
+                <Pagination 
+                    postPerPage={postPerPage} 
+                    totalPosts={posts.length} 
+                    paginate={paginate}  
+                />
+            <HotItem />
+        </div>
+    )
+}
+ 
+export default Main;

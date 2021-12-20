@@ -1,0 +1,39 @@
+.adm-product-card{
+    width:160px;height: auto;;   
+    margin-right: 30px;
+}
+.product-img-wrapper{
+    position: relative;
+}
+.adm-product-img{
+    width: 100%;
+    height: 200px;
+}
+.admCommon{
+    margin-bottom:10px;
+}
+.admCommon > span{
+    font-weight: bold;
+}
+.adm-name{
+    height: 50px;
+}
+#admLoginButton {
+    font-family: Lato, sans-serif;
+    color: #fff;
+    background-color: #333;
+    font-size: 14px;
+    width: calc(50% - 5px);
+    height: 40px;
+    margin-right: 10px;
+}
+#admDelete{
+    font-family: Lato, sans-serif;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #d3d3d3;
+    height: auto;
+    margin: 0 auto;
+    width: calc(50% - 5px);
+    height: 40px;
+}

@@ -1,0 +1,1 @@
+export const API_URL = process.env.NODE_ENV === 'production' ? 'http://ec2-15-164-164-151.ap-northeast-2.compute.amazonaws.com' : "http://localhost:8000";
