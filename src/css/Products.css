@@ -9,15 +9,16 @@
   }
   
   #image-box img {
-    width: 500px;
-    max-height: 600px;
-    object-fit: contain;
+    /* width: 500px;
+    max-height: 600px; */
+    /* object-fit: contain; */
   }
   .swiper-slide{
     text-align: center;
   }
   .swiper-slide > img{
-    width: 100%;
+    width: 600px;
+    max-height: 700px;
   }
   
   #profile-box {
@@ -40,16 +41,30 @@
   }
   
   #contents-box {
-    margin-left:72px;
-    padding-top: 4vh;
+    margin-left:120px;
+    padding:50px 30px 50px 60px;
     position: fixed;
-    width:500px;
+    width:550px;
+    max-height: 700px;
   }
-  
+  #contents-box:before {
+    content: '';
+    /* border: 6px solid lightblue; */
+    filter: blur(20px);
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+    background-color: white;
+    top: 0;
+    opacity: 0.6;
+    left: 0;
+    border-radius: 60px;
+  }
   #name {
     font-size: 20px;
     font-weight: 700;
-    font-family: Lato, sans-serif;
+    font-family: 'Gilroy';
     font-size: 35px;
     line-height: 1.2em;
     color: #222222;
@@ -74,7 +89,6 @@
   
   #description {
     margin: 0;
-    font-size: 14px;
     white-space: break-spaces;
     font-family: Lato, sans-serif;
     letter-spacing: 0.5px;
@@ -84,6 +98,8 @@
     border-top: 1px solid #e8e8e8;
     /* border-top: 1px solid #aaa; */
     padding: 30px 0px 40px;
+    max-height: 280px;
+    height: 280px;
   }
   #purchase-button{
     margin-top: 8px;
@@ -97,7 +113,7 @@
     opacity: 1;
   }
   .content_wrapper{
-    width:1080px; 
+    width:1200px; 
     margin:0 auto;
     padding:100px 0px 70px;
     position:relative;
@@ -168,7 +184,7 @@
     border: 3px solid #000;
   }
   .dtail_Page{
-    width:600px;
+    width:700px;
   }
   .dtail_Page > img{
     width:100%;
@@ -233,8 +249,30 @@
     font-size: 13px; margin-bottom: 5px;height: 35px;
   }
   .detail_title{
-    margin: 100px 0px 30PX;
+    margin: 100px 0px 80PX;
     text-align: center;
     font-size: 50px;
     font-weight: 100;
   }
+  .ql-size-small{
+    font-size: 0.75em;
+  }
+  .ql-size-large{
+    font-size: 1.5em;
+  }
+  .ql-size-huge{
+    font-size: 2.5em;
+  }
+  ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+
+.description::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+/* .description > p {
+  word-break: break-word;
+} */

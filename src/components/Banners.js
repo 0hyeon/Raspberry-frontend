@@ -2,7 +2,7 @@ import "antd/dist/antd.css";
 import { Form, Divider, Input, InputNumber, Button, Upload, message } from "antd";
 import "../css/Admin.css";
 // import { ForkOutlined } from "@ant-design/icons";
-import { useState } from "react";
+import React,{ useState } from "react";
 import {API_URL} from "../config/constants.js";
 import axios from 'axios';
 import { useHistory }from "react-router-dom";

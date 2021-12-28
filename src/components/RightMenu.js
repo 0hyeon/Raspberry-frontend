@@ -3,7 +3,7 @@ import Logout from '../components/Logout';
 import { Menu, Grid } from 'antd';
 import { BrowserRouter as Router, Route, Switch, Link,useHistory } from 
 "react-router-dom";
-import { ShoppingCartOutlined } from "@ant-design/icons";
+import { ShoppingCartOutlined, SearchOutlined } from "@ant-design/icons";
 // import BGM from '../pogo.mp3';
 // import BGM from '../DOORAGS.mp3';
 import BGM from '../only_thing_i_ever_get_for_christmas.mp3';
@@ -92,6 +92,9 @@ const RightMenu = (props) => {
           {isLogin ? null : <Link to="/registration">Registration</Link>}
           
         </Menu.Item>
+        <Menu.Item key="app2">
+          <Link to="/Search">Search</Link>
+        </Menu.Item>
         <Menu.Item key="cart">
           {isLogin ? <ShoppingCartOutlined /> : null}
           {/* {isLogin ? <cartCount /> : null}
@@ -100,8 +103,6 @@ const RightMenu = (props) => {
           0
           </div> : null}
         </Menu.Item>
-       
-
       </Menu>
 
           
@@ -120,6 +121,9 @@ const RightMenu = (props) => {
           <Menu.Item key="app">
             {isLogin ? null : <Link to="/registration">Registration</Link>}
             
+          </Menu.Item>
+          <Menu.Item key="app2">
+            <Link to="/Search">Search</Link>
           </Menu.Item>
           <Menu.Item key="cart">
             <Link to="/CartPage" className="cartCount_in_a">

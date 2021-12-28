@@ -1,0 +1,35 @@
+.registerTop{
+    font-weight: bold;
+    margin-bottom:40px;
+}
+.input_id{
+    font-size: 14px;
+    line-height: 23px;
+    width: 100%;
+    /* height: 45px; */
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+}
+label{
+    display: block;
+    font-size: 14px;
+    line-height: 17px;
+    margin: 12px 0px;
+}
+.formContainer button {
+    width: 100%;
+    font-family: Lato, sans-serif;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #333;
+    border: 1px solid transparent;
+    height: 50px;
+    font-size: 14px;
+    margin-top: 30px;
+}
+.postCode_btn{
+    position: absolute;
+}
+#popupDom > div > div {
+    padding: inherit!important  ;
+}

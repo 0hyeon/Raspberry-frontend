@@ -37,3 +37,25 @@
     width: calc(50% - 5px);
     height: 40px;
 }
+.product-delivery-wrapper > ul > li {
+    width: 25%;
+    display: inline-block;
+    font-family: 'Gilroy';
+    font-size: 22px;
+    position: relative;
+}
+.product-delivery-wrapper > ul{
+    width: 70%;
+    margin: 50px auto;
+    text-align: center;
+    background: aliceblue;
+}
+.product-delivery-wrapper > ul > li ::after {
+    content: ' > ';
+    position: absolute;
+    top: 11px;
+    right: 0;
+}
+.product-delivery-wrapper > ul > li:nth-of-type(4n) ::after {
+    content: '';
+}

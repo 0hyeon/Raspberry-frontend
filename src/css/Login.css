@@ -48,12 +48,14 @@ label {
     background-color: #fff;
     border: 1px solid #d3d3d3;
     padding: 18px 20px;
-    height: auto;
+    height: 60px;
     font-size: 14px;
     margin: 0 auto;
-    width: 200px;
+    width: 190px;
+    margin-left:10px;
 }
 .tacenter{
     text-align: center;
     margin: 20px 0;
+    display: inline-block;
 }

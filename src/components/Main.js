@@ -50,6 +50,21 @@ function Main(props) {
         
         // dispatch(setProducts(result.data));
     };
+    //test axios
+    const test1 = async () => { 
+        await axios
+        .get("http://13.125.72.106/")
+        //   .get('https://jsonplaceholder.typicode.com/posts')
+          .then(function(result){
+        console.log(result.data);
+        console.log('ec2에서 get요청');
+        })
+        .catch((err) => {
+            console.log("Err: ", err);
+        });
+        
+        // dispatch(setProducts(result.data));
+    };
      //현재 페이지 가져오기
     // console.log(posts);
     const indexOfLastPost = currentPage * postPerPage; //1*10 = 10번 포스트
@@ -88,6 +103,7 @@ function Main(props) {
         // 상품관련
         fetchProducts();
         fetchCartItem();
+        test1()
         // console.log(state.allProducts.cartItem)
         
     }, []);
@@ -112,7 +128,7 @@ function Main(props) {
                 <button type='button' onClick={onLogout}>Logout</button>
             </div> */}
             <MainPage />
-            <h1 id="product-headline">NEW ARRIVALS</h1>
+            <h1 id="product-headline">NEW2 ARRIVALS</h1>
             <div className="product-list-wrapper" id="product-list">
                 {/* 상품리스트 */}
                 {products.products && products.products.map(function (product, index) {

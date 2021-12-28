@@ -109,12 +109,14 @@ body{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 500px;
+  width: 400px;
   height: auto;
   padding: 20px;
-  border: 5px solid dodgerblue;
   border-radius: 5px;
-  margin: 200px auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .formContainer #inputCreatePost {
@@ -127,18 +129,15 @@ body{
   font-size: 20px;
 }
 
-.formContainer button {
-  margin-top: 15px;
-  height: 40px;
-  border: none;
-  background-color: lightskyblue;
-  border-radius: 5px;
-  color: white;
-}
+
 
 .formContainer button:hover {
   cursor: pointer;
   background-color: dodgerblue;
+}
+.btn-ok{
+  cursor: inherit!important;
+  background-color: dodgerblue!important;
 }
 
 form > span {
@@ -218,7 +217,12 @@ button{
 .react-audio-player:nth-of-type(2){
   /* display:none; */
 }
-
+.ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+  font-size: 35px!important;
+}
+.upload-label{
+  font-weight: bold;
+}
 /* 400px까지는 이렇게 하겠다 */
 @media screen and (max-width:600px) {
   .product-card{

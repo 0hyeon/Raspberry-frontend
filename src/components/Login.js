@@ -47,8 +47,8 @@ function Login() {
                 console.log('======================','로그인 성공')
                 alert('로그인 성공');
                 sessionStorage.setItem('user_id', inputId)//세션 생성
-                // history.push("/");
-                history.goBack();
+                history.push("/");
+                // history.goBack();
             }
             // 작업 완료 되면 페이지 이동(새로고침)
         })
@@ -69,13 +69,13 @@ function Login() {
                     <input id="input_pw" type='password' name='input_pw' value={inputPw} onChange={handleInputPw} />
                 </div>
                 <div className='tacenter'>
+                    <button id="LoginButton"type='button' onClick={onClickLogin}>로그인</button>
+                </div>
+                <div className='tacenter'>
                     <button id="PassWordGoing" onClick={function () {
                         history.push("/PassWordEmail");
                     }}>비밀번호찾기
                     </button>
-                </div>
-                <div className='tacenter'>
-                    <button id="LoginButton"type='button' onClick={onClickLogin}>로그인</button>
                 </div>
             </div>
         </div>

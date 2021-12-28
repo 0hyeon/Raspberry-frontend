@@ -4,15 +4,17 @@ import * as Yup from "yup";
 import axios from "axios";
 import {API_URL} from "../config/constants";
 import { useHistory }from "react-router-dom";
+import "../css/Register.css";
+import Test from "./Test"
 function Registration() {
     const history = useHistory();
     
     const [nickBtn, setNickBtn] = useState(false);
-    
     const initialValues = {
         user_id: "",
         user_pw: "",
         user_email:"",
+        user_address:"",
     };
     const validationSchema = Yup.object().shape({
         user_id: Yup.string().min(2, '닉네임은 2글자 이상입니다.').max(10, '닉네임은 10글자를 넘지 못해요.').required('사용하실 닉네임을 입력해 주세요.'),
@@ -21,10 +23,17 @@ function Registration() {
         user_pw: Yup.string().min(6, '6자리 이상 입력해 주세요.').max(13, '13자리 미만을 입력해 주세요.').required('비밀번호를 입력해 주세요.'),
     });
     
+    // const inputAdd = document.getElementById('inputAdd').value;
+    // const inputdetailAdd = document.getElementById('inputdetailAdd').value;
     const onSubmit = useCallback(
         (data) => {
             const pw_naming = document.getElementById('inputCreatePostuser_pw').value;
             const email_naming = document.getElementById('inputCreatePostuser_email').value;
+            
+            // const inputdetailAdd = document.getElementById('inputdetailAdd').value;
+            const user_address1 = document.getElementById('inputAdd').value;
+            const user_address2 = document.getElementById('inputdetailAdd').value;
+            data.user_address =  user_address1+" / "+ user_address2;
             if (!nickBtn){
                 alert('아이디 중복체크를 확인해주세요.')
                 return;
@@ -33,11 +42,11 @@ function Registration() {
                 alert('이메일을 확인해주세요.')
                 return;
             }
-            else if(pw_naming.length < 2 || pw_naming.length > 10){
+            else if(pw_naming.length < 2 || pw_naming.length > 13){
                 alert('비밀번호를 확인해주세요.')
                 return;
             }
-
+            console.log(data);
             axios.post(`${API_URL}/user_inform`, data).then(()=>{
                 console.log(data);
             })
@@ -50,6 +59,8 @@ function Registration() {
         initialValues
     })
     const checkID = (e) => {
+        
+
         e.preventDefault();
         const naming = document.getElementById('inputCreatePostuser_id').value;
         
@@ -83,6 +94,7 @@ function Registration() {
                 validationSchema={validationSchema}
             >
                 <Form className="formContainer">
+                    <h2 className="registerTop">회원가입</h2>
                     {/* 아이디 */}
                     <label> 아이디 :</label>
                     <ErrorMessage name="user_id" component="span" />
@@ -91,6 +103,7 @@ function Registration() {
                         id="inputCreatePostuser_id"
                         name="user_id"
                         placeholder="Ex. john123..."
+                        className="input_id"
                     />
                     <button 
                         type="button"
@@ -99,6 +112,9 @@ function Registration() {
                     >
                         {nickBtn ? '완료' : '아이디중복체크'}
                     </button>
+                    {/* 주소 */}
+                    <label> 주소 :</label>
+                    <Test />
                     {/* 이메일주소 */}
                     <label> 이메일 :</label>
                     <ErrorMessage name="user_email" component="span" />
@@ -107,9 +123,10 @@ function Registration() {
                         id="inputCreatePostuser_email"
                         name="user_email"
                         placeholder="abc@naver.com"
+                        className="input_id"
                     />
                     {/* 비밀번호 */}
-                     <label>비밀번호 :</label>
+                    <label>비밀번호 :</label>
                     <ErrorMessage name="user_pw" component="span" />
                     <Field
                         autoComplete="off"
@@ -117,6 +134,7 @@ function Registration() {
                         name="user_pw"
                         placeholder="Your Password..."
                         type="password"
+                        className="input_id"
                     />
                     <button type="submit"> 회원가입</button>
                 </Form>

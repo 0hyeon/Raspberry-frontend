@@ -5,9 +5,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter,HashRouter } from "react-router-dom";
 import { Provider } from 'react-redux';
-import store from "./_store/store"
+// import store from "./_store/store"
 import ScrollToTop from './components/ScrollRestoration';
-
+// import store from "./redux/configureStore";
+import store from "./_reducers/index"
 const rootElement = document.getElementById('root');
 
 if (rootElement.hasChildNodes()) {

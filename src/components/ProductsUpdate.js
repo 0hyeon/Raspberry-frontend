@@ -2,12 +2,13 @@ import "antd/dist/antd.css";
 import { Form, Divider, Input, InputNumber, Button, Upload, message } from "antd";
 import "../css/ProductsUpdate.css";
 // import { ForkOutlined } from "@ant-design/icons";
-import { useState, useEffect } from "react";
+import React,{ useState, useEffect, useRef } from "react";
 import {API_URL} from "../config/constants.js";
 import axios from 'axios';
 import { useHistory,useParams }from "react-router-dom";
 import { useSelector, connect,useDispatch } from 'react-redux';
 import {removeSelectedProduct, selectedProduct} from '../_actions/userAction'
+import QuillEditor from "./editor/QuillEditor"
 function ProductsUpdate() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.allProducts.products);
@@ -15,7 +16,9 @@ function ProductsUpdate() {
   const { id } = useParams();
   console.log(id); //문자 
   // console.log(products);
-  
+  const quillRef = useRef(); //🌈
+
+
   const updateProduct = products.products.find((item) => String(item.id) === String(id)); 
   
   if(Session !== "admin"){
@@ -29,6 +32,7 @@ function ProductsUpdate() {
   const [imageUrl4, setImageUrl4] = useState(updateProduct.imageUrl4);
   const [imageUrl5, setImageUrl5] = useState(updateProduct.imageUrl5);
   const [detailPage, setDetailPage] = useState(updateProduct.detailPage);
+  const [htmlContent, setHtmlContent] = useState(updateProduct.description); //🌈
   // const [isPdprice, setPdprice] = useState(updateProduct.price);
   const history = useHistory();//리액트훅   
 
@@ -39,10 +43,10 @@ function ProductsUpdate() {
     //   console.log(imageUrl)
 
     // }
-
+    const editor_wysywic = document.getElementById("product-description").value
     axios.post(`${API_URL}/Updateproducts/${id}`,{
       name : values.name,
-      description : values.description,
+      description : editor_wysywic,
       seller : values.seller,
       price :  parseInt(values.price),
       color1 : values.color1,
@@ -553,7 +557,6 @@ function ProductsUpdate() {
             placeholder={updateProduct.quantity3}
           />
         </Form.Item>
-        <Divider />
         {/* 상품사이즈3_2 */}
         <Form.Item
           name="size3_2"
@@ -605,7 +608,7 @@ function ProductsUpdate() {
         </Form.Item>
         <Divider />
         {/* 상품소개 */}
-        <Form.Item
+        {/* <Form.Item
           name="description"
           label={<div className="upload-label">상품 소개</div>}
           rules={[{ required: true, message: "상품 소개를 입력해주세요." }]}
@@ -618,6 +621,24 @@ function ProductsUpdate() {
             placeholder={updateProduct.description}
             defaultValue={updateProduct.description}
           />
+        </Form.Item> */}
+         {/* 위지윅 에디터  */}
+        <Form.Item
+        name="description2"
+        label={<div className="upload-label">상품 소개</div>}
+        rules={[{ required: false, message: "판매자 이름을 입력해주세요" }]}
+        >
+          <Input.TextArea
+            style={{display:"none"}}
+            size="large"
+            id="product-description"
+            showCount
+            maxLength={300}
+            placeholder="상품 소개를 적어주세요."
+            value={htmlContent}
+            onChange={setHtmlContent}
+          />
+          <QuillEditor  quillRef={quillRef} htmlContent={htmlContent} setHtmlContent={setHtmlContent} api=""/>
         </Form.Item>
         <Divider />
         {/* 연관상품 */}

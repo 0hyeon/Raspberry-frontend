@@ -64,6 +64,22 @@ const AdminPage = () => {
     return (
         <>
             <h1 id="product-headline">Admin Page</h1>
+            <div className='product-delivery-wrapper'>
+                <ul>
+                    <li>결제완료
+                        <div>0</div>
+                    </li>
+                    <li>배송준비
+                        <div>1</div>
+                    </li>
+                    <li>배송중
+                        <div>0</div>
+                    </li>
+                    <li>배송완료
+                        <div>0</div>
+                    </li>
+                </ul>
+            </div>
             <div className="product-list-wrapper" id="product-list">
                 {/* 상품리스트 */}
                 {products.products && products.products.map(function (product, index) {

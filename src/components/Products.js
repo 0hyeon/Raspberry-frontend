@@ -21,7 +21,7 @@ import "swiper/components/pagination/pagination.scss";
 import "../css/Swiper_custom.css";
 import { Button, message } from "antd";
 import Payment from "./Payment";
-function ProductPage( props ) {
+function ProductPage() {
   
   const history = useHistory();//리액트훅
   // console.log("props.allProducts.cartItem : ", props.allProducts.cartItem);
@@ -67,7 +67,7 @@ function ProductPage( props ) {
 
   //스크롤 시 상품off 잡아 Add class 
   const [scrollPosition, setScrollPosition] = useState(0);
-  
+  const [isProductColor,setProductColor] = useState(null);
   //장바구니 
   
   const parentRef   = useRef(null);
@@ -299,7 +299,7 @@ function ProductPage( props ) {
         // const products = result.data.products;
         // setProducts(products);
         // console.log(result.data.products);
-        dispatch(setProducts(result.data));
+        // dispatch(setProducts(result.data));
         setLoading(false);
         // console.log(result.data.products);
         
@@ -322,7 +322,8 @@ function ProductPage( props ) {
         settotalPrice(product.price);
         setScrollFlag(product.color2)
         setScrollFlag2(product.color3)
-
+        setProductColor(product.description);
+        console.log("setProductColor" ,isProductColor);
         // console.log(product);
       })
       .catch(function (error) {
@@ -480,9 +481,9 @@ function ProductPage( props ) {
     // message.info("구매가 완료되었습니다.");
     
   }
-
+  
   return (
-    <div>
+    <div style={{background:'url(http://localhost:8000/uploads/c2eb3b9de2d11.jpg)'}}>
         <div className="content_wrapper">
             <div id="image-box" className="content">
                 {/* <img src={`${API_URL}/${product.imageUrl}`} alt="" /> */}
@@ -510,8 +511,9 @@ function ProductPage( props ) {
             <div id="contents-box" className= { isRectheight ? "original_header content" : "change_header content"}  >
                 <div id="name">{product.name}</div>
                 <div id="price">{AddComma(product.price)} won</div>
+                
                 {/* <div id="createdAt">{dayjs(product.createdAt).format('YYYY년 MM월 DD일')}</div> */}
-                <pre id="description">{product.description} </pre>
+                <pre id="description" dangerouslySetInnerHTML={{ __html: `${isProductColor}` }}></pre>
                   <div className="detail_2_wrapper">
                     <div className="detail_color">
                       COLOR : {isColorName}

@@ -18,6 +18,8 @@ import 'antd-mobile/dist/antd-mobile.css';
 import { Switch, Route, Link, useHistory,withRouter } from "react-router-dom";
 
 import loadable from '@loadable/component'
+import { ConnectedRouter } from "connected-react-router";
+import { history } from "./_reducers/index";
 const ProductPage = loadable(() => import('./components/Products'))
 const CartPage = loadable(() => import('./components/CartPage'))
 const Login = loadable(() => import('./components/Login'))
@@ -27,9 +29,10 @@ const AdminPage = loadable(() => import('./components/AdminPage'))
 const AdminLogin = loadable(() => import('./components/AdminLogin'))
 const Admin = loadable(() => import('./components/Admin'))
 const ProductsUpdate = loadable(() => import('./components/ProductsUpdate'))
-
+const Search = loadable(() => import('./components/Search'))
+// const SearchCopmonent = loadable(() => import('./components/search/SearchCopmonent'))
 function App () {
-  const history = useHistory();
+  // const history = useHistory();
  // 로그인 상태 관리
   const [isLogin, setIsLogin] = useState(false)
   const [isAdmin, setAdmin] = useState(false)
@@ -116,83 +119,91 @@ function App () {
   const handleScroll = throttle(updateScroll, 1000);
   
   return (
-    <div className="backGround_Image">
-      <Navbar /> 
-      {/* {bgstart ?<audio autoplay controls src="http://localhost:8000/uploads/leemoojin.mp3" type="audio/mp3" />:null} */}
+    <React.Fragment>
+      <ConnectedRouter history={history}>
+          <div className="backGround_Image">
+          <Navbar /> 
+          {/* {bgstart ?<audio autoplay controls src="http://localhost:8000/uploads/leemoojin.mp3" type="audio/mp3" />:null} */}
 
-      {/* 헤더영역 */}
-      {/* <div id="header">
-        <div id="header-area">
-          <Link to="/">
-            <img src="/images/raspberrylogo.png" alt="로고" id="Logo_style"/>
-          </Link>
+          {/* 헤더영역 */}
+          {/* <div id="header">
+            <div id="header-area">
+              <Link to="/">
+                <img src="/images/raspberrylogo.png" alt="로고" id="Logo_style"/>
+              </Link>
+            </div>
+          </div> */}
+          <Switch>
+            <Route exact={true} path="/">
+              <Main />
+              {/* 관리자계정일시 */}
+              {isAdmin ? 
+                <Button
+                  size="large"
+                  onClick={function () {
+                    history.push("/Admin");
+                  }}
+                  icon={<DownloadOutlined />}
+                >
+                  상품 업로드
+                </Button> : null
+              }
+              <Divider />
+              {isAdmin ? 
+                // Main 컴포넌트 호출 시 isLogin 이라는 props 값을 전달
+                
+                <Button
+                  size="large"
+                  onClick={function () {
+                    history.push("/Banners");
+                  }}
+                  icon={<DownloadOutlined />}
+                >
+                  메인배너 업로드
+                </Button> 
+                : 
+                null
+              }
+              
+            </Route>
+            <Route exact={true} path="/Registration">
+              <Registration />
+            </Route>
+            <Route exact={true} path="/Admin">
+              <Admin />
+            </Route>
+            <Route exact={true} path="/Banners">
+              <Banners />
+            </Route>
+            <Route exact={true} path="/PassWordEmail">
+              <PassWordEmail />
+            </Route>
+            <Route exact={true} path="/Login">
+              <Login />
+            </Route>
+            <Route exact={true} path="/Products/:id">
+              <ProductPage name= { Session } />
+            </Route>
+            <Route exact={true} path="/CartPage">
+              <CartPage name= { Session } />
+            </Route>
+            <Route exact={true} path="/AdminLogin">
+              <AdminLogin />
+            </Route>
+            <Route exact={true} path="/AdminPage">
+              <AdminPage />
+            </Route>
+            <Route exact={true} path="/ProductsUpdate/:id">
+              <ProductsUpdate />
+            </Route>
+            <Route exact={true} path="/Search">
+              <Search />
+            </Route>
+            {/* <Route exact path="/SearchCopmonent/:word" component={SearchCopmonent}></Route> */}
+          </Switch>
         </div>
-      </div> */}
-      <Switch>
-        <Route exact={true} path="/">
-          <Main />
-          {/* 관리자계정일시 */}
-          {isAdmin ? 
-            <Button
-              size="large"
-              onClick={function () {
-                history.push("/Admin");
-              }}
-              icon={<DownloadOutlined />}
-            >
-              상품 업로드
-            </Button> : null
-          }
-          <Divider />
-          {isAdmin ? 
-            // Main 컴포넌트 호출 시 isLogin 이라는 props 값을 전달
-            
-            <Button
-              size="large"
-              onClick={function () {
-                history.push("/Banners");
-              }}
-              icon={<DownloadOutlined />}
-            >
-              메인배너 업로드
-            </Button> 
-            : 
-            null
-          }
-          
-        </Route>
-        <Route exact={true} path="/Registration">
-          <Registration />
-        </Route>
-        <Route exact={true} path="/Admin">
-          <Admin />
-        </Route>
-        <Route exact={true} path="/Banners">
-          <Banners />
-        </Route>
-        <Route exact={true} path="/PassWordEmail">
-          <PassWordEmail />
-        </Route>
-        <Route exact={true} path="/Login">
-          <Login />
-        </Route>
-        <Route exact={true} path="/Products/:id">
-          <ProductPage name= { Session } />
-        </Route>
-        <Route exact={true} path="/CartPage">
-          <CartPage name= { Session } />
-        </Route>
-        <Route exact={true} path="/AdminLogin">
-          <AdminLogin />
-        </Route>
-        <Route exact={true} path="/AdminPage">
-          <AdminPage />
-        </Route>
-        <Route exact={true} path="/ProductsUpdate/:id">
-          <ProductsUpdate />
-        </Route>
-      </Switch>
-    </div>
+      </ConnectedRouter>
+    </React.Fragment>
   )
 }
  

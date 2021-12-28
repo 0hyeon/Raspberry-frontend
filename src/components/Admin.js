@@ -1,11 +1,12 @@
+import React, { useState,useRef,useEffect } from 'react';
 import "antd/dist/antd.css";
 import { Form, Divider, Input, InputNumber, Button, Upload, message } from "antd";
 import "../css/Admin.css";
 // import { ForkOutlined } from "@ant-design/icons";
-import { useState } from "react";
 import {API_URL} from "../config/constants.js";
 import axios from 'axios';
 import { useHistory }from "react-router-dom";
+import QuillEditor from "./editor/QuillEditor"
 
 
 function UploadPage() {
@@ -24,11 +25,24 @@ function UploadPage() {
   const [detailPage, setDetailPage] = useState(null);
   const history = useHistory();//리액트훅
 
-
+  const [htmlContent, setHtmlContent] = useState(""); //🌈
+  const quillRef = useRef(); //🌈
   const onSubmit = (values) => {//제출
+
+    //상품내용 안쓸경우 alert
+    // const description_Color = quillRef.current.getEditor().getText(); 
+    
+    // if (description_Color.trim()==="") {
+    //   alert("내용을 입력해주세요.")
+    //   return;
+    // }'
+
+    
+
+    const editor_wysywic = document.getElementById("product-description").value
     axios.post(`${API_URL}/products`,{
       name : values.name,
-      description : values.description,
+      description : editor_wysywic,
       seller : values.seller,
       price :  parseInt(values.price),
       color1 : values.color1,
@@ -62,13 +76,15 @@ function UploadPage() {
       imageUrl5 : imageUrl5,
       detailPage : detailPage,
     }).then((result) =>{
-      console.log(result);//제출 잘됐으면 리디렉션
+      alert("상품등록 완료");
       history.replace('/');//이전페이지의 기록이 사라지고 대체됨
     }).catch((error) => {
       console.log(error);
       message.error(`에러가 발생했습니다. ${error.message}`)
     });
-    ;
+    
+    
+    
   };
   const onChangeImage = (info) => {
     if(info.file.status === 'uploading'){
@@ -130,6 +146,14 @@ function UploadPage() {
       setDetailPage(detailPage);
     }
   }
+  useEffect( () => {
+    if(document.getElementsByClassName('product-seller').value==""){
+      console.log('뭐하냐 판매자 비었다');
+      document.getElementsByClassName('product-seller').focus();
+      return;
+    }
+  }, [])
+
   return (
     <div id="upload-container">
       <Form name="상품 업로드" onFinish={onSubmit}>
@@ -556,7 +580,7 @@ function UploadPage() {
         </Form.Item>
         <Divider />
         {/* 상품소개 */}
-        <Form.Item
+        {/* <Form.Item
           name="description"
           label={<div className="upload-label">상품 소개</div>}
           rules={[{ required: true, message: "상품 소개를 입력해주세요." }]}
@@ -567,7 +591,30 @@ function UploadPage() {
             showCount
             maxLength={300}
             placeholder="상품 소개를 적어주세요."
+          >
+            
+          </Input.TextArea>
+          
+        </Form.Item> */}
+        <Divider />
+        {/* 위지윅 에디터  */}
+        <Form.Item
+
+          name="description2"
+          label={<div className="upload-label">상품 소개</div>}
+          rules={[{ required: false, message: "상품설명을 입력해주세요" }]}
+        >
+          <Input.TextArea
+            style={{display:"none"}}
+            size="large"
+            id="product-description"
+            showCount
+            maxLength={300}
+            placeholder="상품 소개를 적어주세요."
+            value={htmlContent}
+            onChange={setHtmlContent}
           />
+          <QuillEditor  quillRef={quillRef} htmlContent={htmlContent} setHtmlContent={setHtmlContent} api=""/>
         </Form.Item>
         <Divider />
         {/* 제품 등록 */}
