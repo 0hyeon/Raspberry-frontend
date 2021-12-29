@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {setProducts,} from "../_actions/userAction";
 import "../css/AdminPage.css";
 import dayjs from "dayjs";
+import { Button,Divider } from "antd";
+import { DownloadOutlined} from "@ant-design/icons";
 const AdminPage = () => {
     const products = useSelector((state) => state.allProducts.products);
     const dispatch = useDispatch();
@@ -102,6 +104,15 @@ const AdminPage = () => {
                 );
                 })}
             </div>
+                <Button
+                  size="large"
+                  onClick={function () {
+                    history.push("/Admin");
+                  }}
+                  icon={<DownloadOutlined />}
+                >
+                  상품 업로드
+                </Button>
         </>
     );
     // return (

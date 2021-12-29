@@ -39,7 +39,7 @@ const PostEditor = memo(({ api, user }) => {
 
     return (
         <div>
-            //🌈
+            🌈
             <QuillEditor quillRef={quillRef} htmlContent={htmlContent} setHtmlContent={setHtmlContent} api={api} />
             <button className={styles.submit} onClick={handleSubmit}>Done</button>
         </div>

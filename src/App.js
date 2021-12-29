@@ -30,6 +30,7 @@ const AdminLogin = loadable(() => import('./components/AdminLogin'))
 const Admin = loadable(() => import('./components/Admin'))
 const ProductsUpdate = loadable(() => import('./components/ProductsUpdate'))
 const Search = loadable(() => import('./components/Search'))
+const OrderPage = loadable(() => import('./components/OrderPage'))
 // const SearchCopmonent = loadable(() => import('./components/search/SearchCopmonent'))
 function App () {
   // const history = useHistory();
@@ -198,6 +199,9 @@ function App () {
             </Route>
             <Route exact={true} path="/Search">
               <Search />
+            </Route>
+            <Route exact={true} path="/OrderPage">
+              <OrderPage />
             </Route>
             {/* <Route exact path="/SearchCopmonent/:word" component={SearchCopmonent}></Route> */}
           </Switch>

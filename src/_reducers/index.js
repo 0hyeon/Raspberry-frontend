@@ -3,14 +3,18 @@ import thunk from "redux-thunk";
 import { productsReducer } from "./userReducer";
 import { idReducer } from "./idReducer";
 import product from "../_modules/product"
+import user from "../_modules/user";
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
+
 export const history = createBrowserHistory();
+
 const rootReducer = combineReducers({
   // user,
   allProducts: productsReducer,
   userLogged:idReducer,
-  product: product,
+  products: product,
+  user:user,
   router: connectRouter(history),
 });
 

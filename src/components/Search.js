@@ -9,7 +9,8 @@ const Serarch = () => {
     const dispatch = useDispatch();
     const [isproduct_list,setproduct_list] = useState([]);
     const product_list = useSelector((state) => state.allProducts.products.products);
-
+    const state = useSelector((state) => state);
+    console.log(state);
     const [product, setProduct] = React.useState([]);// state형태
     useEffect(() => {
         dispatch(productActions.setProductSV());

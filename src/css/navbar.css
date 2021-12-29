@@ -202,6 +202,9 @@
 .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected::after{
   border-bottom:inherit!important;
 }
+.ant-menu-item-selected{
+  color: inherit!important;
+}
 @media (max-width: 767px) {
   .barsMenu {
     display: inline-block;

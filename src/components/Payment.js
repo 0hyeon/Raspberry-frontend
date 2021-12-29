@@ -24,9 +24,9 @@ const Payment = (props) => {
  
         // 결제 데이터 정의
         const data = {
-            pg: 'html5_inicis',     // PG사 (필수항목)
+            pg: 'nice',     // PG사 (필수항목)
             pay_method: 'card',     // 결제수단 (필수항목)
-            merchant_uid: `mid_${new Date().getTime()}`,  // 결제금액 (필수항목)
+            merchant_uid: `mid_${new Date().getTime()}`,  // 결제금액 (필수항목) ? 주문번호같음
             name: name,     // 주문명 (필수항목)
             amount: price,         // 금액 (필수항목)
             custom_data: {

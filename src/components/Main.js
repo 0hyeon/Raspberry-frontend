@@ -7,12 +7,10 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime"
 import {API_URL} from "../config/constants.js";
 import MainPage from "../swiperSlide";
-import Post from "./Post"
-import Pagination from "./Pagination"
-import HotItem from "./HotItem"
-import { useDispatch, useSelector } from "react-redux";
-import {setProducts, setCartItem,setRequestLoding2} from "../_actions/userAction";
 
+import { useDispatch, useSelector } from "react-redux";
+import {setProducts,setCartItem,setRequestLoding2} from "../_actions/userAction";
+import { actionCreators as productActions } from "../_modules/product";
 dayjs.extend(relativeTime);//dayjs에서 확장된 기능 사용 
 
 function Main(props) {
@@ -22,55 +20,38 @@ function Main(props) {
     // const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1); //현재 페이지
     const [postPerPage] = useState(4); //페이지당 포스트 개수
-
+    const [isproduct_list,setproduct_list] = useState([]);
     // const [banners, setBanners] = React.useState([]);
     // const state = useSelector((state) => state);
-    const state = useSelector((state) => state);
-    const products = useSelector((state) => state.allProducts.products);
+    // const products = useSelector((state) => state.allProducts.products);
+    const products = useSelector((state) => state.products.products);
     const dispatch = useDispatch();
-    const fetchProducts = async () => { 
-        await axios
+    // const fetchProducts = async () => { 
+    //     await axios
         
-          .get(`${API_URL}/products`)
-        //   .get('https://jsonplaceholder.typicode.com/posts')
-          .then(function(result){
-            // setLoading(true);
-            // const products = result.data.products;
-            // setProducts(products);
-            // console.log(result.data.products);
-            dispatch(setProducts(result.data));
-            setPosts(result.data.products);
-            // setLoading(false);
-            // console.log(result.data.products);
+    //       .get(`${API_URL}/products`)
+    //     //   .get('https://jsonplaceholder.typicode.com/posts')
+    //       .then(function(result){
+    //         // setLoading(true);
+    //         // const products = result.data.products;
+    //         // setProducts(products);
+    //         // console.log(result.data.products);
+    //         dispatch(setProducts(result.data));
+    //         setPosts(result.data.products);
+    //         // console.log(result.data.products);
+    //         // console.log(products);
+    //         // setLoading(false);
+    //         // console.log(result.data.products);
             
-        })
-        .catch((err) => {
-            console.log("Err: ", err);
-        });
+    //     })
+    //     .catch((err) => {
+    //         console.log("Err: ", err);
+    //     });
         
-        // dispatch(setProducts(result.data));
-    };
-    //test axios
-    const test1 = async () => { 
-        await axios
-        .get("http://13.125.72.106/")
-        //   .get('https://jsonplaceholder.typicode.com/posts')
-          .then(function(result){
-        console.log(result.data);
-        console.log('ec2에서 get요청');
-        })
-        .catch((err) => {
-            console.log("Err: ", err);
-        });
-        
-        // dispatch(setProducts(result.data));
-    };
+    // };
+   
      //현재 페이지 가져오기
     // console.log(posts);
-    const indexOfLastPost = currentPage * postPerPage; //1*10 = 10번 포스트
-    const indexOfFirstPost = indexOfLastPost - postPerPage; //10-10 = 0번 포스트
-    const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost); //0~10번까지 포스트
-    const paginate = pageNum => setCurrentPage(pageNum);
 
     const fetchCartItem = async () => {
 
@@ -101,12 +82,20 @@ function Main(props) {
     };
     React.useEffect(function () {
         // 상품관련
-        fetchProducts();
+        // fetchProducts();
+        dispatch(productActions.setProductSV());
+        let Session = sessionStorage.getItem('user_id');
+        
+    
+
+        setproduct_list(products);
+        // console.log(products);
+        setPosts(products);
+        // console.log(posts);
         fetchCartItem();
-        test1()
         // console.log(state.allProducts.cartItem)
         
-    }, []);
+    }, [isproduct_list,posts]);
     //로그아웃
 	// App 컴포넌트에서 전달받은 props 값은 아래와 같이 받아온다.
 	const isLogin = props.isLogin
@@ -121,7 +110,6 @@ function Main(props) {
     function AddComma(value) {
         return Number(value).toLocaleString('en');
     }
- 
     return(
         <div>
             {/* <div>
@@ -131,7 +119,7 @@ function Main(props) {
             <h1 id="product-headline">NEW2 ARRIVALS</h1>
             <div className="product-list-wrapper" id="product-list">
                 {/* 상품리스트 */}
-                {products.products && products.products.map(function (product, index) {
+                {products && products.map(function (product, index) {
                 return (
                     <div className="product-card">
                     {
@@ -172,14 +160,7 @@ function Main(props) {
             </div>
             <div id="product-headline">Best Items</div>
             <div className="product-list-wrapper" id="product-list">
-                <Post posts={currentPosts}/>
             </div>
-                <Pagination 
-                    postPerPage={postPerPage} 
-                    totalPosts={posts.length} 
-                    paginate={paginate}  
-                />
-            <HotItem />
         </div>
     )
 }

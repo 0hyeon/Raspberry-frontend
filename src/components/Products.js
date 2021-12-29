@@ -591,7 +591,9 @@ function ProductPage() {
                 {currentClick && currentClick2 ?
                   <Payment name={product.name +"/"+ isColorName +"/"+ isShowSizeName}     price={istotalPrice} />
                   :
-                  <Button id="purchase-button" onClick={ onClickPurchase }>결제하기</Button>
+                  <Button id="purchase-button" onClick={ onClickPurchase }>
+                    <Link  to={"/OrderPage"}>결제하기</Link>
+                  </Button>
                 }
                 <Button id="basket-button" size="large" type="primary" onClick={ clickHandler }>장바구니담기</Button>
                 

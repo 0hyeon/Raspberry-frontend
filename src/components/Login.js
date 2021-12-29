@@ -3,11 +3,16 @@ import axios from 'axios';
 import { useHistory,withRouter } from 'react-router-dom';
 import {API_URL} from '../config/constants'
 import "../css/Login.css";
+import { actionCreators as userActions } from "../_modules/user";
+import { useSelector, useDispatch } from "react-redux";
+
 function Login() {
+    const dispatch = useDispatch();
     const history = useHistory();
     const [inputId, setInputId] = useState('')
     const [inputPw, setInputPw] = useState('')
- 
+    const state = useSelector((state) => state.user);
+    
     const handleInputId = (e) => {
         setInputId(e.target.value)
     }
@@ -33,6 +38,9 @@ function Login() {
             console.log('res.data',res.data);
             console.log('res.data.user_id :: ', res.data.user_id);
             console.log('res.data.msg :: ', res.data.msg);
+            
+            
+
             if(res.data.msg == '입력하신 id 가 존재하지 않습니다.'){
                 // id 일치하지 않는 경우 userId = undefined, msg = '입력하신 id 가 일치하지 않습니다.'
                 //console.log('======================',res.data.msg)
@@ -44,9 +52,12 @@ function Login() {
                 alert('입력하신 비밀번호 가 일치하지 않습니다.');
             } else if(res.data.user_id == inputId && res.data.user_pw == inputPw) {
                 // id, pw 모두 일치 userId = userId1, msg = undefined
+                sessionStorage.setItem('user_id', inputId)//세션 생성
+                let Session = console.log( sessionStorage.getItem('user_id') );
+                dispatch(userActions.setUserSV());
+                console.log('user_id!!!',Session);
                 console.log('======================','로그인 성공')
                 alert('로그인 성공');
-                sessionStorage.setItem('user_id', inputId)//세션 생성
                 history.push("/");
                 // history.goBack();
             }
