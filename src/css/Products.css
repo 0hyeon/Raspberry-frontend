@@ -285,9 +285,6 @@ p{margin-bottom: inherit!important;}
 /* .description > p {
   word-break: break-word;
 } */
-#image-box > .swiper-container {
-  overflow:inherit!important;
-}
 
 @media screen and (max-width:1800px) {
   #contents-box{

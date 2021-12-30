@@ -589,7 +589,10 @@ function ProductPage() {
                   </div>
                 <br />
                 {currentClick && currentClick2 ?
-                  <Payment name={product.name +"/"+ isColorName +"/"+ isShowSizeName}     price={istotalPrice} />
+                  // <Payment name={product.name +"/"+ isColorName +"/"+ isShowSizeName}     price={istotalPrice} />
+                  <Button id="purchase-button">
+                    <Link  to={"/OrderPage"}>결제하기</Link>
+                  </Button>
                   :
                   <Button id="purchase-button" onClick={ onClickPurchase }>
                     <Link  to={"/OrderPage"}>결제하기</Link>

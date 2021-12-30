@@ -13,38 +13,41 @@ function Registration() {
     const initialValues = {
         user_id: "",
         user_pw: "",
-        user_email:"",
+        user_name: "",
         user_address:"",
+        user_phonenumber:"",
+        user_email:"",
     };
+    const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
     const validationSchema = Yup.object().shape({
-        user_id: Yup.string().min(2, '닉네임은 2글자 이상입니다.').max(10, '닉네임은 10글자를 넘지 못해요.').required('사용하실 닉네임을 입력해 주세요.'),
+        user_id: Yup.string().min(2, '아이디는 2글자 이상입니다.').max(10, '아이디는 10글자를 넘지 못해요.').required('사용하실 아이디를 입력해 주세요.'),
         // user_email: Yup.string().email().min(3, '3자리 이상 입력해 주세요.').max(25, '25글자를 넘지 못해요.').required('이메일을 입력해주세요.'),
-        user_email: Yup.string().email('이메일형식이 아닙니다.').max(255).required('이메일을 입력해주세요.'),
         user_pw: Yup.string().min(6, '6자리 이상 입력해 주세요.').max(13, '13자리 미만을 입력해 주세요.').required('비밀번호를 입력해 주세요.'),
+        user_name: Yup.string().min(1, '1자리 이상 입력해 주세요.').max(5, '5자리 미만을 입력해 주세요.').required('이름을 입력해 주세요.'),
+        user_email: Yup.string().email('이메일형식이 아닙니다.').max(255).required('이메일을 입력해주세요.'),
+        user_phonenumber: Yup.string().matches(phoneRegExp, 'Phone number is not valid')
     });
     
-    // const inputAdd = document.getElementById('inputAdd').value;
-    // const inputdetailAdd = document.getElementById('inputdetailAdd').value;
     const onSubmit = useCallback(
         (data) => {
             const pw_naming = document.getElementById('inputCreatePostuser_pw').value;
             const email_naming = document.getElementById('inputCreatePostuser_email').value;
-            
-            // const inputdetailAdd = document.getElementById('inputdetailAdd').value;
+            const name_naming = document.getElementById('inputCreatePostuser_name').value;
             const user_address1 = document.getElementById('inputAdd').value;
             const user_address2 = document.getElementById('inputdetailAdd').value;
+
             data.user_address =  user_address1+" / "+ user_address2;
             if (!nickBtn){
                 alert('아이디 중복체크를 확인해주세요.')
                 return;
-            }
-            else if(!email_naming){
+            }else if(!email_naming){
                 alert('이메일을 확인해주세요.')
                 return;
-            }
-            else if(pw_naming.length < 2 || pw_naming.length > 13){
+            }else if(pw_naming.length < 2 || pw_naming.length > 13){
                 alert('비밀번호를 확인해주세요.')
                 return;
+            }else if(name_naming.length < 2 || name_naming.length > 5  ){
+                alert('이름을 확인해주세요.')
             }
             console.log(data);
             axios.post(`${API_URL}/user_inform`, data).then(()=>{
@@ -53,14 +56,13 @@ function Registration() {
             alert("회원가입 완료");
             history.replace('/login')//이전페이지의 기록이 사라지고 대체됨
         },[nickBtn],
-    )
-    ;
+    );
+
     const formik = useFormik({
         initialValues
     })
-    const checkID = (e) => {
-        
 
+    const checkID = (e) => {
         e.preventDefault();
         const naming = document.getElementById('inputCreatePostuser_id').value;
         
@@ -102,7 +104,7 @@ function Registration() {
                         autoComplete="off"
                         id="inputCreatePostuser_id"
                         name="user_id"
-                        placeholder="Ex. john123..."
+                        placeholder="Ex. rasberryberry..."
                         className="input_id"
                     />
                     <button 
@@ -112,6 +114,27 @@ function Registration() {
                     >
                         {nickBtn ? '완료' : '아이디중복체크'}
                     </button>
+                    {/* 비밀번호 */}
+                    <label>비밀번호 :</label>
+                    <ErrorMessage name="user_pw" component="span" />
+                    <Field
+                        autoComplete="off"
+                        id="inputCreatePostuser_pw"
+                        name="user_pw"
+                        placeholder="Your Password..."
+                        type="password"
+                        className="input_id"
+                    />
+                    {/* 이름 */}
+                    <label> 이름 :</label>
+                    <ErrorMessage name="user_name" component="span" />
+                    <Field
+                        autoComplete="off"
+                        id="inputCreatePostuser_name"
+                        name="user_name"
+                        placeholder="Your Name..."
+                        className="input_id"
+                    />
                     {/* 주소 */}
                     <label> 주소 :</label>
                     <Test />
@@ -125,15 +148,14 @@ function Registration() {
                         placeholder="abc@naver.com"
                         className="input_id"
                     />
-                    {/* 비밀번호 */}
-                    <label>비밀번호 :</label>
-                    <ErrorMessage name="user_pw" component="span" />
+                    {/* 핸드폰번호  */}
+                    <label> 핸드폰번호 :</label>
+                    <ErrorMessage name="user_phonenumber" component="span" />
                     <Field
                         autoComplete="off"
-                        id="inputCreatePostuser_pw"
-                        name="user_pw"
-                        placeholder="Your Password..."
-                        type="password"
+                        id="inputCreatePostuser_phone"
+                        name="user_phonenumber"
+                        placeholder="123-3456-7890"
                         className="input_id"
                     />
                     <button type="submit"> 회원가입</button>

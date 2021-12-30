@@ -17,7 +17,7 @@ function OrderPage() {
         user_address:"",
     };
     const validationSchema = Yup.object().shape({
-        user_id: Yup.string().min(2, '닉네임은 2글자 이상입니다.').max(10, '닉네임은 10글자를 넘지 못해요.').required('사용하실 닉네임을 입력해 주세요.'),
+        user_id: Yup.string().min(1, '1글자 이상입니다.').max(10, '10글자를 넘지 못해요.').required('이름이 올바르지 않습니다.'),
         // user_email: Yup.string().email().min(3, '3자리 이상 입력해 주세요.').max(25, '25글자를 넘지 못해요.').required('이메일을 입력해주세요.'),
         user_email: Yup.string().email('이메일형식이 아닙니다.').max(255).required('이메일을 입력해주세요.'),
         user_pw: Yup.string().min(6, '6자리 이상 입력해 주세요.').max(13, '13자리 미만을 입력해 주세요.').required('비밀번호를 입력해 주세요.'),
@@ -58,34 +58,34 @@ function OrderPage() {
     const formik = useFormik({
         initialValues
     })
-    const checkID = (e) => {
+    // const checkID = (e) => {
         
 
-        e.preventDefault();
-        const naming = document.getElementById('inputCreatePostuser_id').value;
+    //     e.preventDefault();
+    //     const naming = document.getElementById('inputCreatePostuser_id').value;
         
-        const data = {user_id: naming};
-        axios.post(`${API_URL}/user_inform/idCheck`,data,{
-            withCredentials:true
-        })
-        .then(res => {
-            if(res.data.msg == '빈값'){
-                alert('내용을 입력하세요');
-            }else if(res.data.msg == '닉네임은 2글자 이상 10글자 미만 입력해주세요.'){
-                alert('닉네임은 2글자 이상 10글자 미만 입력해주세요.');
-            }else if(res.data.msg == '중복'){
-                setNickBtn(false);
-                alert('이미 사용중인 id입니다.');
-            }else if(res.data.msg == '가능'){
-                setNickBtn(true);
-                alert('사용 가능한 id입니다.');
-            }
-            // document.location.href='/OrderPage'
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-    }
+    //     const data = {user_id: naming};
+    //     axios.post(`${API_URL}/user_inform/idCheck`,data,{
+    //         withCredentials:true
+    //     })
+    //     .then(res => {
+    //         if(res.data.msg == '빈값'){
+    //             alert('내용을 입력하세요');
+    //         }else if(res.data.msg == '닉네임은 2글자 이상 10글자 미만 입력해주세요.'){
+    //             alert('닉네임은 2글자 이상 10글자 미만 입력해주세요.');
+    //         }else if(res.data.msg == '중복'){
+    //             setNickBtn(false);
+    //             alert('이미 사용중인 id입니다.');
+    //         }else if(res.data.msg == '가능'){
+    //             setNickBtn(true);
+    //             alert('사용 가능한 id입니다.');
+    //         }
+    //         // document.location.href='/OrderPage'
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //     });
+    // }
     return (
         <div>
             <Formik
@@ -102,16 +102,16 @@ function OrderPage() {
                         autoComplete="off"
                         id="inputCreatePostuser_id"
                         name="user_id"
-                        placeholder="Ex. john123..."
+                        placeholder="이름"
                         className="input_id"
                     />
-                    <button 
+                    {/* <button 
                         type="button"
                         onClick={checkID} 
                         className={nickBtn ? 'btn-ok' : 'btn-no'}
                     >
                         {nickBtn ? '완료' : '아이디중복체크'}
-                    </button>
+                    </button> */}
                     {/* 주소 */}
                     <label> 주소 :</label>
                     <Test />

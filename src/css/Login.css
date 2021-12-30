@@ -26,6 +26,7 @@ label {
     font-size: 14px;
     line-height: 17px;
     margin-bottom: 12px;
+    font-weight: bold;
 }
 .inputWrapper{
     margin-bottom: 20px;
