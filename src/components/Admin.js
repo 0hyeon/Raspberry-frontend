@@ -40,7 +40,7 @@ function UploadPage() {
     
 
     const editor_wysywic = document.getElementById("product-description").value
-    axios.post(`${API_URL}/products`,{
+    axios.post(`${API_URL}/v1/product/products`,{
       name : values.name,
       description : editor_wysywic,
       seller : values.seller,

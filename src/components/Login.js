@@ -29,7 +29,7 @@ function Login() {
             user_id: inputId, 
             user_pw: inputPw
         };
-        axios.post(`${API_URL}/user_inform/onLogin`, body, {
+        axios.post(`${API_URL}/v1/user_inform/onLogin`, body, {
             // 쿠키를 보내고 싶을때
             withCredentials:true
         })

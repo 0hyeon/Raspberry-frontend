@@ -28,7 +28,7 @@ function CartPage(props) {
         }
         // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
         await axios
-          .post(`${API_URL}/setCartItem`, body)
+          .post(`${API_URL}/v1/cart/setCartItem`, body)
           .then(function(result){
             // const products = result.data.products;
             // setProducts(products);
@@ -53,7 +53,7 @@ function CartPage(props) {
         cartId: cartId
         }
         await axios
-        .post(`${API_URL}/deleteToCart`, body)
+        .post(`${API_URL}/v1/cart/deleteToCart`, body)
         .then(function(result){
             console.log(result.data);
         })

@@ -25,7 +25,7 @@ const setUserSV = ()=>{
     };
     return function(dispatch) {
         // instance.get(`${API_URL}/producsts`)
-        axios.post(`${API_URL}/user_inform/onLoginData`,body,{
+        axios.post(`${API_URL}/v1/user_inform/onLoginData`,body,{
             withCredentials:true
         })
         .then(res=>{

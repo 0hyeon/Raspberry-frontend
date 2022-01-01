@@ -16,7 +16,7 @@ function PassWordEmail() {
     // };
     const onSubmit = (data) => {
         console.log("user_email!!!",data);
-        axios.post(`${API_URL}/user_inform/PassWordEmail`, data, {
+        axios.post(`${API_URL}/v1/user_inform/PassWordEmail`, data, {
             withCredentials:true
         })
         .then(res => { 
@@ -36,7 +36,7 @@ function PassWordEmail() {
     //     setInputEmail(e.target.value)
     // }
     useEffect(() => {
-        axios.post(`${API_URL}/user_inform/PassWordEmail`)
+        axios.post(`${API_URL}/v1/user_inform/PassWordEmail`)
         .then(res => console.log(res))
         .catch((error) => {
             console.log(error);

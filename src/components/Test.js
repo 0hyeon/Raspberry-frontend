@@ -1,11 +1,12 @@
 import React, { useState,useEffect } from 'react';
 import PopupDom from './PopupDom';
 import PopupPostCode from './PopupPostCode';
- 
+import { useSelector } from 'react-redux';
 const Test = () => {
 	// 팝업창 상태 관리
+    let userState = useSelector(state => state.user.user);   
     const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const [htmlData, setHtmlData] = useState(null);
+    const [htmlData, setHtmlData] = useState(userState.user_address);
     const [detailhtmlData, detailsetHtmlData] = useState(null);
  
 	// 팝업창 열기
@@ -29,7 +30,7 @@ const Test = () => {
  
     return(
         <>
-            <input id="inputAdd" className='input_id' readOnly style={{background:'#f2f2f2'}} value={htmlData}></input>
+            <input id="inputAdd" className='input_id' readOnly style={{background:'#f2f2f2'}} value={htmlData} onChange={ (e)=>{setHtmlData(e.target.value)} }></input>
             <input id="inputdetailAdd" className='input_id' placeholder='상세주소' value={detailhtmlData} onChange={onChange1}></input>
         	{/* // 버튼 클릭 시 팝업 생성 */}
             {detailhtmlData === null || detailhtmlData === ""
@@ -44,6 +45,7 @@ const Test = () => {
                         <PopupPostCode onClose={closePostCode} setHtmlData={setHtmlData} />
                     </PopupDom>
                 )}
+                
             </div>
         </>
     )

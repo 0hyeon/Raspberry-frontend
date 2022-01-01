@@ -92,7 +92,7 @@ function ProductPage() {
     }
     // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
     await axios
-      .post(`${API_URL}/setCartItem`, body)
+      .post(`${API_URL}/v1/cart/setCartItem`, body)
       .then(function(result){
         dispatch(setCartItem(result.data));
     })
@@ -114,7 +114,7 @@ function ProductPage() {
       it_Detail_size : isShowSizeName, 
     }
     await axios
-      .post(`${API_URL}/addToCart`, body)
+      .post(`${API_URL}/v1/cart/addToCart`, body)
       .then(function(result){
       dispatch(addToCart(result.data));
     })
@@ -147,7 +147,7 @@ function ProductPage() {
     }
 
     // console.log("props : ",props);
-    // console.log("state : ",state);
+    console.log("state : ",state);
     // alert(state.allProducts.cartItem3.msg);
     if(window.confirm(state.allProducts.cartItem3.msg + '.  장바구니로 이동 하시겠습니까?')){
       history.push("/CartPage");
@@ -292,7 +292,7 @@ function ProductPage() {
   const fetchProducts = async () => { 
     await axios
     
-      .get(`${API_URL}/products`)
+      .get(`${API_URL}/v1/product/products`)
     //   .get('https://jsonplaceholder.typicode.com/posts')
       .then(function(result){
         setLoading(true);
@@ -314,7 +314,7 @@ function ProductPage() {
   const getProduct = async() =>{//getProduct함수 `
     await axios
       .get(
-        `${API_URL}/products/${id}`//파라미터 요청
+        `${API_URL}/v1/product/products/${id}`//파라미터 요청
       )
       .then(function (result) {
         const product = result.data.product;
@@ -352,7 +352,7 @@ function ProductPage() {
   const fetchProductDetail = async () => {
     dispatch(removeSelectedProduct());
     await axios
-      .get(`${API_URL}/products/${id}`)
+      .get(`${API_URL}/v1/product/products/${id}`)
       .then(function(result){
         // const products = result.data.products;
         // setProducts(products);
@@ -391,7 +391,7 @@ function ProductPage() {
       //수량이랑 토탈가격 
     }
     await axios
-      .post(`${API_URL}/decideToCart`, body)
+      .post(`${API_URL}/v1/cart/decideToCart`, body)
       .then(function(result){
         dispatch(decideToCart(result.data));
     })
@@ -591,11 +591,18 @@ function ProductPage() {
                 {currentClick && currentClick2 ?
                   // <Payment name={product.name +"/"+ isColorName +"/"+ isShowSizeName}     price={istotalPrice} />
                   <Button id="purchase-button">
-                    <Link  to={"/OrderPage"}>결제하기</Link>
+                    <Link  style={{color:'inherit'}}to={{
+                      pathname: `/OrderPage`,
+                      state: { 
+                          title: `${product.name} / ${isColorName} / ${isShowSizeName}`,
+                          price: product.price,
+                          imgThumb: product.imageUrl,
+                      }
+                    }}>결제하기</Link>
                   </Button>
                   :
                   <Button id="purchase-button" onClick={ onClickPurchase }>
-                    <Link  to={"/OrderPage"}>결제하기</Link>
+                    결제하기
                   </Button>
                 }
                 <Button id="basket-button" size="large" type="primary" onClick={ clickHandler }>장바구니담기</Button>

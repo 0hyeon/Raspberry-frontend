@@ -22,7 +22,7 @@ const initialState = {
 const setProductSV = ()=>{
     return function(dispatch) {
         // instance.get(`${API_URL}/producsts`)
-        axios.get(`${API_URL}/products`)
+        axios.get(`${API_URL}/v1/product/products`)
         .then(res=>{
             dispatch(setProducts(res.data));
         })

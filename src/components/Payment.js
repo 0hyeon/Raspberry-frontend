@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
-import {  connect } from 'react-redux';
-
+import {  connect,useSelector } from 'react-redux';
+import axios from "axios";
+import {API_URL} from "../config/constants";
 const Payment = (props) => {
     let {name, price} = props
+    let userState = useSelector(state => state.user.user);
+
     useEffect(() => {
         
         const jquery = document.createElement("script");
@@ -33,17 +36,17 @@ const Payment = (props) => {
                 name: '부가정보',
                 desc: '세부 부가정보'
             },
-            buyer_name: '김영현',       // 구매자 이름
-            buyer_tel: '01041096590',   // 구매자 전화번호 (필수항목)
-            buyer_email: 'djdjdjk2006@naver.com', // 구매자 이메일
-            buyer_addr: '청화타운 302호',
+            buyer_name: userState.user_name,       // 구매자 이름
+            buyer_tel: userState.user_phonenumber,   // 구매자 전화번호 (필수항목)
+            buyer_email: userState.user_email, // 구매자 이메일
+            buyer_addr: userState.user_address,
             buyer_postalcode: '00000'
         };
  
         IMP.request_pay(data, callback);
     }
  
-    const callback= (response) => {
+    const callback= async (response) => {
         const {success, error_msg, imp_uid, merchant_uid, pay_method, paid_amount, status} = response;
         
         if (success) {
@@ -54,7 +57,26 @@ const Payment = (props) => {
             console.log( pay_method);
             console.log( paid_amount);
             console.log( status);
+
+            //서버로 전송
+
+            let body = {
+                // seSsionId: Session
+                // heyt: session_redux
+            }
+
+            await axios
+            .post(`${API_URL}/v1/cart/setCartItem`, body)
+            .then(function(result){
+                // dispatch(setCartItem(result.data));
+                console.log(result.data);
+            })
+            .catch((err) => {
+                console.log("Err: ", err);
+            });
+            
             alert('결제 성공');
+
         } else {
             alert(`결제 실패 : ${error_msg}`);
         }

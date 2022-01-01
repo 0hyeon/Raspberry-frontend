@@ -1,6 +1,6 @@
 .registerTop{
     font-weight: bold;
-    margin-bottom:40px;
+    margin:30px 0 20px;
 }
 .input_id{
     font-size: 14px;
@@ -13,8 +13,9 @@
 label{
     display: block;
     font-size: 14px;
+    font-weight: bold;
     line-height: 17px;
-    margin: 12px 0px;
+    margin: 20px 0px 12px;
 }
 .formContainer button {
     width: 100%;
@@ -32,4 +33,31 @@ label{
 }
 #popupDom > div > div {
     padding: inherit!important  ;
+}
+.OrderPage_productArea{
+    border-top: 1px solid #909090;
+    border-bottom: 1px solid #909090;
+}
+.OrderPage_productArea_wrapper{
+    padding: 30px 0px;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+}
+.OrderPage_productArea_wrapper > div {
+    float: left;
+    font-family: 'Uiyeun';
+    font-size: 27px;
+}
+.OrderPage_productArea_wrapper_right{
+    line-height: 2;
+    font-weight: initial;
+    width: 270px;
+    margin-left: 20px;
+}
+#popupDom{
+    position: relative;
+}
+.OrderPage_Productprice{
+    margin-top: 30px;
+    font-size: 32px;
 }

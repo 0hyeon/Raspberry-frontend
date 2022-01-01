@@ -62,7 +62,7 @@ function Main(props) {
         }
         // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
         await axios
-          .post(`${API_URL}/setCartItem`, body)
+          .post(`${API_URL}/v1/cart/setCartItem`, body)
           .then(function(result){
             // const products = result.data.products;
             // setProducts(products);

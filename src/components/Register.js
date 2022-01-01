@@ -50,7 +50,7 @@ function Registration() {
                 alert('이름을 확인해주세요.')
             }
             console.log(data);
-            axios.post(`${API_URL}/user_inform`, data).then(()=>{
+            axios.post(`${API_URL}/v1/user_inform/`, data).then(()=>{
                 console.log(data);
             })
             alert("회원가입 완료");
@@ -67,7 +67,7 @@ function Registration() {
         const naming = document.getElementById('inputCreatePostuser_id').value;
         
         const data = {user_id: naming};
-        axios.post(`${API_URL}/user_inform/idCheck`,data,{
+        axios.post(`${API_URL}/v1/user_inform/idCheck`,data,{
             withCredentials:true
         })
         .then(res => {

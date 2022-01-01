@@ -44,7 +44,7 @@ function ProductsUpdate() {
 
     // }
     const editor_wysywic = document.getElementById("product-description").value
-    axios.post(`${API_URL}/Updateproducts/${id}`,{
+    axios.post(`${API_URL}/v1/product/Updateproducts/${id}`,{
       name : values.name,
       description : editor_wysywic,
       seller : values.seller,
@@ -156,7 +156,7 @@ function ProductsUpdate() {
   const fetchProductDetail = async () => {
     dispatch(removeSelectedProduct());
     await axios
-      .get(`${API_URL}/products/${id}`)
+      .get(`${API_URL}/v1/product/products/${id}`)
       .then(function(result){
         // const products = result.data.products;
         // setProducts(products);

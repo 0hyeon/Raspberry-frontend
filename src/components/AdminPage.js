@@ -21,7 +21,7 @@ const AdminPage = () => {
     }
     const fetchProducts = async () => { 
         await axios
-        .get(`${API_URL}/products`)
+        .get(`${API_URL}/v1/product/products`)
         .then(function(result){
             dispatch(setProducts(result.data));
         })
@@ -44,7 +44,7 @@ const AdminPage = () => {
             const body = {ItemId: id};
 
             await axios
-            .post(`${API_URL}/AdmdeleteToItem`, body)
+            .post(`${API_URL}/v1/product/AdmdeleteToItem`, body)
             .then(function(result){
                 console.log(result.data);
             })
