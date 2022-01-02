@@ -2,7 +2,10 @@ import React, { useEffect } from 'react';
 import {  connect,useSelector } from 'react-redux';
 import axios from "axios";
 import {API_URL} from "../config/constants";
+import { useHistory } from "react-router-dom";
 const Payment = (props) => {
+    
+    const history = useHistory();//리액트훅
     let {userName,userAddress,userPhone,userEmail,userMemo,name, price} = props
     let userState = useSelector(state => state.user.user);
 
@@ -88,7 +91,8 @@ const Payment = (props) => {
             console.log(' status', status);//paid
             //서버로 전송
 
-
+            //결제완료 업데이트 
+            //수량 -1 ,결제완료, 거래번호(imp_uid)업데이트
             // axios.post(`${API_URL}/v1/order/payment`,{
             //     od_id : data.merchant_uid, //거래번호 
             //     mb_id: userState.user_id,//사용자 id
@@ -114,7 +118,7 @@ const Payment = (props) => {
             //     console.log(error);
             //     alert("결제실패!!");
             // });
-
+            history.push("/OrderResult");
         } else {
             alert(`결제 실패 : ${error_msg}`);
         }
