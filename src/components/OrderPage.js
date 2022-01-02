@@ -13,6 +13,8 @@ function OrderPage() {
     let [inputVal, inputChangeVal] = useState(userState.user_name);
     let [inputValPhone, inputChangeValPhone] = useState(userState.user_phonenumber);
     let [inputValEmail, inputChangeValEmail] = useState(userState.user_email);
+    let [inputValMemo, inputChangeValMemo] = useState(null);
+    const [htmlData, setHtmlData] = useState(null);
     const location = useLocation()
     const history = useHistory();
     const Producttitle = location.state.title
@@ -58,41 +60,16 @@ function OrderPage() {
             })
             alert("회원가입 완료");
             history.replace('/login')//이전페이지의 기록이 사라지고 대체됨
-        },[nickBtn],
+        },[nickBtn,htmlData],
     );
 
     const formik = useFormik({
         initialValues
     })
-
-    // const checkID = (e) => {
-    //     e.preventDefault();
-    //     const naming = document.getElementById('inputCreatePostuser_id').value;
-        
-    //     const data = {user_id: naming};
-    //     axios.post(`${API_URL}/v1/user_inform/idCheck`,data,{
-    //         withCredentials:true
-    //     })
-    //     .then(res => {
-    //         if(res.data.msg == '빈값'){
-    //             alert('내용을 입력하세요');
-    //         }else if(res.data.msg == '닉네임은 2글자 이상 10글자 미만 입력해주세요.'){
-    //             alert('닉네임은 2글자 이상 10글자 미만 입력해주세요.');
-    //         }else if(res.data.msg == '중복'){
-    //             setNickBtn(false);
-    //             alert('이미 사용중인 id입니다.');
-    //         }else if(res.data.msg == '가능'){
-    //             setNickBtn(true);
-    //             alert('사용 가능한 id입니다.');
-    //         }
-    //         // document.location.href='/OrderPage'
-    //     })
-    //     .catch((error) => {
-    //         console.log(error);
-    //     });
-    // }
     
     console.log('userState!!!',userState);
+    console.log('htmlData',htmlData);
+
     return (
         <div>
             <Formik
@@ -128,7 +105,7 @@ function OrderPage() {
                     {/* 주소 */}
                     <label> 주소 :</label>
                     <span style={{color:'black',padding:'10px'}}>(제주 및 도서 산간 지역의 배송은 추가 배송비가 발생할 수 있습니다.)</span>
-                    <Test />
+                    <Test setHtmlData={htmlData}/>
                     
                     <label> 핸드폰번호 :</label>
                     <ErrorMessage name="user_phonenumber" component="span" />
@@ -162,9 +139,12 @@ function OrderPage() {
                         name="user_momo"
                         placeholder=""
                         className="input_id"
+                        value={inputValMemo}
+                        onChange={ (e)=>{inputChangeValMemo(e.target.value)} }
                     />
                     <button type="submit"> 결제하기</button>
-                    <Payment name={Producttitle} price={Productprice} />
+
+                    <Payment userName={inputVal} userAddress={htmlData} userPhone={inputValPhone} userEmail={inputValEmail} userMemo={inputValMemo} name={Producttitle} price={Productprice} />
                 </Form>
             </Formik>
         </div>

@@ -2,13 +2,14 @@ import React, { useState,useEffect } from 'react';
 import PopupDom from './PopupDom';
 import PopupPostCode from './PopupPostCode';
 import { useSelector } from 'react-redux';
-const Test = () => {
+const Test = (props) => {
 	// 팝업창 상태 관리
     let userState = useSelector(state => state.user.user);   
     const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const [htmlData, setHtmlData] = useState(userState.user_address);
+    const [htmlData, setHtmlData] = useState(null);
     const [detailhtmlData, detailsetHtmlData] = useState(null);
- 
+    
+    // props.setHtmlData(htmlData);
 	// 팝업창 열기
     const openPostCode = () => {
         setIsPopupOpen(true)
@@ -22,6 +23,8 @@ const Test = () => {
     const onChange1 = (event) => {
         detailsetHtmlData(event.target.value);
     }
+
+
     useEffect(() => {
         // return () => {
         //     cleanup
