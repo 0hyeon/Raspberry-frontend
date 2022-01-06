@@ -11,12 +11,12 @@ import MainPage from "../swiperSlide";
 import { useDispatch, useSelector } from "react-redux";
 import {setProducts,setCartItem,setRequestLoding2} from "../_actions/userAction";
 import { actionCreators as productActions } from "../_modules/product";
+import { actionCreators as productOptionActions } from "../_modules/productoptions";
 dayjs.extend(relativeTime);//dayjs에서 확장된 기능 사용 
 
 function Main(props) {
     // 슬라이드,상품
     // const [products, setProducts] = React.useState([]);// state형태
-    const [posts, setPosts] = useState([]);
     // const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1); //현재 페이지
     const [postPerPage] = useState(4); //페이지당 포스트 개수
@@ -25,6 +25,7 @@ function Main(props) {
     // const state = useSelector((state) => state);
     // const products = useSelector((state) => state.allProducts.products);
     const products = useSelector((state) => state.products.products);
+    const [isproducts,setproducts] = useState(null);
     const dispatch = useDispatch();
     // const fetchProducts = async () => { 
     //     await axios
@@ -84,18 +85,20 @@ function Main(props) {
         // 상품관련
         // fetchProducts();
         dispatch(productActions.setProductSV());
+        console.log("doing productOptionActions!!!",products.name);
         let Session = sessionStorage.getItem('user_id');
-        
-    
-
         setproduct_list(products);
         // console.log(products);
-        setPosts(products);
         // console.log(posts);
         fetchCartItem();
         // console.log(state.allProducts.cartItem)
         
-    }, [isproduct_list,posts]);
+    }, [isproduct_list]);
+
+    // React.useEffect(() => {
+    //     dispatch(productOptionActions.setProductOptionsSV(products.name));
+    //     console.log("메인에서 products.name 보내는곳",products);
+    // }, [products,dispatch])
     //로그아웃
 	// App 컴포넌트에서 전달받은 props 값은 아래와 같이 받아온다.
 	const isLogin = props.isLogin
@@ -110,6 +113,7 @@ function Main(props) {
     function AddComma(value) {
         return Number(value).toLocaleString('en');
     }
+   
     return(
         <div>
             {/* <div>

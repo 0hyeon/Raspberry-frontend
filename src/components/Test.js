@@ -6,7 +6,7 @@ const Test = (props) => {
 	// 팝업창 상태 관리
     let userState = useSelector(state => state.user.user);   
     const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const [htmlData, setHtmlData] = useState(null);
+    const [htmlData, setHtmlData] = useState(userState.user_address);
     const [detailhtmlData, detailsetHtmlData] = useState(null);
     
     // props.setHtmlData(htmlData);

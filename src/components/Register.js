@@ -36,7 +36,9 @@ function Registration() {
             const user_address1 = document.getElementById('inputAdd').value;
             const user_address2 = document.getElementById('inputdetailAdd').value;
 
-            data.user_address =  user_address1+" / "+ user_address2;
+            data.user_address =  user_address1;
+            data.user_address_detail = user_address2;
+
             if (!nickBtn){
                 alert('아이디 중복체크를 확인해주세요.')
                 return;
@@ -132,7 +134,7 @@ function Registration() {
                         autoComplete="off"
                         id="inputCreatePostuser_name"
                         name="user_name"
-                        placeholder="Your Name..."
+                        placeholder="이름"
                         className="input_id"
                     />
                     {/* 주소 */}
@@ -155,7 +157,7 @@ function Registration() {
                         autoComplete="off"
                         id="inputCreatePostuser_phone"
                         name="user_phonenumber"
-                        placeholder="123-3456-7890"
+                        placeholder="01012345678 (-) 없이입력해주세요"
                         className="input_id"
                     />
                     <button type="submit"> 회원가입</button>

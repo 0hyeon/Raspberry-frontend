@@ -6,8 +6,9 @@ import { useHistory } from "react-router-dom";
 const Payment = (props) => {
     
     const history = useHistory();//리액트훅
-    let {userName,userAddress,userPhone,userEmail,userMemo,name, price} = props
+    let {userName,userAddress,userAddressdetail,userPhone,userEmail,userMemo,name,size,color,price} = props
     let userState = useSelector(state => state.user.user);
+    let setAddressState = useSelector(state => state.setaddress.setaddress);
 
     useEffect(() => {
         
@@ -29,13 +30,15 @@ const Payment = (props) => {
         // IMP.init('imp31132542'); // 가맹점 식별코드
         IMP.init('iamport'); // 가맹점 식별코드
  
+        //배송비
         // 결제 데이터 정의
         const data = {
-            pg: 'nice',     // PG사 (필수항목)
+            // pg: 'nice',     // PG사 (필수항목)
+            pg: 'html5_inicis',     // PG사 (필수항목)
             pay_method: 'card',     // 결제수단 (필수항목)
             merchant_uid: `mid_${new Date().getTime()}`,  // 결제금액 (필수항목) ? 주문번호같음
             name: name,     // 주문명 (필수항목)
-            amount: price,         // 금액 (필수항목)
+            amount: price ,// 금액 (필수항목)
             custom_data: {
                 name: '부가정보',
                 desc: '세부 부가정보'
@@ -43,23 +46,26 @@ const Payment = (props) => {
             buyer_name: userName,       // 구매자 이름
             buyer_tel: userPhone,   // 구매자 전화번호 (필수항목)
             buyer_email: userEmail, // 구매자 이메일
-            buyer_addr: userAddress,//구매자주소
-            buyer_postalcode: '00001'//우편주소
+            buyer_addr: `${userAddress} / ${userAddressdetail}`,//구매자주소
+            buyer_postalcode: setAddressState.zonecode//우편주소
         };
 
         
         axios.post(`${API_URL}/v1/order/payment`,{
             od_id : data.merchant_uid, //거래번호 
             mb_id: userState.user_id,//사용자 id
+            name:data.name,//상품명
+            size:size,//사이즈
+            color:color,//컬러
             od_name:data.buyer_name,//배송받을 이름
             od_email:data.buyer_email,//이메일
             od_tel: data.buyer_tel,//핸드폰번호
             od_zip: data.buyer_postalcode,//우편번호 5자리
             od_addr1:data.buyer_addr,//주소
-            od_addr2:null,//상세주소
+            od_addr2:userAddressdetail,//상세주소
             od_momo:userMemo,//메모
             od_cart_price: data.amount,//주문금액
-            od_send_cost:3000,//배송비
+            od_send_cost:100,//배송비
             od_bank_account:null,
             od_receipt_time:null,//승인시간
             od_status:"결제대기",//거래상태 (결제대기 , 결제완료, 배송준비, 배송중, 배송완료 )
@@ -71,7 +77,7 @@ const Payment = (props) => {
             // alert("결제완료");
         }).catch((error) => {
             console.log(error);
-            alert("결제실패!!");
+            alert("결제실패");
         });
         IMP.request_pay(data, callback);
 
@@ -93,31 +99,20 @@ const Payment = (props) => {
 
             //결제완료 업데이트 
             //수량 -1 ,결제완료, 거래번호(imp_uid)업데이트
-            // axios.post(`${API_URL}/v1/order/payment`,{
-            //     od_id : data.merchant_uid, //거래번호 
-            //     mb_id: userState.user_id,//사용자 id
-            //     od_name:data.buyer_name,//배송받을 이름
-            //     od_email:data.buyer_email,//이메일
-            //     od_tel: data.buyer_tel,//핸드폰번호
-            //     od_zip: data.buyer_postalcode,//우편번호 5자리
-            //     od_addr1:data.buyer_addr,//주소
-            //     od_addr2:null,//상세주소
-            //     od_momo:userMemo,//메모
-            //     od_cart_price: data.amount,//주문금액
-            //     od_send_cost:3000,//배송비
-            //     od_bank_account:null,
-            //     od_receipt_time:null,//승인시간
-            //     od_status:"결제대기",//거래상태 (결제대기 , 결제완료, 배송준비, 배송중, 배송완료 )
-            //     od_hope_data:null,//무통장 희망입금일 
-            //     od_settle_case:data.pay_method,//결제수단
-            //     od_tno:null//거래번호
-            // }).then((result) =>{
-            //     console.log(result);
-            //     alert("결제완료");
-            // }).catch((error) => {
-            //     console.log(error);
-            //     alert("결제실패!!");
-            // });
+            axios.post(`${API_URL}/v1/order/paymentUpdate`,{
+                od_id : merchant_uid, //거래번호 
+                od_status:"결제완료",//거래상태 (결제대기 , 결제완료, 배송준비, 배송중, 배송완료 )
+                od_tno:imp_uid//거래번호
+                //상품이름 -1해줄용도
+            }).then((result) =>{
+                console.log(result);
+                alert("결제완료");
+                
+            }).catch((error) => {
+                console.log(error);
+                alert("결제실패!!");
+            });
+            
             history.push("/OrderResult");
         } else {
             alert(`결제 실패 : ${error_msg}`);

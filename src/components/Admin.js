@@ -37,30 +37,34 @@ function UploadPage() {
     //   return;
     // }'
 
-    
-
     const editor_wysywic = document.getElementById("product-description").value
-    axios.post(`${API_URL}/v1/product/products`,{
+
+    const body = {
       name : values.name,
       description : editor_wysywic,
       seller : values.seller,
       price :  parseInt(values.price),
+
       color1 : values.color1,
       colorName1 : values.colorName1,
+    
       size1 : values.size1,
       quantity1 : parseInt(values.quantity1),
       size1_2 : values.size1_2,
       quantity1_2 : parseInt(values.quantity1_2),
       size1_3 : values.size1_3,
       quantity1_3 : parseInt(values.quantity1_3),
+      
       color2 : values.color2,
       colorName2 : values.colorName2,
+
       size2 : values.size2,
       quantity2 : parseInt(values.quantity2),
       size2_2 : values.size2_2,
       quantity2_2 : parseInt(values.quantity2_2),
       size2_3 : values.size2_3,
       quantity2_3 : parseInt(values.quantity2_3),
+
       color3 : values.color3,
       colorName3 : values.colorName3,
       size3 : values.size3,
@@ -75,7 +79,10 @@ function UploadPage() {
       imageUrl4 : imageUrl4,
       imageUrl5 : imageUrl5,
       detailPage : detailPage,
-    }).then((result) =>{
+    }
+    axios.post(`${API_URL}/v1/product/products`,body,{
+      
+    }).then(() => {
       alert("상품등록 완료");
       history.replace('/');//이전페이지의 기록이 사라지고 대체됨
     }).catch((error) => {
@@ -258,6 +265,7 @@ function UploadPage() {
           rules={[{ required: true, message: "판매자 이름을 입력해주세요" }]}
         >
           <Input
+            name="seller"
             className="product-seller"
             size="large"
             placeholder="이름을 입력해주세요."
@@ -271,6 +279,7 @@ function UploadPage() {
           rules={[{ required: true, message: "상품 이름을 입력해주세요" }]}
         >
           <Input
+            name="name"
             className="product-name"
             size="large"
             placeholder="상품 이름을 입력해주세요"
@@ -283,7 +292,7 @@ function UploadPage() {
           label={<div className="upload-label">상품 가격</div>}
           rules={[{ required: true, message: "상품 가격을 입력해주세요" }]}
         >
-          <InputNumber defaultValue={0} className="product-price" size="large" />
+          <InputNumber name="price" defaultValue={0} className="product-price" size="large" />
         </Form.Item>
         <Divider />
         {/* 상품컬러1 */}
@@ -293,6 +302,7 @@ function UploadPage() {
           rules={[{ required: true, message: "상품 컬러1을 입력해주세요" }]}
         >
           <Input
+            name="color1"
             className="product-color1"
             size="large"
             placeholder="상품컬러1 ex) #000000 "
@@ -305,6 +315,7 @@ function UploadPage() {
           rules={[{ required: true, message: "상품 컬러이름1 을 입력해주세요" }]}
         >
           <Input
+            name="colorName1"
             className="product-colorName1"
             size="large"
             placeholder="상품컬러이름1 ex) 라이트블루 "
@@ -317,6 +328,7 @@ function UploadPage() {
           rules={[{ required: true, message: "상품 사이즈1 을 입력해주세요" }]}
         >
           <Input
+            name="size1"
             className="product-size1"
             size="large"
             placeholder="상품사이즈1 ex)Free / M / L 중1"
@@ -329,6 +341,7 @@ function UploadPage() {
           rules={[{ required: true, message: "상품 재고1을 입력해주세요" }]}
         >
           <Input
+            name="quantity1"
             className="product-quantity1"
             size="large"
             placeholder="상품1 입고된 수량입력"
@@ -341,6 +354,7 @@ function UploadPage() {
           rules={[{ required: false, message: "상품 사이즈1_2 을 입력해주세요" }]}
         >
           <Input
+            name="size1_2"
             className="product-size1_2"
             size="large"
             placeholder="상품사이즈1_2 ex)Free / M / L 중1"
@@ -353,6 +367,7 @@ function UploadPage() {
           rules={[{ required: false, message: "상품 재고1_2를 입력해주세요" }]}
         >
           <Input
+            name="quantity1_2"
             className="product-quantity1_2"
             size="large"
             placeholder="상품1_2 입고된 수량입력"
@@ -365,6 +380,7 @@ function UploadPage() {
           rules={[{ required: false, message: "상품 사이즈1_3 을 입력해주세요" }]}
         >
           <Input
+            name="size1_3"
             className="product-size1_3"
             size="large"
             placeholder="상품사이즈1 ex)Free / M / L 중1"
@@ -377,6 +393,7 @@ function UploadPage() {
           rules={[{ required: false, message: "상품 재고1_3을 입력해주세요" }]}
         >
           <Input
+            name="quantity1_3"
             className="product-quantity1"
             size="large"
             placeholder="상품1_3 입고된 수량입력"
@@ -390,6 +407,7 @@ function UploadPage() {
           rules={[{ required: false, message: "상품 컬러2를 입력해주세요" }]}
         >
           <Input
+            name="color2"
             className="product-color2"
             size="large"
             placeholder="상품컬러2 ex) #000000 "
@@ -402,6 +420,7 @@ function UploadPage() {
           rules={[{ required: false, message: "상품 컬러이름2 을 입력해주세요" }]}
         >
           <Input
+            name="colorName2"
             className="product-colorName2"
             size="large"
             placeholder="상품컬러이름2 ex) 라이트블루 "
@@ -414,6 +433,7 @@ function UploadPage() {
           rules={[{ required: false, message: "상품 사이즈2 를 입력해주세요" }]}
         >
           <Input
+            name="size2"
             className="product-size2"
             size="large"
             placeholder="상품사이즈2 ex)Free / M / L 중1"
@@ -426,6 +446,7 @@ function UploadPage() {
           rules={[{ required: false, message: "상품 재고2을 입력해주세요" }]}
         >
           <Input
+            name="quantity2"
             className="product-quantity2"
             size="large"
             placeholder="상품2 입고된 수량입력"
@@ -438,6 +459,7 @@ function UploadPage() {
           rules={[{ required: false, message: "상품 사이즈2_2 를 입력해주세요" }]}
         >
           <Input
+            name="size2_2"
             className="product-size2_2"
             size="large"
             placeholder="상품사이즈2_2 ex)Free / M / L 중1"
@@ -450,6 +472,7 @@ function UploadPage() {
           rules={[{ required: false, message: "상품 재고2_2을 입력해주세요" }]}
         >
           <Input
+            name="quantity2_2"
             className="product-quantity2_2"
             size="large"
             placeholder="상품2_2 입고된 수량입력"
@@ -462,6 +485,7 @@ function UploadPage() {
           rules={[{ required: false, message: "상품 사이즈2_3 를 입력해주세요" }]}
         >
           <Input
+            name="size2_3"
             className="product-size2_3"
             size="large"
             placeholder="상품사이즈2 ex)Free / M / L 중1"
@@ -474,6 +498,7 @@ function UploadPage() {
           rules={[{ required: false, message: "상품 재고2_3을 입력해주세요" }]}
         >
           <Input
+            name="quantity2_3"
             className="product-quantity2"
             size="large"
             placeholder="상품2_3 입고된 수량입력"
@@ -487,6 +512,7 @@ function UploadPage() {
           rules={[{ required: false, message: "상품 컬러3를 입력해주세요" }]}
         >
           <Input
+            name="color3"
             className="product-color3"
             size="large"
             placeholder="상품컬러3 ex) #000000 "
@@ -499,6 +525,7 @@ function UploadPage() {
           rules={[{ required: false, message: "상품 컬러이름3 을 입력해주세요" }]}
         >
           <Input
+            name="colorName3"
             className="product-colorName3"
             size="large"
             placeholder="상품컬러이름3 ex) 라이트블루 "
@@ -511,6 +538,7 @@ function UploadPage() {
           rules={[{ required: false, message: "상품 사이즈3 를 입력해주세요" }]}
         >
           <Input
+            name="size3"
             className="product-size3"
             size="large"
             placeholder="상품사이즈3 ex)Free / M / L 중1"
@@ -523,6 +551,7 @@ function UploadPage() {
           rules={[{ required: false, message: "상품 재고3을 입력해주세요" }]}
         >
           <Input
+            name="quantity3"
             className="product-quantity3"
             size="large"
             placeholder="상품3 입고된 수량입력"
@@ -536,6 +565,7 @@ function UploadPage() {
           rules={[{ required: false, message: "상품 사이즈3_2 를 입력해주세요" }]}
         >
           <Input
+            name="size3_2"
             className="product-size3_2"
             size="large"
             placeholder="상품사이즈3_2 ex)Free / M / L 중1"
@@ -548,6 +578,7 @@ function UploadPage() {
           rules={[{ required: false, message: "상품 재고3_2을 입력해주세요" }]}
         >
           <Input
+            name="quantity3_2"
             className="product-quantity3_2"
             size="large"
             placeholder="상품3_2 입고된 수량입력"
@@ -561,6 +592,7 @@ function UploadPage() {
           rules={[{ required: false, message: "상품 사이즈3_3 를 입력해주세요" }]}
         >
           <Input
+            name="size3_3"          
             className="product-size3_3"
             size="large"
             placeholder="상품사이즈3_3 ex)Free / M / L 중1"
@@ -573,6 +605,7 @@ function UploadPage() {
           rules={[{ required: false, message: "상품 재고3_3을 입력해주세요" }]}
         >
           <Input
+            name="quantity3_3"
             className="product-quantity3_3"
             size="large"
             placeholder="상품3_3 입고된 수량입력"
@@ -605,6 +638,7 @@ function UploadPage() {
           rules={[{ required: false, message: "상품설명을 입력해주세요" }]}
         >
           <Input.TextArea
+            name="description2"
             style={{display:"none"}}
             size="large"
             id="product-description"

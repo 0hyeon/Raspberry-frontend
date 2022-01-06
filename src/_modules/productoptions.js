@@ -4,51 +4,48 @@ import {API_URL} from "../config/constants.js";
 import axios from "axios";
 
 // actions
-export const SET_USER ="SET_USER";//완료
+export const SET_PRODUCTSOPTIONS ="SET_PRODUCTSOPTIONS";//완료
 
 //actioncreators
 
-const setUser = createAction(SET_USER, (user) => (user));
+const setProductoptions = createAction(SET_PRODUCTSOPTIONS, (productoptions) => ({productoptions}));
 
 
 // initial
 const initialState = {
-    user : [],
+    productoptions : [],
 }
 
 
 //middle
 //메인페이지에서 상품 리스트 불러오기
-const setUserSV = ()=>{
-    const body = {
-        session: sessionStorage.getItem('user_id')
-    };
+const setProductOptionsSV = (productname)=>{
+    console.log("Action productname 받아오는곳",productname);
     return function(dispatch) {
         // instance.get(`${API_URL}/producsts`)
-        axios.post(`${API_URL}/v1/user_inform/onLoginData`,body,{
-            withCredentials:true
-        })
+
+        axios.post(`${API_URL}/v1/product/productsOptions`,{productname:productname} )
         .then(res=>{
-            console.log(res);
-            dispatch(setUser(res.data));
+            dispatch(setProductoptions(res.data));
         })
         .catch(err=> console.log(err));
     }
 }
 
+
 export default handleActions (
     {
-        [SET_USER]: (state, action) =>
+        [SET_PRODUCTSOPTIONS]: (state, action) =>
         produce(state, (draft)=>{
-            draft.user = action.payload.user;
-        }),
-     
+            draft.productoptions = action.payload.productoptions;
+        })
+
     },
     initialState
 );
 
 const actionCreators = {
-    setUserSV,
+    setProductOptionsSV,
 }
 
 export { actionCreators };

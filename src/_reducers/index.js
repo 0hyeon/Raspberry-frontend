@@ -4,6 +4,8 @@ import { productsReducer } from "./userReducer";
 import { idReducer } from "./idReducer";
 import product from "../_modules/product"
 import user from "../_modules/user";
+import setaddress from "../_modules/setaddress";
+import productoptions from "../_modules/productoptions";
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
 
@@ -15,6 +17,8 @@ const rootReducer = combineReducers({
   userLogged:idReducer,
   products: product,
   user:user,
+  setaddress:setaddress,
+  productoptions:productoptions,
   router: connectRouter(history),
 });
 

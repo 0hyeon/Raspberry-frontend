@@ -13,8 +13,7 @@ import {addToCart, setProducts, selectedProduct, removeSelectedProduct, decideTo
 //swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";	// 추가
-
-
+import { actionCreators as productOptionActions } from "../_modules/productoptions";
 import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
 import "swiper/components/pagination/pagination.scss";
@@ -26,7 +25,8 @@ function ProductPage() {
   const history = useHistory();//리액트훅
   // console.log("props.allProducts.cartItem : ", props.allProducts.cartItem);
   let state = useSelector(state => state);
-  const whyerrorObject = state.allProducts.products.products;
+  const whyerrorObject = state.productoptions.productoptions.products;
+
   const [iswhyerrorObject, setwhyerrorObject] = useState(null);
   // console.log("products", products);
   const { id } = useParams();//파라미터를 가져옴
@@ -127,7 +127,6 @@ function ProductPage() {
 
     if (Session == null){
       alert('로그인을 해주셔야 합니다.')
-      history.push("/Login");
       return;
     }
     if(!currentClick){
@@ -168,11 +167,21 @@ function ProductPage() {
     // headerStyle.style.backgroundColor = "inherit";
     case3.style.border = "none";
   }
-  
+  //색상1 정의 
+  const case1_colorName2 =  whyerrorObject && whyerrorObject[0];
+  const case1_colorName20 =  whyerrorObject && whyerrorObject[1];
+  const case1_colorName200 =  whyerrorObject && whyerrorObject[2];
+  //색상2 정의
+  const case1_colorName2_1 =  whyerrorObject && whyerrorObject[3];
+  const case1_colorName2_10 =  whyerrorObject && whyerrorObject[4];
+  const case1_colorName2_100 =  whyerrorObject && whyerrorObject[5];
+  //색상3 정의
+  const case1_colorName2_2 =  whyerrorObject && whyerrorObject[6];
+  const case1_colorName2_20 =  whyerrorObject && whyerrorObject[7];
+  const case1_colorName2_200 =  whyerrorObject && whyerrorObject[8];
   // console.log(scrollFlag);
   // console.log(scrollFlag2);
   useEffect(() => {
-    
     //스크롤 잡아주는 장치
     const updateScroll = () => {
       setScrollPosition(window.scrollY || document.documentElement.scrollTop);
@@ -237,18 +246,20 @@ function ProductPage() {
     if(e.target.style.backgroundColor == ""){
       return;
     }
+
     if (e.target.className == "detail_first_li" ){
       setCurrentClick2(null);
       setCurrentClick(e.target.id);
       if(e.target.id == "case1"){
-        setColorName(product.colorName1);//스카이블루 표현
-        setShowSize(product.colorName1);//size ui 보여줌 
+        setColorName(case1_colorName2 && case1_colorName2.colorName1);//스카이블루 표현
+        setShowSize(case1_colorName2 && case1_colorName2.colorName1);//size ui 보여줌 
+
       }else if(e.target.id == "case2"){
-        setColorName(product.colorName2)
-        setShowSize(product.colorName2);
+        setColorName(case1_colorName2_1 && case1_colorName2_1.colorName1)
+        setShowSize(case1_colorName2_1 && case1_colorName2_1.colorName1);
       }else if(e.target.id == "case3"){
-        setColorName(product.colorName3);
-        setShowSize(product.colorName3);
+        setColorName(case1_colorName2_2 && case1_colorName2_2.colorName1);
+        setShowSize(case1_colorName2_2 && case1_colorName2_2.colorName1);
       }
       setShowSizeName(null);
     }
@@ -260,36 +271,36 @@ function ProductPage() {
         return;
       }
       setCurrentClick2(e.target.id);//클릭시 스타일처리와 이전클릭에 사용 상태관리  
-      if(isShowSize == product.colorName1){ 
+      if(isShowSize == `${case1_colorName2 && case1_colorName2.colorName1}`){ 
         if(e.target.id == "case1_1"){
-          setShowSizeName(product.size1);
+          setShowSizeName(case1_colorName2 && case1_colorName2.size1);
         }else if (e.target.id == "case2_1"){
-          setShowSizeName(product.size1_2);
+          setShowSizeName(case1_colorName20 && case1_colorName20.size1);
         }else if (e.target.id == "case3_1"){
-          setShowSizeName(product.size1_3);
+          setShowSizeName(case1_colorName200 && case1_colorName200.size1);
         }
-      }else if(isShowSize == product.colorName2){ 
+      }else if(`${isShowSize == case1_colorName2_1 && case1_colorName2_1}`){ 
         if(e.target.id == "case1_1"){
-          setShowSizeName(product.size2);
+          setShowSizeName(case1_colorName2_1 && case1_colorName2_1.size1);
         }else if (e.target.id == "case2_1"){
-          setShowSizeName(product.size2_2);
+          setShowSizeName(case1_colorName2_10 && case1_colorName2_10.size1);
         }else if (e.target.id == "case3_1"){
-          setShowSizeName(product.size2_3);
+          setShowSizeName(case1_colorName2_100 && case1_colorName2_100.size1);
         }
-      }else if(isShowSize == product.colorName3){ 
+      }else if(`${isShowSize == case1_colorName2_2 && case1_colorName2_2}`){ 
         if(e.target.id == "case1_1"){
-          setShowSizeName(product.size3);
+          setShowSizeName(case1_colorName2_2 && case1_colorName2_2.size1);
         }else if (e.target.id == "case2_1"){
-          setShowSizeName(product.size3_2);
+          setShowSizeName(case1_colorName2_20 && case1_colorName2_20.size1);
         }else if (e.target.id == "case3_1"){
-          setShowSizeName(product.size3_3);
+          setShowSizeName(case1_colorName2_200 && case1_colorName2_200.size1);
         }
       }
 
     }
   };
   
-  const fetchProducts = async () => { 
+  const fetchProducts = async () => {//해당페이지 모든 아이템 
     await axios
     
       .get(`${API_URL}/v1/product/products`)
@@ -312,6 +323,7 @@ function ProductPage() {
 };
 
   const getProduct = async() =>{//getProduct함수 `
+    dispatch(removeSelectedProduct());
     await axios
       .get(
         `${API_URL}/v1/product/products/${id}`//파라미터 요청
@@ -320,10 +332,10 @@ function ProductPage() {
         const product = result.data.product;
         setProduct(product);
         settotalPrice(product.price);
-        setScrollFlag(product.color2)
-        setScrollFlag2(product.color3)
+       
         setProductColor(product.description);
-        console.log("setProductColor" ,isProductColor);
+        dispatch(selectedProduct(result.data));
+        // console.log("setProductColor" ,isProductColor);
         // console.log(product);
       })
       .catch(function (error) {
@@ -348,8 +360,9 @@ function ProductPage() {
       settotalPrice(tatalNum * product.price)
     }
   }
+
   //select값 가져오기
-  const fetchProductDetail = async () => {
+  const fetchProductDetail = async () => {//해당페이지 1아이템
     dispatch(removeSelectedProduct());
     await axios
       .get(`${API_URL}/v1/product/products/${id}`)
@@ -444,19 +457,32 @@ function ProductPage() {
     // dispatch(addToCart(id,Session))
     getProduct();//useEffect시 1개아이템
     youCanAddToCart();
-    fetchProductDetail();//해당페이지 1아이템 
+    // fetchProductDetail();//해당페이지 1아이템 
     fetchProducts();//모든 아이템
     
-    if(whyerrorObject != 'undefined' && whyerrorObject != null){
-      setwhyerrorObject(whyerrorObject);
-    }
+    // if(whyerrorObject != 'undefined' && whyerrorObject != null){
+    //   setwhyerrorObject(whyerrorObject);
+    // }
     setProduct(product);
+    
   }, [isCartUi_View,prevClick,currentClick2,currentClick,id]);
+  
+  
+
+  useEffect(() => {
+    dispatch(productOptionActions.setProductOptionsSV(product.name));
+    setScrollFlag(case1_colorName2_1 && case1_colorName2_1.color1)
+    setScrollFlag2(case1_colorName2_2 && case1_colorName2_2.color1)
+    // console.log("doing productOptionActions!!!",product.name);
+      
+    if (product === null || state === null || whyerrorObject === null) {
+          setwhyerrorObject(whyerrorObject);
+        return <h1>상품 정보를 받고 있습니다...</h1>;
+    }
+    console.log(product)
+  }, [product,dispatch])
   // }, [setCartUi_View,setPrevClick,prevClick,prevClick2,id]);
   // },[]);
-  if (product === null || state === null) {
-    return <h1>상품 정보를 받고 있습니다...</h1>;
-  }
   const onClickPurchase = () =>{//구매하기 클릭이벤트
     // axios.post(`${API_URL}/purchase/${id}`).then((result)=>{
       
@@ -464,11 +490,11 @@ function ProductPage() {
     // }).catch((error)=>{
     //   message.error(`에러가 발생했습니다. ${error.message}`)
     // })
-    if (Session == null){
-      alert('로그인을 해주셔야 합니다.')
-      history.push("/Login");
-      return;
-    }
+    // if (Session == null){
+    //   alert('로그인을 해주셔야 합니다.')
+    //   history.push("/Login");
+    //   return;
+    // }
     if(!currentClick){
       alert('상품컬러를 선택하세요.')
       return;
@@ -483,7 +509,8 @@ function ProductPage() {
   }
   
   return (
-    <div style={{background:'url(http://localhost:8000/uploads/c2eb3b9de2d11.jpg)'}}>
+    // <div style={{background:'url(http://localhost:8000/uploads/c2eb3b9de2d11.jpg)'}}>
+    <div>
         <div className="content_wrapper">
             <div id="image-box" className="content">
                 {/* <img src={`${API_URL}/${product.imageUrl}`} alt="" /> */}
@@ -518,38 +545,39 @@ function ProductPage() {
                     <div className="detail_color">
                       COLOR : {isColorName}
                       <ul className="detail_first detail_Common">
-                        <li className="detail_first_li" style={{background:product.color1}} id="case1" onClick={GetClick}></li>
-                        <li className="detail_first_li" style={{background:product.color2}} id="case2" onClick={GetClick}></li>
-                        <li className="detail_first_li" style={{background:product.color3}} id="case3" onClick={GetClick}></li>
+                        <li className="detail_first_li" style={{background:case1_colorName2 && case1_colorName2.color1}} id="case1" onClick={GetClick}></li>
+                        <li className="detail_first_li" style={{background:case1_colorName2_1 && case1_colorName2_1.color1}} id="case2" onClick={GetClick}></li>
+                        <li className="detail_first_li" style={{background:case1_colorName2_2 && case1_colorName2_2.color1}} id="case3" onClick={GetClick}></li>
                         {/* {product.color1 ?  <li className="detail_first_li" style={{background:product.color1}}id="case1" onClick={GetClick}></li> : null}
                         {product.color2 ?  <li className="detail_first_li" style={{background:product.color2}}id="case2" onClick={GetClick}></li> : null}
 
                         {product.color3 ?  <li className="detail_first_li" style={{background:product.color3}}id="case3" onClick={GetClick}></li> : null} */}
                       </ul>
                     </div>
-                    {isShowSize == product.colorName1
+                    {isShowSize == `${case1_colorName2 && case1_colorName2.colorName1}`
+                    // {isShowSize == case1_colorName2 && case1_colorName2.colorName1
                       ? <div className="detail_size">
                           SIZE : {isShowSizeName}
                           <ul className="detail_second detail_Common">
                           {/* {product.color1 ? <div>heyy1</div> : null} */}
-                          <li className="detail_second_li" id="case1_1" onClick={GetClick2} value={product.size1}>{product.size1}</li>
-                          <li className="detail_second_li" id="case2_1" onClick={GetClick2} value={product.size1_2}>{product.size1_2}</li>
-                          <li className="detail_second_li" id="case3_1" onClick={GetClick2} value={product.size1_3}>{product.size1_3}</li>
+                          <li className="detail_second_li" id="case1_1" onClick={GetClick2} value={case1_colorName2.size1}>{case1_colorName2.size1}</li>
+                          <li className="detail_second_li" id="case2_1" onClick={GetClick2} value={case1_colorName20.size1}>{case1_colorName20.size1}</li>
+                          <li className="detail_second_li" id="case3_1" onClick={GetClick2} value={case1_colorName200.size1}>{case1_colorName200.size1}</li>
                           {/* {product.size1 ? <li className="detail_second_li" id="case1_1" onClick={GetClick2} value={product.size1}>{product.size1}</li> : null} */}
                           {/* {product.size1_2 ? <li className="detail_second_li" id="case2_1" onClick={GetClick2} value={product.size1_2}>{product.size1_2}</li> : null}
                           {product.size1_3 ? <li className="detail_second_li" id="case3_1" onClick={GetClick2} value={product.size1_3}>{product.size1_3}</li> : null} */}
                           </ul>
                         </div>
-                      : null 
+                      : null
                     }
-                    {isShowSize == product.colorName2
+                    {isShowSize == `${case1_colorName2_1 && case1_colorName2_1.colorName1}`
                       ? <div className="detail_size">
                           SIZE : {isShowSizeName}
                           <ul className="detail_second detail_Common">
                           {/* {product.color1 ? <div>heyy2</div> : null} */}
-                          <li className="detail_second_li" id="case1_1" onClick={GetClick2} value={product.size2}>{product.size2}</li>
-                          <li className="detail_second_li" id="case2_1" onClick={GetClick2} value={product.size2_2}>{product.size2_2}</li>
-                          <li className="detail_second_li" id="case3_1" onClick={GetClick2} value={product.size2_3}>{product.size2_3}</li>
+                          <li className="detail_second_li" id="case1_1" onClick={GetClick2} value={case1_colorName2_1.size1}>{case1_colorName2_1.size1}</li>
+                          <li className="detail_second_li" id="case2_1" onClick={GetClick2} value={case1_colorName2_10.size1}>{case1_colorName2_10.size1}</li>
+                          <li className="detail_second_li" id="case3_1" onClick={GetClick2} value={case1_colorName2_100.size1}>{case1_colorName2_100.size1}</li>
                           {/* {product.size2 ? <li className="detail_second_li" id="case1_1" onClick={GetClick2} value={product.size2}>{product.size2}</li> : null}
                           {product.size2_2 ? <li className="detail_second_li" id="case2_1" onClick={GetClick2} value={product.size2_2}>{product.size2_2}</li> : null}
                           {product.size2_3 ? <li className="detail_second_li" id="case3_1" onClick={GetClick2} value={product.size2_3}>{product.size2_3}</li> : null} */}
@@ -557,14 +585,14 @@ function ProductPage() {
                         </div>
                       : null 
                     }
-                    {isShowSize == product.colorName3
+                    {isShowSize == `${case1_colorName2_2 && case1_colorName2_2.colorName1}`
                       ? <div className="detail_size">
                           SIZE : {isShowSizeName}
                           <ul className="detail_second detail_Common">
                           {/* {product.color1 ? <div>heyy3</div> : null} */}
-                          <li className="detail_second_li" id="case1_1" onClick={GetClick2} value={product.size3}>{product.size3}</li>
-                          <li className="detail_second_li" id="case2_1" onClick={GetClick2} value={product.size3_2}>{product.size3_2}</li>
-                          <li className="detail_second_li" id="case3_1" onClick={GetClick2} value={product.size3_3}>{product.size3_3}</li>
+                          <li className="detail_second_li" id="case1_1" onClick={GetClick2} value={case1_colorName2_2.size1}>{case1_colorName2_2.size1}</li>
+                          <li className="detail_second_li" id="case2_1" onClick={GetClick2} value={case1_colorName2_20.size1}>{case1_colorName2_20.size1}</li>
+                          <li className="detail_second_li" id="case3_1" onClick={GetClick2} value={case1_colorName2_200.size1}>{case1_colorName2_200.size1}</li>
                           {/* {product.size3 ? <li className="detail_second_li" id="case1_1" onClick={GetClick2} value={product.size3}>{product.size3}</li> : null}
                           {product.size3_2 ? <li className="detail_second_li" id="case2_1" onClick={GetClick2} value={product.size3_2}>{product.size3_2}</li> : null}
                           {product.size3_3 ? <li className="detail_second_li" id="case3_1" onClick={GetClick2} value={product.size3_3}>{product.size3_3}</li> : null} */}
@@ -594,7 +622,9 @@ function ProductPage() {
                     <Link  style={{color:'inherit'}}to={{
                       pathname: `/OrderPage`,
                       state: { 
-                          title: `${product.name} / ${isColorName} / ${isShowSizeName}`,
+                          title: `${product.name}`,
+                          size: `${isShowSizeName}`,
+                          color: `${isColorName}`,
                           price: product.price,
                           imgThumb: product.imageUrl,
                       }
