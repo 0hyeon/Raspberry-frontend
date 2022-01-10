@@ -6,6 +6,8 @@ import product from "../_modules/product"
 import user from "../_modules/user";
 import setaddress from "../_modules/setaddress";
 import productoptions from "../_modules/productoptions";
+import productoptionDetails from "../_modules/productoptionDetails";
+import orderresult from "../_modules/orderresult";
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
 
@@ -19,6 +21,8 @@ const rootReducer = combineReducers({
   user:user,
   setaddress:setaddress,
   productoptions:productoptions,
+  productoptionDetails:productoptionDetails,
+  orderresult:orderresult,
   router: connectRouter(history),
 });
 

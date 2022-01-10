@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
-import {  connect,useSelector } from 'react-redux';
+import {  useDispatch,connect,useSelector } from 'react-redux';
 import axios from "axios";
 import {API_URL} from "../config/constants";
 import { useHistory } from "react-router-dom";
+import { actionCreators as OrderResult } from "../_modules/orderresult";
 const Payment = (props) => {
-    
+    const dispatch = useDispatch();
     const history = useHistory();//리액트훅
-    let {userName,userAddress,userAddressdetail,userPhone,userEmail,userMemo,name,size,color,price} = props
+    let {userName,userAddress,userAddressdetail,userPhone,userEmail,userMemo,name,size,color,price,product_option_id,ProductStock,ProductOrderNum} = props
     let userState = useSelector(state => state.user.user);
     let setAddressState = useSelector(state => state.setaddress.setaddress);
 
@@ -23,6 +24,7 @@ const Payment = (props) => {
             document.head.removeChild(jquery);
             document.head.removeChild(iamport);
         }
+        
     }, []);
     const onClickPayment = () => {
 
@@ -40,8 +42,7 @@ const Payment = (props) => {
             name: name,     // 주문명 (필수항목)
             amount: price ,// 금액 (필수항목)
             custom_data: {
-                name: '부가정보',
-                desc: '세부 부가정보'
+                name:product_option_id
             },
             buyer_name: userName,       // 구매자 이름
             buyer_tel: userPhone,   // 구매자 전화번호 (필수항목)
@@ -51,12 +52,15 @@ const Payment = (props) => {
         };
 
         
-        axios.post(`${API_URL}/v1/order/payment`,{
+        axios.post(`${API_URL}/v1/order/payment`,{//1차적으로 db에추가
             od_id : data.merchant_uid, //거래번호 
             mb_id: userState.user_id,//사용자 id
+            product_option_id:product_option_id,//구매한 상품옵션
             name:data.name,//상품명
             size:size,//사이즈
             color:color,//컬러
+            ordernum:ProductOrderNum,//주문수량
+            stock:ProductStock,//남은재고
             od_name:data.buyer_name,//배송받을 이름
             od_email:data.buyer_email,//이메일
             od_tel: data.buyer_tel,//핸드폰번호
@@ -73,11 +77,13 @@ const Payment = (props) => {
             od_settle_case:data.pay_method,//결제수단
             od_tno:null//거래번호
         }).then((result) =>{
+            dispatch(OrderResult.setOrderResultSV(data.merchant_uid,data.name,data.amount,color,size,data.buyer_tel,data.buyer_addr,userMemo,ProductOrderNum));
             console.log(result);
             // alert("결제완료");
+
         }).catch((error) => {
             console.log(error);
-            alert("결제실패");
+            alert("결제실패1");
         });
         IMP.request_pay(data, callback);
 
@@ -86,7 +92,6 @@ const Payment = (props) => {
 
     const callback= async (response) => {
         const {success, error_msg, imp_uid, merchant_uid, pay_method, paid_amount, status} = response;
-        
         if (success) {
             console.log('success',success);//true
             console.log('error_msg',error_msg);//undefined
@@ -99,37 +104,38 @@ const Payment = (props) => {
 
             //결제완료 업데이트 
             //수량 -1 ,결제완료, 거래번호(imp_uid)업데이트
-            axios.post(`${API_URL}/v1/order/paymentUpdate`,{
+            axios.post(`${API_URL}/v1/order/paymentUpdate`,{//결제완료후 2차 db업데이트 
                 od_id : merchant_uid, //거래번호 
                 od_status:"결제완료",//거래상태 (결제대기 , 결제완료, 배송준비, 배송중, 배송완료 )
                 od_tno:imp_uid//거래번호
-                //상품이름 -1해줄용도
+
+                //상품이름,컬러,사이즈 req (-1해줄용도)
+                // name:name,
+                // colorType:colorType,
+                // size1:size1
             }).then((result) =>{
-                console.log(result);
+                // console.log(result);
                 alert("결제완료");
-                
+                history.push("/OrderResult");
             }).catch((error) => {
                 console.log(error);
-                alert("결제실패!!");
+                alert("결제실패2");
             });
             
-            history.push("/OrderResult");
         } else {
             alert(`결제 실패 : ${error_msg}`);
         }
     }
- 
     return (
         <>
-            <button type="button" id="purchase-button" onClick={onClickPayment}>결제하기</button>
+            <button type="button" id="purchase-button" className='mt30' onClick={onClickPayment}>결제하기</button>
         </>
     );
 }
 
 const mapStateToProps = (state) => {
     return {
-      allProducts: state.allProducts
+        allProducts: state.allProducts
     }
-  }
-  
+}
 export default connect(mapStateToProps)(Payment);

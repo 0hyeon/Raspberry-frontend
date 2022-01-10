@@ -26,13 +26,13 @@ label{
     border: 1px solid transparent;
     height: 50px;
     font-size: 14px;
-    margin-top: 30px;
 }
 .postCode_btn{
     position: absolute;
 }
 #popupDom > div > div {
     padding: inherit!important  ;
+    top: -236px!important;
 }
 .OrderPage_productArea{
     border-top: 1px solid #909090;

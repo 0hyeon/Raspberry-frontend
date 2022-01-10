@@ -103,6 +103,9 @@ const RightMenu = (props) => {
           0
           </div> : null}
         </Menu.Item>
+        <Menu.Item key="order">
+          <Link to="/order">Order</Link>
+        </Menu.Item>
       </Menu>
 
           
@@ -125,6 +128,9 @@ const RightMenu = (props) => {
           <Menu.Item key="app2">
             <Link to="/Search">Search</Link>
           </Menu.Item>
+          <Menu.Item key="order">
+              <Link to="/order">Order</Link>
+            </Menu.Item>
           <Menu.Item key="cart">
             <Link to="/CartPage" className="cartCount_in_a">
             {isLogin ? <ShoppingCartOutlined /> : null}
@@ -134,6 +140,7 @@ const RightMenu = (props) => {
             {user.cartItem.length}
             </div> : null}
             </Link>
+            
             <ReactAudioPlayer
               src={BGM}
               loop

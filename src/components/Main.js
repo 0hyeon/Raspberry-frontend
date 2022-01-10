@@ -63,8 +63,8 @@ function Main(props) {
         }
         // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
         await axios
-          .post(`${API_URL}/v1/cart/setCartItem`, body)
-          .then(function(result){
+            .post(`${API_URL}/v1/cart/setCartItem`, body)
+            .then(function(result){
             // const products = result.data.products;
             // setProducts(products);
             // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
@@ -95,10 +95,11 @@ function Main(props) {
         
     }, [isproduct_list]);
 
-    // React.useEffect(() => {
-    //     dispatch(productOptionActions.setProductOptionsSV(products.name));
-    //     console.log("메인에서 products.name 보내는곳",products);
-    // }, [products,dispatch])
+    React.useEffect(() => {
+        console.log('!!!!!!!')
+        console.log('products.name!!!!!!!',products.name)
+        dispatch(productOptionActions.setProductOptionsSV(products.name));
+    }, [isproduct_list,dispatch])
     //로그아웃
 	// App 컴포넌트에서 전달받은 props 값은 아래와 같이 받아온다.
 	const isLogin = props.isLogin
@@ -120,14 +121,14 @@ function Main(props) {
                 <button type='button' onClick={onLogout}>Logout</button>
             </div> */}
             <MainPage />
-            <h1 id="product-headline">NEW2 ARRIVALS</h1>
+            <h1 id="product-headline">NEW ARRIVALS</h1>
             <div className="product-list-wrapper" id="product-list">
                 {/* 상품리스트 */}
                 {products && products.map(function (product, index) {
                 return (
                     <div className="product-card">
                     {
-                        product.soldout === 1 && <div className="product-blur" />
+                        product.soldout === 100 && <div className="product-blur" />
                     }
                     <Link
                         style={{ color: "inherit" }}
@@ -139,12 +140,11 @@ function Main(props) {
                         </div>
                         <div className="product-contents">
                         <span className="product-name">{product.name}</span>
-                        <span className="product-price">{AddComma(product.price)} won</span>
-                        <div className="product-color">
-                                {product.color1 ? <div className="product-color_1" style={{backgroundColor:product.color1}}></div> : null}
-                                {product.color2 ? <div className="product-color_1" style={{backgroundColor:product.color2}}></div> : null}
-                                {product.color3 ? <div className="product-color_1" style={{backgroundColor:product.color3}}></div> : null}
-                        </div>
+                        {product.soldout === 1 
+                        ?<span className="product-price">Soldout.</span> 
+                        :<span className="product-price">{AddComma(product.price)} won</span> 
+                        }
+                        
                         <div className="product-footer">
                             
                             <div className="product-seller">

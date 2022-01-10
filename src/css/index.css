@@ -33,7 +33,7 @@
     width: calc(100%/3 - 60px);
     margin:10px 30px;
     border: 1px solid rgb(230, 230, 230);
-    border-radius: 12px;
+    /* border-radius: 12px; */
     overflow: hidden;
     position: relative;
     text-align: center;
@@ -118,10 +118,11 @@
     color: rgb(136,136,136);
   }
   #product-headline{
-    margin: 100px 0px 30PX;
+    margin: 400px 0px 150PX;
     text-align: center;
-    font-size: 50px;
+    font-size: 70px;
     font-weight: 100;
+    text-decoration: line-through;
   }
   #top_banner{
     width:100%;

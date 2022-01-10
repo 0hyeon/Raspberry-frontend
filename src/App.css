@@ -176,7 +176,7 @@ button {
 }
 
 #Logo_style {
-  width:75px;
+  width:65px;
 }
 button{
   cursor: pointer;
@@ -209,7 +209,7 @@ button{
 }
 
 .react-audio-player  {
-    right: -160px;
+    right: -175px;
     width: 137px;
     top: -15px;
     opacity: 0.6;

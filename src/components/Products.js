@@ -14,6 +14,7 @@ import {addToCart, setProducts, selectedProduct, removeSelectedProduct, decideTo
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";	// 추가
 import { actionCreators as productOptionActions } from "../_modules/productoptions";
+import { actionCreators as productOptionActionsDetails } from "../_modules/productoptionDetails";
 import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
 import "swiper/components/pagination/pagination.scss";
@@ -57,6 +58,10 @@ function ProductPage() {
   
   //컬러 클릭후 사이즈 보여주기 -> Free , m
   const [isShowSizeName, setShowSizeName] = useState(null);
+  const [isColorType, setColorType] = useState(null);
+  const [isProductId, setProductId] = useState(null);
+//현재남은 재고 수량 update
+  const [isnowProductNum, setnowProductNum] = useState(null);
 
   //단순히 사이즈ui  보여주는 상태관리 isShowSize == 컬러이름이면 사이즈 show 
   const [isShowSize, setShowSize] = useState(false);
@@ -77,6 +82,9 @@ function ProductPage() {
   // color
   const [scrollFlag, setScrollFlag] = useState(false);
   const [scrollFlag2, setScrollFlag2] = useState(false);
+  
+  const [isSoldOut, setSoldOut] = useState(false);
+
   
   let Session = sessionStorage.getItem('user_id');
   // statrt
@@ -167,20 +175,59 @@ function ProductPage() {
     // headerStyle.style.backgroundColor = "inherit";
     case3.style.border = "none";
   }
+
+  // const loggogo = whyerrorObject && whyerrorObject.find((item) => String(item.colorType) == String(1)[0]);
+  // const loggogo2 = whyerrorObject && whyerrorObject.find((item) => String(item.colorType) == String(1)[1]);
+  // const loggogo3 = whyerrorObject && whyerrorObject.map((item) => String(item.colorType) == String(1));
+  const colorTypeCategory = whyerrorObject && whyerrorObject.map((item) => {return(item)});
+  
+  const case1_colorType1 = colorTypeCategory && colorTypeCategory.filter((item) => {
+    if(item.colorType == 1){
+      return true;
+    }
+    return false;
+  });
+  const case1_colorType2 = colorTypeCategory && colorTypeCategory.filter((item) => {
+    if(item.colorType == 2){
+      return true;
+    }
+    return false;
+  });
+  const case1_colorType3 = colorTypeCategory && colorTypeCategory.filter((item) => {
+    if(item.colorType == 3){
+      return true;
+    }
+    return false;
+  });
+  const case1_colorName2 = case1_colorType1 && case1_colorType1[0];
+  const case1_colorName20 = case1_colorType1 && case1_colorType1[1];
+  const case1_colorName200 = case1_colorType1 && case1_colorType1[2];
+
+  const case1_colorName2_1 =  case1_colorType2 && case1_colorType2[0];
+  const case1_colorName2_10 =  case1_colorType2 && case1_colorType2[1];
+  const case1_colorName2_100 =  case1_colorType2 && case1_colorType2[2];
+
+  const case1_colorName2_2 =  case1_colorType3 && case1_colorType3[0];
+  const case1_colorName2_20 =  case1_colorType3 && case1_colorType3[1];
+  const case1_colorName2_200 =  case1_colorType3 && case1_colorType3[2];
+  // const loggogo3 = whyerrorObject && whyerrorObject.find((item) => String(item.colorType) == String(1))[2];
+  // const loggogo4 = whyerrorObject && whyerrorObject.find((item) => String(item.colorType) == String(2))[0];
+  // console.log(case1_colorName2);
+  // console.log(case1_colorName20);
+  // console.log(case1_colorName200);
+
+  // console.log(case1_colorName2_1);
+  // console.log(case1_colorName2_10);
+  // console.log(case1_colorName2_100);
+
+  // console.log(case1_colorName2_2);
+  // console.log(case1_colorName2_20);
+  // console.log(case1_colorName2_200);
   //색상1 정의 
-  const case1_colorName2 =  whyerrorObject && whyerrorObject[0];
-  const case1_colorName20 =  whyerrorObject && whyerrorObject[1];
-  const case1_colorName200 =  whyerrorObject && whyerrorObject[2];
-  //색상2 정의
-  const case1_colorName2_1 =  whyerrorObject && whyerrorObject[3];
-  const case1_colorName2_10 =  whyerrorObject && whyerrorObject[4];
-  const case1_colorName2_100 =  whyerrorObject && whyerrorObject[5];
-  //색상3 정의
-  const case1_colorName2_2 =  whyerrorObject && whyerrorObject[6];
-  const case1_colorName2_20 =  whyerrorObject && whyerrorObject[7];
-  const case1_colorName2_200 =  whyerrorObject && whyerrorObject[8];
   // console.log(scrollFlag);
   // console.log(scrollFlag2);
+  // const loggogo = whyerrorObject &&whyerrorObject.find((item) => String(item.id) === String(product.relateProduct1)).id
+  
   useEffect(() => {
     //스크롤 잡아주는 장치
     const updateScroll = () => {
@@ -254,49 +301,120 @@ function ProductPage() {
         setColorName(case1_colorName2 && case1_colorName2.colorName1);//스카이블루 표현
         setShowSize(case1_colorName2 && case1_colorName2.colorName1);//size ui 보여줌 
 
-      }else if(e.target.id == "case2"){
+      }if(e.target.id == "case2"){
         setColorName(case1_colorName2_1 && case1_colorName2_1.colorName1)
         setShowSize(case1_colorName2_1 && case1_colorName2_1.colorName1);
       }else if(e.target.id == "case3"){
         setColorName(case1_colorName2_2 && case1_colorName2_2.colorName1);
-        setShowSize(case1_colorName2_2 && case1_colorName2_2.colorName1);
+        setShowSize(case1_colorName2_2 && case1_colorName2_2.colorName1);//사이즈 Free, SS
       }
       setShowSizeName(null);
     }
     // console.log(e.target.id);
   };
+  // useEffect(() => {
+    
+  // }, [isProductId])
+
   const GetClick2 = (e) => {//Size 클릭
     if (e.target.className == "detail_second_li" ){
-      if(e.target.textContent == ""){
-        return;
-      }
+      // if(e.target.textContent == ""){
+      //   return;
+      // }
       setCurrentClick2(e.target.id);//클릭시 스타일처리와 이전클릭에 사용 상태관리  
-      if(isShowSize == `${case1_colorName2 && case1_colorName2.colorName1}`){ 
+      if(isShowSize === `${case1_colorName2 && case1_colorName2.colorName1}`){ //블랙
         if(e.target.id == "case1_1"){
           setShowSizeName(case1_colorName2 && case1_colorName2.size1);
+          setColorType(case1_colorName2 && case1_colorName2.colorType);
+          setProductId(case1_colorName2 && case1_colorName2.id);
+          setnowProductNum(case1_colorName2 && case1_colorName2.quantity1);
         }else if (e.target.id == "case2_1"){
           setShowSizeName(case1_colorName20 && case1_colorName20.size1);
+          setColorType(case1_colorName20 && case1_colorName20.colorType);
+          setProductId(case1_colorName20 && case1_colorName20.id);
+          setnowProductNum(case1_colorName20 && case1_colorName20.quantity1);
         }else if (e.target.id == "case3_1"){
           setShowSizeName(case1_colorName200 && case1_colorName200.size1);
+          setColorType(case1_colorName200 && case1_colorName200.colorType);
+          setProductId(case1_colorName200 && case1_colorName200.id);
+          setnowProductNum(case1_colorName200 && case1_colorName200.quantity1);
         }
-      }else if(`${isShowSize == case1_colorName2_1 && case1_colorName2_1}`){ 
+      }else if(`${isShowSize === case1_colorName2_1 && case1_colorName2_1.colorName1}`){//초록
         if(e.target.id == "case1_1"){
           setShowSizeName(case1_colorName2_1 && case1_colorName2_1.size1);
+          setColorType(case1_colorName2_1 && case1_colorName2_1.colorType);
+          setProductId(case1_colorName2_1 && case1_colorName2_1.id);
+          setnowProductNum(case1_colorName2_1 && case1_colorName2_1.quantity1);
         }else if (e.target.id == "case2_1"){
           setShowSizeName(case1_colorName2_10 && case1_colorName2_10.size1);
+          setColorType(case1_colorName2_10 && case1_colorName2_10.colorType);
+          setProductId(case1_colorName2_10 && case1_colorName2_10.id);
+          setnowProductNum(case1_colorName2_10 && case1_colorName2_10.quantity1);
         }else if (e.target.id == "case3_1"){
           setShowSizeName(case1_colorName2_100 && case1_colorName2_100.size1);
-        }
-      }else if(`${isShowSize == case1_colorName2_2 && case1_colorName2_2}`){ 
-        if(e.target.id == "case1_1"){
-          setShowSizeName(case1_colorName2_2 && case1_colorName2_2.size1);
-        }else if (e.target.id == "case2_1"){
-          setShowSizeName(case1_colorName2_20 && case1_colorName2_20.size1);
-        }else if (e.target.id == "case3_1"){
-          setShowSizeName(case1_colorName2_200 && case1_colorName2_200.size1);
+          setColorType(case1_colorName2_100 && case1_colorName2_100.colorType);
+          setProductId(case1_colorName2_100 && case1_colorName2_100.id);
+          setnowProductNum(case1_colorName2_100 && case1_colorName2_100.quantity1);
         }
       }
-
+      // else if(isShowSize === case1_colorName2_2 && case1_colorName2_2.colorName1 ){
+      //   if(e.target.id == "case1"){
+      //     setColorName(case1_colorName2 && case1_colorName2.colorName1);//스카이블루 표현
+      //     setShowSize(case1_colorName2 && case1_colorName2.colorName1);//size ui 보여줌 
+  
+      //   }if(e.target.id == "case2"){
+      //     setColorName(case1_colorName2_1 && case1_colorName2_1.colorName1)
+      //     setShowSize(case1_colorName2_1 && case1_colorName2_1.colorName1);
+      //   }else if(e.target.id == "case3"){
+      //     setColorName(case1_colorName2_2 && case1_colorName2_2.colorName1);
+      //     setShowSize(case1_colorName2_2 && case1_colorName2_2.colorName1);//사이즈 Free, SS
+      //   }
+      // }
+      // else if(`${isShowSize === case1_colorName2_2 && case1_colorName2_2.colorName1}`){ //빨강
+      //   if(e.target.id == "case1_1"){
+      //     setShowSizeName(case1_colorName2_2 && case1_colorName2_2.size1);
+      //     setColorType(case1_colorName2_2 && case1_colorName2_2.colorType);
+      //     setProductId(case1_colorName2_2 && case1_colorName2_2.id);
+      // setnowProductNum(setProductId(case1_colorName2_2 &&.quantity1);
+      //   }else if (e.target.id == "case2_1"){
+      //     setShowSizeName(case1_colorName2_20 && case1_colorName2_20.size1);
+      //     setColorType(case1_colorName2_20 && case1_colorName2_20.colorType);
+      //     setProductId(case1_colorName2_20 && case1_colorName2_20.id);
+      // setnowProductNum(setProductId(case1_colorName2_20 &&.quantity1);
+      //   }else if (e.target.id == "case3_1"){
+      //     setShowSizeName(case1_colorName2_200 && case1_colorName2_200.size1);
+      //     setColorType(case1_colorName2_200 && case1_colorName2_200.colorType);
+      //     setProductId(case1_colorName2_200 && case1_colorName2_200.id);
+      // setnowProductNum(setProductId(case1_colorName2_200 &&.quantity1);
+      //   }
+      //   return;
+      // }
+      
+    }
+  };
+  const GetClick3 = (e) => {//Size 클릭
+    if (e.target.className == "detail_second_li" ){
+      // if(e.target.textContent == ""){
+      //   return;
+      // }
+      setCurrentClick2(e.target.id);//클릭시 스타일처리와 이전클릭에 사용 상태관리  
+        if(e.target.id == "case1_1"){
+          setShowSizeName(case1_colorName2_2 && case1_colorName2_2.size1);
+          setColorType(case1_colorName2_2 && case1_colorName2_2.colorType);
+          setProductId(case1_colorName2_2 && case1_colorName2_2.id);
+          setnowProductNum(case1_colorName2_2 && case1_colorName2_2.quantity1);
+        }else if (e.target.id == "case2_1"){
+          setShowSizeName(case1_colorName2_20 && case1_colorName2_20.size1);
+          setColorType(case1_colorName2_20 && case1_colorName2_20.colorType);
+          setProductId(case1_colorName2_20 && case1_colorName2_20.id);
+          setnowProductNum(case1_colorName2_20 && case1_colorName2_20.quantity1);
+        }else if (e.target.id == "case3_1"){
+          setShowSizeName(case1_colorName2_200 && case1_colorName2_200.size1);
+          setColorType(case1_colorName2_200 && case1_colorName2_200.colorType);
+          setProductId(case1_colorName2_200 && case1_colorName2_200.id);
+          setnowProductNum(case1_colorName2_200 && case1_colorName2_200.quantity1);
+        }
+      
     }
   };
   
@@ -309,7 +427,6 @@ function ProductPage() {
         setLoading(true);
         // const products = result.data.products;
         // setProducts(products);
-        // console.log(result.data.products);
         // dispatch(setProducts(result.data));
         setLoading(false);
         // console.log(result.data.products);
@@ -332,7 +449,6 @@ function ProductPage() {
         const product = result.data.product;
         setProduct(product);
         settotalPrice(product.price);
-       
         setProductColor(product.description);
         dispatch(selectedProduct(result.data));
         // console.log("setProductColor" ,isProductColor);
@@ -479,10 +595,12 @@ function ProductPage() {
           setwhyerrorObject(whyerrorObject);
         return <h1>상품 정보를 받고 있습니다...</h1>;
     }
-    console.log(product)
   }, [product,dispatch])
   // }, [setCartUi_View,setPrevClick,prevClick,prevClick2,id]);
   // },[]);
+  useEffect(() => {
+    dispatch(productOptionActionsDetails.setProductDetailSV(isProductId,product.name,isColorName,isShowSizeName,product.price,product.imageUrl,isColorType,isnowProductNum,isCartUi));
+  }, [dispatch,isShowSizeName,isProductId,isColorName,isColorType,isnowProductNum,isCartUi])
   const onClickPurchase = () =>{//구매하기 클릭이벤트
     // axios.post(`${API_URL}/purchase/${id}`).then((result)=>{
       
@@ -507,7 +625,11 @@ function ProductPage() {
     // message.info("구매가 완료되었습니다.");
     
   }
-  
+  console.log("isProductId!!!!!",isProductId);
+  console.log("isShowSize!!!!!",isShowSize);
+  console.log("isnowProductNum!!!!!",isnowProductNum);
+  console.log("case1_colorName2_1 && case1_colorName2_1.colorName1!!!!!",case1_colorName2_1 && case1_colorName2_1.colorName1);
+  console.log("case1_colorName2_2 && case1_colorName2_2.colorName1!!!!!",case1_colorName2_2 && case1_colorName2_2.colorName1);
   return (
     // <div style={{background:'url(http://localhost:8000/uploads/c2eb3b9de2d11.jpg)'}}>
     <div>
@@ -555,17 +677,13 @@ function ProductPage() {
                       </ul>
                     </div>
                     {isShowSize == `${case1_colorName2 && case1_colorName2.colorName1}`
-                    // {isShowSize == case1_colorName2 && case1_colorName2.colorName1
                       ? <div className="detail_size">
                           SIZE : {isShowSizeName}
                           <ul className="detail_second detail_Common">
                           {/* {product.color1 ? <div>heyy1</div> : null} */}
-                          <li className="detail_second_li" id="case1_1" onClick={GetClick2} value={case1_colorName2.size1}>{case1_colorName2.size1}</li>
-                          <li className="detail_second_li" id="case2_1" onClick={GetClick2} value={case1_colorName20.size1}>{case1_colorName20.size1}</li>
-                          <li className="detail_second_li" id="case3_1" onClick={GetClick2} value={case1_colorName200.size1}>{case1_colorName200.size1}</li>
-                          {/* {product.size1 ? <li className="detail_second_li" id="case1_1" onClick={GetClick2} value={product.size1}>{product.size1}</li> : null} */}
-                          {/* {product.size1_2 ? <li className="detail_second_li" id="case2_1" onClick={GetClick2} value={product.size1_2}>{product.size1_2}</li> : null}
-                          {product.size1_3 ? <li className="detail_second_li" id="case3_1" onClick={GetClick2} value={product.size1_3}>{product.size1_3}</li> : null} */}
+                          <li className="detail_second_li" id="case1_1" onClick={GetClick2} value={case1_colorName2 && case1_colorName2.size1}>{case1_colorName2 &&case1_colorName2.size1}</li>
+                          <li className="detail_second_li" id="case2_1" onClick={GetClick2} value={case1_colorName20 && case1_colorName20.size1}>{case1_colorName20 &&case1_colorName20.size1}</li>
+                          <li className="detail_second_li" id="case3_1" onClick={GetClick2} value={case1_colorName200 && case1_colorName200.size1}>{case1_colorName200 &&case1_colorName200.size1}</li>
                           </ul>
                         </div>
                       : null
@@ -575,12 +693,12 @@ function ProductPage() {
                           SIZE : {isShowSizeName}
                           <ul className="detail_second detail_Common">
                           {/* {product.color1 ? <div>heyy2</div> : null} */}
-                          <li className="detail_second_li" id="case1_1" onClick={GetClick2} value={case1_colorName2_1.size1}>{case1_colorName2_1.size1}</li>
-                          <li className="detail_second_li" id="case2_1" onClick={GetClick2} value={case1_colorName2_10.size1}>{case1_colorName2_10.size1}</li>
-                          <li className="detail_second_li" id="case3_1" onClick={GetClick2} value={case1_colorName2_100.size1}>{case1_colorName2_100.size1}</li>
-                          {/* {product.size2 ? <li className="detail_second_li" id="case1_1" onClick={GetClick2} value={product.size2}>{product.size2}</li> : null}
-                          {product.size2_2 ? <li className="detail_second_li" id="case2_1" onClick={GetClick2} value={product.size2_2}>{product.size2_2}</li> : null}
-                          {product.size2_3 ? <li className="detail_second_li" id="case3_1" onClick={GetClick2} value={product.size2_3}>{product.size2_3}</li> : null} */}
+                          <li className="detail_second_li" id="case1_1" onClick={GetClick2} value={case1_colorName2_1 && case1_colorName2_1.size1}>{case1_colorName2_1 && case1_colorName2_1.size1}</li>
+                          <li className="detail_second_li" id="case2_1" onClick={GetClick2} value={case1_colorName2_10 && case1_colorName2_10.size1}>{case1_colorName2_10 && case1_colorName2_10.size1}</li>
+                          <li className="detail_second_li" id="case3_1" onClick={GetClick2} value={case1_colorName2_100 && case1_colorName2_100.size1}>{case1_colorName2_100 && case1_colorName2_100.size1}</li>
+                          {/* {product.size2 ? <lsize1 className="detail_second_li" id="case1_1" onClick={GetClick2} value={product.size2}>{produsize1.size2}</lsize1 : null}
+                          {product.size2_2 ? <lsize1 className="detail_second_li" id="case2_1" onClick={GetClick2} value={product.size2_2}>{produsize1.size2_2}</lsize1 : null}
+                          {product.size2_3 ? <lsize1 className="detail_second_li" id="case3_1" onClick={GetClick2} value={product.size2_3}>{produsize1.size2_3}</lsize1 : null} */}
                           </ul>
                         </div>
                       : null 
@@ -590,9 +708,9 @@ function ProductPage() {
                           SIZE : {isShowSizeName}
                           <ul className="detail_second detail_Common">
                           {/* {product.color1 ? <div>heyy3</div> : null} */}
-                          <li className="detail_second_li" id="case1_1" onClick={GetClick2} value={case1_colorName2_2.size1}>{case1_colorName2_2.size1}</li>
-                          <li className="detail_second_li" id="case2_1" onClick={GetClick2} value={case1_colorName2_20.size1}>{case1_colorName2_20.size1}</li>
-                          <li className="detail_second_li" id="case3_1" onClick={GetClick2} value={case1_colorName2_200.size1}>{case1_colorName2_200.size1}</li>
+                          <li className="detail_second_li" id="case1_1" onClick={GetClick3} value={case1_colorName2_2 && case1_colorName2_2.size1}>{case1_colorName2_2 && case1_colorName2_2.size1}</li>
+                          <li className="detail_second_li" id="case2_1" onClick={GetClick3} value={case1_colorName2_20 && case1_colorName2_20.size1}>{case1_colorName2_20 && case1_colorName2_20.size1}</li>
+                          <li className="detail_second_li" id="case3_1" onClick={GetClick3} value={case1_colorName2_200 && case1_colorName2_200.size1}>{case1_colorName2_200 && case1_colorName2_200.size1}</li>
                           {/* {product.size3 ? <li className="detail_second_li" id="case1_1" onClick={GetClick2} value={product.size3}>{product.size3}</li> : null}
                           {product.size3_2 ? <li className="detail_second_li" id="case2_1" onClick={GetClick2} value={product.size3_2}>{product.size3_2}</li> : null}
                           {product.size3_3 ? <li className="detail_second_li" id="case3_1" onClick={GetClick2} value={product.size3_3}>{product.size3_3}</li> : null} */}
@@ -618,18 +736,19 @@ function ProductPage() {
                 <br />
                 {currentClick && currentClick2 ?
                   // <Payment name={product.name +"/"+ isColorName +"/"+ isShowSizeName}     price={istotalPrice} />
-                  <Button id="purchase-button">
-                    <Link  style={{color:'inherit'}}to={{
-                      pathname: `/OrderPage`,
-                      state: { 
-                          title: `${product.name}`,
-                          size: `${isShowSizeName}`,
-                          color: `${isColorName}`,
-                          price: product.price,
-                          imgThumb: product.imageUrl,
-                      }
-                    }}>결제하기</Link>
-                  </Button>
+                  // quantity1가 0이면 품절처리 
+                  isnowProductNum < 1  ?  
+                    <Button id="solout-button">
+                    품절
+                    </Button>
+                    : 
+                    <Button id="purchase-button">
+                      <Link  
+                        style={{color:'inherit'}}
+                        to={`/OrderPage`}
+                    >결제하기</Link>
+                    </Button>
+                  
                   :
                   <Button id="purchase-button" onClick={ onClickPurchase }>
                     결제하기

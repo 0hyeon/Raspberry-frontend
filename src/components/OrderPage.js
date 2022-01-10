@@ -5,64 +5,75 @@ import axios from "axios";
 import {API_URL} from "../config/constants";
 import { useHistory,useLocation }from "react-router-dom";
 import "../css/Register.css";
+import "../css/OrderPage.css";
+
 import Test from "./Test"
 import Payment from "./Payment";
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 function OrderPage() {
+    const dispatch = useDispatch();
     let userState = useSelector(state => state.user.user);
+    let useProductOpt = useSelector(state => state.productoptionDetails.productoptionDetails);
     let [inputVal, inputChangeVal] = useState(userState.user_name);
     let [inputValPhone, inputChangeValPhone] = useState(userState.user_phonenumber);
     let [inputValEmail, inputChangeValEmail] = useState(userState.user_email);
     let [inputValMemo, inputChangeValMemo] = useState(null);
+    let [siwpeOrder, setsiwpeOrder] = useState(false);
+
     //주소에 따른 배송비
     let userStateAddress = useSelector(state => state.setaddress.setaddress);
     let [isuserStateAddress, setuserStateAddress] = useState(null);
     let [deliveryconst, setdeliveryconst] = useState(100);
 
-
     const [htmlData, setHtmlData] = useState(userState.user_address);
     const [htmlDatadetail, setHtmlDatadetail] = useState(userState.user_address_detail);
     const location = useLocation()
     const history = useHistory();
-    const Producttitle = location.state.title
-    const Productsize = location.state.size
-    const Productcolor = location.state.color
-    const Productprice = location.state.price
-    const Productimg = location.state.imgThumb
+    const product_option_id = useProductOpt.id
+    const Producttitle = useProductOpt.name
+    const Productcolor = useProductOpt.color
+    const Productsize = useProductOpt.size
+    const Productprice = useProductOpt.price
+    const Productimg = useProductOpt.imageurl
+    const ProductStock = useProductOpt.quantity1
+    const ProductOrderNum = useProductOpt.orderquantity
     const initialValues = {
-        user_id: "",
-        user_pw: "",
         user_name: "",
         user_address:"",
+        user_address_detail:"",
         user_phonenumber:"",
         user_email:"",
     };
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
     const validationSchema = Yup.object().shape({
-        user_name: Yup.string().min(1, '1자리 이상 입력해 주세요.').max(5, '5자리 미만을 입력해 주세요.'),
+        user_name: Yup.string().min(2, '아이디는 2글자 이상입니다.').max(10, '아이디는 10글자를 넘지 못해요.'),
         user_email: Yup.string().email('이메일형식이 아닙니다.').max(255),
         user_phonenumber: Yup.string().matches(phoneRegExp, 'Phone number is not valid')
     });
     
     const onSubmit = useCallback(
         (data) => {
-            const pw_naming = document.getElementById('inputCreatePostuser_pw').value;
-            const email_naming = document.getElementById('inputCreatePostuser_email').value;
             const name_naming = document.getElementById('inputCreatePostuser_name').value;
+            const phone_naming = document.getElementById('inputCreatePostuser_phone').value;
+            const email_naming = document.getElementById('inputCreatePostuser_email').value;
             const user_address1 = document.getElementById('inputAdd').value;
             const user_address2 = document.getElementById('inputdetailAdd').value;
-
             data.user_address =  user_address1;
             data.user_address_detail = user_address2;
-            // if (!nickBtn){
-            //     alert('아이디 중복체크를 확인해주세요.')
-            //     return;
-            // }else if(!email_naming){
-            //     alert('이메일을 확인해주세요.')
-            //     return;
-            // }else if(name_naming.length < 2 || name_naming.length > 5  ){
-            //     alert('이름을 확인해주세요.')
-            // }
+            if (name_naming == ""){
+                alert('주문자명을 확인해주세요.')
+                return;
+            }else if(user_address1 == ""){
+                alert('주소를 확인해주세요.')
+                return;
+            }else if(phone_naming.length < 10 ){
+                alert('핸드폰번호를 확인해주세요.')
+                return;
+            }else if(email_naming == ""){
+                alert('이메일을 입력해주세요.')
+                return;
+            }
+            
             // axios.post(`${API_URL}/v1/user_inform`, data).then(()=>{
             //     console.log(data);
             // })
@@ -161,8 +172,36 @@ function OrderPage() {
     const formik = useFormik({
         initialValues
     })
+    useEffect(() => {
+            const name_naming = document.getElementById('inputCreatePostuser_name').value;
+            const phone_naming = document.getElementById('inputCreatePostuser_phone').value;
+            const email_naming = document.getElementById('inputCreatePostuser_email').value;
+            const user_address1 = document.getElementById('inputAdd').value;
+            const user_address2 = document.getElementById('inputdetailAdd').value;
+            if (name_naming == ""){
+                setsiwpeOrder(false);
+                return;
+            }else if(user_address1 == ""){
+                setsiwpeOrder(false);
+                return;
+            }else if(phone_naming.length < 10 ){
+                setsiwpeOrder(false);
+                return;
+            }else if(email_naming == ""){
+                setsiwpeOrder(false);
+                return;
+            }else{
+                setsiwpeOrder(true);
+            }
+            console.log(inputValEmail);
+    }, [inputValEmail,siwpeOrder])
     
-
+    if (useProductOpt == [] ||useProductOpt == "" || useProductOpt == null || useProductOpt == undefined ){//리덕스 새로고침시 state없어져서 루트로 보냄 
+        history.push("/");
+    }
+    // console.log(useProductOpt);
+    // const heyy = {"name":3}
+    // console.log(heyy.name);
     return (
         <div>
             <Formik
@@ -177,8 +216,8 @@ function OrderPage() {
                                 <img style={{width:'90px'}}src={`${API_URL}/${Productimg}`} alt="ThumbImage" />
                             </div>
                             <div className='OrderPage_productArea_wrapper_right'>
-                                <div>{`${Producttitle} / ${Productsize} / ${Productcolor}` }</div>
-                                <div className='OrderPage_Productprice'>{Productprice} won + 
+                                <div>{`${Producttitle} / ${Productsize} / ${Productcolor} / ${ProductOrderNum}개` }</div>
+                                <div className='OrderPage_Productprice'>{Productprice * ProductOrderNum} won + 
                                 <span style={{fontSize:'25px'}}> 배송비 </span>
                                 <span id="deliveryconst">({deliveryconst} won)</span>
                                 </div>
@@ -202,7 +241,7 @@ function OrderPage() {
                     <label> 주소 :</label>
                     <span style={{color:'black',padding:'10px'}}>(제주 및 도서 산간 지역의 배송은 추가 배송비가 발생할 수 있습니다.)</span>
                     <Test value={htmlData} 
-                          onChange={ (e)=>{setHtmlData(e.target.value)} }
+                        onChange={ (e)=>{setHtmlData(e.target.value)} }
                     />
                     
                     <label> 핸드폰번호 :</label>
@@ -211,7 +250,7 @@ function OrderPage() {
                         autoComplete="off"
                         id="inputCreatePostuser_phone"
                         name="user_phonenumber"
-                        placeholder="01012345678 (-) 없이입력해주세요"
+                        placeholder="(-) 없이입력해주세요"
                         className="input_id"
                         value={inputValPhone}
                         onChange={ (e)=>{inputChangeValPhone(e.target.value)} }
@@ -240,9 +279,14 @@ function OrderPage() {
                         value={inputValMemo}
                         onChange={ (e)=>{inputChangeValMemo(e.target.value)} }
                     />
-                    <button type="submit"> 결제하기</button>
-
-                    <Payment userName={inputVal} userAddress={htmlData} userAddressdetail={htmlDatadetail} userPhone={inputValPhone} userEmail={inputValEmail} userMemo={inputValMemo} name={Producttitle} size={Productsize} color={Productcolor} price={Productprice+deliveryconst} />
+                    {/* 현재수량 , 주문한수량 */}
+                    {
+                        siwpeOrder 
+                        ? 
+                        <Payment userName={inputVal} userAddress={htmlData} userAddressdetail={htmlDatadetail} userPhone={inputValPhone} userEmail={inputValEmail} userMemo={inputValMemo} name={Producttitle} size={Productsize} color={Productcolor} price={(Productprice *  ProductOrderNum)+deliveryconst} product_option_id={product_option_id} ProductStock={ProductStock} ProductOrderNum={ProductOrderNum} style={{width:'100%'}}/> 
+                        : 
+                        <button type="submit" style={{width:"100%"}}>결제하기</button>
+                    }
                 </Form>
             </Formik>
         </div>

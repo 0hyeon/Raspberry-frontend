@@ -20,7 +20,7 @@ const initialState = {
 //middle
 //메인페이지에서 상품 리스트 불러오기
 const setProductOptionsSV = (productname)=>{
-    console.log("Action productname 받아오는곳",productname);
+    // console.log("Action productname 받아오는곳",productname);
     return function(dispatch) {
         // instance.get(`${API_URL}/producsts`)
 

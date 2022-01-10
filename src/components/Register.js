@@ -22,10 +22,10 @@ function Registration() {
     const validationSchema = Yup.object().shape({
         user_id: Yup.string().min(2, '아이디는 2글자 이상입니다.').max(10, '아이디는 10글자를 넘지 못해요.').required('사용하실 아이디를 입력해 주세요.'),
         // user_email: Yup.string().email().min(3, '3자리 이상 입력해 주세요.').max(25, '25글자를 넘지 못해요.').required('이메일을 입력해주세요.'),
-        user_pw: Yup.string().min(6, '6자리 이상 입력해 주세요.').max(13, '13자리 미만을 입력해 주세요.').required('비밀번호를 입력해 주세요.'),
-        user_name: Yup.string().min(1, '1자리 이상 입력해 주세요.').max(5, '5자리 미만을 입력해 주세요.').required('이름을 입력해 주세요.'),
+        user_pw: Yup.string().min(6, '6자리 이상 입력해 주세요.').max(15, '15자리 미만을 입력해 주세요.').required('비밀번호를 입력해 주세요.'),
+        user_name: Yup.string().min(1, '1자리 이상 입력해 주세요.').max(15, '15자리 미만을 입력해 주세요.').required('이름을 입력해 주세요.'),
         user_email: Yup.string().email('이메일형식이 아닙니다.').max(255).required('이메일을 입력해주세요.'),
-        user_phonenumber: Yup.string().matches(phoneRegExp, 'Phone number is not valid')
+        user_phonenumber: Yup.string().min(1, '1자리 이상 입력해 주세요.').matches(phoneRegExp, '너무짧습니다.')
     });
     
     const onSubmit = useCallback(
@@ -45,11 +45,18 @@ function Registration() {
             }else if(!email_naming){
                 alert('이메일을 확인해주세요.')
                 return;
-            }else if(pw_naming.length < 2 || pw_naming.length > 13){
+            }else if(pw_naming.length < 2 || pw_naming.length > 16){
                 alert('비밀번호를 확인해주세요.')
                 return;
-            }else if(name_naming.length < 2 || name_naming.length > 5  ){
+            }else if(name_naming.length < 2 || name_naming.length > 16  ){
                 alert('이름을 확인해주세요.')
+                return;
+            }else if(user_address1 === ""){
+                alert('주소를 입력해주세요.')
+                return;
+            }else if(user_address2 === ""){
+                alert('상세주소를 입력해주세요.')
+                return;
             }
             console.log(data);
             axios.post(`${API_URL}/v1/user_inform/`, data).then(()=>{
@@ -157,7 +164,7 @@ function Registration() {
                         autoComplete="off"
                         id="inputCreatePostuser_phone"
                         name="user_phonenumber"
-                        placeholder="01012345678 (-) 없이입력해주세요"
+                        placeholder="(-) 없이입력해주세요"
                         className="input_id"
                     />
                     <button type="submit"> 회원가입</button>
