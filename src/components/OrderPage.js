@@ -18,7 +18,7 @@ function OrderPage() {
     let [inputValPhone, inputChangeValPhone] = useState(userState.user_phonenumber);
     let [inputValEmail, inputChangeValEmail] = useState(userState.user_email);
     let [inputValMemo, inputChangeValMemo] = useState(null);
-    let [siwpeOrder, setsiwpeOrder] = useState(false);
+    let [siwpeOrder, setsiwpeOrder] = useState(false);//true면 paymeny컴포넌트 false면 유효성검사 component
 
     //주소에 따른 배송비
     let userStateAddress = useSelector(state => state.setaddress.setaddress);
@@ -63,8 +63,8 @@ function OrderPage() {
             if (name_naming == ""){
                 alert('주문자명을 확인해주세요.')
                 return;
-            }else if(user_address1 == ""){
-                alert('주소를 확인해주세요.')
+            }else if(user_address1 == "" || user_address2 == ""){
+                alert('주소, 상세주소를 입력해주세요.')
                 return;
             }else if(phone_naming.length < 10 ){
                 alert('핸드폰번호를 확인해주세요.')

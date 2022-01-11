@@ -6,9 +6,11 @@ import {API_URL} from "../config/constants";
 import { useHistory }from "react-router-dom";
 import "../css/Register.css";
 import Test from "./Test"
+import { useDispatch } from 'react-redux';
 function Registration() {
+    const dispatch = useDispatch();
     const history = useHistory();
-    
+
     const [nickBtn, setNickBtn] = useState(false);
     const initialValues = {
         user_id: "",
@@ -35,10 +37,12 @@ function Registration() {
             const name_naming = document.getElementById('inputCreatePostuser_name').value;
             const user_address1 = document.getElementById('inputAdd').value;
             const user_address2 = document.getElementById('inputdetailAdd').value;
-
+            const user_phone = document.getElementById('inputCreatePostuser_phone').value;
+            const user_address_postzone = document.getElementById('inputPostzone').value;
+            console.log("zonecode!!!!!",user_address_postzone);//undefined뜸 
             data.user_address =  user_address1;
             data.user_address_detail = user_address2;
-
+            data.user_address_postzone = user_address_postzone;
             if (!nickBtn){
                 alert('아이디 중복체크를 확인해주세요.')
                 return;
@@ -56,6 +60,9 @@ function Registration() {
                 return;
             }else if(user_address2 === ""){
                 alert('상세주소를 입력해주세요.')
+                return;
+            }else if(user_phone === ""){
+                alert('핸드폰 번호를 입력해주세요. ^^;')
                 return;
             }
             console.log(data);
@@ -97,6 +104,9 @@ function Registration() {
             console.log(error);
         });
     }
+    useEffect(()=>{
+        console.log("dispatch Effect작동!")
+    },[dispatch])
     return (
         <div>
             <Formik

@@ -36,6 +36,7 @@ table > tbody > tr > td {
 }
 .text_left{
     text-align: left;
+    padding-left: 30px;
 }
 .sod_list_head{
     border-bottom:1px solid #ddd;

@@ -22,11 +22,12 @@ const PopupPostCode = (props) => {
         }
 
 
-        // console.log(data)
-        // console.log(fullAddress)
-        // console.log(data.zonecode)
+        console.log(data)
+        console.log(fullAddress)
+        console.log(data.zonecode)
         props.onClose()
         props.setHtmlData(fullAddress);
+        props.setHtmlData2(data.zonecode);
         dispatch(userActions.setAddressSV(data));
     }
  

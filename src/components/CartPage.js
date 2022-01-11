@@ -23,13 +23,13 @@ function CartPage(props) {
 
         let Session = sessionStorage.getItem('user_id');
         let body = {
-          seSsionId: Session
+            seSsionId: Session
           // heyt: session_redux
         }
         // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
         await axios
-          .post(`${API_URL}/v1/cart/setCartItem`, body)
-          .then(function(result){
+            .post(`${API_URL}/v1/cart/setCartItem`, body)
+            .then(function(result){
             // const products = result.data.products;
             // setProducts(products);
             // dispatch(setRequestLoding())//loding true로 장바구니 랜더링

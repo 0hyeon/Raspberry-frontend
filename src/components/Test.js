@@ -7,7 +7,8 @@ const Test = (props) => {
     let userState = useSelector(state => state.user.user);   
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [htmlData, setHtmlData] = useState(userState.user_address);
-    const [detailhtmlData, detailsetHtmlData] = useState(null);
+    const [htmlData2, setHtmlData2] = useState(userState.user_address_postzone);
+    const [detailhtmlData, detailsetHtmlData] = useState(userState.user_address_detail);
     
     // props.setHtmlData(htmlData);
 	// 팝업창 열기
@@ -23,6 +24,7 @@ const Test = (props) => {
     const onChange1 = (event) => {
         detailsetHtmlData(event.target.value);
     }
+    
 
 
     useEffect(() => {
@@ -35,8 +37,11 @@ const Test = (props) => {
         <>
             <input id="inputAdd" className='input_id' readOnly style={{background:'#f2f2f2'}} value={htmlData} onChange={ (e)=>{setHtmlData(e.target.value)} }></input>
             <input id="inputdetailAdd" className='input_id' placeholder='상세주소' value={detailhtmlData} onChange={onChange1}></input>
+
+            <input type="hidden" id="inputPostzone" className='input_id' value={htmlData2} onChange={ (e)=>{setHtmlData2(e.target.value)} }></input>
         	{/* // 버튼 클릭 시 팝업 생성 */}
-            {detailhtmlData === null || detailhtmlData === ""
+
+            {htmlData === null || htmlData === "" || htmlData == [] || htmlData == undefined && detailhtmlData === null || detailhtmlData === "" || detailhtmlData == [] || detailhtmlData == undefined
                 ? <button type='button' onClick={openPostCode}>우편번호 검색</button> 
                 : <button type='button' className='btn-ok' onClick={openPostCode}>완료</button> 
             }
@@ -45,7 +50,7 @@ const Test = (props) => {
             <div id='popupDom'>
                 {isPopupOpen && (
                     <PopupDom>
-                        <PopupPostCode onClose={closePostCode} setHtmlData={setHtmlData} />
+                        <PopupPostCode onClose={closePostCode} setHtmlData={setHtmlData} setHtmlData2={setHtmlData2} />
                     </PopupDom>
                 )}
                 
