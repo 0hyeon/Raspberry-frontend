@@ -50,7 +50,7 @@ const Payment = (props) => {
             buyer_addr: `${userAddress} / ${userAddressdetail}`,//구매자주소
             buyer_postalcode: setAddressState.zonecode//우편주소
         };
-
+        console.log("data",data);
         
         axios.post(`${API_URL}/v1/order/payment`,{//1차적으로 db에추가
             od_id : data.merchant_uid, //거래번호 
@@ -67,7 +67,7 @@ const Payment = (props) => {
             od_zip: data.buyer_postalcode,//우편번호 5자리
             od_addr1:data.buyer_addr,//주소
             od_addr2:userAddressdetail,//상세주소
-            od_momo:userMemo,//메모
+            od_memo:userMemo,//메모
             od_cart_price: data.amount,//주문금액
             od_send_cost:100,//배송비
             od_bank_account:null,

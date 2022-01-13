@@ -17,7 +17,7 @@ const initialState = {
 
 //middle
 //메인페이지에서 상품 리스트 불러오기
-const setProductDetailSV = (id,name,color,size,price,imageurl,colortype,quantity1,orderquantity)=>{
+const setProductDetailSV = (Data)=>{
     // console.log("id!!!!!!!!받는곳",id);
     // console.log("name!!!!!!!!받는곳",name);
     // console.log("color!!!!!!!!받는곳",color);
@@ -29,7 +29,7 @@ const setProductDetailSV = (id,name,color,size,price,imageurl,colortype,quantity
     //남은수량
     //주문한수량
     return function(dispatch) {
-        dispatch(setProductoptionDetails({id,name,color,size,price,imageurl,colortype,quantity1,orderquantity}));
+        dispatch(setProductoptionDetails(Data));
     }
 }
 

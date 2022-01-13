@@ -6,11 +6,12 @@ import {API_URL} from "../config/constants";
 import { useHistory,useLocation }from "react-router-dom";
 import "../css/Register.css";
 import "../css/OrderPage.css";
+import "../css/OrderPageMulti.css";
 
 import Test from "./Test"
 import Payment from "./Payment";
 import { useSelector,useDispatch } from 'react-redux';
-function OrderPage() {
+function OrderPageMulti() {
     const dispatch = useDispatch();
     let userState = useSelector(state => state.user.user);
     let useProductOpt = useSelector(state => state.productoptionDetails.productoptionDetails);
@@ -19,6 +20,7 @@ function OrderPage() {
     let [inputValEmail, inputChangeValEmail] = useState(userState.user_email);
     let [inputValMemo, inputChangeValMemo] = useState(null);
     let [siwpeOrder, setsiwpeOrder] = useState(false);//true면 paymeny컴포넌트 false면 유효성검사 component
+    let [istotalcost, settotalcost] = useState(null);
 
     //주소에 따른 배송비
     let userStateAddress = useSelector(state => state.setaddress.setaddress);
@@ -29,14 +31,31 @@ function OrderPage() {
     const [htmlDatadetail, setHtmlDatadetail] = useState(userState.user_address_detail);
     const location = useLocation()
     const history = useHistory();
-    const product_option_id = String(useProductOpt.isProductId)
-    const Producttitle = useProductOpt.p_name
-    const Productcolor = useProductOpt.isColorName
-    const Productsize = useProductOpt.isShowSizeName
-    const Productprice = useProductOpt.p_price
-    const Productimg = useProductOpt.p_imgUrl
-    const ProductStock = useProductOpt.isnowProductNum
-    const ProductOrderNum = useProductOpt.isCartUi
+    const product_option_id = useProductOpt.map((item)=>{return(item.it_option_id)}).join();
+    console.log("상품옵션ID : ",product_option_id);
+
+    const Producttitle = useProductOpt.map((item)=>{return(item.it_name)}).join();
+    console.log("제품명 : ",Producttitle);
+
+    const Productcolor = useProductOpt.map((item)=>{return(item.it_Detail_color)}).join();
+    console.log(Productcolor);
+
+    const Productsize = useProductOpt.map((item)=>{return(item.it_Detail_size)}).join();
+    console.log(Productsize);
+
+    const Productprice = useProductOpt.map((item)=>{return(item.it_sc_price)}).join();
+    console.log(Productprice);
+
+    const Productimg = useProductOpt.map((item)=>{return(item.thumb_name)}).join();
+    console.log(Productimg);
+
+    //이게없음
+    const ProductStock = useProductOpt.map((item)=>{return(item.it_sc_stock)}).join();
+    console.log("재고",ProductStock);
+
+    const ProductOrderNum = useProductOpt.map((item)=>{return(item.it_Detail_quanity)}).join();
+    console.log("주문수량",ProductOrderNum);
+
     const initialValues = {
         user_name: "",
         user_address:"",
@@ -194,7 +213,14 @@ function OrderPage() {
                 setsiwpeOrder(true);
             }
             console.log(inputValEmail);
-    }, [inputValEmail,siwpeOrder])
+            settotalcost(
+                useProductOpt && useProductOpt
+                .map((item )=> item.it_sc_price * item.it_Detail_quanity)
+                .reduce((accumulator, currentNumber) => {return(
+                    accumulator + currentNumber
+                )})
+            )
+    }, [inputValEmail,siwpeOrder,useProductOpt])
     
     if (useProductOpt == "" || useProductOpt == null || useProductOpt == undefined ){//리덕스 새로고침시 state없어져서 루트로 보냄 
         history.push("/");
@@ -202,8 +228,6 @@ function OrderPage() {
     // console.log(useProductOpt);
     // const heyy = {"name":3}
     // console.log(heyy.name);
-    console.log("isProductId!",product_option_id);
-    console.log("isProductId!",useProductOpt.isProductId);
     return (
         <div>
             <Formik
@@ -213,19 +237,28 @@ function OrderPage() {
             >
                 <Form className="formContainer">
                     <h2 className="registerTop">주문상품</h2>
-                        <div className='OrderPage_productArea_wrapper'>
-                            <div className='OrderPage_productArea_wrapper_left'>
-                                <img style={{width:'90px'}}src={`${API_URL}/${Productimg}`} alt="ThumbImage" />
-                            </div>
-                            <div className='OrderPage_productArea_wrapper_right'>
-                                <div>{`${Producttitle} / ${Productsize} / ${Productcolor} / ${ProductOrderNum}개` }</div>
-                                <div className='OrderPage_Productprice'>{Productprice * ProductOrderNum} won + 
-                                <span style={{fontSize:'25px'}}> 배송비 </span>
-                                <span id="deliveryconst">({deliveryconst} won)</span>
-                                </div>
+                            {useProductOpt && useProductOpt.map((item )=>{
+                                return(
+                                    <>
+                                    <div className='OrderPage_productArea_wrapper'>
+                                        <div className='OrderPage_productArea_wrapper_left'>
+                                            <img style={{width:'90px'}}src={`${API_URL}/${item.thumb_name}`} alt="ThumbImage" />
+                                        </div>
+                                        <div className='OrderPage_productArea_wrapper_right'>
+                                            <div>{`${item.it_name} / ${item.it_Detail_color} / ${item.it_Detail_size} / ${item.it_Detail_quanity}개` }</div>
+                                            <div className='OrderPage_Productprice'>{item.it_sc_price * item.it_Detail_quanity} won + 
+                                                <span style={{fontSize:'25px'}}> 배송비 </span>
+                                                <span id="deliveryconst">({deliveryconst} won)</span>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    </>
+                                );
+                            })}
+                            <div className='totalPriced'>
+                            총비용 : {istotalcost} won
                             </div>
                             
-                        </div>
                     <h2 className="registerTop">배송지</h2>
                     {/* 아이디 */}
                     <label className='borderLine'> 주문자명 :</label>
@@ -303,7 +336,7 @@ function OrderPage() {
                     {
                         siwpeOrder 
                         ? 
-                        <Payment userName={inputVal} userAddress={htmlData} userAddressdetail={htmlDatadetail} userPhone={inputValPhone} userEmail={inputValEmail} userMemo={inputValMemo} name={Producttitle} size={Productsize} color={Productcolor} price={(Productprice *  ProductOrderNum)+deliveryconst} product_option_id={product_option_id} ProductStock={ProductStock} ProductOrderNum={ProductOrderNum} style={{width:'100%'}}/> 
+                        <Payment userName={inputVal} userAddress={htmlData} userAddressdetail={htmlDatadetail} userPhone={inputValPhone} userEmail={inputValEmail} userMemo={inputValMemo} name={Producttitle} size={Productsize} color={Productcolor} price={istotalcost} product_option_id={product_option_id} ProductStock={ProductStock} ProductOrderNum={ProductOrderNum} style={{width:'100%'}}/> 
                         : 
                         <button type="submit" style={{width:"100%"}}>결제하기</button>
                     }
@@ -313,4 +346,4 @@ function OrderPage() {
     );
 }
 
-export default OrderPage
+export default OrderPageMulti

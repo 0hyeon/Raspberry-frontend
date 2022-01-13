@@ -82,10 +82,16 @@ function Login() {
                 <div className='tacenter'>
                     <button id="LoginButton"type='button' onClick={onClickLogin}>로그인</button>
                 </div>
-                <div className='tacenter'>
+                <div className=''>
                     <button id="PassWordGoing" onClick={function () {
                         history.push("/PassWordEmail");
                     }}>비밀번호찾기
+                    </button>
+                </div>
+                <div className='' style={{marginTop:"10px"}}>
+                    <button id="PassWordGoing" onClick={function () {
+                        history.push("/registration");
+                    }}>회원가입 
                     </button>
                 </div>
             </div>

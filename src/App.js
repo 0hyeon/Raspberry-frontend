@@ -31,6 +31,7 @@ const Admin = loadable(() => import('./components/Admin'))
 const ProductsUpdate = loadable(() => import('./components/ProductsUpdate'))
 const Search = loadable(() => import('./components/Search'))
 const OrderPage = loadable(() => import('./components/OrderPage'))
+const OrderPageMulti = loadable(() => import('./components/OrderPageMulti'))
 const OrderResult = loadable(() => import('./components/OrderResult'))
 const Order = loadable(() => import('./components/Order'))
 // const SearchCopmonent = loadable(() => import('./components/search/SearchCopmonent'))
@@ -204,6 +205,9 @@ function App () {
             </Route>
             <Route exact={true} path="/OrderPage">
               <OrderPage />
+            </Route>
+            <Route exact={true} path="/OrderPageMulti">
+              <OrderPageMulti />
             </Route>
             <Route exact={true} path="/OrderResult">
               <OrderResult />

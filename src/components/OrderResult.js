@@ -5,9 +5,9 @@ import { history } from "../_reducers/index";
 const OrderResult = () => {
     let userOrderResult = useSelector(state => state.orderresult.orderresult);
     
-    useEffect(() => {
-        history.push("/");
-    },[])
+    // useEffect(() => {
+    //     history.push("/");
+    // },[])
     return (
         <div className='orderResult'>
             <strong>주문내역 : </strong>

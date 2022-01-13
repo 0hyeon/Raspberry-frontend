@@ -134,7 +134,7 @@ function ProductPage() {
   const clickHandler = () => {
 
     if (Session == null){
-      alert('로그인을 해주셔야 합니다.')
+      alert('장바구니 기능은 로그인을 해주셔야 합니다.')
       return;
     }
     if(!currentClick){
@@ -517,7 +517,8 @@ function ProductPage() {
       it_Detail_color: isColorName,
       it_Detail_size : isShowSizeName, 
       it_Detail_quanity: Number(isCartUi),
-      //수량이랑 토탈가격 
+      it_option_id :isProductId,
+      it_sc_stock:isnowProductNum
     }
     await axios
       .post(`${API_URL}/v1/cart/decideToCart`, body)
@@ -599,7 +600,22 @@ function ProductPage() {
   // }, [setCartUi_View,setPrevClick,prevClick,prevClick2,id]);
   // },[]);
   useEffect(() => {
-    dispatch(productOptionActionsDetails.setProductDetailSV(isProductId,product.name,isColorName,isShowSizeName,product.price,product.imageUrl,isColorType,isnowProductNum,isCartUi));
+    const p_name = product.name
+    const p_price = product.price
+    const p_imgUrl = product.imageUrl
+
+    const setProductDetailSV_Data = {
+      isProductId,
+      p_name,
+      isColorName,
+      isShowSizeName,
+      p_price,
+      p_imgUrl,
+      isColorType,
+      isnowProductNum,
+      isCartUi
+    }
+    dispatch(productOptionActionsDetails.setProductDetailSV(setProductDetailSV_Data));
   }, [dispatch,isShowSizeName,isProductId,isColorName,isColorType,isnowProductNum,isCartUi])
   const onClickPurchase = () =>{//구매하기 클릭이벤트
     // axios.post(`${API_URL}/purchase/${id}`).then((result)=>{
@@ -632,7 +648,7 @@ function ProductPage() {
   console.log("case1_colorName2_2 && case1_colorName2_2.colorName1!!!!!",case1_colorName2_2 && case1_colorName2_2.colorName1);
   return (
     // <div style={{background:'url(http://localhost:8000/uploads/c2eb3b9de2d11.jpg)'}}>
-    <div>
+    <div style={{background:'url("")', backgroundSize:"cover"}}>
         <div className="content_wrapper">
             <div id="image-box" className="content">
                 {/* <img src={`${API_URL}/${product.imageUrl}`} alt="" /> */}
@@ -852,7 +868,6 @@ function ProductPage() {
                 </a>
             </>
             }
-             
           </div>
         </div>
     </div>

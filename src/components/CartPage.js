@@ -8,8 +8,11 @@ import { Link } from "react-router-dom";
 import Payment from "./Payment";
 import {deleteCart,increment,decrement,setCartItem,setRequestLoding2} from '../_actions/userAction'
 import { DeleteOutlined } from '@ant-design/icons';
+import { actionCreators as productActions } from "../_modules/product";
+import { actionCreators as productOptionActionsDetails } from "../_modules/productoptionDetails";
+import { Button } from "antd";
 import axios from "axios";
- 
+
 function CartPage(props) {
     const [isinputqty, setinputqty] = useState(null);
     const CartList = useSelector((state) => state.allProducts.cartItem);
@@ -46,6 +49,13 @@ function CartPage(props) {
         
         // dispatch(setProducts(result.data));
     };
+    useEffect(() => {
+        dispatch(productActions.setProductSV());//product
+        // console.log("CartList.cartItem",CartList.cartItem.map((item)=> item));
+        const cartList_map = CartList.cartItem.map((item)=> item);
+        console.log(cartList_map);
+        dispatch(productOptionActionsDetails.setProductDetailSV(cartList_map));
+    }, [dispatch,CartList.cartItem])
     const Delete_Handelr = async(e) => {
         
         let cartId = e.target.id;
@@ -98,7 +108,6 @@ function CartPage(props) {
     for(let i = 0;i<TotalPrice.length;i++){
         TotalPrice2 = Number(TotalPrice2) + Number(TotalPrice[i])
     }
-
     //console.log("총가격",TotalPrice2);    
     return (
         <div className="CartPage_Wrapper">
@@ -146,7 +155,7 @@ function CartPage(props) {
                                 <div className="input_qty input_qty_side" id="input_qty_plus" onClick={(e) => {input_qty_handler(product,e)}}>+</div>
                             </td>
                             <td>{AddComma( product.it_Detail_quanity * product.it_sc_price)}</td>
-                            <td>2500원
+                            <td rowSpan={CartList.cartItem.length} style={{border:"1px solid #ddd"}} className="targetRowspan">2500원
                                 100,000이상 
                             </td>
                             <td className="remove_box_wrapper" >
@@ -179,7 +188,13 @@ function CartPage(props) {
                         <div className="total_Price_Text textAlignB">합계</div>
                         <div className="total_Price_Number textAlignB">{AddComma(TotalPrice2 < 100000 ? TotalPrice2+2500 : TotalPrice2)} won</div>
                     </div>
-                    <Payment name={CartList.cartItem.length+"개상품"} price={TotalPrice2 < 100000 ? TotalPrice2+2500 : TotalPrice2} />
+                    {/* <Payment name={CartList.cartItem.length+"개상품"} price={TotalPrice2 < 100000 ? TotalPrice2+2500 : TotalPrice2} /> */}
+                    {/* <Button id="purchase-button"> */}
+                    <Link  
+                        style={{color:'inherit'}}
+                        to={`/OrderPageMulti`}
+                    >결제하기</Link>
+                    {/* </Button> */}
                 </div>
             }
         </div>

@@ -121,49 +121,53 @@ function Main(props) {
                 <button type='button' onClick={onLogout}>Logout</button>
             </div> */}
             <MainPage />
-            <h1 id="product-headline">NEW ARRIVALS</h1>
-            <div className="product-list-wrapper" id="product-list">
-                {/* 상품리스트 */}
-                {products && products.map(function (product, index) {
-                return (
-                    <div className="product-card">
-                    {
-                        product.soldout === 100 && <div className="product-blur" />
-                    }
-                    <Link
-                        style={{ color: "inherit" }}
-                        className="product-link"
-                        to={`/products/${product.id}`}
-                    >
-                        <div>
-                        <img className="product-img" src={`${API_URL}/${product.imageUrl}`} alt="" />
-                        </div>
-                        <div className="product-contents">
-                        <span className="product-name">{product.name}</span>
-                        {product.soldout === 1 
-                        ?<span className="product-price">Soldout.</span> 
-                        :<span className="product-price">{AddComma(product.price)} won</span> 
+            {/* <div style={{background:'url("https://i.pinimg.com/originals/05/86/7e/05867e0b50799fc48e91e2f3d5460b1e.gif")', backgroundSize:"cover"}}> */}
+            <div style={{background:'', backgroundSize:"cover"}}>
+            {/* <div style={{background:'url("https://i.pinimg.com/originals/a7/7f/62/a77f6215e2f77eb5a6e4e77d7298809d.gif")', backgroundSize:"cover"}}> */}
+                <h1 id="product-headline">NEW ARRIVALS</h1>
+                <div className="product-list-wrapper" id="product-list">
+                    {/* 상품리스트 */}
+                    {products && products.map(function (product, index) {
+                    return (
+                        <div className="product-card">
+                        {
+                            product.soldout === 100 && <div className="product-blur" />
                         }
-                        
-                        <div className="product-footer">
-                            
-                            <div className="product-seller">
-                            <img
-                                className="product-avatar"
-                                src="images/icons/avatar.png" alt=""
-                            />
-                            <span>{product.seller}</span>
+                        <Link
+                            style={{ color: "inherit" }}
+                            className="product-link"
+                            to={`/products/${product.id}`}
+                        >
+                            <div>
+                            <img className="product-img" src={`${API_URL}/${product.imageUrl}`} alt="" />
                             </div>
-                            <span className="product-date">{dayjs(product.createdAt).fromNow()}</span>
+                            <div className="product-contents">
+                            <span className="product-name">{product.name}</span>
+                            {product.soldout === 1 
+                            ?<span className="product-price">Soldout.</span> 
+                            :<span className="product-price">{AddComma(product.price)} won</span> 
+                            }
+                            
+                            <div className="product-footer">
+                                
+                                <div className="product-seller">
+                                <img
+                                    className="product-avatar"
+                                    src="images/icons/avatar.png" alt=""
+                                />
+                                <span>{product.seller}</span>
+                                </div>
+                                <span className="product-date">{dayjs(product.createdAt).fromNow()}</span>
+                            </div>
+                            </div>
+                        </Link>
                         </div>
-                        </div>
-                    </Link>
-                    </div>
-                );
-                })}
-            </div>
-            <div id="product-headline">Best Items</div>
-            <div className="product-list-wrapper" id="product-list">
+                    );
+                    })}
+                </div>
+                <div id="product-headline">Best Items</div>
+                <div className="product-list-wrapper" id="product-list">
+                </div>
             </div>
         </div>
     )

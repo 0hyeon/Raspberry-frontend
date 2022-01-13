@@ -76,9 +76,9 @@ const Order = () => {
     },[])
 
     const onClickOrderCheck = () => {//비회원 주문조회
-        console.log('click orderCheck')
-        console.log('inputordernum : ', inputordernum)// input 값 반영
-        console.log('inputPhone : ', inputPhone)// input 값 반영2
+        // console.log('click orderCheck')
+        // console.log('inputordernum : ', inputordernum)// input 값 반영
+        // console.log('inputPhone : ', inputPhone)// input 값 반영2
         const body = {
             merchant_uid: inputordernum, 
             od_tel: inputPhone
@@ -107,6 +107,7 @@ const Order = () => {
             // }
         })
         .catch((error) => {
+            alert("주문내역이 없는 주문번호입니다.")
             console.log(error);
         });
     }
