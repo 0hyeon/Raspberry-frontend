@@ -31,7 +31,7 @@
   
   .product-card {
     width: calc(100%/3 - 60px);
-    margin:10px 30px;
+    margin:50px 30px;
     /* border: 1px solid rgb(230, 230, 230); */
     /* border-radius: 12px; */
     overflow: hidden;
@@ -127,9 +127,10 @@
   #product-headline{
     padding: 400px 0px 150PX;
     text-align: center;
-    font-size: 70px;
     color: blacks;
     font-weight: 100;
+    font-family: 'Uiyeun';
+    font-size: 80px;
     /* filter: drop-shadow(2px 4px 6px coral); */
     /* text-decoration: line-through;
     filter: drop-shadow(2px 4px 6px black); */

@@ -7,7 +7,7 @@ import { actionCreators as OrderResult } from "../_modules/orderresult";
 const Payment = (props) => {
     const dispatch = useDispatch();
     const history = useHistory();//리액트훅
-    let {userName,userAddress,userAddressdetail,userPhone,userEmail,userMemo,name,size,color,price,product_option_id,ProductStock,ProductOrderNum} = props
+    let {userName,userAddress,userAddressdetail,userPhone,userEmail,userMemo,name,size,color,price,product_option_id,ProductStock,ProductOrderNum,ispayMethod} = props
     let userState = useSelector(state => state.user.user);
     let setAddressState = useSelector(state => state.setaddress.setaddress);
 
@@ -37,7 +37,7 @@ const Payment = (props) => {
         const data = {
             // pg: 'nice',     // PG사 (필수항목)
             pg: 'html5_inicis',     // PG사 (필수항목)
-            pay_method: 'card',     // 결제수단 (필수항목)
+            pay_method: ispayMethod,     // 결제수단 (필수항목)
             merchant_uid: `mid_${new Date().getTime()}`,  // 결제금액 (필수항목) ? 주문번호같음
             name: name,     // 주문명 (필수항목)
             amount: price ,// 금액 (필수항목)
@@ -119,7 +119,7 @@ const Payment = (props) => {
                 history.push("/OrderResult");
             }).catch((error) => {
                 console.log(error);
-                alert("결제실패2");
+                alert("결제실패");
             });
             
         } else {

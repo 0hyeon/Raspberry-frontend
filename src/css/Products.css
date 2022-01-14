@@ -277,8 +277,9 @@
   .detail_title{
     margin: 100px 0px 80PX;
     text-align: center;
-    font-size: 50px;
     font-weight: 100;
+    font-family: 'Gilroy';
+    font-size: 32px;
   }
   .ql-size-small{
     font-size: 0.75em;

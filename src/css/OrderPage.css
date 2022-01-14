@@ -17,5 +17,9 @@
 }
 .checkbox-group > label > input{
     margin-right:10px;
+    /* display: none; */
     
 }
+/* .checkbox-group > label:checked{
+    background-color: black;
+} */
