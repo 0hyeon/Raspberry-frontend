@@ -19,21 +19,21 @@ function ProductsUpdate() {
   const quillRef = useRef(); //🌈
 
 
-  const updateProduct = products.products.find((item) => String(item.id) === String(id)); 
+  const updateProduct = products.products && products.products.find((item) => String(item.id) === String(id)); 
   
   if(Session !== "admin"){
     alert("관리자 계정으로 로그인해주세요");
     document.location.href = '/'
   }
 
-  const [imageUrl, setImageUrl] = useState(updateProduct.imageUrl);
-  const [imageUrl2, setImageUrl2] = useState(updateProduct.imageUrl2);
-  const [imageUrl3, setImageUrl3] = useState(updateProduct.imageUrl3);
-  const [imageUrl4, setImageUrl4] = useState(updateProduct.imageUrl4);
-  const [imageUrl5, setImageUrl5] = useState(updateProduct.imageUrl5);
-  const [detailPage, setDetailPage] = useState(updateProduct.detailPage);
-  const [htmlContent, setHtmlContent] = useState(updateProduct.description); //🌈
-  // const [isPdprice, setPdprice] = useState(updateProduct.price);
+  const [imageUrl, setImageUrl] = useState(updateProduct && updateProduct.imageUrl);
+  const [imageUrl2, setImageUrl2] = useState(updateProduct && updateProduct.imageUrl2);
+  const [imageUrl3, setImageUrl3] = useState(updateProduct && updateProduct.imageUrl3);
+  const [imageUrl4, setImageUrl4] = useState(updateProduct && updateProduct.imageUrl4);
+  const [imageUrl5, setImageUrl5] = useState(updateProduct && updateProduct.imageUrl5);
+  const [detailPage, setDetailPage] = useState(updateProduct && updateProduct.detailPage);
+  const [htmlContent, setHtmlContent] = useState(updateProduct && updateProduct.description); //🌈
+  const [isSeller, setSeller] = useState(updateProduct && updateProduct.seller); //🌈
   const history = useHistory();//리액트훅   
 
 
@@ -44,6 +44,13 @@ function ProductsUpdate() {
 
     // }
     const editor_wysywic = document.getElementById("product-description").value
+    
+    console.log("values.name.length : ",values.name.length);
+    if(values.name.length < 2 || values.name.length > 38){
+    alert('상품명 2 ~ 37자 사이로 입력해주세요.');
+      return;
+    }
+
     axios.post(`${API_URL}/v1/product/Updateproducts/${id}`,{
       name : values.name,
       description : editor_wysywic,
@@ -153,6 +160,11 @@ function ProductsUpdate() {
       setDetailPage(detailPage);
     }
   }
+  
+  const onChangeSeller = (e) => {
+    setSeller(e.target.value);
+  }
+
   const fetchProductDetail = async () => {
     dispatch(removeSelectedProduct());
     await axios
@@ -175,7 +187,7 @@ function ProductsUpdate() {
   useEffect(() => {
     fetchProductDetail();
   },[]);
-  
+
   if (products === null) {
     return <h1>상품 정보를 받고 있습니다...</h1>;
   }
@@ -262,7 +274,7 @@ function ProductsUpdate() {
           name="upload"
           label={<div className="upload-label">상세페이지</div>}
         >
-         <Upload name="image" action={`${API_URL}/detailPage`} listType="picture" showUploadList={false} onChange={onChangeDetailPage}>
+        <Upload name="image" action={`${API_URL}/detailPage`} listType="picture" showUploadList={false} onChange={onChangeDetailPage}>
             {
               detailPage ? (
                 <img id="upload-img" src= {`${API_URL}/${detailPage}`} alt="."/> 
@@ -286,6 +298,8 @@ function ProductsUpdate() {
             className="product-seller"
             size="large"
             placeholder={updateProduct.seller}
+            onChange={onChangeSeller}
+            value={isSeller}
           />
         </Form.Item>
         <Divider />
@@ -309,9 +323,9 @@ function ProductsUpdate() {
           rules={[{ required: true, message: "상품 가격을 입력해주세요" }]}
         >
           <InputNumber 
-           className="product-price" 
-           size="large" 
-           placeholder={updateProduct.price}
+            className="product-price" 
+            size="large" 
+            placeholder={updateProduct.price}
           />
         </Form.Item>
         <Divider />
@@ -624,9 +638,9 @@ function ProductsUpdate() {
         </Form.Item> */}
          {/* 위지윅 에디터  */}
         <Form.Item
-        name="description2"
-        label={<div className="upload-label">상품 소개</div>}
-        rules={[{ required: false, message: "판매자 이름을 입력해주세요" }]}
+          name="description2"
+          label={<div className="upload-label">상품 소개</div>}
+          rules={[{ required: false, message: "상품 소개를 입력해주세요" }]}
         >
           <Input.TextArea
             style={{display:"none"}}
@@ -634,7 +648,7 @@ function ProductsUpdate() {
             id="product-description"
             showCount
             maxLength={300}
-            placeholder="상품 소개를 적어주세요."
+            placeholder={updateProduct.description}
             value={htmlContent}
             onChange={setHtmlContent}
           />

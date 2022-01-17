@@ -30,34 +30,32 @@ function Login() {
             user_pw: inputPw
         };
         axios.post(`${API_URL}/v1/user_inform/onLogin`, body, {
-            // 쿠키를 보내고 싶을때
             withCredentials:true
         })
         .then(res => {
             console.log('res',res);
             console.log('res.data',res.data);
-            console.log('res.data.user_id :: ', res.data.user_id);
-            console.log('res.data.msg :: ', res.data.msg);
-            
-            
+            console.log('res.data.user_id :: ', res.data.user_id);//토큰값
+            console.log('res.data.msg :: ', res.data.msg);//백엔드에서 보낸메시지
 
-            if(res.data.msg == '입력하신 id 가 존재하지 않습니다.'){
+            if(res.data.loginSuccess == false){
                 // id 일치하지 않는 경우 userId = undefined, msg = '입력하신 id 가 일치하지 않습니다.'
-                //console.log('======================',res.data.msg)
+                console.log('======================',res.data.msg)
                 console.log('======================',res.data)
-                alert('입력하신 id 가 존재하지 않습니다.');
-            } else if(res.data.msg == '비밀번호가 일치하지 않습니다.'){
-                // id는 있지만, pw 는 다른 경우 userId = null , msg = undefined
-                console.log('======================','입력하신 비밀번호 가 일치하지 않습니다.')
-                alert('입력하신 비밀번호 가 일치하지 않습니다.');
-            } else if(res.data.user_id == inputId && res.data.user_pw == inputPw) {
-                // id, pw 모두 일치 userId = userId1, msg = undefined
-                sessionStorage.setItem('user_id', inputId)//세션 생성
-                let Session = console.log( sessionStorage.getItem('user_id') );
+                // alert('입력하신 id 가 존재하지 않습니다.');
+                alert(res.data.msg);
+            } else if(res.data.loginSuccess == true) {
+                // if(inputId == 'admin'){
+                //     sessionStorage.setItem('user_id','admin')//세션 생성
+                //     let Session = console.log( sessionStorage.getItem('user_id') );
+                //     console.log('user_id!!!',Session);
+                // }else{
+                sessionStorage.setItem('user_id',res.data.user_id)//세션 생성
+                console.log( "token : ",sessionStorage.getItem('user_id') );
+                // }
                 dispatch(userActions.setUserSV());
-                console.log('user_id!!!',Session);
                 console.log('======================','로그인 성공')
-                alert('로그인 성공');
+                alert(res.data.msg);
                 history.push("/");
                 // history.goBack();
             }

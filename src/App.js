@@ -39,7 +39,6 @@ function App () {
   // const history = useHistory();
  // 로그인 상태 관리
   const [isLogin, setIsLogin] = useState(false)
-  const [isAdmin, setAdmin] = useState(false)
  
   const [scrollFlag, setScrollFlag] = useState(false); 
   const [bgstart,setbgstart ] = useState(true); 
@@ -59,14 +58,8 @@ function App () {
     // 로그인 상태 변경
       setIsLogin(true)
       console.log('isLogin ?? :: ', isLogin)
-      if(sessionStorage.getItem('user_id') == 'admin'){//관리자계정일시 
-        console.log('isAdmin ?? :: ', isAdmin)
-        setAdmin(true)
-      }else{
-        console.log('isAdmin ?? :: ', isAdmin)
-      }
+      
     }
-   
     let headerStyle = document.getElementsByClassName("menuBar")[0];
     let headerStyle2 = document.getElementById("Logo_style");
     if(scrollFlag){
@@ -140,35 +133,6 @@ function App () {
           <Switch>
             <Route exact={true} path="/">
               <Main />
-              {/* 관리자계정일시 */}
-              {isAdmin ? 
-                <Button
-                  size="large"
-                  onClick={function () {
-                    history.push("/Admin");
-                  }}
-                  icon={<DownloadOutlined />}
-                >
-                  상품 업로드
-                </Button> : null
-              }
-              <Divider />
-              {isAdmin ? 
-                // Main 컴포넌트 호출 시 isLogin 이라는 props 값을 전달
-                
-                <Button
-                  size="large"
-                  onClick={function () {
-                    history.push("/Banners");
-                  }}
-                  icon={<DownloadOutlined />}
-                >
-                  메인배너 업로드
-                </Button> 
-                : 
-                null
-              }
-              
             </Route>
             <Route exact={true} path="/Registration">
               <Registration />

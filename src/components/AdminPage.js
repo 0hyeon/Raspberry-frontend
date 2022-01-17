@@ -30,7 +30,7 @@ const AdminPage = () => {
         });
     };
     const ProductUpdate = (id) => {
-        if(window.confirm("item_id "+id+ "수정 하시겠습니까?")){
+        if(window.confirm("item_id "+id+ "설정 하시겠습니까?")){
             history.push(`/ProductsUpdate/${id}`);
         }else{
             return;
@@ -64,7 +64,7 @@ const AdminPage = () => {
     },[])
 
     return (
-        <>
+        <div style={{textAlign:'center'}}>
             <h1 id="product-headline">Admin Page</h1>
             <div className='product-delivery-wrapper'>
                 <ul>
@@ -90,7 +90,6 @@ const AdminPage = () => {
                         {
                             product.soldout === 1 && <div className="product-blur" />
                         }
-                      
                             <div className='product-img-wrapper'>
                                 
                                 <img className="adm-product-img" src={`${API_URL}/${product.imageUrl}`} alt={product.imageUrl} />
@@ -98,22 +97,22 @@ const AdminPage = () => {
                         <div className="admCommon adm-product-name"><span>Item_ID :</span> {product.id}</div>
                         <div className="admCommon adm-name"><span>Name: :</span> {product.name}</div>
                         <div className="admCommon adm-product-name"><span>Price :</span> {product.price}</div>
-                        <button id="admLoginButton"type='button' onClick={ ()=> ProductUpdate(product.id) } >수정</button>
+                        <button id="admLoginButton"type='button' onClick={ ()=> ProductUpdate(product.id) } >상품수정</button>
                         <button id="admDelete"type='button' onClick={ ()=> ProductDelete(product.id) } >삭제</button>
                     </div>
                 );
                 })}
             </div>
-                <Button
-                  size="large"
-                  onClick={function () {
-                    history.push("/Admin");
-                  }}
-                  icon={<DownloadOutlined />}
-                >
-                  상품 업로드
-                </Button>
-        </>
+                    <Button
+                    size="large"
+                    onClick={function () {
+                        history.push("/Admin");
+                    }}
+                    icon={<DownloadOutlined />}
+                    >
+                    상품 등록준비
+                    </Button>
+        </div>
     );
     // return (
     //     <div>

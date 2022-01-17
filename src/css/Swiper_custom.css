@@ -1,5 +1,7 @@
 .swiper-wrapper{
-    width:600px;
+    width:700px;
+    text-align: center;
+    
 }
 
 .main_Swiper{
@@ -36,5 +38,13 @@
 @media screen and (max-width:767px) {
     .main_Swiper > .swiper-container > .swiper-wrapper > .swiper-slide > img{
         height:inherit!important;
+    }
+}
+@media screen and (max-width:559px) {
+    .swiper-wrapper{
+        width: 100%!important;
+    }
+    #image-box > .swiper-container > .swiper-wrapper>.swiper-slide> img{
+        width: 100%!important;
     }
 }

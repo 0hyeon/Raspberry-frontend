@@ -1,5 +1,5 @@
 .adm-product-card{
-    width:160px;height: auto;;   
+    width:300px;height: auto;;   
     margin-right: 30px;
 }
 .product-img-wrapper{
@@ -7,7 +7,6 @@
 }
 .adm-product-img{
     width: 100%;
-    height: 200px;
 }
 .admCommon{
     margin-bottom:10px;

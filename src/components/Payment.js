@@ -7,9 +7,11 @@ import { actionCreators as OrderResult } from "../_modules/orderresult";
 const Payment = (props) => {
     const dispatch = useDispatch();
     const history = useHistory();//리액트훅
-    let {userName,userAddress,userAddressdetail,userPhone,userEmail,userMemo,name,size,color,price,product_option_id,ProductStock,ProductOrderNum,ispayMethod} = props
+    let {userName,userAddress,userAddressdetail,userPhone,userEmail,userMemo,name,size,color,price,product_option_id,ProductStock,ProductOrderNum,ispayMethod,product_it_id} = props
     let userState = useSelector(state => state.user.user);
     let setAddressState = useSelector(state => state.setaddress.setaddress);
+
+    let Session = sessionStorage.getItem('user_id');
 
     useEffect(() => {
         
@@ -31,7 +33,7 @@ const Payment = (props) => {
         const { IMP } = window;
         // IMP.init('imp31132542'); // 가맹점 식별코드
         IMP.init('iamport'); // 가맹점 식별코드
- 
+        
         //배송비
         // 결제 데이터 정의
         const data = {
@@ -51,10 +53,13 @@ const Payment = (props) => {
             buyer_postalcode: setAddressState.zonecode//우편주소
         };
         console.log("data",data);
+
         
+
         axios.post(`${API_URL}/v1/order/payment`,{//1차적으로 db에추가
             od_id : data.merchant_uid, //거래번호 
-            mb_id: userState.user_id,//사용자 id
+            mb_id: Session,//사용자 id
+            product_it_id:product_it_id,
             product_option_id:product_option_id,//구매한 상품옵션
             name:data.name,//상품명
             size:size,//사이즈
@@ -75,7 +80,7 @@ const Payment = (props) => {
             od_status:"결제대기",//거래상태 (결제대기 , 결제완료, 배송준비, 배송중, 배송완료 )
             od_hope_data:null,//무통장 희망입금일 
             od_settle_case:data.pay_method,//결제수단
-            od_tno:null//거래번호
+            od_tno:null,//거래번호
         }).then((result) =>{
             dispatch(OrderResult.setOrderResultSV(data.merchant_uid,data.name,data.amount,color,size,data.buyer_tel,data.buyer_addr,userMemo,ProductOrderNum));
             console.log(result);

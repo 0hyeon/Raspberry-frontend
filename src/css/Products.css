@@ -45,7 +45,7 @@
     margin-left:250px;
     padding:60px 30px 30px 60px;
     position: fixed;
-    width:550px;
+    width:520px;
     z-index: 1;
     /* max-height: 810px; */
   }
@@ -67,7 +67,7 @@
     top: 0;
     opacity: 0.8;
     left: 0;
-    /* border-radius: 60px; */
+    border-bottom-right-radius: 30px;
     filter: drop-shadow(3px 4px 6px black);
   }
   #name {
@@ -182,6 +182,9 @@
   .swiper-button-prev, .swiper-button-next{
     color: inherit!important;
   }
+  .content_wrapper .swiper-button-next{right:40px!important}
+  .content_wrapper .swiper-button-prev{left:40px!important}
+
   li {list-style: none;}
   .detail_first,.detail_second{margin: 10px 0 20px;}
   .detail_third{margin: 10px 0;}
@@ -296,16 +299,58 @@ p{margin-bottom: inherit!important;}
   word-break: break-word;
 } */
 
+
 @media screen and (max-width:1800px) {
   #contents-box{
     /* max-height: 700px!important; */
     padding: 60px 30px 30px 60px!important;
-    margin-left: 120px!important;
+    margin-left: 100px!important;
   }
   .content_wrapper{
-    width: 1200px;
+    width: 1400px;
   }
   #purchase-button{
     margin-top: inherit!important;
+  }
+}
+@media screen and (max-width:550px) {
+  .content_wrapper{
+    width: 100%!important;
+  }
+  #image-box{
+    width: 100%!important;
+    /* padding: 10px 50px !important; */
+    filter: drop-shadow(2px 4px 6px black);
+  }
+  .dtail_Page22{
+    width: 100%!important;
+  }
+  .dtail_Page{
+    width: 100%!important;
+  }
+  #contents-box{
+    position: inherit!important;
+    margin-left: inherit!important;
+    padding: 0px 28px 100px!important;
+    width:100%;
+  }
+  .content_wrapper{
+    padding: 100px 10px 70px!important;
+  }
+  #description{
+    height: auto!important;
+  }
+  #contents-box:before{
+    display: none!important;
+  }
+  #name{
+    margin-top: 10px!important;
+  }
+  #image-box > .swiper-container > .swiper-wrapper>.swiper-slide> img{
+    padding: 0px 27px!important;
+  }
+  .content_wrapper .swiper-button-next, .content_wrapper .swiper-button-prev{
+    /* color: white!important; */
+    display: none!important;
   }
 }

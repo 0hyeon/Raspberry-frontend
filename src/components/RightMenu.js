@@ -54,7 +54,7 @@ const RightMenu = (props) => {
     // dispatch(setProducts(result.data));
 };
   if(user.cartItem == undefined){
-    fetchCartItem();
+    // fetchCartItem();
   }
   
   useEffect( () => {

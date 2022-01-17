@@ -14,7 +14,8 @@ import { actionCreators as productActions } from "../_modules/product";
 import { actionCreators as productOptionActions } from "../_modules/productoptions";
 
 import ReactPaginate from "react-paginate";
-import JsonData from "../MOCK_DATA.json";
+import jwt_decode from "jwt-decode";
+
 dayjs.extend(relativeTime);//dayjs에서 확장된 기능 사용 
 
 function Main(props) {
@@ -57,10 +58,9 @@ function Main(props) {
     // console.log(posts);
 
     const fetchCartItem = async () => {
-
         let Session = sessionStorage.getItem('user_id');
         let body = {
-          seSsionId: Session
+            seSsionId: Session
           // heyt: session_redux
         }
         // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
@@ -101,16 +101,15 @@ function Main(props) {
     
     
     console.log("products",products); // ok 
-    console.log("JsonData",JsonData);
     // 여기서부터 pagenation
     // const [users, setUsers] = useState(products.slice(0,2));//전체 데이터를 자른다 역순이아닌 정순서대로
     // console.log("users",users);
     const [pageNumber, setPageNumber] = useState(0);
 
-    const usersPerPage = 3;//한페이지에 보여주는 갯수
+    const usersPerPage = 5;//한페이지에 보여주는 갯수
     const pagesVisited = pageNumber * usersPerPage;// 1페이지에 1 * 10 / 2페이지에 2 * 20 //최대갯수인듯
 
-    const displayUsers = products.slice(0,4)//50중에 
+    const displayUsers = products.slice(0,5)//50중에 
         .slice(pagesVisited, pagesVisited + usersPerPage)// 최대갯수 ~  최대갯수 + 10
         .map((product) => {
             return (

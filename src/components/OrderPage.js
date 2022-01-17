@@ -38,6 +38,8 @@ function OrderPage() {
     const Productimg = useProductOpt.p_imgUrl
     const ProductStock = useProductOpt.isnowProductNum
     const ProductOrderNum = useProductOpt.isCartUi
+    const product_it_id = useProductOpt.it_id
+
     const initialValues = {
         user_name: "",
         user_address:"",
@@ -310,7 +312,7 @@ function OrderPage() {
                     {
                         siwpeOrder 
                         ? 
-                        <Payment userName={inputVal} userAddress={htmlData} userAddressdetail={htmlDatadetail} userPhone={inputValPhone} userEmail={inputValEmail} userMemo={inputValMemo} name={Producttitle} size={Productsize} color={Productcolor} price={(Productprice *  ProductOrderNum)+deliveryconst} product_option_id={product_option_id} ProductStock={ProductStock} ProductOrderNum={ProductOrderNum} ispayMethod={ispayMethod} style={{width:'100%'}}/> 
+                        <Payment userName={inputVal} userAddress={htmlData} userAddressdetail={htmlDatadetail} userPhone={inputValPhone} userEmail={inputValEmail} userMemo={inputValMemo} name={Producttitle} size={Productsize} color={Productcolor} price={(Productprice *  ProductOrderNum)+deliveryconst} product_option_id={product_option_id} ProductStock={ProductStock} ProductOrderNum={ProductOrderNum} ispayMethod={ispayMethod} product_it_id={product_it_id} style={{width:'100%'}}/> 
                         : 
                         <button type="submit" style={{width:"100%"}}>결제하기</button>
                     }

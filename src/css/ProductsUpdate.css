@@ -64,3 +64,6 @@
   .ant-form-item:nth-of-type(1){
     width: 100%;
   }
+  .ant-input .ant-input-lg .product-name{
+    font-size: 30px;
+  }

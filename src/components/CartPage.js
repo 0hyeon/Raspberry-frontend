@@ -52,7 +52,7 @@ function CartPage(props) {
     useEffect(() => {
         dispatch(productActions.setProductSV());//product
         // console.log("CartList.cartItem",CartList.cartItem.map((item)=> item));
-        const cartList_map = CartList.cartItem.map((item)=> item);
+        const cartList_map = CartList.cartItem && CartList.cartItem.map((item)=> item);
         console.log(cartList_map);
         dispatch(productOptionActionsDetails.setProductDetailSV(cartList_map));
     }, [dispatch,CartList.cartItem])

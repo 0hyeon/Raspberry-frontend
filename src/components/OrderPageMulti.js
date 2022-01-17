@@ -10,11 +10,14 @@ import "../css/OrderPageMulti.css";
 
 import Test from "./Test"
 import Payment from "./Payment";
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector,useDispatch,connect } from 'react-redux';
+import { actionCreators as productActions } from "../_modules/product";
+import { actionCreators as productOptionActionsDetails } from "../_modules/productoptionDetails";
 function OrderPageMulti() {
     const dispatch = useDispatch();
     let userState = useSelector(state => state.user.user);
     let useProductOpt = useSelector(state => state.productoptionDetails.productoptionDetails);
+    const CartList = useSelector((state) => state.allProducts.cartItem);
     let [inputVal, inputChangeVal] = useState(userState.user_name);
     let [inputValPhone, inputChangeValPhone] = useState(userState.user_phonenumber);
     let [inputValEmail, inputChangeValEmail] = useState(userState.user_email);
@@ -56,13 +59,23 @@ function OrderPageMulti() {
     const ProductOrderNum = useProductOpt.map((item)=>{return(item.it_Detail_quanity)}).join();
     console.log("주문수량",ProductOrderNum);
 
+    const product_it_id = useProductOpt.map((item)=>{return(item.it_id)}).join();
+    console.log("상품it_id",product_it_id);
+
+    // const productOptionId = useProductOpt.map((item)=>{return(item.it_id)}).join();
+    // console.log("옵션의 product_id",productOptionId);
+
     const initialValues = {
         user_name: "",
         user_address:"",
         user_address_detail:"",
         user_phonenumber:"",
         user_email:"",
+        picked: "card"
     };
+
+    let [ispayMethod, setpayMethod] = useState(initialValues.picked);
+
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
     const validationSchema = Yup.object().shape({
         user_name: Yup.string().min(2, '아이디는 2글자 이상입니다.').max(10, '아이디는 10글자를 넘지 못해요.'),
@@ -93,6 +106,7 @@ function OrderPageMulti() {
                 alert('이메일을 입력해주세요.')
                 return;
             }
+            setpayMethod(data.picked)
             // axios.post(`${API_URL}/v1/user_inform`, data).then(()=>{
             //     console.log(data);
             // })
@@ -213,18 +227,44 @@ function OrderPageMulti() {
                 setsiwpeOrder(true);
             }
             console.log(inputValEmail);
-            settotalcost(
+            // settotalcost(
+            //     useProductOpt && useProductOpt
+            //     .map((item )=> item.it_sc_price * item.it_Detail_quanity)
+            //     .reduce((accumulator, currentNumber) => {return(
+            //         accumulator + currentNumber
+            //     )})
+            // )
+    }, [inputValEmail,siwpeOrder])
+
+    useEffect(() => {
+        
+            if(useProductOpt && useProductOpt.length > 1){
                 useProductOpt && useProductOpt
                 .map((item )=> item.it_sc_price * item.it_Detail_quanity)
                 .reduce((accumulator, currentNumber) => {return(
-                    accumulator + currentNumber
+                    settotalcost(accumulator + currentNumber)
                 )})
-            )
-    }, [inputValEmail,siwpeOrder,useProductOpt])
+
+            }else if(useProductOpt && useProductOpt.length == 1){
+                useProductOpt && useProductOpt
+                .map((item )=> settotalcost(item.it_sc_price * item.it_Detail_quanity))
+                
+            }        
+
+    }, [istotalcost,useProductOpt])
+
+    useEffect(() => {
+        dispatch(productActions.setProductSV());//product
+        // console.log("CartList.cartItem",CartList.cartItem.map((item)=> item));
+        const cartList_map = CartList.cartItem && CartList.cartItem.map((item)=> item);
+        console.log(cartList_map);
+        dispatch(productOptionActionsDetails.setProductDetailSV(cartList_map));
+    }, [dispatch,CartList.cartItem])
     
-    if (useProductOpt == "" || useProductOpt == null || useProductOpt == undefined ){//리덕스 새로고침시 state없어져서 루트로 보냄 
+    if ( useProductOpt == [] ||useProductOpt == "" || useProductOpt == null || useProductOpt == undefined ){//리덕스 새로고침시 state없어져서 루트로 보냄 
         history.push("/");
     }
+   
     // console.log(useProductOpt);
     // const heyy = {"name":3}
     // console.log(heyy.name);
@@ -317,26 +357,22 @@ function OrderPageMulti() {
                     <label> 결제방법 :</label>
                     <div name="checkbox-group" role="group" aria-labelledby="checkbox-group" className='checkbox-group'>
                         <label>
-                            <Field type="radio" name="picked" value="One" />
+                            <Field type="radio" name="picked" value="card" checked={ispayMethod=="card" ? true : false } onChange={ ( (e)=>setpayMethod(e.target.value) )} />
                             신용 / 체크카드
                         </label>
                         <label>
-                            <Field type="radio" name="picked" value="Two" />
+                            <Field type="radio" name="picked" value="trans" checked={ispayMethod =="trans"?  true : false } onChange={ ((e)=>{setpayMethod(e.target.value)})} />
                             계좌이체
                         </label>
                         <label>
-                            <Field type="radio" name="picked" value="Three" />
+                            <Field type="radio" name="picked" value="vbank" checked={ispayMethod =="vbank"?  true : false } onChange={ ((e)=>{setpayMethod(e.target.value)})} />
                             가상계좌
-                        </label>
-                        <label>
-                            <Field type="radio" name="picked" value="four" />
-                            무통장입금
                         </label>
                     </div>
                     {
                         siwpeOrder 
                         ? 
-                        <Payment userName={inputVal} userAddress={htmlData} userAddressdetail={htmlDatadetail} userPhone={inputValPhone} userEmail={inputValEmail} userMemo={inputValMemo} name={Producttitle} size={Productsize} color={Productcolor} price={istotalcost} product_option_id={product_option_id} ProductStock={ProductStock} ProductOrderNum={ProductOrderNum} style={{width:'100%'}}/> 
+                        <Payment userName={inputVal} userAddress={htmlData} userAddressdetail={htmlDatadetail} userPhone={inputValPhone} userEmail={inputValEmail} userMemo={inputValMemo} name={Producttitle} size={Productsize} color={Productcolor} price={istotalcost} product_option_id={product_option_id} ProductStock={ProductStock} ProductOrderNum={ProductOrderNum} ispayMethod={ispayMethod} product_it_id={product_it_id} style={{width:'100%'}}/> 
                         : 
                         <button type="submit" style={{width:"100%"}}>결제하기</button>
                     }
@@ -345,5 +381,10 @@ function OrderPageMulti() {
         </div>
     );
 }
-
-export default OrderPageMulti
+const mapStateToProps = (state) => {
+    return {
+        allProducts: state.allProducts
+    }
+}
+// export default OrderPageMulti
+export default connect(mapStateToProps)(OrderPageMulti);

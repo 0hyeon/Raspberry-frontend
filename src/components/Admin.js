@@ -7,11 +7,12 @@ import {API_URL} from "../config/constants.js";
 import axios from 'axios';
 import { useHistory }from "react-router-dom";
 import QuillEditor from "./editor/QuillEditor"
+import jwt_decode from "jwt-decode";
 
 
 function UploadPage() {
   let Session = sessionStorage.getItem('user_id');
-
+  
   if(Session !== "admin"){
     alert("관리자 계정으로 로그인해주세요");
     document.location.href = '/'
@@ -80,8 +81,15 @@ function UploadPage() {
       imageUrl5 : imageUrl5,
       detailPage : detailPage,
     }
-    axios.post(`${API_URL}/v1/product/products`,body,{
-      
+
+    
+    console.log("values.name.length : ",values.name.length);
+    if(values.name.length < 2 || values.name.length > 38){
+    alert('상품명 2 ~ 37자 사이로 입력해주세요.');
+      return;
+    }
+    axios.post(`${API_URL}/v1/product/products_post`,body,{
+      withCredentials:true
     }).then(() => {
       alert("상품등록 완료");
       history.replace('/');//이전페이지의 기록이 사라지고 대체됨
@@ -89,10 +97,8 @@ function UploadPage() {
       console.log(error);
       message.error(`에러가 발생했습니다. ${error.message}`)
     });
-    
-    
-    
   };
+
   const onChangeImage = (info) => {
     if(info.file.status === 'uploading'){
       return;
@@ -153,13 +159,6 @@ function UploadPage() {
       setDetailPage(detailPage);
     }
   }
-  useEffect( () => {
-    if(document.getElementsByClassName('product-seller').value==""){
-      console.log('뭐하냐 판매자 비었다');
-      document.getElementsByClassName('product-seller').focus();
-      return;
-    }
-  }, [])
 
   return (
     <div id="upload-container">
@@ -295,11 +294,11 @@ function UploadPage() {
           <InputNumber name="price" defaultValue={0} className="product-price" size="large" />
         </Form.Item>
         <Divider />
-        {/* 상품컬러1 */}
-        <Form.Item
+        {/* 상품컬러 */}
+        {/* <Form.Item
           name="color1"
           label={<div className="upload-label">상품 컬러1</div>}
-          rules={[{ required: true, message: "상품 컬러1을 입력해주세요" }]}
+          rules={[{ required: false, message: "상품 컬러1을 입력해주세요" }]}
         >
           <Input
             name="color1"
@@ -308,11 +307,10 @@ function UploadPage() {
             placeholder="상품컬러1 ex) #000000 "
           />
         </Form.Item>
-        {/* 상품컬러이름1 */}
         <Form.Item
           name="colorName1"
           label={<div className="upload-label">상품 컬러이름1</div>}
-          rules={[{ required: true, message: "상품 컬러이름1 을 입력해주세요" }]}
+          rules={[{ required: false, message: "상품 컬러이름1 을 입력해주세요" }]}
         >
           <Input
             name="colorName1"
@@ -321,11 +319,10 @@ function UploadPage() {
             placeholder="상품컬러이름1 ex) 라이트블루 "
           />
         </Form.Item>
-        {/* 상품사이즈1 */}
         <Form.Item
           name="size1"
           label={<div className="upload-label">상품 사이즈1</div>}
-          rules={[{ required: true, message: "상품 사이즈1 을 입력해주세요" }]}
+          rules={[{ required: false, message: "상품 사이즈1 을 입력해주세요" }]}
         >
           <Input
             name="size1"
@@ -334,11 +331,10 @@ function UploadPage() {
             placeholder="상품사이즈1 ex)Free / M / L 중1"
           />
         </Form.Item>
-        {/* 재고1 */}
         <Form.Item
           name="quantity1"
           label={<div className="upload-label">상품 재고1</div>}
-          rules={[{ required: true, message: "상품 재고1을 입력해주세요" }]}
+          rules={[{ required: false, message: "상품 재고1을 입력해주세요" }]}
         >
           <Input
             name="quantity1"
@@ -347,7 +343,6 @@ function UploadPage() {
             placeholder="상품1 입고된 수량입력"
           />
         </Form.Item>
-        {/* 상품사이즈1_2 */}
         <Form.Item
           name="size1_2"
           label={<div className="upload-label">상품 사이즈1_2</div>}
@@ -360,7 +355,6 @@ function UploadPage() {
             placeholder="상품사이즈1_2 ex)Free / M / L 중1"
           />
         </Form.Item>
-        {/* 재고1_2 */}
         <Form.Item
           name="quantity1_2"
           label={<div className="upload-label">상품 재고1_2</div>}
@@ -373,7 +367,6 @@ function UploadPage() {
             placeholder="상품1_2 입고된 수량입력"
           />
         </Form.Item>
-        {/* 상품사이즈1_3 */}
         <Form.Item
           name="size1_3"
           label={<div className="upload-label">상품 사이즈1_3</div>}
@@ -386,7 +379,6 @@ function UploadPage() {
             placeholder="상품사이즈1 ex)Free / M / L 중1"
           />
         </Form.Item>
-        {/* 재고1 */}
         <Form.Item
           name="quantity1_3"
           label={<div className="upload-label">상품 재고1_3</div>}
@@ -400,7 +392,6 @@ function UploadPage() {
           />
         </Form.Item>
         <Divider />
-        {/* 상품컬러2 */}
         <Form.Item
           name="color2"
           label={<div className="upload-label">상품 컬러2</div>}
@@ -413,7 +404,6 @@ function UploadPage() {
             placeholder="상품컬러2 ex) #000000 "
           />
         </Form.Item>
-        {/* 상품컬러이름2 */}
         <Form.Item
           name="colorName2"
           label={<div className="upload-label">상품 컬러이름2</div>}
@@ -426,7 +416,6 @@ function UploadPage() {
             placeholder="상품컬러이름2 ex) 라이트블루 "
           />
         </Form.Item>
-        {/* 상품사이즈2 */}
         <Form.Item
           name="size2"
           label={<div className="upload-label">상품 사이즈2</div>}
@@ -439,7 +428,6 @@ function UploadPage() {
             placeholder="상품사이즈2 ex)Free / M / L 중1"
           />
         </Form.Item>
-        {/* 재고2 */}
         <Form.Item
           name="quantity2"
           label={<div className="upload-label">상품 재고2</div>}
@@ -452,7 +440,6 @@ function UploadPage() {
             placeholder="상품2 입고된 수량입력"
           />
         </Form.Item>
-        {/* 상품사이즈2 */}
         <Form.Item
           name="size2_2"
           label={<div className="upload-label">상품 사이즈2_2</div>}
@@ -465,7 +452,6 @@ function UploadPage() {
             placeholder="상품사이즈2_2 ex)Free / M / L 중1"
           />
         </Form.Item>
-        {/* 재고2 */}
         <Form.Item
           name="quantity2_2"
           label={<div className="upload-label">상품 재고2_2</div>}
@@ -478,7 +464,6 @@ function UploadPage() {
             placeholder="상품2_2 입고된 수량입력"
           />
         </Form.Item>
-        {/* 상품사이즈2_3 */}
         <Form.Item
           name="size2_3"
           label={<div className="upload-label">상품 사이즈2_3</div>}
@@ -491,7 +476,6 @@ function UploadPage() {
             placeholder="상품사이즈2 ex)Free / M / L 중1"
           />
         </Form.Item>
-        {/* 재고2 */}
         <Form.Item
           name="quantity2_3"
           label={<div className="upload-label">상품 재고2_3</div>}
@@ -505,7 +489,6 @@ function UploadPage() {
           />
         </Form.Item>
         <Divider />
-        {/* 상품컬러3 */}
         <Form.Item
           name="color3"
           label={<div className="upload-label">상품 컬러3</div>}
@@ -518,7 +501,6 @@ function UploadPage() {
             placeholder="상품컬러3 ex) #000000 "
           />
         </Form.Item>
-        {/* 상품컬러이름3 */}
         <Form.Item
           name="colorName3"
           label={<div className="upload-label">상품 컬러이름3</div>}
@@ -531,7 +513,6 @@ function UploadPage() {
             placeholder="상품컬러이름3 ex) 라이트블루 "
           />
         </Form.Item>
-        {/* 상품사이즈3 */}
         <Form.Item
           name="size3"
           label={<div className="upload-label">상품 사이즈3</div>}
@@ -544,7 +525,6 @@ function UploadPage() {
             placeholder="상품사이즈3 ex)Free / M / L 중1"
           />
         </Form.Item>
-        {/* 재고3 */}
         <Form.Item
           name="quantity3"
           label={<div className="upload-label">상품 재고3</div>}
@@ -558,7 +538,6 @@ function UploadPage() {
           />
         </Form.Item>
         <Divider />
-        {/* 상품사이즈3_2 */}
         <Form.Item
           name="size3_2"
           label={<div className="upload-label">상품 사이즈3_2</div>}
@@ -571,7 +550,6 @@ function UploadPage() {
             placeholder="상품사이즈3_2 ex)Free / M / L 중1"
           />
         </Form.Item>
-        {/* 재고3_2 */}
         <Form.Item
           name="quantity3_2"
           label={<div className="upload-label">상품 재고3_2</div>}
@@ -585,7 +563,6 @@ function UploadPage() {
           />
         </Form.Item>
         <Divider />
-        {/* 상품사이즈3_3 */}
         <Form.Item
           name="size3_3"
           label={<div className="upload-label">상품 사이즈3_3</div>}
@@ -598,7 +575,6 @@ function UploadPage() {
             placeholder="상품사이즈3_3 ex)Free / M / L 중1"
           />
         </Form.Item>
-        {/* 재고3_3 */}
         <Form.Item
           name="quantity3_3"
           label={<div className="upload-label">상품 재고3_3</div>}
@@ -610,7 +586,7 @@ function UploadPage() {
             size="large"
             placeholder="상품3_3 입고된 수량입력"
           />
-        </Form.Item>
+        </Form.Item> */}
         <Divider />
         {/* 상품소개 */}
         {/* <Form.Item

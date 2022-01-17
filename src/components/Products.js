@@ -21,6 +21,7 @@ import "swiper/components/pagination/pagination.scss";
 import "../css/Swiper_custom.css";
 import { Button, message } from "antd";
 import Payment from "./Payment";
+import jwt_decode from "jwt-decode";
 function ProductPage() {
   
   const history = useHistory();//리액트훅
@@ -85,7 +86,6 @@ function ProductPage() {
   
   const [isSoldOut, setSoldOut] = useState(false);
 
-  
   let Session = sessionStorage.getItem('user_id');
   // statrt
   
@@ -93,7 +93,6 @@ function ProductPage() {
   //장바구니담기후 장바구니 목록 불러오기
   const fetchCartItem = async () => {
 
-    let Session = sessionStorage.getItem('user_id');
     let body = {
       seSsionId: Session
       // heyt: session_redux
@@ -114,7 +113,7 @@ function ProductPage() {
   
   //장바구니 가져올수있는지 
   const youCanAddToCart = async () => {
-    let Session = sessionStorage.getItem('user_id');
+
     let body = {
       productId: id,
       seSsionId: Session,
@@ -508,6 +507,7 @@ function ProductPage() {
   const decideToCartItem = async () => {
         
     let Session = sessionStorage.getItem('user_id');
+
     let body = {
       productId: id,
       seSsionId: Session,
@@ -568,8 +568,6 @@ function ProductPage() {
       prev3.style.color = "#bebcbc";
       prev3.style.border = "2px solid #aaa";
     }
-    
-    
     let Session = sessionStorage.getItem('user_id');
     // dispatch(addToCart(id,Session))
     getProduct();//useEffect시 1개아이템
