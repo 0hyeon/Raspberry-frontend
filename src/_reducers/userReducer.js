@@ -46,6 +46,7 @@ export const productsReducer = (state = initialState, { type, payload }) => {
       }
       return {
         ...state, 
+        cartItem:[...state.cartItem]
       }
     case DECREMENT:
       const minus = state.cartItem.cartItem.find((item) => item.id === payload.id)

@@ -98,6 +98,8 @@ function CartPage(props) {
     }
     //총가격
     const TotalPrice = CartList.cartItem.map(function (product) {
+        console.log(product.it_Detail_quanity);
+        console.log(product.it_sc_price);
         return(
             Number(product.it_Detail_quanity * product.it_sc_price)
         );
@@ -106,7 +108,6 @@ function CartPage(props) {
     
 
     let TotalPrice2 = []
-
     for(let i = 0;i<TotalPrice.length;i++){
         TotalPrice2 = Number(TotalPrice2) + Number(TotalPrice[i])
     }
@@ -152,9 +153,9 @@ function CartPage(props) {
                                 </div>
                             </td>
                             <td>
-                                <div className="input_qty input_qty_side" id="input_qty_minus" onClick={(e) => {input_qty_handler(product,e)}}>-</div>
+                                {/* <div className="input_qty input_qty_side" id="input_qty_minus" onClick={(e) => {input_qty_handler(product,e)}}>-</div> */}
                                 <input className="input_qty" id={product.id} type="number" autoComplete="off" min="1" max="100" value={product.it_Detail_quanity || ''} onChange={(e) => setinputqty(e.target.value)} />
-                                <div className="input_qty input_qty_side" id="input_qty_plus" onClick={(e) => {input_qty_handler(product,e)}}>+</div>
+                                {/* <div className="input_qty input_qty_side" id="input_qty_plus" onClick={(e) => {input_qty_handler(product,e)}}>+</div> */}
                             </td>
                             <td>{AddComma( product.it_Detail_quanity * product.it_sc_price)}</td>
                             <td rowSpan={CartList.cartItem.length} style={{border:"1px solid #ddd"}} className="targetRowspan">2500원

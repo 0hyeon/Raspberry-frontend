@@ -3,7 +3,18 @@ input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+/* 
+input[type=number] {
+    height: 40px;
+}
 
+/* input[type=number]:hover::-webkit-inner-spin-button {  
+    width: 24px;
+    height: 34px;
+} */ */
+input[type=number]::-webkit-inner-spin-button {  
+    display: block!important;
+}
 .CartPage_Wrapper{
     padding: 110px 80px 70px;   
     max-width: 1660px;

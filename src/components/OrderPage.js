@@ -239,6 +239,9 @@ function OrderPage() {
                             </div>
                             
                         </div>
+                        <div className='totalPriced'>
+                            총비용 : {Productprice * ProductOrderNum} won
+                        </div>
                     <h2 className="registerTop">배송지</h2>
                     {/* 아이디 */}
                     <label className='borderLine'> 주문자명 :</label>

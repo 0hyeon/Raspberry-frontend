@@ -91,6 +91,7 @@ function ProductsUpdate() {
       relateProduct3 : parseInt(values.relateProduct3),
       relateProduct4 : parseInt(values.relateProduct4),
       relateProduct5 : parseInt(values.relateProduct5),
+      soldout : 1,
     }).then((result) =>{
       console.log(result);//제출 잘됐으면 리디렉션
       history.replace('/');//이전페이지의 기록이 사라지고 대체됨

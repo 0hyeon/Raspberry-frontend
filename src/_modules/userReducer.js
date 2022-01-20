@@ -27,13 +27,15 @@ const setCartItemSV = (DATA)=>{
 }
 const setCartItemIncrementSV = (DATA)=>{
     return function(dispatch) {
-        console.log("DATA",DATA.it_Detail_quanity+1);
+        // DATA => 클릭한 상품정보
         // dispatch(setCartItem({DATA}));
         // const plus3 = draft.cartList.cartList.find((item) => item.id === action.payload.id)
         // if(plus3){
         //     plus3.it_Detail_quanity +=1
         // }
-        let DATA = DATA.it_Detail_quanity+1
+        // console.log(state.cartList.cartItem.cartItem)
+        // let DATA2 = DATA.it_Detail_quanity+1
+        // console.log(DATA2);//2
         dispatch(setCartItemIncrement(DATA));
     }
 }
@@ -47,8 +49,11 @@ export default handleActions (
         
         [SET_INCREMENT]: (state, action) =>
         produce(state, (draft)=>{
-           
-            console.log('draft.cartItem',draft.cartList);
+            const findind = state.cartItem.cartItem.find((item) => item.id === action.payload.cartItem.id);
+            if(findind){
+                let findindcopy = [...findind]
+                findindcopy.it_Detail_quanity += 1
+            }
             draft.cartItem = action.payload.cartItem;
         })
 
