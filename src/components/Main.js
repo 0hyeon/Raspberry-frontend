@@ -15,6 +15,7 @@ import { actionCreators as productOptionActions } from "../_modules/productoptio
 
 import ReactPaginate from "react-paginate";
 import jwt_decode from "jwt-decode";
+import { actionCreators as cartActionsDetails } from "../_modules/userReducer";
 
 dayjs.extend(relativeTime);//dayjs에서 확장된 기능 사용 
 
@@ -71,6 +72,7 @@ function Main(props) {
             // setProducts(products);
             // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
             dispatch(setCartItem(result.data));
+            dispatch(cartActionsDetails.setCartItemSV(result.data));
             // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
             // console.log(result.data);
             // console.log(result.data.cartItem);

@@ -10,6 +10,7 @@ import {deleteCart,increment,decrement,setCartItem,setRequestLoding2} from '../_
 import { DeleteOutlined } from '@ant-design/icons';
 import { actionCreators as productActions } from "../_modules/product";
 import { actionCreators as productOptionActionsDetails } from "../_modules/productoptionDetails";
+import { actionCreators as cartActionsDetails } from "../_modules/userReducer";
 import { Button } from "antd";
 import axios from "axios";
 
@@ -74,15 +75,16 @@ function CartPage(props) {
     }
     //수량클릭시 수량변경 state && 수량dispatch
     const input_qty_handler = (product,e) => {
-        console.log(e.target.id)
-        console.log(product);
+        console.log('e.target.id',e.target.id)
+        console.log('product',product);
 
         if(e.target.id == "input_qty_plus"){
-            dispatch(increment(product))
-            setinputqty(product.it_Detail_quanity)
+            dispatch(cartActionsDetails.setCartItemIncrementSV(product));
+            // dispatch(increment(product))
+            setinputqty(product.it_Detail_quanity+1)
         }else{
-            dispatch(decrement(product))
-            setinputqty(product.it_Detail_quanity)
+            // dispatch(decrement(product))
+            // setinputqty(product.it_Detail_quanity)
         }
     }
     
