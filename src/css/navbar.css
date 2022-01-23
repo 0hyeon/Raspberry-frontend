@@ -16,6 +16,7 @@
   text-align: -o-right; 
   text-align: -ms-right;
   text-align: -webkit-right;
+  min-width: 1300px;
 }
 
 .logo {

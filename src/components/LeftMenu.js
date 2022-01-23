@@ -1,5 +1,6 @@
 import React from 'react';
 import { Menu, Grid } from 'antd';
+import { Link } from "react-router-dom";
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
@@ -9,9 +10,16 @@ const LeftMenu = () => {
   const { md } = useBreakpoint()
   return (
     <Menu mode={md ? "horizontal" : "inline"}>
-      <SubMenu key="sub1" title={<span>ABOUT</span>}>
-        <MenuItemGroup title="쇼핑몰소개">
-          <Menu.Item key="setting:1">줠라게</Menu.Item>
+      <SubMenu key="sub1" title={<span>New</span>}>
+        <MenuItemGroup title="신상입고">
+          <Menu.Item key="setting:1">
+            <Link
+              style={{ color: "inherit" }}
+              className=""
+              to={`/NewPage`}
+            >
+            New</Link>
+          </Menu.Item>
         </MenuItemGroup>
       </SubMenu>
       <SubMenu key="sub2" title={<span>Outerwear</span>}>
@@ -28,9 +36,18 @@ const LeftMenu = () => {
       <Menu.Item key="sub4">
         <a href="">Bottoms</a>
       </Menu.Item>
-      <Menu.Item key="sub5">
-        <a href="">Dresses / Skirts</a>
-      </Menu.Item>
+      <SubMenu key="sub5" title={<span>Dresses / Skirts</span>}>
+        <MenuItemGroup title="Dresses / Skirts">
+          <Menu.Item key="setting:5">
+            <Link
+              style={{ color: "inherit" }}
+              className=""
+              to={`/DRESSESSKIRTS`}
+            >
+            Dresses / Skirts</Link>
+          </Menu.Item>
+        </MenuItemGroup>
+      </SubMenu>
     </Menu>
   );
 }

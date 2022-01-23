@@ -232,7 +232,12 @@
       width: 100%!important;
       padding:inherit!important;  
     }
-    
+    .menuBar{
+      min-width:inherit !important;
+    }
+    .product-img{
+      filter: drop-shadow(2px 4px 2px black) !important;
+    }
   }
   @media screen and (max-width:600px) {
     .ant-menu-sub{
@@ -247,6 +252,8 @@
     .product-card{
       border: none!important;
       border-radius: inherit!important;
+      width: calc(100%/2 - 5px) !important;
+      margin: 50px 2.5px !important;
     }
     .product-name{
       line-height: inherit!important;
@@ -264,10 +271,6 @@
     }
     .product-name{
       font-size: 28px;
-    }
-    .product-card{
-      width: calc(100%/2 - 20px);
-      margin: 50px 10px!important;
     }
     .product-contents{
       padding:inherit!important;

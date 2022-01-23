@@ -34,6 +34,8 @@ const OrderPage = loadable(() => import('./components/OrderPage'))
 const OrderPageMulti = loadable(() => import('./components/OrderPageMulti'))
 const OrderResult = loadable(() => import('./components/OrderResult'))
 const Order = loadable(() => import('./components/Order'))
+const NewPage = loadable(() => import('./components/NewPage'))
+const DRESSESSKIRTS = loadable(() => import('./components/DRESSESSKIRTS'))
 // const SearchCopmonent = loadable(() => import('./components/search/SearchCopmonent'))
 function App () {
   // const history = useHistory();
@@ -178,6 +180,12 @@ function App () {
             </Route>
             <Route exact={true} path="/Order">
               <Order />
+            </Route>
+            <Route exact={true} path="/NewPage">
+              <NewPage />
+            </Route>
+            <Route exact={true} path="/DRESSESSKIRTS">
+              <DRESSESSKIRTS />
             </Route>
             {/* <Route exact path="/SearchCopmonent/:word" component={SearchCopmonent}></Route> */}
           </Switch>
