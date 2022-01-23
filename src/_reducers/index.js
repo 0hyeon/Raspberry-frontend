@@ -8,7 +8,6 @@ import setaddress from "../_modules/setaddress";
 import productoptions from "../_modules/productoptions";
 import productoptionDetails from "../_modules/productoptionDetails";
 import orderresult from "../_modules/orderresult";
-import userReducer from "../_modules/userReducer";
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
 
@@ -17,7 +16,6 @@ export const history = createBrowserHistory();
 const rootReducer = combineReducers({
   // user,
   allProducts: productsReducer,
-  cartlist: userReducer,
   userLogged:idReducer,
   products: product,
   user:user,

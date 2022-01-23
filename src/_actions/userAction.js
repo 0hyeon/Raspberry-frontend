@@ -44,7 +44,7 @@ export const selectedProduct = (setproduct) => {
     payload: setproduct,
   };
 };
-export const setCartItem = (cartItem) => {
+export const setCartItem = ({cartItem}) => {
   return {
     type: CART_ITEM,
     payload: cartItem,

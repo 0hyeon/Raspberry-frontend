@@ -1,4 +1,5 @@
 // import { response } from "express";
+import { produce } from "immer";
 import { ADD_TO_CART, SET_PRODUCTS,SELECTED_PRODUCT,REMOVE_SELECTED_PRODUCT, DECIDE_TO_CART, CART_ITEM, REQUEST_LODING,REQUEST_LODING2,FETCH_TO_CART, INCREMENT, DECREMENT,TOTALPRICE} from "../_actions/types";
 export const initialState = {
   products: [],
@@ -40,26 +41,42 @@ export const productsReducer = (state = initialState, { type, payload }) => {
         total: state.total +  payload
       };
     case INCREMENT:
-      const plus3 = state.cartItem.cartItem.find((item) => item.id === payload.id)
-      if(plus3){
-        plus3.it_Detail_quanity +=1
-      }
+      const inCart = state.cartItem.find((item) => item.id == payload.id ? true : false);
+      // if(plus3){
+      //   return state.cartItem.cartItem.map((item)=>
+      //     item.id == payload.id
+      //     ? {...item, it_Detail_quanity:item.it_Detail_quanity + 1 }
+      //     :item
+      //   )
+      // }
       return {
-        ...state, 
-        cartItem:[...state.cartItem]
-      }
+        ...state,
+        cartItem: inCart				//카트에 해당되는 물품 있다면
+          ? state.cartItem.map((item) =>
+              item.id === payload.id
+                ? { ...item, it_Detail_quanity: item.it_Detail_quanity + 1 }	//해당물품 수량 +1
+                : item
+            )
+          : null,	//없다면 카트에 새로추가
+      };
+      
+      // return [...prev, { ...clickedItem, amount: 1 }];
+      // return [
+      //   ...state, {...payload,it_Detail_quanity:1}
+      // ]
     case DECREMENT:
-      const minus = state.cartItem.cartItem.find((item) => item.id === payload.id)
-
-      if( minus && minus.it_Detail_quanity  > 1){
-        return {
-          ...state, item:payload.it_Detail_quanity -= 1
-        }
-      }else{
-        return {
-          ...state
-        }
-      }
+      // const minus = state.cartItem.find((item) => item.id === payload.id)
+      const inCart2 = state.cartItem.find((item) => item.id == payload.id ? true : false);
+      return {
+        ...state,
+        cartItem: inCart2				//카트에 해당되는 물품 있다면
+          ? state.cartItem.map((item) =>
+              item.id === payload.id
+                ? { ...item, it_Detail_quanity: item.it_Detail_quanity - 1 }	//해당물품 수량 +1
+                : item
+            )
+          : null,	//없다면 카트에 새로추가
+      };
 
     default:
       return { ...state};

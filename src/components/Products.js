@@ -22,7 +22,6 @@ import "../css/Swiper_custom.css";
 import { Button, message } from "antd";
 import Payment from "./Payment";
 import jwt_decode from "jwt-decode";
-import { actionCreators as cartActionsDetails } from "../_modules/userReducer";
 
 function ProductPage() {
   
@@ -104,7 +103,6 @@ function ProductPage() {
       .post(`${API_URL}/v1/cart/setCartItem`, body)
       .then(function(result){
         dispatch(setCartItem(result.data));
-        dispatch(cartActionsDetails.setCartItemSV(result.data));
     })
     .catch((err) => {
         console.log("Err: ", err);

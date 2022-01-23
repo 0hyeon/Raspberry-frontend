@@ -130,7 +130,7 @@ const Order = () => {
                     <div className="CartPage_HeadLine">Order ({ isshopOrder &&isshopOrder.length})</div>
                     {/* 카트리스트 */}
                         <div id="">
-                            <table id="sod_list" className="table">
+                            <table id="sod_list2" className="table">
                                 <thead>
                                     <tr className="sod_list_head">
                                         <th scope="col" width="15%" className="text_left">주문번호</th>

@@ -147,6 +147,6 @@ table > tbody > tr > td {
     vertical-align: middle;
 }
 
-table > tbody > tr:nth-of-type(n+2) > td:nth-of-type(4){
+#sod_list > tbody > tr:nth-of-type(n+2) > td:nth-of-type(4){
     display: none!important;
 }

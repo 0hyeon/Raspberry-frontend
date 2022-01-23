@@ -15,7 +15,6 @@ import { actionCreators as productOptionActions } from "../_modules/productoptio
 
 import ReactPaginate from "react-paginate";
 import jwt_decode from "jwt-decode";
-import { actionCreators as cartActionsDetails } from "../_modules/userReducer";
 
 dayjs.extend(relativeTime);//dayjs에서 확장된 기능 사용 
 
@@ -72,7 +71,6 @@ function Main(props) {
             // setProducts(products);
             // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
             dispatch(setCartItem(result.data));
-            dispatch(cartActionsDetails.setCartItemSV(result.data));
             // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
             // console.log(result.data);
             // console.log(result.data.cartItem);
@@ -128,10 +126,14 @@ function Main(props) {
                             <img className="product-img" src={`${API_URL}/${product.imageUrl}`} alt="" />
                         </div>
                         <div className="product-contents">
-                            <span className="product-name">{product.name}</span>
                             {product.soldout === 1 
-                            ?<span className="product-price">Soldout.</span> 
-                            :<span className="product-price">{AddComma(product.price)} won</span> 
+                                ?<span className="product-name" style={{textDecoration: 'line-through' }}>{product.name}</span> 
+                                :<span className="product-name">{product.name}</span>
+                            }
+                            
+                            {product.soldout === 1 
+                                ?<span className="product-price">Soldout.</span> 
+                                :<span className="product-price">{AddComma(product.price)} won</span> 
                             }
                             <div className="product-footer">
                                 <div className="product-seller">

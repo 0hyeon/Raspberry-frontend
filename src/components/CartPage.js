@@ -9,19 +9,21 @@ import Payment from "./Payment";
 import {deleteCart,increment,decrement,setCartItem,setRequestLoding2} from '../_actions/userAction'
 import { DeleteOutlined } from '@ant-design/icons';
 import { actionCreators as productActions } from "../_modules/product";
+import { actionCreators as productOptionActions } from "../_modules/productoptions";
 import { actionCreators as productOptionActionsDetails } from "../_modules/productoptionDetails";
-import { actionCreators as cartActionsDetails } from "../_modules/userReducer";
 import { Button } from "antd";
 import axios from "axios";
 
 function CartPage(props) {
     const [isinputqty, setinputqty] = useState(null);
     const CartList = useSelector((state) => state.allProducts.cartItem);
-    let state = useSelector(state => state);
+    const products = useSelector((state) => state.products.products);
+    const pdopt = useSelector((state) => state.productoptionDetails.productoptionDetails);
     const [isCartUi, setCartUi] = useState();
     const [istotalPrice, settotalPrice] = useState(null);
     const [isdeleveryPrice, setisdeleveryPrice] = useState(null);
-    
+    const [isproduct_list,setproduct_list] = useState([]);
+
     const dispatch = useDispatch();
     const fetchCartItem = async () => {
 
@@ -53,10 +55,20 @@ function CartPage(props) {
     useEffect(() => {
         dispatch(productActions.setProductSV());//product
         // console.log("CartList.cartItem",CartList.cartItem.map((item)=> item));
-        const cartList_map = CartList.cartItem && CartList.cartItem.map((item)=> item);
-        console.log(cartList_map);
+        const cartList_map = CartList && CartList.map((item)=> item);
+        console.log("cartList_map!",cartList_map);
         dispatch(productOptionActionsDetails.setProductDetailSV(cartList_map));
-    }, [dispatch,CartList.cartItem])
+    }, [dispatch,CartList])
+
+    useEffect(function () {
+        // 상품관련
+        // fetchProducts();
+        dispatch(productActions.setProductSV());
+        dispatch(productOptionActions.setProductOptionsSV(products.name));
+        setproduct_list(products);
+    }, [dispatch]);
+
+
     const Delete_Handelr = async(e) => {
         
         let cartId = e.target.id;
@@ -75,16 +87,16 @@ function CartPage(props) {
     }
     //수량클릭시 수량변경 state && 수량dispatch
     const input_qty_handler = (product,e) => {
-        console.log('e.target.id',e.target.id)
-        console.log('product',product);
+        console.log(e.target.id)
+        console.log(product);
 
         if(e.target.id == "input_qty_plus"){
-            dispatch(cartActionsDetails.setCartItemIncrementSV(product));
-            // dispatch(increment(product))
-            setinputqty(product.it_Detail_quanity+1)
+            dispatch(increment(product))
+            setinputqty(product.it_Detail_quanity)
         }else{
-            // dispatch(decrement(product))
-            // setinputqty(product.it_Detail_quanity)
+            if(product.it_Detail_quanity < 2){return;}
+            dispatch(decrement(product))
+            setinputqty(product.it_Detail_quanity)
         }
     }
     
@@ -97,9 +109,7 @@ function CartPage(props) {
         return <h1>.</h1>;
     }
     //총가격
-    const TotalPrice = CartList.cartItem.map(function (product) {
-        console.log(product.it_Detail_quanity);
-        console.log(product.it_sc_price);
+    const TotalPrice = CartList && CartList.map(function (product) {
         return(
             Number(product.it_Detail_quanity * product.it_sc_price)
         );
@@ -108,15 +118,16 @@ function CartPage(props) {
     
 
     let TotalPrice2 = []
+
     for(let i = 0;i<TotalPrice.length;i++){
         TotalPrice2 = Number(TotalPrice2) + Number(TotalPrice[i])
     }
-    //console.log("총가격",TotalPrice2);    
+    
     return (
         <div className="CartPage_Wrapper">
             
             {/* 카트개수 */}
-            <div className="CartPage_HeadLine">Cart ({CartList.cartItem.length})</div>
+            <div className="CartPage_HeadLine">Cart ({CartList.length})</div>
             {/* 카트리스트 */}
             <div id="">
                 <table id="sod_list" className="table">
@@ -130,7 +141,7 @@ function CartPage(props) {
                         </tr>
                     </thead>
                     <tbody>
-                    {CartList.cartItem && CartList.cartItem.map(function (product) {
+                    {CartList && CartList.map(function (product) {
                         return (
                             <tr key={product.id}>
                             <td className="first_td">
@@ -140,7 +151,7 @@ function CartPage(props) {
                                     className="product-link2"
                                     to={`/products/${product.it_id}`}
                                 >
-                                    <img className="thumb_img" src={`${API_URL}/${product.thumb_name}`} alt="" />
+                                    <img className="thumb_img" src={`${API_URL}/${product.thumb_name}`} alt={product.it_id} />
                                 </Link>
                                 <Link
                                     style={{ color: "inherit" }}
@@ -153,12 +164,12 @@ function CartPage(props) {
                                 </div>
                             </td>
                             <td>
-                                {/* <div className="input_qty input_qty_side" id="input_qty_minus" onClick={(e) => {input_qty_handler(product,e)}}>-</div> */}
+                                <div className="input_qty input_qty_side" id="input_qty_minus" onClick={(e) => {input_qty_handler(product,e)}}>-</div>
                                 <input className="input_qty" id={product.id} type="number" autoComplete="off" min="1" max="100" value={product.it_Detail_quanity || ''} onChange={(e) => setinputqty(e.target.value)} />
-                                {/* <div className="input_qty input_qty_side" id="input_qty_plus" onClick={(e) => {input_qty_handler(product,e)}}>+</div> */}
+                                <div className="input_qty input_qty_side" id="input_qty_plus" onClick={(e) => {input_qty_handler(product,e)}}>+</div>
                             </td>
                             <td>{AddComma( product.it_Detail_quanity * product.it_sc_price)}</td>
-                            <td rowSpan={CartList.cartItem.length} style={{border:"1px solid #ddd"}} className="targetRowspan">2500원
+                            <td rowSpan={CartList.length}  className="targetRowspan">2500원
                                 100,000이상 
                             </td>
                             <td className="remove_box_wrapper" >
@@ -169,15 +180,16 @@ function CartPage(props) {
                     })}
                     </tbody>
                 </table>
-                {CartList.cartItem == 0 ? <div className="Cart_empty">장바구니가 비었습니다.</div> : null}
+                {CartList == 0 ? <div className="Cart_empty">장바구니가 비었습니다.</div> : null}
             </div>
             {/* 카트토탈가격 */}
-            {CartList.cartItem == 0 ? null :
+            {CartList == 0 ? null :
+            
                 <div className="total_Price_wrpper">
                     <div className="total_Price">
                         <div className="total_Price_Text">상품합계</div>    
                         <div className="total_Price_Number">{AddComma(TotalPrice2)}원</div>
-                    </div>
+                    </div>  
                     <div className="total_post_price">
                         <div className="total_Price_Text">배송비</div>
                         <div className="total_Price_Number" 
@@ -192,12 +204,15 @@ function CartPage(props) {
                         <div className="total_Price_Number textAlignB">{AddComma(TotalPrice2 < 100000 ? TotalPrice2+2500 : TotalPrice2)} won</div>
                     </div>
                     {/* <Payment name={CartList.cartItem.length+"개상품"} price={TotalPrice2 < 100000 ? TotalPrice2+2500 : TotalPrice2} /> */}
-                    {/* <Button id="purchase-button"> */}
-                    <Link  
-                        style={{color:'inherit'}}
-                        to={`/OrderPageMulti`}
-                    >결제하기</Link>
-                    {/* </Button> */}
+                    <Button id="purchase-button">
+                        <Link  
+                            style={{color:'inherit'}}
+                            to={`/OrderPageMulti`}
+                        >결제하기</Link>
+                    </Button>
+                    
+                    <br />
+                    
                 </div>
             }
         </div>

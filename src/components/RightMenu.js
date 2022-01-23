@@ -12,7 +12,6 @@ import axios from 'axios';
 import {API_URL} from '../config/constants'
 import { useDispatch, useSelector,connect } from "react-redux";
 import {setCartItem,setRequestLoding2} from "../_actions/userAction";
-import { actionCreators as cartActionsDetails } from "../_modules/userReducer";
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -23,7 +22,7 @@ const RightMenu = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
-  const user = useSelector(state => state.allProducts.cartItem)
+  const user = useSelector(state => state.allProducts)
   const { md } = useBreakpoint();
   const loginState = useSelector(state => state.userLogged.logged)
   const [isLogin, setIsLogin] = useState(false)
@@ -43,7 +42,6 @@ const RightMenu = (props) => {
         // setProducts(products);
         // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
         dispatch(setCartItem(result.data));
-        dispatch(cartActionsDetails.setCartItemSV(result.data));
         // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
         // console.log(result.data);
         // console.log(result.data.cartItem);

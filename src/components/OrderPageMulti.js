@@ -40,7 +40,9 @@ function OrderPageMulti() {
     const Producttitle1 = useProductOpt.map((item)=>{return(item.it_name)})
     const Producttitle2 = useProductOpt.map((item)=>{return(item.it_name)})[0]
 
-    const Producttitle = `${Producttitle2} 외 ${Number(Producttitle1.length) -1 }건`
+    console.log("Producttitle1 :",Producttitle1);
+    console.log("Producttitle2 :",Producttitle2);
+    const Producttitle = `${Producttitle2} 외 ${Number(Producttitle1.length) - 1 }건`
     console.log("제품명 : ",Producttitle);
 
     const Productcolor = useProductOpt.map((item)=>{return(item.it_Detail_color)}).join();
@@ -238,31 +240,50 @@ function OrderPageMulti() {
             //     )})
             // )
     }, [inputValEmail,siwpeOrder])
+    //총가격
+    // const TotalPrice = CartList && CartList.map(function (product) {
+    //     return(
+    //         Number(product.it_Detail_quanity * product.it_sc_price)
+    //     );
+    // })
+
+    
+
+    // let TotalPrice2 = []
+
+    // for(let i = 0;i<TotalPrice.length;i++){
+    //     TotalPrice2 = Number(TotalPrice2) + Number(TotalPrice[i])
+    // }
 
     useEffect(() => {
-        
-            if(useProductOpt && useProductOpt.length > 1){
-                useProductOpt && useProductOpt
-                .map((item )=> item.it_sc_price * item.it_Detail_quanity)
-                .reduce((accumulator, currentNumber) => {return(
-                    settotalcost(accumulator + currentNumber)
-                )})
+        if(useProductOpt && useProductOpt.length > 1){//productoptionDetails  length
+            let sumPakage = []
+            sumPakage = useProductOpt && useProductOpt
+            .map((item)=> Number(item.it_sc_price) * Number(item.it_Detail_quanity))
+            
+            console.log("sumPakage!",sumPakage);
 
-            }else if(useProductOpt && useProductOpt.length == 1){
-                useProductOpt && useProductOpt
-                .map((item )=> settotalcost(item.it_sc_price * item.it_Detail_quanity))
-                
-            }        
+            const sumPakage2 = sumPakage.reduce((accumulator, currentNumber) => 
+                accumulator + currentNumber
+            )
+            return settotalcost(sumPakage2);
+
+
+        }else if(useProductOpt && useProductOpt.length == 1){
+            useProductOpt && useProductOpt
+            .map((item )=> settotalcost(item.it_sc_price * item.it_Detail_quanity))
+            
+        }        
 
     }, [istotalcost,useProductOpt])
 
     useEffect(() => {
         dispatch(productActions.setProductSV());//product
         // console.log("CartList.cartItem",CartList.cartItem.map((item)=> item));
-        const cartList_map = CartList.cartItem && CartList.cartItem.map((item)=> item);
+        const cartList_map = CartList && CartList.map((item)=> item);
         console.log(cartList_map);
         dispatch(productOptionActionsDetails.setProductDetailSV(cartList_map));
-    }, [dispatch,CartList.cartItem])
+    }, [dispatch,CartList])
     
     if ( useProductOpt == [] ||useProductOpt == "" || useProductOpt == null || useProductOpt == undefined ){//리덕스 새로고침시 state없어져서 루트로 보냄 
         history.push("/");
@@ -271,6 +292,7 @@ function OrderPageMulti() {
     // console.log(useProductOpt);
     // const heyy = {"name":3}
     // console.log(heyy.name);
+    console.log("istotalcost!!",istotalcost);
     return (
         <div>
             <Formik
