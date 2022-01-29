@@ -279,6 +279,7 @@ function OrderPageMulti() {
 
     useEffect(() => {
         dispatch(productActions.setProductSV());//product
+        
         // console.log("CartList.cartItem",CartList.cartItem.map((item)=> item));
         const cartList_map = CartList && CartList.map((item)=> item);
         console.log(cartList_map);
@@ -301,7 +302,7 @@ function OrderPageMulti() {
                 validationSchema={validationSchema}
             >
                 <Form className="formContainer">
-                    <h2 className="registerTop">주문상품</h2>
+                    <h2 className="registerTop2 CartPage_HeadLine">Order ({CartList.length})</h2>
                             {useProductOpt && useProductOpt.map((item )=>{
                                 return(
                                     <>

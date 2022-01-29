@@ -17,18 +17,17 @@ const LeftMenu = () => {
               style={{ color: "inherit" }}
               className=""
               to={`/NewPage`}
-            >
-            New</Link>
+            >New</Link>
           </Menu.Item>
         </MenuItemGroup>
       </SubMenu>
       <SubMenu key="sub2" title={<span>Outerwear</span>}>
-        <MenuItemGroup title="♥가을이벤트♥">
-          <Menu.Item key="setting:2"><a href="">간지나는</a></Menu.Item>
+        <MenuItemGroup title="Rasberry Outerwear">
+          <Menu.Item key="setting:2"><a href="">Outerwear</a></Menu.Item>
         </MenuItemGroup>
-        <MenuItemGroup title="겨울나기이벤트">
-          <Menu.Item key="setting:4">겨울 재큇</Menu.Item>
-        </MenuItemGroup>
+        {/* <MenuItemGroup title="2+1">
+          <Menu.Item key="setting:4">2+1 event</Menu.Item>
+        </MenuItemGroup> */}
       </SubMenu>
       <Menu.Item key="sub3">
         <a href="">Tops</a>

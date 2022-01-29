@@ -8,16 +8,23 @@ import "../css/AdminPage.css";
 import dayjs from "dayjs";
 import { Button,Divider } from "antd";
 import { DownloadOutlined} from "@ant-design/icons";
+import jwt_decode from "jwt-decode";
 const AdminPage = () => {
     const products = useSelector((state) => state.allProducts.products);
     const dispatch = useDispatch();
     let state = useSelector(state => state);
     let Session = sessionStorage.getItem('user_id');
     const history = useHistory();
-
-    if(Session !== "admin"){
+    if(!Session){
         alert("관리자 계정으로 로그인 해주세요");
         document.location.href = '/'
+    }
+    if(Session){
+        const decoded = jwt_decode(Session).user_id;
+        if(decoded !== "admin"){
+            alert("관리자 계정으로 로그인 해주세요");
+            document.location.href = '/'
+        }
     }
     const fetchProducts = async () => { 
         await axios
@@ -97,6 +104,7 @@ const AdminPage = () => {
                         <div className="admCommon adm-product-name"><span>Item_ID :</span> {product.id}</div>
                         <div className="admCommon adm-name"><span>Name: :</span> {product.name}</div>
                         <div className="admCommon adm-product-name"><span>Price :</span> {product.price}</div>
+                        <div className="admCommon adm-product-name"><span>category :</span> {product.category}</div>
                         <button id="admLoginButton"type='button' onClick={ ()=> ProductUpdate(product.id) } >상품수정</button>
                         <button id="admDelete"type='button' onClick={ ()=> ProductDelete(product.id) } >삭제</button>
                     </div>

@@ -12,12 +12,18 @@ import jwt_decode from "jwt-decode";
 
 function UploadPage() {
   let Session = sessionStorage.getItem('user_id');
-  
-  if(Session !== "admin"){
-    alert("관리자 계정으로 로그인해주세요");
+  if(!Session){
+    alert("관리자 계정으로 로그인 해주세요");
     document.location.href = '/'
   }
-
+  if(Session){
+    const decoded = jwt_decode(Session).user_id;
+    if(decoded !== "admin"){
+        alert("관리자 계정으로 로그인 해주세요");
+        document.location.href = '/'
+    }
+  }
+  
   const [imageUrl, setImageUrl] = useState(null);
   const [imageUrl2, setImageUrl2] = useState(null);
   const [imageUrl3, setImageUrl3] = useState(null);

@@ -163,7 +163,7 @@ button {
   height: 50px;
   border-radius: 8px;
   border: none;
-  margin: 10px;
+  /* margin: 10px; */
 }
 
 .loginContainer button {
@@ -240,7 +240,7 @@ button{
   border-radius: 10px;
   box-shadow: inset 0px 0px 5px white;
 }
-@media screen and (max-width:600px) {
+@media screen and (max-width:800px) {
   .product-card{
     width:calc(50% - 20px)!important;
     margin-right:10px!important;
@@ -268,5 +268,8 @@ button{
   } */
   .barsMenu{
     width: 35px !important;
+  }
+  .formContainer {
+    width: 100% !important;padding: 0px 30px !important;
   }
 }

@@ -30,7 +30,7 @@ const NewPage = () => {
 
     const displayUsers = products.slice(0,5)//50중에 
         .slice(pagesVisited, pagesVisited + usersPerPage)// 최대갯수 ~  최대갯수 + 10
-        .filter(item => item.category == "NEW").map((product) => {
+        .filter(item => item.category == "New").map((product) => {
         // .filter(item => item.category == "DRESSES/SKIRTS").map((product) => {
             return (
                 <div className="product-card">

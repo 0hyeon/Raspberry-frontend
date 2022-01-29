@@ -2,6 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import {API_URL} from "../config/constants.js";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 // actions
 export const SET_USER ="SET_USER";//완료
 
@@ -18,8 +19,15 @@ const initialState = {
 
 //middle
 const setUserSV = ()=>{
+    const session2 = sessionStorage.getItem('user_id');
+    const decoded = jwt_decode(session2).user_id;
+
+    console.log("setUserSV session2 ",session2);
+    console.log("setUserSV decoded ",decoded);
+    
     const body = {
-        session: sessionStorage.getItem('user_id')
+        // session: sessionStorage.getItem('user_id')
+        session: decoded
     };
     console.log('body.session',body.session);
 

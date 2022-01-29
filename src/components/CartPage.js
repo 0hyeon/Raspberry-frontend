@@ -13,12 +13,14 @@ import { actionCreators as productOptionActions } from "../_modules/productoptio
 import { actionCreators as productOptionActionsDetails } from "../_modules/productoptionDetails";
 import { Button } from "antd";
 import axios from "axios";
-
+import { actionCreators as userActions } from "../_modules/user";
+import jwt_decode from "jwt-decode";
 function CartPage(props) {
     const [isinputqty, setinputqty] = useState(null);
     const CartList = useSelector((state) => state.allProducts.cartItem);
     const products = useSelector((state) => state.products.products);
     const pdopt = useSelector((state) => state.productoptionDetails.productoptionDetails);
+    const [isCart, setCart] = useState(false);
     const [isCartUi, setCartUi] = useState();
     const [istotalPrice, settotalPrice] = useState(null);
     const [isdeleveryPrice, setisdeleveryPrice] = useState(null);
@@ -28,27 +30,31 @@ function CartPage(props) {
     const fetchCartItem = async () => {
 
         let Session = sessionStorage.getItem('user_id');
-        let body = {
-            seSsionId: Session
-          // heyt: session_redux
+        if (Session){
+
+            const decoded = jwt_decode(Session).user_id;
+            let body = {
+                seSsionId: decoded
+              // heyt: session_redux
+            }
+            // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
+            await axios
+                .post(`${API_URL}/v1/cart/setCartItem`, body)
+                .then(function(result){
+                // const products = result.data.products;
+                // setProducts(products);
+                // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
+                dispatch(setCartItem(result.data));
+                // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
+                // console.log(result.data);
+                // console.log(result.data.cartItem);
+                // console.log('state : ',state);
+            })
+            .catch((err) => {
+                console.log("Err: ", err);
+                dispatch(setRequestLoding2())//loding true로 장바구니 랜더링
+            });
         }
-        // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
-        await axios
-            .post(`${API_URL}/v1/cart/setCartItem`, body)
-            .then(function(result){
-            // const products = result.data.products;
-            // setProducts(products);
-            // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
-            dispatch(setCartItem(result.data));
-            // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
-            // console.log(result.data);
-            // console.log(result.data.cartItem);
-            // console.log('state : ',state);
-        })
-        .catch((err) => {
-            console.log("Err: ", err);
-            dispatch(setRequestLoding2())//loding true로 장바구니 랜더링
-        });
         
         // dispatch(setProducts(result.data));
     };
@@ -64,11 +70,14 @@ function CartPage(props) {
         // 상품관련
         // fetchProducts();
         dispatch(productActions.setProductSV());
+        dispatch(userActions.setUserSV());
         dispatch(productOptionActions.setProductOptionsSV(products.name));
         setproduct_list(products);
-    }, [dispatch]);
+        fetchCartItem();
+        setCart(true);
+    }, [dispatch,isCart]);
 
-
+    
     const Delete_Handelr = async(e) => {
         
         let cartId = e.target.id;
@@ -105,9 +114,7 @@ function CartPage(props) {
         return Number(value).toLocaleString('en');
     }
 
-    if (CartList == 0) {
-        return <h1>.</h1>;
-    }
+    
     //총가격
     const TotalPrice = CartList && CartList.map(function (product) {
         return(
@@ -122,7 +129,9 @@ function CartPage(props) {
     for(let i = 0;i<TotalPrice.length;i++){
         TotalPrice2 = Number(TotalPrice2) + Number(TotalPrice[i])
     }
-    
+    if (isCart == 0) {
+        return <h1>.</h1>;
+    }
     return (
         <div className="CartPage_Wrapper">
             
@@ -134,8 +143,8 @@ function CartPage(props) {
                     <thead>
                         <tr className="sod_list_head">
                             <th scope="col" width="*" className="text_left">상품명</th>
-                            <th scope="col" width="15%">수량</th>
-                            <th scope="col" width="15%">가격</th>
+                            <th scope="col" width="15%" className="second_td">수량</th>
+                            <th scope="col" width="25%">가격</th>
                             <th scope="col" width="25%">배송비</th>
                             <th scope="col" width="10%">삭제</th>
                         </tr>
@@ -163,7 +172,7 @@ function CartPage(props) {
                                 </Link>
                                 </div>
                             </td>
-                            <td>
+                            <td className="second_td">
                                 <div className="input_qty input_qty_side" id="input_qty_minus" onClick={(e) => {input_qty_handler(product,e)}}>-</div>
                                 <input className="input_qty" id={product.id} type="number" autoComplete="off" min="1" max="100" value={product.it_Detail_quanity || ''} onChange={(e) => setinputqty(e.target.value)} />
                                 <div className="input_qty input_qty_side" id="input_qty_plus" onClick={(e) => {input_qty_handler(product,e)}}>+</div>
@@ -188,7 +197,7 @@ function CartPage(props) {
                 <div className="total_Price_wrpper">
                     <div className="total_Price">
                         <div className="total_Price_Text">상품합계</div>    
-                        <div className="total_Price_Number">{AddComma(TotalPrice2)}원</div>
+                        <div className="total_Price_Number">{AddComma(TotalPrice2)}won</div>
                     </div>  
                     <div className="total_post_price">
                         <div className="total_Price_Text">배송비</div>
@@ -208,7 +217,7 @@ function CartPage(props) {
                         <Link  
                             style={{color:'inherit'}}
                             to={`/OrderPageMulti`}
-                        >결제하기</Link>
+                        >주문하기</Link>
                     </Button>
                     
                     <br />

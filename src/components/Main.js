@@ -15,7 +15,6 @@ import { actionCreators as productOptionActions } from "../_modules/productoptio
 
 import ReactPaginate from "react-paginate";
 import jwt_decode from "jwt-decode";
-
 dayjs.extend(relativeTime);//dayjs에서 확장된 기능 사용 
 
 function Main(props) {
@@ -59,27 +58,32 @@ function Main(props) {
 
     const fetchCartItem = async () => {
         let Session = sessionStorage.getItem('user_id');
-        let body = {
-            seSsionId: Session
-          // heyt: session_redux
-        }
-        // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
-        await axios
-            .post(`${API_URL}/v1/cart/setCartItem`, body)
-            .then(function(result){
-            // const products = result.data.products;
-            // setProducts(products);
+        if(Session){
+            
+            const decoded = jwt_decode(Session).user_id;
+            let body = {
+                seSsionId: decoded
+              // heyt: session_redux
+            }
             // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
-            dispatch(setCartItem(result.data));
-            // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
-            // console.log(result.data);
-            // console.log(result.data.cartItem);
-            // console.log('state : ',state);
-        })
-        .catch((err) => {
-            console.log("Err: ", err);
-            dispatch(setRequestLoding2())//loding true로 장바구니 랜더링
-        });
+            await axios
+                .post(`${API_URL}/v1/cart/setCartItem`, body)
+                .then(function(result){
+                // const products = result.data.products;
+                // setProducts(products);
+                // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
+                dispatch(setCartItem(result.data));
+                // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
+                // console.log(result.data);
+                // console.log(result.data.cartItem);
+                // console.log('state : ',state);
+            })
+            .catch((err) => {
+                console.log("Err: ", err);
+                dispatch(setRequestLoding2())//loding true로 장바구니 랜더링
+            });
+            
+        } 
         
         // dispatch(setProducts(result.data));
     };
@@ -182,9 +186,7 @@ function Main(props) {
                     </div>
                 </>
             }
-            
         </div>
     )
 }
- 
 export default Main;

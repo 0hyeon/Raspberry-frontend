@@ -258,7 +258,7 @@
     .product-name{
       line-height: inherit!important;
       font-size: 15px;
-      height:inherit!important;
+      height:55px!important;
     }
     .product-img:nth-of-type(2n-1){
 

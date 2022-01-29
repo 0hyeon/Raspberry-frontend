@@ -4,6 +4,7 @@ import axios from "axios";
 import {API_URL} from "../config/constants";
 import { useHistory } from "react-router-dom";
 import { actionCreators as OrderResult } from "../_modules/orderresult";
+import jwt_decode from "jwt-decode";
 const Payment = (props) => {
     const dispatch = useDispatch();
     const history = useHistory();//리액트훅
@@ -12,6 +13,8 @@ const Payment = (props) => {
     let setAddressState = useSelector(state => state.setaddress.setaddress);
 
     let Session = sessionStorage.getItem('user_id');
+
+    
 
     useEffect(() => {
         
@@ -29,7 +32,8 @@ const Payment = (props) => {
         
     }, []);
     const onClickPayment = () => {
-
+        
+        
         const { IMP } = window;
         // IMP.init('imp31132542'); // 가맹점 식별코드
         IMP.init('iamport'); // 가맹점 식별코드
@@ -58,7 +62,7 @@ const Payment = (props) => {
 
         axios.post(`${API_URL}/v1/order/payment`,{//1차적으로 db에추가
             od_id : data.merchant_uid, //거래번호 
-            mb_id: Session,//사용자 id
+            mb_id: Session ? jwt_decode(Session).user_id : null,//사용자 id
             product_it_id:product_it_id,
             product_option_id:product_option_id,//구매한 상품옵션
             name:data.name,//상품명

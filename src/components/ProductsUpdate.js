@@ -1,5 +1,5 @@
 import "antd/dist/antd.css";
-import { Form, Divider, Input, InputNumber, Button, Upload, message } from "antd";
+import { Form, Divider, Input, InputNumber, Button, Upload, message, Select } from "antd";
 import "../css/ProductsUpdate.css";
 // import { ForkOutlined } from "@ant-design/icons";
 import React,{ useState, useEffect, useRef } from "react";
@@ -9,7 +9,10 @@ import { useHistory,useParams }from "react-router-dom";
 import { useSelector, connect,useDispatch } from 'react-redux';
 import {removeSelectedProduct, selectedProduct} from '../_actions/userAction'
 import QuillEditor from "./editor/QuillEditor"
+import jwt_decode from "jwt-decode";
+
 function ProductsUpdate() {
+  
   const dispatch = useDispatch();
   const products = useSelector((state) => state.allProducts.products);
   let Session = sessionStorage.getItem('user_id');
@@ -17,13 +20,28 @@ function ProductsUpdate() {
   console.log(id); //문자 
   // console.log(products);
   const quillRef = useRef(); //🌈
-
+  
+  const { Option } = Select;
+  
+  const [isselectVal, setselectVal ] = useState(null);
+  function handleChange(value) {
+    console.log(`selected ${value}`);
+    setselectVal(value);
+    console.log(isselectVal);
+  }
 
   const updateProduct = products.products && products.products.find((item) => String(item.id) === String(id)); 
   
-  if(Session !== "admin"){
-    alert("관리자 계정으로 로그인해주세요");
+  if(!Session){
+    alert("관리자 계정으로 로그인 해주세요");
     document.location.href = '/'
+  }
+  if(Session){
+    const decoded = jwt_decode(Session).user_id;
+    if(decoded !== "admin"){
+        alert("관리자 계정으로 로그인 해주세요");
+        document.location.href = '/'
+    }
   }
 
   const [imageUrl, setImageUrl] = useState(updateProduct && updateProduct.imageUrl);
@@ -91,6 +109,7 @@ function ProductsUpdate() {
       relateProduct3 : parseInt(values.relateProduct3),
       relateProduct4 : parseInt(values.relateProduct4),
       relateProduct5 : parseInt(values.relateProduct5),
+      category : isselectVal,
       soldout : 1,
     }).then((result) =>{
       console.log(result);//제출 잘됐으면 리디렉션
@@ -654,6 +673,22 @@ function ProductsUpdate() {
             onChange={setHtmlContent}
           />
           <QuillEditor  quillRef={quillRef} htmlContent={htmlContent} setHtmlContent={setHtmlContent} api=""/>
+        </Form.Item>
+        <Divider />
+        {/* 카테고리분류 */}
+        <Form.Item
+          name="category"
+          label={<div className="upload-label">카테고리 분류</div>}
+          rules={[{ required: true, message: "카테고리를 등록하세요" }]}
+        >
+          <Select defaultValue="disabled" style={{ width: 120 }} onChange={handleChange} value={isselectVal}>
+            <Option value="disabled" disabled>
+              Disabled
+            </Option>
+            <Option value="New">New</Option>
+            <Option value="Outerwear">Outerwear</Option>
+            <Option value="Tops">Tops</Option>
+          </Select>
         </Form.Item>
         <Divider />
         {/* 연관상품 */}

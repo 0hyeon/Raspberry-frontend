@@ -5,3 +5,13 @@
     /* font-weight: bold; */
     font-family: 'Uiyeun';
 }
+.registerTop2{
+    font-weight: bold;
+    margin:30px 0 20px;
+}
+@media screen and (max-width:800px) {
+    .registerTop2{
+        margin:95px 0 20px !important;
+    }
+
+}

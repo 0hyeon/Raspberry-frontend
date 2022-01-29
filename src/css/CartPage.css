@@ -150,3 +150,32 @@ table > tbody > tr > td {
 #sod_list > tbody > tr:nth-of-type(n+2) > td:nth-of-type(4){
     display: none!important;
 }
+@media screen and (max-width:800px) {
+    .CartPage_Wrapper {
+        padding: 110px 30px 70px;
+        max-width: 1660px;
+        min-height: 300px;
+        height: auto;
+        margin: 0 auto;
+    }
+    .total_Price_wrpper{
+        width: 100% !important;
+        padding-right: 0px !important;
+        padding: 20px !important;
+    }
+    .targetRowspan{
+        font-size: 15px !important;
+    }
+    .thumb_text{
+        font-size: 14px !important;
+        margin-top: 5px !important;
+    }
+    .second_td{
+        width: 65px !important;
+    }
+    #purchase-button {
+        width: 100%;
+        height: 50px;
+        margin-top: 30px;
+    }
+}
