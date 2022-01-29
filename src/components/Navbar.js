@@ -3,8 +3,9 @@ import LeftMenu from './LeftMenu'
 import RightMenu from './RightMenu'
 import RightMenu2 from './RightMenu2'
 import "../css/navbar.css";
-import { Drawer, Button } from 'antd';
+import { Drawer, Button} from 'antd';
 import { Link } from "react-router-dom";
+import { InstagramOutlined } from "@ant-design/icons";
 class Navbar extends Component {
   state = {
     current: 'mail',
@@ -42,6 +43,9 @@ render() {
             <div className="rightMenu">
                 <RightMenu />
             </div>
+            <a href="https://www.instagram.com/j_i_hi/">
+              <InstagramOutlined style={{ fontSize: '30px', color: '#000' }} />
+            </a>
             <Button className="barsMenu" type="primary" onClick={this.showDrawer}>
               <span className="barsBtn"></span>
             </Button>

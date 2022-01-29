@@ -81,15 +81,16 @@
 
 .barsMenu {
   float: right;
-  height: 32px;
-  padding: 6px;
+  height: 29px;
+  padding: 5px;
   display: none;
   background: none;
+  border: 2px solid #000;
 }
 
 .barsBtn {
   display: block;
-  width: 20px;
+  width: 16px;
   height: 2px;
   background: #000;
   position: relative;
@@ -98,7 +99,7 @@
 .barsBtn:after,
 .barsBtn:before {
   content: attr(x);
-  width: 20px;
+  width: 16px;
   position: absolute;
   top: -6px;
   left: 0;
@@ -209,10 +210,10 @@
 .ant-menu-light .ant-menu-item-active{
   color: inherit!important;
 }
+.anticon-instagram{display: none;}
 @media (max-width: 767px) {
   .barsMenu {
     display: inline-block;
-    background-color: #fff;
   }
 
   .leftMenu,
@@ -241,5 +242,10 @@
   .RM_2a_link{
     font-size: 15px;
     font-weight: 400;
+  }
+  .anticon-instagram{
+    display: inline-block !important;
+    position: absolute;
+    left: 15px;
   }
 }
