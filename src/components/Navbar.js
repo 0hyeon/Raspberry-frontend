@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState,Component } from 'react';
 import LeftMenu from './LeftMenu'
 import RightMenu from './RightMenu'
 import RightMenu2 from './RightMenu2'
@@ -6,26 +6,18 @@ import "../css/navbar.css";
 import { Drawer, Button} from 'antd';
 import { Link } from "react-router-dom";
 import { InstagramOutlined } from "@ant-design/icons";
-class Navbar extends Component {
-  state = {
-    current: 'mail',
-    visible: false,
-  }
-  showDrawer = () => {
-    this.setState({
-      visible: true,
-    });
-  };
-  onClose = () => {
-      this.setState({
-        visible: false,
-      });
-    };
-  handlerOver = (event) => {
-    event.target.style.backgroundColor = "#000"
-  }
+const Navbar = (props) => {
   
-render() {
+  const [visible, setVisible] = useState(false);
+
+  const showDrawer = () => {
+    setVisible(true);
+  };
+
+  const onClose = () => {
+    setVisible(false);
+  };
+  
     return (
         <nav className="menuBar">
           <div className="menuCon">
@@ -43,26 +35,27 @@ render() {
             <div className="rightMenu">
                 <RightMenu />
             </div>
+            {/* 모바일시 반응 */}
             <a href="https://www.instagram.com/j_i_hi/">
               <InstagramOutlined style={{ fontSize: '30px', color: '#000' }} />
             </a>
-            <Button className="barsMenu" type="primary" onClick={this.showDrawer}>
+            <Button className="barsMenu" type="primary" onClick={showDrawer}>
               <span className="barsBtn"></span>
             </Button>
             <Drawer
               title="Menu"
               placement="right"
               closable={false}
-              onClose={this.onClose}
-              visible={this.state.visible}
+              onClose={onClose}
+              visible={visible}
             >
-              <LeftMenu />
+              <LeftMenu  onClose={onClose} /> 
+    
               <br />
-              <RightMenu2 />
+              <RightMenu2 onClose={onClose} />
             </Drawer>
           </div>
         </nav>
     );
-  }
 }
 export default Navbar;

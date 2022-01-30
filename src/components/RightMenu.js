@@ -57,7 +57,7 @@ const RightMenu = (props) => {
       
     }
     // dispatch(setProducts(result.data));
-};
+  };
   if(user.cartItem == undefined){
     // fetchCartItem();
   }
@@ -81,82 +81,53 @@ const RightMenu = (props) => {
     }
     
   },[state])
-
-
-  if(user.cartItem == undefined ){// 0개일때 
-    return (
+  return (
+    <Menu mode={md ? "horizontal" : "inline"}>
       
-      <Menu mode={md ? "horizontal" : "inline"}>
-        <Menu.Item key="mail">
-          {/* <Link to="/login"> Login</Link> */}
-          
-          {isLogin ? <Logout /> : <Link to="/login">Login</Link>}
-          
-        </Menu.Item>
-        <Menu.Item key="app">
-          {isLogin ? null : <Link to="/registration">Registration</Link>}
-          
-        </Menu.Item>
-        <Menu.Item key="app2">
-          <Link to="/Search">Search</Link>
-        </Menu.Item>
-        <Menu.Item key="cart">
-          {isLogin ? <ShoppingCartOutlined /> : null}
-          {/* {isLogin ? <cartCount /> : null}
-          <cartCount /> */}
-          {isLogin ? <div className="cartCount">
-          0
-          </div> : null}
-        </Menu.Item>
-        <Menu.Item key="order">
+      {/* 로그인버튼 */}
+      <Menu.Item key="mail">
+        {/* <Link to="/login"> Login</Link> */}
+        {isLogin ? <Logout /> : <Link to="/login">Login</Link>}
+      </Menu.Item>
+      {/* 회원가입 */}
+      <Menu.Item key="app">
+        {isLogin ? null : <Link to="/registration">Registration</Link>}
+      </Menu.Item>
+      {/* 상품검색 */}
+      <Menu.Item key="app2">
+        <Link to="/Search">Search</Link>
+      </Menu.Item>
+      {/* 주문조회 */}
+      <Menu.Item key="order">
           <Link to="/order">Order</Link>
-        </Menu.Item>
-      </Menu>
-
-          
-      
-    );
-  }else{
-      return (
-        <Menu mode={md ? "horizontal" : "inline"}>
-          
-          <Menu.Item key="mail">
-            {/* <Link to="/login"> Login</Link> */}
-            
-            {isLogin ? <Logout /> : <Link to="/login">Login</Link>}
-            
-          </Menu.Item>
-          <Menu.Item key="app">
-            {isLogin ? null : <Link to="/registration">Registration</Link>}
-            
-          </Menu.Item>
-          <Menu.Item key="app2">
-            <Link to="/Search">Search</Link>
-          </Menu.Item>
-          <Menu.Item key="order">
-              <Link to="/order">Order</Link>
-            </Menu.Item>
-          <Menu.Item key="cart">
-            <Link to="/CartPage" className="cartCount_in_a">
-            {isLogin ? <ShoppingCartOutlined /> : null}
-            {/* {isLogin ? <cartCount /> : null}
-            <cartCount /> */}
-            {isLogin ? <div className="cartCount">
-            {user.cartItem.length}
-            </div> : null}
-            </Link>
-            
-            <ReactAudioPlayer
-              src={BGM}
-              loop
-              controls
-              // autoPlay
-            />
-          </Menu.Item>
-        </Menu>
-      );
-    }
-  }
+      </Menu.Item>
+      {/* 장바구니 */}
+      <Menu.Item key="cart">
+        <Link to="/CartPage" className="cartCount_in_a">
+        {isLogin ? <ShoppingCartOutlined /> : null}
+        {/* {isLogin ? <cartCount /> : null}
+        <cartCount /> */}
+        {isLogin ? <div className="cartCount">
+        {user.cartItem.length}
+        </div> : null}
+        </Link>
+      </Menu.Item>
+      {/* Qna */}
+      <Menu.Item key="Qna">
+          <Link to="/Qna">Qna</Link>
+      </Menu.Item>
+      {/* Bgm */}
+      <Menu.Item key="ReactAudioPlayer">
+        <ReactAudioPlayer
+          src={BGM}
+          loop
+          controls
+          // autoPlay
+        />
+      </Menu.Item>
+    </Menu>
+  );
+}
   // if (user.cartItem) {
   //   return {
       

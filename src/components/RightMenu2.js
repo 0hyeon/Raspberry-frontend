@@ -82,43 +82,6 @@ if(sessionStorage.getItem('user_id') == null){
 }
 
 },[state])
-
-
-if(user.cartItem == undefined ){// 0개일때 
-return (
-    <>
-        <Menu mode={md ? "horizontal" : "inline"}>
-        <Menu.Item key="mail">
-            {/* <Link to="/login"> Login</Link> */}
-            
-            {isLogin ? <Logout /> : <a href="/login">Login</a>}
-            
-        </Menu.Item>
-        <Menu.Item key="app">
-            {isLogin ? null : <Link to="/registration">Registration</Link>}
-            
-        </Menu.Item>
-        <Menu.Item key="app2">
-            <Link to="/Search">Search</Link>
-        </Menu.Item>
-        <Menu.Item key="cart">
-            {isLogin ? <ShoppingCartOutlined /> : null}
-            {/* {isLogin ? <cartCount /> : null}
-            <cartCount /> */}
-            {isLogin ? <div className="cartCount">
-            0
-            </div> : null}
-        </Menu.Item>
-        <Menu.Item key="order">
-            <Link to="/order">Order</Link>
-        </Menu.Item>
-        </Menu>
-    </>
-
-        
-    
-);
-}else{
     return (
         <div style={{position:'absolute',bottom:'0',width:'100%'}}>
             <Menu mode={md ? "horizontal" : "inline"}>
@@ -126,28 +89,29 @@ return (
                 <Menu.Item key="mail">
                 {/* <Link to="/login"> Login</Link> */}
                 
-                {isLogin ? <Logout /> : <a className="RM_2a_link"href="/login">로그인</a>}
+                {isLogin ? <Logout /> : <Link className="RM_2a_link"to="/login" onClick={() => props.onClose()}>로그인</Link>}
                 
                 </Menu.Item>
                 <Menu.Item key="app">
-                {isLogin ? null : <a className="RM_2a_link"href="/registration">회원가입</a>}
+                {isLogin ? null : <Link className="RM_2a_link"to="/registration" onClick={() => props.onClose()}>회원가입</Link>}
                 
                 </Menu.Item>
                 <Menu.Item key="app2">
-                    <a className="RM_2a_link"href="/Search">상품검색</a>
+                    <Link className="RM_2a_link" to="/Search" onClick={() => props.onClose()}>상품검색</Link>
                 </Menu.Item>
                 <Menu.Item key="order">
-                    <a className="RM_2a_link"href="/order">주문조회</a>
+                    <Link className="RM_2a_link" to="/order" onClick={() => props.onClose()}>주문조회</Link>
                 </Menu.Item>
                 <Menu.Item key="cart">
-                    <a href="/CartPage" className="cartCount_in_a RM_2a_link">
+                    <Link to="/CartPage" className="cartCount_in_a RM_2a_link" onClick={() => props.onClose()}>
                         {isLogin ? <ShoppingCartOutlined /> : null}
                         {/* {isLogin ? <cartCount /> : null}
                         <cartCount /> */}
-                        {isLogin ? <div className="cartCount">
-                        {user.cartItem.length}
-                        </div> : null}
-                    </a>
+                        {isLogin 
+                            ? <div className="cartCount">{user.cartItem.length}</div> 
+                            : null
+                        }
+                    </Link>
                 <ReactAudioPlayer
                     src={BGM}
                     loop
@@ -158,7 +122,6 @@ return (
             </Menu>
         </div>
     );
-}
 }
 // if (user.cartItem) {
 //   return {

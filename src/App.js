@@ -6,20 +6,13 @@ import Main from './components/Main';
 // import Admin from './components/Admin';
 import Banners from './components/Banners';
 import Navbar from "./components/Navbar";
-// import PassWordEmail from "./components/PassWordEmail";
-// import ProductPage from "./components/Products";
-// import AdminLogin from "./components/AdminLogin";
-// import AdminPage from "./components/AdminPage";
-// import ProductsUpdate from "./components/ProductsUpdate";
-// import CartPage from "./components/CartPage";
-import { Button,Divider } from "antd";
-import { DownloadOutlined,CaretRightOutlined,PauseCircleOutlined} from "@ant-design/icons";
 import 'antd-mobile/dist/antd-mobile.css';
-import { Switch, Route, Link, useHistory,withRouter } from "react-router-dom";
+import { Switch, Route,withRouter } from "react-router-dom";
 
 import loadable from '@loadable/component'
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "./_reducers/index";
+import ReCAPTCHA from "react-google-recaptcha"
 const ProductPage = loadable(() => import('./components/Products'))
 const CartPage = loadable(() => import('./components/CartPage'))
 const Login = loadable(() => import('./components/Login'))
@@ -36,6 +29,8 @@ const OrderResult = loadable(() => import('./components/OrderResult'))
 const Order = loadable(() => import('./components/Order'))
 const NewPage = loadable(() => import('./components/NewPage'))
 const DRESSESSKIRTS = loadable(() => import('./components/DRESSESSKIRTS'))
+const Qna = loadable(() => import('./components/Qna'))
+const QnaWrite = loadable(() => import('./components/QnaWrite'))
 // const SearchCopmonent = loadable(() => import('./components/search/SearchCopmonent'))
 function App () {
   // const history = useHistory();
@@ -117,6 +112,11 @@ function App () {
   
   const handleScroll = throttle(updateScroll, 1000);
   
+  //ReCAPTCHA 함수
+  function onChange(value) {
+    console.log('Captcha value:', value);
+  }
+
   return (
     <React.Fragment>
       <ConnectedRouter history={history}>
@@ -135,6 +135,11 @@ function App () {
           <Switch>
             <Route exact={true} path="/">
               <Main />
+              {/* <ReCAPTCHA
+                sitekey="6LfEpUceAAAAAL1phNo3x8s8n7sXD0BeNvKZFyhX"
+                // size="invisible"
+                onChange={onChange}
+              /> */}
             </Route>
             <Route exact={true} path="/Registration">
               <Registration />
@@ -186,6 +191,17 @@ function App () {
             </Route>
             <Route exact={true} path="/DRESSESSKIRTS">
               <DRESSESSKIRTS />
+            </Route>
+            <Route exact={true} path="/Qna">
+              <Qna />
+            </Route>
+            <Route exact={true} path="/QnaWrite">
+              <QnaWrite />
+              {/* <ReCAPTCHA
+                sitekey="6Leau0ceAAAAAOyGm-BJT2ut6yThQUfDZRia_cWT"
+                // size="invisible"
+                onChange={onChange}
+              /> */}
             </Route>
             {/* <Route exact path="/SearchCopmonent/:word" component={SearchCopmonent}></Route> */}
           </Switch>

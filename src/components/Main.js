@@ -117,7 +117,7 @@ function Main(props) {
         .slice(pagesVisited, pagesVisited + usersPerPage)// 최대갯수 ~  최대갯수 + 10
         .map((product) => {
             return (
-                <div className="product-card">
+                <div className="product-card" key={product.id}>
                 {
                     product.soldout === 100 && <div className="product-blur" />
                 }

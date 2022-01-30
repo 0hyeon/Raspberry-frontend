@@ -64,7 +64,7 @@
 } */
 
 .menuCon .leftMenu {
-  width: 750px;
+  width: 530px;
   position: absolute;
   left: 100px;
   top: 50%;
@@ -73,10 +73,9 @@
 
 .menuCon .rightMenu {
   position: absolute;
-  right: 200px;
+  right: 150px;
   top: 50%;
   transform: translateY(-50%);
-  width: 500px;
 }
 
 .barsMenu {
@@ -196,7 +195,7 @@
   background-color: rgb(0, 0, 0,0.3);
 } 
 .rightMenu > .ant-menu {
-  width: 500px;
+  width: 600px;
 }
 .rightMenu > .ant-menu > li:nth-of-type(3){
   /* display: none; */
