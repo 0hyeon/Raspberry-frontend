@@ -25,6 +25,7 @@ height: 40px;
 list-style: none;
 display: flex;
 justify-content: center;
+margin: 50px auto;
 }
 
 .paginationBttns a {

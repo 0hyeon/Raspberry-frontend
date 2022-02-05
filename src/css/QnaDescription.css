@@ -1,0 +1,49 @@
+.QnaWrapper{
+    width: 50%;
+    margin: 50px auto;
+}
+.QnaWrapper > div {
+    overflow: hidden;
+    position: relative;
+    padding: 14px 0 14px 7px;
+    min-height: 50px;
+    color: #757575;
+    border-bottom: 1px solid #ececec;
+    text-align: left;
+}
+.QnaWrapper_title{
+    font-size: 37px;
+    font-family: 'Uiyeun';
+    margin: 15px 0;
+    color: black !important;
+}
+.QnaWrapper_title2{
+    font-family: 'Uiyeun';
+    font-size: 23px;
+}
+.ant-input-lg{
+    margin-left: inherit !important;
+    width: 100% !important;
+}
+.isDesc{
+    padding: 50px 0 !important;
+}
+#submit-button{
+    margin: inherit !important;
+    height: inherit !important;
+}
+.CommentWrapper{
+    border-top: 1px solid #ececec;
+    border-bottom: 1px solid #ececec;
+}
+.p{
+    padding: 10px;
+}
+.comment_name{
+    font-size: 23px;
+    font-family: 'Uiyeun';
+    color: black;
+}
+.comment_desc{
+    margin: 0 14px;
+}

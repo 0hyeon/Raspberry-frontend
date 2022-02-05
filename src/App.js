@@ -31,6 +31,7 @@ const NewPage = loadable(() => import('./components/NewPage'))
 const DRESSESSKIRTS = loadable(() => import('./components/DRESSESSKIRTS'))
 const Qna = loadable(() => import('./components/Qna'))
 const QnaWrite = loadable(() => import('./components/QnaWrite'))
+const QnaDescription = loadable(() => import('./components/QnaDescription'))
 // const SearchCopmonent = loadable(() => import('./components/search/SearchCopmonent'))
 function App () {
   // const history = useHistory();
@@ -42,7 +43,7 @@ function App () {
   const [issession,setsession ] = useState(null); 
   
   
-  let Session = console.log( sessionStorage.getItem('user_id') );
+  let Session = sessionStorage.getItem('user_id');
   useEffect(() => {
     setsession(Session);
     console.log(issession);
@@ -194,6 +195,9 @@ function App () {
             </Route>
             <Route exact={true} path="/Qna">
               <Qna />
+            </Route>
+            <Route exact={true} path="/Qna/:id">
+              <QnaDescription />
             </Route>
             <Route exact={true} path="/QnaWrite">
               <QnaWrite />
