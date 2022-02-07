@@ -5,11 +5,11 @@ import { useEffect, useState, useRef} from "react";
 import "../css/Products.css";
 import {API_URL} from "../config/constants";
 import dayjs from 'dayjs';
-
+import ReactPaginate from "react-paginate";
 import { useDispatch,useSelector, connect } from 'react-redux';
 // import MainPage from "./MainPage";
 import {addToCart, setProducts, selectedProduct, removeSelectedProduct, decideToCart, setCartItem, setRequestLoding, setRequestLoding2,fetchCartItem,totalprice} from '../_actions/userAction'
-
+import styled from "styled-components";
 //swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";	// 추가
@@ -23,6 +23,7 @@ import "../css/Swiper_custom.css";
 import { Button, message } from "antd";
 import Payment from "./Payment";
 import jwt_decode from "jwt-decode";
+import "../css/QnaDescription.css";
 
 function ProductPage() {
   
@@ -45,6 +46,8 @@ function ProductPage() {
   const [currentClick2, setCurrentClick2] = useState(null);
   const [prevClick, setPrevClick] = useState(null);
   const [prevClick2, setPrevClick2] = useState(null);
+  const [qnaAll, setqnaAll] = useState(null);
+  const [qnaComentAll, setqnaComentAll] = useState(null);
   
   // fetchProduct all 
   const [loading, setLoading] = useState(false);
@@ -58,6 +61,8 @@ function ProductPage() {
 
   //fetch로 color name 상태관리 -> 스카이블루 
   const [isColorName, setColorName] = useState(null);
+
+  const [pageNumber, setPageNumber] = useState(0);
   
   //컬러 클릭후 사이즈 보여주기 -> Free , m
   const [isShowSizeName, setShowSizeName] = useState(null);
@@ -428,7 +433,6 @@ function ProductPage() {
   
   const fetchProducts = async () => {//해당페이지 모든 아이템 
     await axios
-    
       .get(`${API_URL}/v1/product/products`)
     //   .get('https://jsonplaceholder.typicode.com/posts')
       .then(function(result){
@@ -512,7 +516,51 @@ function ProductPage() {
   }
   //장바구니 decide to cart 
   
-  
+  //댓글갯수(모든)
+  const fetchqnaAllComent = async () => {
+    await axios
+        .get(`${API_URL}/v1/qna/qnaAllComentGET`)
+        .then(function(result){
+            // console.log("fetchqnaAllComent : ",result.data);
+            setqnaComentAll(result.data.result.slice(0, 5));
+        })
+        .catch((err) => {
+            console.log("Err: ", err);
+        });
+        
+        
+  }
+  //모든Qna fetch
+  const fetchQnaAll = async () => {
+        await axios
+        .get(`${API_URL}/v1/qna/qnaAll`)
+        .then(function(result){
+            // console.log("fetchQnaAll : ",result.data);
+            setqnaAll(result.data.result.slice(0, 5));
+        })
+        .catch((err) => {
+            console.log("Err: ", err);
+        });
+    };
+
+  //댓글갯수
+  const commentsLength = () => {//0번째만 3개들어감
+    if (qnaAll && qnaAll.length > 0) { 
+      // console.log("질문글 : ",qnaAll);
+      for (var article in qnaAll) {//질문글반복
+        const comments = [];
+        for (var comment in qnaComentAll) {//질문의댓글반복
+          if(
+            qnaComentAll[comment].Qna_id === 
+            qnaAll[article].id
+          ){
+            comments.push(qnaComentAll[comment].id);
+          }
+        }
+        qnaAll[article]["comments"] = comments;
+      }
+    }
+  }
   const decideToCartItem = async () => {
         
     let Session = sessionStorage.getItem('user_id');
@@ -540,6 +588,7 @@ function ProductPage() {
       });
       youCanAddToCart();
       fetchCartItem();
+
     }
 
   };
@@ -581,15 +630,19 @@ function ProductPage() {
     }
     let Session = sessionStorage.getItem('user_id');
     // dispatch(addToCart(id,Session))
+    
+    fetchQnaAll();//qna
+
+    fetchqnaAllComent()//qna댓글
+
     getProduct();//useEffect시 1개아이템
-    youCanAddToCart();
+
+    youCanAddToCart();//장바구니
     // fetchProductDetail();//해당페이지 1아이템 
     fetchProducts();//모든 아이템
     
-    // if(whyerrorObject != 'undefined' && whyerrorObject != null){
-    //   setwhyerrorObject(whyerrorObject);
-    // }
-    setProduct(product);
+    setProduct(product);//상품세팅
+    
     
   }, [isCartUi_View,prevClick,currentClick2,currentClick,id]);
   
@@ -631,6 +684,10 @@ function ProductPage() {
     dispatch(productOptionActionsDetails.setProductDetailSV(setProductDetailSV_Data));
   }, [dispatch,isShowSizeName,isProductId,isColorName,isColorType,isnowProductNum,isCartUi])
   
+  useEffect(()=>{
+    commentsLength();
+  },[qnaComentAll])
+
   const onClickPurchase = () =>{//구매하기 클릭이벤트
     // axios.post(`${API_URL}/purchase/${id}`).then((result)=>{
       
@@ -655,11 +712,26 @@ function ProductPage() {
     // message.info("구매가 완료되었습니다.");
     
   }
-  // console.log("isProductId!!!!!",isProductId);
-  // console.log("isShowSize!!!!!",isShowSize);
-  // console.log("isnowProductNum!!!!!",isnowProductNum);
-  // console.log("case1_colorName2_1 && case1_colorName2_1.colorName1!!!!!",case1_colorName2_1 && case1_colorName2_1.colorName1);
-  // console.log("case1_colorName2_2 && case1_colorName2_2.colorName1!!!!!",case1_colorName2_2 && case1_colorName2_2.colorName1);
+  const usersPerPage = 2;//한페이지에 보여주는 갯수
+  const pagesVisited = pageNumber * usersPerPage;// 1페이지에 1 * 10 / 2페이지에 2 * 20 //최대갯수인듯
+  const displayUsers = 
+    qnaAll && qnaAll.slice(0,5).slice(pagesVisited, pagesVisited + usersPerPage).map((qna) => {
+          return (
+              <Tr value={qna.id}  key={qna.id}>
+                  <Link to={`/Qna/${qna.id}`}>
+                  <Td value={qna.id}>{qna.title}({qna.comments && qna.comments.length})</Td>
+                  </Link>
+                  <Td>{qna.user_name}</Td>
+                  <Td>{dayjs(qna.createdAt).fromNow()}</Td>
+              </Tr>
+          )
+      })
+      
+      //qnaAll 질문글
+      //qnaComentAll 질문의댓글
+
+    
+  console.log("qnaAllqnaAll : ", qnaAll);
   return (
     // <div style={{background:'url(http://localhost:8000/uploads/c2eb3b9de2d11.jpg)'}}>
     <div style={{background:'url("")', backgroundSize:"cover"}}>
@@ -726,9 +798,6 @@ function ProductPage() {
                           <li className="detail_second_li" id="case1_1" style={case1_colorName2_1 && case1_colorName2_1.size1 ? null: {border:'none'}}onClick={GetClick2} value={case1_colorName2_1 && case1_colorName2_1.size1}>{case1_colorName2_1 && case1_colorName2_1.size1}</li>
                           <li className="detail_second_li" id="case2_1" style={case1_colorName2_10 && case1_colorName2_10.size1 ? null: {border:'none'}}onClick={GetClick2} value={case1_colorName2_10 && case1_colorName2_10.size1}>{case1_colorName2_10 && case1_colorName2_10.size1}</li>
                           <li className="detail_second_li" id="case3_1" style={case1_colorName2_100 && case1_colorName2_100.size1 ? null: {border:'none'}}onClick={GetClick2} value={case1_colorName2_100 && case1_colorName2_100.size1}>{case1_colorName2_100 && case1_colorName2_100.size1}</li>
-                          {/* {product.size2 ? <lsize1 className="detail_second_li" id="case1_1" style={product.size2}>{produsize1 ? null: {border:'none'}}onClick={GetClick2} value={product.size2}>{produsize1.size2}</lsize1 : null}
-                          {product.size2_2 ? <lsize1 className="detail_second_li" id="case2_1" style={product.size2_2}>{produsize1 ? null: {border:'none'}}onClick={GetClick2} value={product.size2_2}>{produsize1.size2_2}</lsize1 : null}
-                          {product.size2_3 ? <lsize1 className="detail_second_li" id="case3_1" style={product.size2_3}>{produsize1 ? null: {border:'none'}}onClick={GetClick2} value={product.size2_3}>{produsize1.size2_3}</lsize1 : null} */}
                           </ul>
                         </div>
                       : null 
@@ -741,9 +810,6 @@ function ProductPage() {
                           <li className="detail_second_li" id="case1_1" style={case1_colorName2_2 && case1_colorName2_2.size1 ? null: {border:'none'}}onClick={GetClick3} value={case1_colorName2_2 && case1_colorName2_2.size1}>{case1_colorName2_2 && case1_colorName2_2.size1}</li>
                           <li className="detail_second_li" id="case2_1" style={case1_colorName2_20 && case1_colorName2_20.size1 ? null: {border:'none'}}onClick={GetClick3} value={case1_colorName2_20 && case1_colorName2_20.size1}>{case1_colorName2_20 && case1_colorName2_20.size1}</li>
                           <li className="detail_second_li" id="case3_1" style={case1_colorName2_200 && case1_colorName2_200.size1 ? null: {border:'none'}}onClick={GetClick3} value={case1_colorName2_200 && case1_colorName2_200.size1}>{case1_colorName2_200 && case1_colorName2_200.size1}</li>
-                          {/* {product.size3 ? <li className="detail_second_li" id="case1_1" onClick={GetClick2} value={product.size3}>{product.size3}</li> : null}
-                          {product.size3_2 ? <li className="detail_second_li" id="case2_1" onClick={GetClick2} value={product.size3_2}>{product.size3_2}</li> : null}
-                          {product.size3_3 ? <li className="detail_second_li" id="case3_1" onClick={GetClick2} value={product.size3_3}>{product.size3_3}</li> : null} */}
                           </ul>
                         </div>
                       : null 
@@ -844,10 +910,64 @@ function ProductPage() {
             </>
             }
           </div>
+          <div className='Qna_wraaper'>
+          <div className='QnaTitle'>Q&A</div>
+            <Table>
+                <thead>
+                    <Tr className="sod_list_head">
+                        <Th scope="col" width="*" className="text_left">제목</Th>
+                        <Th scope="col" width="15%" className="second_td">작성자</Th>
+                        <Th scope="col" width="25%">작성일</Th>
+                    </Tr>
+                </thead>
+                <tbody>
+                    {displayUsers && displayUsers}
+                </tbody>
+            </Table>
+            <div className='button_wrpper'>
+              <button
+                className='pdButton writeButton'
+                size="large"
+                onClick={function () {
+                    history.push("/QnaWrite");
+                }}
+                >
+                Write
+              </button>
+              <button
+                className='pdButton ListButton'
+                size="large"
+                onClick={function () {
+                    history.push("/Qna");
+                }}
+                >
+                List
+              </button>
+              
+            </div>
+          </div>
         </div>
     </div>
   );
 }
+const Table = styled.table`
+    width: 100%;
+    margin: 0 auto  ;
+`
+const Tr = styled.tr`
+    overflow: hidden;
+    position: relative;
+    padding: 14px 0 14px 7px;
+    min-height: 50px;
+    color: #757575;
+    border-bottom: 1px solid #ececec;
+`
+const Td = styled.td`
+    padding:12px;
+`
+const Th = styled.th`
+    padding:12px;
+`
 const mapStateToProps = (state) => {
   return {
     allProducts: state.allProducts

@@ -1,5 +1,5 @@
 import React, { useState, useEffect,useRef } from 'react';
-import { Form, Input,Divider,Button,Upload } from "antd";
+import { Form, Input,Divider,Button,Upload,Select } from "antd";
 import ReCAPTCHA from "react-google-recaptcha"
 import axios from 'axios';
 import dotenv from 'dotenv'
@@ -8,6 +8,7 @@ import { useHistory }from "react-router-dom";
 import {API_URL} from "../config/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../_modules/user";
+import "../css/QnaWrite.css";
 const QnaWrite = () => {
     dotenv.config()//secretkey, sitekey setting
     const dispatch = useDispatch();
@@ -20,6 +21,13 @@ const QnaWrite = () => {
     // function onChange(value) {
         //     console.log('Captcha value:', value);
         // }
+    const { Option } = Select;
+    const [isselectVal, setselectVal ] = useState(null);
+    function handleChange(value) {
+        // console.log(`selected ${value}`);
+        setselectVal(value);
+        console.log(isselectVal);
+    }
     const quillRef = useRef(); //🌈
     const reRef = useRef();
     let Session = sessionStorage.getItem('user_id');
@@ -34,6 +42,7 @@ const QnaWrite = () => {
             setImageUrlQna(imageUrlQna);
         }
     }
+    
 
     const onSubmit = async (values) => {//제출
         
@@ -59,7 +68,7 @@ const QnaWrite = () => {
                 user_id:decoded,
                 user_name:UserData.user_name,
                 qna_password:values.qna_password,
-                title : values.qnaTitle,
+                title : isselectVal,
                 description : values.qnaContents,
             }
             
@@ -100,11 +109,22 @@ const QnaWrite = () => {
         
     }
     useEffect(() => {
-        dispatch(userActions.setUserSV());
+        if(Session){
+            dispatch(userActions.setUserSV());
+        }
     },[]);
+
+    if(!Session){
+        alert("로그인 해주세요.");
+        history.push("/login");
+    }
+
     return(
-        <div style={{paddingTop:'100px',textAlign:'center'}}>
+        <div className="QnaWirteWrapper" style={{paddingTop:'100px',textAlign:'center'}}>
             {/* 글제목 */}
+            <div className='QnaTitle'>
+                QnA Write
+            </div>
             <Form name="Qna 업로드" onFinish={onSubmit}>
                 {/* 제목 */}
                 <Form.Item
@@ -112,12 +132,15 @@ const QnaWrite = () => {
                 name="qnaTitle"
                 rules={[{ required: true, message: "제목을 입력해주세요. " }]}
                 >
-                    <Input
-                        name="qnaTitle"
-                        className="qnaTitle"
-                        size="large"
-                        placeholder="제목을 입력해주세요. "
-                    />
+                    <Select defaultValue="disabled" style={{ width: 120 }} onChange={handleChange} value={isselectVal}>
+                        <Option value="disabled" disabled>
+                        제목을 선택해주세요.
+                        </Option>
+                        <Option value="상품문의">상품문의</Option>
+                        <Option value="배송문의">배송문의   </Option>
+                        <Option value="교환/반품">교환/반품</Option>
+                        <Option value="기타">기타</Option>
+                    </Select>
                 </Form.Item>
                 {/* 비밀번호 */}
                 <Form.Item
@@ -181,7 +204,7 @@ const QnaWrite = () => {
                 {/* 글작성 */}
                 <Form.Item>
                     <Button id="submit-button" size="large" htmlType="submit">
-                        글쓰기
+                        QnA작성
                     </Button>
                 </Form.Item> 
             </Form>

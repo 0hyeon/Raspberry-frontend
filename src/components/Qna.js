@@ -62,7 +62,7 @@ const Qna = () => {
             return (
                 <Tr value={qna.id}  key={qna.id}>
                     <Link to={`/Qna/${qna.id}`}>
-                    <Td value={qna.id}>{qna.title}</Td>
+                    <Td value={qna.id}>{qna.title}(0)</Td>
                     </Link>
                     <Td>{qna.user_name}</Td>
                     <Td>{dayjs(qna.createdAt).fromNow()}</Td>

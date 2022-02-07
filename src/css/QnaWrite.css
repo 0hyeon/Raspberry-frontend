@@ -1,0 +1,56 @@
+.QnaWirteWrapper{
+    width: 500px;
+    margin: 0 auto;
+    text-align: left;
+}
+.ant-form-item-control{
+    display: inline;
+}
+.ant-form-item-control-input{
+    display: inline !important;    
+}
+.ant-select{
+    text-align: left!important;
+    width: 500px !important;
+    margin-right: 20px;
+}
+.ant-form-item{
+    display: block;
+    width: 100%;
+}
+.QnaTitle{
+    font-size: 38px;
+    font-family: 'Gilroy';
+    margin: 50px auto;
+}
+.upload-label{
+    font-family: 'Uiyeun';
+    font-size: 30px;
+    font-weight: 100;
+}
+#submit-button{
+    margin: 0 auto;
+    width: 100%;
+}
+.ant-form{
+    text-align: left;
+}
+#upload-img-placeholder > span{
+    font-size: 14px;
+    padding-top: 100px;
+    width: 100px;
+    color: rgb(195, 194, 204);
+}
+.ant-form-item-label > label {
+    margin-bottom: 18px;
+}
+
+@media screen and (max-width:700px) {
+    .QnaWirteWrapper{
+        width: 100% !important;
+        padding: 12px !important;
+    }
+    .ant-select, .ant-input-lg{
+        width: 100% !important;
+    }
+}

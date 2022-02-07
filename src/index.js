@@ -12,23 +12,27 @@ import store from "./_reducers/index"
 const rootElement = document.getElementById('root');
 
 if (rootElement.hasChildNodes()) {
-  hydrate(<Provider store={ store }>
-    {/* <React.StrictMode> */}
-      <HashRouter>
-      <ScrollToTop />
-        <App />
-      </HashRouter>
-    {/* </React.StrictMode> */}
-  </Provider>, rootElement);
+  hydrate(
+    <Provider store={ store }>
+      {/* <React.StrictMode> */}
+        <HashRouter>
+        <ScrollToTop />
+          <App />
+        </HashRouter>
+      {/* </React.StrictMode> */}
+    </Provider>, rootElement
+  );
 } else {
-  render(<Provider store={ store }>
-    {/* <React.StrictMode> */}
-      <HashRouter>
-      <ScrollToTop />
-        <App />
-      </HashRouter>
-    {/* </React.StrictMode> */}
-  </Provider>, rootElement);
+  render(
+    <Provider store={ store }>
+      {/* <React.StrictMode> */}
+        <HashRouter>
+        <ScrollToTop />
+          <App />
+        </HashRouter>
+      {/* </React.StrictMode> */}
+    </Provider>, rootElement
+  );
 }
 
 // ReactDOM.render(
