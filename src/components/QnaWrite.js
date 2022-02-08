@@ -1,19 +1,23 @@
 import React, { useState, useEffect,useRef } from 'react';
 import { Form, Input,Divider,Button,Upload,Select } from "antd";
+
 import ReCAPTCHA from "react-google-recaptcha"
 import axios from 'axios';
 import dotenv from 'dotenv'
 import jwt_decode from "jwt-decode";
-import { useHistory }from "react-router-dom";
+import { useParams,useHistory }from "react-router-dom";
 import {API_URL} from "../config/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../_modules/user";
 import "../css/QnaWrite.css";
+import { actionCreators as productActions } from "../_modules/product";
 const QnaWrite = () => {
     dotenv.config()//secretkey, sitekey setting
     const dispatch = useDispatch();
+    const { id } = useParams();//파라미터를 가져옴
     // const [htmlContent, setHtmlContent] = useState("");
     const UserData = useSelector((state) => state.user.user);
+    const ProductsData = useSelector((state) => state.allProducts.products.products);
     const history = useHistory();//리액트훅
     const [isToken, setToken] = useState("");
     const [imageUrlQna, setImageUrlQna] = useState(null);
@@ -109,22 +113,36 @@ const QnaWrite = () => {
         
     }
     useEffect(() => {
+        dispatch(productActions.setProductSV());
+
         if(Session){
             dispatch(userActions.setUserSV());
         }
+
+        window.scrollTo(0, 0);
+
     },[]);
 
     if(!Session){
         alert("로그인 해주세요.");
         history.push("/login");
     }
-
+    console.log(ProductsData);
     return(
         <div className="QnaWirteWrapper" style={{paddingTop:'100px',textAlign:'center'}}>
             {/* 글제목 */}
             <div className='QnaTitle'>
                 QnA Write
             </div>
+                {
+                    ProductsData && ProductsData.find((item) => String(item.id) === String(id)) 
+                    ?
+                    <div className='ProductTitle'>
+                        <img src={`${API_URL}/${ProductsData && ProductsData.find((item) => String(item.id) === String(id)).imageUrl }`} alt="대표사진" />
+                        <div className='ProductName'>{ProductsData && ProductsData.find((item) => String(item.id) === String(id)).name}</div>
+                    </div>
+                    :null
+                }
             <Form name="Qna 업로드" onFinish={onSubmit}>
                 {/* 제목 */}
                 <Form.Item

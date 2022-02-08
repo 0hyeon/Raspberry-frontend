@@ -296,10 +296,10 @@
     font-size: 2.5em;
   }
   
-p{margin-bottom: inherit!important;}
-/* .description > p {
-  word-break: break-word;
-} */
+  p{margin-bottom: inherit!important;}
+  /* .description > p {
+    word-break: break-word;
+  } */
 
 .Qna_wraaper{
   width: 40%;
@@ -307,10 +307,9 @@ p{margin-bottom: inherit!important;}
   padding: 100px 0;
 }
 .QnaTitle{
-  font-size: 28px;
-  font-size: 38px;
+  font-size: 48px;
   font-family: 'Gilroy';
-  margin: 100px auto;
+  margin: 30px auto;
 }
 .button_wrpper{
   padding: 30px 0;
@@ -331,6 +330,7 @@ p{margin-bottom: inherit!important;}
   color: white;
   background-color: black;
 }
+
 
 @media screen and (max-width:1800px) {
   #contents-box{

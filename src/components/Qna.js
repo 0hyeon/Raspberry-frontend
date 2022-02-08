@@ -19,6 +19,7 @@ const Qna = () => {
     let Session = sessionStorage.getItem('user_id');
     
     const [loading, setLoading] = useState(true);
+    const [qnaComentAll, setqnaComentAll] = useState(null);
     const [qnaAll, setqnaAll] = useState(null);
     const [pageNumber, setPageNumber] = useState(0);
 
@@ -33,6 +34,20 @@ const Qna = () => {
         
         
     }
+    //댓글갯수
+    
+    //댓글갯수(모든)
+    const fetchqnaAllComent = async () => {
+        await axios
+        .get(`${API_URL}/v1/qna/qnaAllComentGET`)
+        .then(function(result){
+            // console.log("fetchqnaAllComent : ",result.data);
+            setqnaComentAll(result.data.result.slice(0, 5));
+        })
+        .catch((err) => {
+            console.log("Err: ", err);
+        });
+    }
     const fetchQnaAll = async () => {
         await axios
         .get(`${API_URL}/v1/qna/qnaAll`)
@@ -45,30 +60,50 @@ const Qna = () => {
         });
         
     };
-     
+    
+    const commentsLength = () => {//0번째만 3개들어감
+        if (qnaAll && qnaAll.length > 0) { 
+        // console.log("질문글 : ",qnaAll);
+            for (var article in qnaAll) {//질문글반복
+                const comments = [];
+                for (var comment in qnaComentAll) {//질문의댓글반복
+                if(
+                    qnaComentAll[comment].Qna_id === 
+                    qnaAll[article].id
+                ){
+                    comments.push(qnaComentAll[comment].id);
+                }
+                }
+                qnaAll[article]["comments"] = comments;
+            }
+        }
+    }
     useEffect(() => {
+        fetchqnaAllComent();
         fetchQnaAll();
+        
         if(Session){
             dispatch(userActions.setUserSV());
         }
-        // setLoading(false);
     },[]);
+    commentsLength();
+    
     
     if(qnaAll === null){
         return <div>Loading...</div>
     }
     const displayUsers = 
-        qnaAll.slice(0,5).slice(pagesVisited, pagesVisited + usersPerPage).map((qna) => {
-            return (
-                <Tr value={qna.id}  key={qna.id}>
-                    <Link to={`/Qna/${qna.id}`}>
-                    <Td value={qna.id}>{qna.title}(0)</Td>
-                    </Link>
-                    <Td>{qna.user_name}</Td>
-                    <Td>{dayjs(qna.createdAt).fromNow()}</Td>
-                </Tr>
-            )
-        })
+    qnaAll && qnaAll.slice(0,5).slice(pagesVisited, pagesVisited + usersPerPage).map((qna) => {
+        return (
+            <Tr value={qna.id}  key={qna.id}>
+                <Link to={`/Qna/${qna.id}`}>
+                <Td value={qna.id}>{qna.title}({qna.comments && qna.comments.length})</Td>
+                </Link>
+                <Td>{qna.user_name}</Td>
+                <Td>{dayjs(qna.createdAt).fromNow()}</Td>
+            </Tr>
+        )
+    })
 
     const pageCount = Math.ceil(qnaAll.length / usersPerPage);
 

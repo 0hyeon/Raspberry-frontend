@@ -370,38 +370,6 @@ function ProductPage() {
           setnowProductNum(case1_colorName2_100 && case1_colorName2_100.quantity1);
         }
       }
-      // else if(isShowSize === case1_colorName2_2 && case1_colorName2_2.colorName1 ){
-      //   if(e.target.id == "case1"){
-      //     setColorName(case1_colorName2 && case1_colorName2.colorName1);//스카이블루 표현
-      //     setShowSize(case1_colorName2 && case1_colorName2.colorName1);//size ui 보여줌 
-  
-      //   }if(e.target.id == "case2"){
-      //     setColorName(case1_colorName2_1 && case1_colorName2_1.colorName1)
-      //     setShowSize(case1_colorName2_1 && case1_colorName2_1.colorName1);
-      //   }else if(e.target.id == "case3"){
-      //     setColorName(case1_colorName2_2 && case1_colorName2_2.colorName1);
-      //     setShowSize(case1_colorName2_2 && case1_colorName2_2.colorName1);//사이즈 Free, SS
-      //   }
-      // }
-      // else if(`${isShowSize === case1_colorName2_2 && case1_colorName2_2.colorName1}`){ //빨강
-      //   if(e.target.id == "case1_1"){
-      //     setShowSizeName(case1_colorName2_2 && case1_colorName2_2.size1);
-      //     setColorType(case1_colorName2_2 && case1_colorName2_2.colorType);
-      //     setProductId(case1_colorName2_2 && case1_colorName2_2.id);
-      // setnowProductNum(setProductId(case1_colorName2_2 &&.quantity1);
-      //   }else if (e.target.id == "case2_1"){
-      //     setShowSizeName(case1_colorName2_20 && case1_colorName2_20.size1);
-      //     setColorType(case1_colorName2_20 && case1_colorName2_20.colorType);
-      //     setProductId(case1_colorName2_20 && case1_colorName2_20.id);
-      // setnowProductNum(setProductId(case1_colorName2_20 &&.quantity1);
-      //   }else if (e.target.id == "case3_1"){
-      //     setShowSizeName(case1_colorName2_200 && case1_colorName2_200.size1);
-      //     setColorType(case1_colorName2_200 && case1_colorName2_200.colorType);
-      //     setProductId(case1_colorName2_200 && case1_colorName2_200.id);
-      // setnowProductNum(setProductId(case1_colorName2_200 &&.quantity1);
-      //   }
-      //   return;
-      // }
       
     }
   };
@@ -715,23 +683,22 @@ function ProductPage() {
   const usersPerPage = 2;//한페이지에 보여주는 갯수
   const pagesVisited = pageNumber * usersPerPage;// 1페이지에 1 * 10 / 2페이지에 2 * 20 //최대갯수인듯
   const displayUsers = 
-    qnaAll && qnaAll.slice(0,5).slice(pagesVisited, pagesVisited + usersPerPage).map((qna) => {
-          return (
-              <Tr value={qna.id}  key={qna.id}>
-                  <Link to={`/Qna/${qna.id}`}>
-                  <Td value={qna.id}>{qna.title}({qna.comments && qna.comments.length})</Td>
-                  </Link>
-                  <Td>{qna.user_name}</Td>
-                  <Td>{dayjs(qna.createdAt).fromNow()}</Td>
-              </Tr>
-          )
-      })
+    qnaAll && qnaAll.slice(pagesVisited, pagesVisited + usersPerPage).map((qna) => {
+        return (
+            <Tr value={qna.id}  key={qna.id}>
+                <Link to={`/Qna/${qna.id}`}>
+                <Td value={qna.id}>{qna.title}({qna.comments && qna.comments.length})</Td>
+                </Link>
+                <Td>{qna.user_name}</Td>
+                <Td>{dayjs(qna.createdAt).fromNow()}</Td>
+            </Tr>
+        )
+    })
       
       //qnaAll 질문글
       //qnaComentAll 질문의댓글
 
     
-  console.log("qnaAllqnaAll : ", qnaAll);
   return (
     // <div style={{background:'url(http://localhost:8000/uploads/c2eb3b9de2d11.jpg)'}}>
     <div style={{background:'url("")', backgroundSize:"cover"}}>
@@ -929,7 +896,7 @@ function ProductPage() {
                 className='pdButton writeButton'
                 size="large"
                 onClick={function () {
-                    history.push("/QnaWrite");
+                    history.push(`/QnaWrite/${id}`);
                 }}
                 >
                 Write

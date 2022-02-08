@@ -201,11 +201,9 @@ function App () {
             </Route>
             <Route exact={true} path="/QnaWrite">
               <QnaWrite />
-              {/* <ReCAPTCHA
-                sitekey="6Leau0ceAAAAAOyGm-BJT2ut6yThQUfDZRia_cWT"
-                // size="invisible"
-                onChange={onChange}
-              /> */}
+            </Route>
+            <Route exact={true} path="/QnaWrite/:id">
+              <QnaWrite />
             </Route>
             {/* <Route exact path="/SearchCopmonent/:word" component={SearchCopmonent}></Route> */}
           </Switch>
