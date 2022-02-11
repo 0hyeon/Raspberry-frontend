@@ -11,12 +11,15 @@
   background-color: #fff;
   width: 100%;
   margin: 0 auto;
+  background-color: inherit;
+  color: #fff;
   text-align: right;
   text-align: -moz-right;
   text-align: -o-right; 
   text-align: -ms-right;
   text-align: -webkit-right;
   min-width: 1300px;
+  overflow: inherit !important;
 }
 
 .logo {
@@ -192,7 +195,9 @@
   color:inherit;
 } 
 .menuBar:hover{
-  background-color: rgb(0, 0, 0,0.3);
+  background-color: rgb(0, 0, 0,0.7);
+  transition:0.5s;
+  color: white !important;
 } 
 .rightMenu > .ant-menu {
   width: 600px;
@@ -236,7 +241,8 @@
     height: 60px!important;
   }
   #Logo_style {
-    width: 60px!important;
+    width: 123px !important;
+    margin-top: 33px !important;
   }
   .RM_2a_link{
     font-size: 15px;

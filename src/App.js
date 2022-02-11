@@ -32,6 +32,7 @@ const DRESSESSKIRTS = loadable(() => import('./components/DRESSESSKIRTS'))
 const Qna = loadable(() => import('./components/Qna'))
 const QnaWrite = loadable(() => import('./components/QnaWrite'))
 const QnaDescription = loadable(() => import('./components/QnaDescription'))
+const QnaUpdate = loadable(() => import('./components/QnaUpdate'))
 // const SearchCopmonent = loadable(() => import('./components/search/SearchCopmonent'))
 function App () {
   // const history = useHistory();
@@ -60,27 +61,31 @@ function App () {
     }
     let headerStyle = document.getElementsByClassName("menuBar")[0];
     let headerStyle2 = document.getElementById("Logo_style");
-    if(scrollFlag){
+    if(scrollFlag){//밑으로 내릴때
+      
       // headerStyle.style.backgroundColor = "inherit";
       headerStyle.style.position = "fixed";
-      headerStyle.style.color = "#000";
+      headerStyle.style.color = "#fff";
       headerStyle.style.transition = "all 1s linears 0s";
-      headerStyle2.style.display = "none";
-      headerStyle.style.backgroundColor = "inherit";
+      // headerStyle2.style.display = "none";
+      // headerStyle.style.backgroundColor = "inherit";
       headerStyle.style.top = "0";
       headerStyle.style.transition = "0.5s";
+      // headerStyle2.style.backgroundColor = "inherit";
       
-    }else{
+    }else{//올릴때 
       // headerStyle.style.backgroundColor = "#000";
-      headerStyle.style.color = "#fff";
+      // headerStyle.style.color = "#fff";
+      headerStyle.style.color = "#000";
       headerStyle.style.position = "fixed";
       headerStyle2.style.display = "block";
       headerStyle2.style.top = "0";
+      // headerStyle.style.backgroundColor = "inherit";
 
       if(window.innerWidth > 767){
-        headerStyle.style.backgroundColor = "rgb(0, 0, 0,0.7)";
+        // headerStyle.style.backgroundColor = "rgb(0, 0, 0,0.7)";
       }else{
-        headerStyle.style.backgroundColor = "#fff";
+        // headerStyle.style.backgroundColor = "#fff";
       }
     }
 
@@ -204,6 +209,9 @@ function App () {
             </Route>
             <Route exact={true} path="/QnaWrite/:id">
               <QnaWrite />
+            </Route>
+            <Route exact={true} path="/QnaUpdate/:id">
+              <QnaUpdate />
             </Route>
             {/* <Route exact path="/SearchCopmonent/:word" component={SearchCopmonent}></Route> */}
           </Switch>

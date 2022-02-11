@@ -277,7 +277,7 @@ function ProductsUpdate() {
               <Upload name="image" action={`${API_URL}/image5`} listType="picture" showUploadList={false} onChange={onChangeImage5}>
               {
                 imageUrl5 ? (
-                  <img id="upload-img" src= {`${API_URL}/${imageUrl5}`} alt="."/> 
+                  <video id="upload-img" src= {`${API_URL}/${imageUrl5}`} alt="."/> 
                 ) : (
                 <div id="upload-img-placeholder">
                   <img src={`${API_URL}/${updateProduct.imageUrl5}`} alt="."/>

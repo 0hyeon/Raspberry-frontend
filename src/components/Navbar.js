@@ -28,7 +28,7 @@ const Navbar = (props) => {
             {/* logo */}
             <div className="logo">
             <Link to="/">
-              <img src="/images/raspberrylogo.png" alt="로고" id="Logo_style"/>
+              <img src="/images/raspberryberryLogo.png" alt="로고" id="Logo_style"/>
             </Link>
             </div>
             {/* rightMenu */}

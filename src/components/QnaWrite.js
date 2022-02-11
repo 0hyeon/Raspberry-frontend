@@ -67,13 +67,19 @@ const QnaWrite = () => {
                 alert("Please , your not fooling us, bot.");
                 return;
             }
-            
+            let today = new Date();   
+            let year = today.getFullYear(); // 년도
+            let month = today.getMonth() + 1;  // 월
+            let date = today.getDate();  // 날짜
+            const dummyday = `${year}-${month}-${date}`
+
             const body = {
                 user_id:decoded,
                 user_name:UserData.user_name,
                 qna_password:values.qna_password,
                 title : isselectVal,
                 description : values.qnaContents,
+                createDate:dummyday
             }
             
             const googlesend2= `https://www.google.com/recaptcha/api/siteverify?secret=${secretkey}&response=${token}`

@@ -4,3 +4,13 @@
     font-family: 'Gilroy';
     margin: 50px auto;
 }
+.designNew{
+    margin-left: 5px;
+    color: crimson;
+    padding: 2px;
+    font-family: 'Gilroy';
+    font-size: 13px;
+}
+.marginleft5{
+    margin-right: 5px;
+}

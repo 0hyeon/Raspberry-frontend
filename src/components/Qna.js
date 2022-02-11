@@ -10,6 +10,7 @@ import styled from "styled-components";
 import { actionCreators as userActions } from "../_modules/user";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { LockOutlined } from "@ant-design/icons";
 import "../css/Qna.css";
 dayjs.extend(relativeTime);//dayjs에서 확장된 기능 사용 
 
@@ -25,7 +26,7 @@ const Qna = () => {
 
     const UserData = useSelector((state) => state.user.user);
 
-    const usersPerPage = 2;//한페이지에 보여주는 갯수
+    const usersPerPage = 10;//한페이지에 보여주는 갯수
     const pagesVisited = pageNumber * usersPerPage;// 1페이지에 1 * 10 / 2페이지에 2 * 20 //최대갯수인듯
     const onClickPage = (e) => {
         e.preventDefault();
@@ -60,7 +61,24 @@ const Qna = () => {
         });
         
     };
-    
+    function AddNew(day){
+        
+        const createDay = day
+        // const createDay.split("T");
+        let today = new Date();   
+        let year = today.getFullYear(); // 년도
+        let month = today.getMonth() + 1;  // 월
+        let date = today.getDate();  // 날짜
+        const dummyday = `${year}-${month}-${date}`
+        console.log(dummyday);
+        console.log(createDay);
+
+        if(dummyday == createDay){
+            return 'New'
+        }else{
+            return;
+        }
+    }
     const commentsLength = () => {//0번째만 3개들어감
         if (qnaAll && qnaAll.length > 0) { 
         // console.log("질문글 : ",qnaAll);
@@ -93,13 +111,20 @@ const Qna = () => {
         return <div>Loading...</div>
     }
     const displayUsers = 
-    qnaAll && qnaAll.slice(0,5).slice(pagesVisited, pagesVisited + usersPerPage).map((qna) => {
+    qnaAll && qnaAll.slice(pagesVisited, pagesVisited + usersPerPage).map((qna) => {
         return (
             <Tr value={qna.id}  key={qna.id}>
                 <Link to={`/Qna/${qna.id}`}>
-                <Td value={qna.id}>{qna.title}({qna.comments && qna.comments.length})</Td>
+                <Td value={qna.id}>
+                    <span className="marginleft5">
+                        <LockOutlined style={{ fontSize: '16px', color: 'black' }} /> 
+                    </span>
+                    {qna.title}
+                    ({qna.comments && qna.comments.length}) 
+                    <span className='designNew'>{AddNew(qna.createDate)}</span>
+                </Td>
                 </Link>
-                <Td>{qna.user_name}</Td>
+                <Td>{qna.user_id}</Td>
                 <Td>{dayjs(qna.createdAt).fromNow()}</Td>
             </Tr>
         )
@@ -117,7 +142,7 @@ const Qna = () => {
             <Table>
                 <thead>
                     <Tr className="sod_list_head">
-                        <Th scope="col" width="*" className="text_left">제목</Th>
+                        <Th scope="col" width="*">제목</Th>
                         <Th scope="col" width="15%" className="second_td">작성자</Th>
                         <Th scope="col" width="25%">작성일</Th>
                     </Tr>

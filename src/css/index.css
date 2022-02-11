@@ -213,7 +213,7 @@
     display:inline-block;
   }
   .swiper-pagination-bullet-active{
-    background-color: white!important;
+    background-color: black!important;
   }
   
   @media screen and (max-width:1500px) {

@@ -232,11 +232,11 @@ function UploadPage() {
               <Upload name="image" action={`${API_URL}/image5`} listType="picture" showUploadList={false} onChange={onChangeImage5}>
               {
                 imageUrl5 ? (
-                  <img id="upload-img" src= {`${API_URL}/${imageUrl5}`} /> 
+                  <video id="upload-img" src= {`${API_URL}/${imageUrl5}`} /> 
                 ) : (
                 <div id="upload-img-placeholder">
                   <img src="/images/icons/camera.png" />
-                  <span>이미지를 업로드해주세요.</span>
+                  <span>영상을 업로드해주세요.</span>
                 </div>
                 )
               }

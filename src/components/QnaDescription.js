@@ -92,41 +92,114 @@ const QnaDescription = () => {
   }
 
   const fetchQnaDescription = async () => {
-    var QnaPassword = prompt("비밀번호를 입력해주세요.");
+    if(Session){
+      const decoded = jwt_decode(Session).user_id;
+      
+      var QnaPassword = prompt("비밀번호를 입력해주세요.");
+  
+      let body = {
+        id,
+        qna_password: QnaPassword,
+      }
+      await axios
+        .post(`${API_URL}/v1/qna/qnaAnswer`, body)
+        .then(function(res){
+          console.log(res.data.Success);
+          // if(res.data.loginSuccess == false){
+          //   console.log(false);
+          // }else{
+          //   console.log(true);
+          // }
+          if(res.data.Success === true){
+            if(decoded == res.data.data.user_id){
+              setTitle(res.data.data.title)
+              setDesc(res.data.data.description)
+              setUserId(res.data.data.user_name)
+              setDay(dayjs(res.data.data.createdAt).fromNow())
+              setLoading(false)
+            }else{
+              console.log("res.data.data.user_id : ",res.data.data.user_id);
+              console.log("decoded : ",decoded);
+              alert("작성자의 ID가 아닙니다.")
+            history.push("/Qna");  
+            }
+          }else{
+            alert("잘못된 비밀번호입니다.")
+            history.push("/Qna");
+          }
+        })
+        .catch((err) => {
+            console.log("Err: ", err);
+        });
 
-    console.log(id);
-    console.log(QnaPassword);
-
-    let body = {
-      id,
-      qna_password: QnaPassword,
     }
-    await axios
-      .post(`${API_URL}/v1/qna/qnaAnswer`, body)
-      .then(function(res){
-        console.log(res.data.Success);
-        // if(res.data.loginSuccess == false){
-        //   console.log(false);
-        // }else{
-        //   console.log(true);
-        // }
-        if(res.data.Success === true){
-          setTitle(res.data.data.title)
-          setDesc(res.data.data.description)
-          setUserId(res.data.data.user_name)
-          setDay(dayjs(res.data.data.createdAt).fromNow())
-          setLoading(false)
-        }else{
-          alert("잘못된 비밀번호입니다.")
-          history.push("/Qna");
-        }
-      })
-      .catch((err) => {
-          console.log("Err: ", err);
-      });
       
   };
-  
+  const updateQnaClick= () => {
+    if(window.confirm("글을 수정하시겠습니까?")){
+      history.push(`/QnaUpdate/${id}`);
+    }else{
+      return;
+    }
+  }
+  const listQnaClick= () => {
+    history.push(`/Qna`);
+  }
+  const deleteComent= (coment_id) => {
+    if(window.confirm("댓글을 삭제하시겠습니까?")){
+      
+      if(!Session){
+        alert("로그인 해주세요.");
+        document.location.href = '/'
+      }
+
+      const body = {
+          id:coment_id,
+      }
+      axios.post(`${API_URL}/v1/qna/qnaComentDelete`,body)
+        .then(res => { 
+            console.log(res);
+            alert("삭제 되었습니다.");
+            fetchQnaAllComent();
+            return;
+        })
+        .catch((error) => {
+            console.log(error);
+            alert("다시 시도해주세요.");    
+            return;
+        });
+
+    }else{
+      return;
+    }
+  }
+  const deleteQnaClick = () => {
+    if(window.confirm("글을 삭제하시겠습니까?")){
+      
+      if(!Session){
+        alert("로그인 해주세요.");
+        document.location.href = '/'
+      }
+
+      const body = {
+          id,
+      }
+      axios.post(`${API_URL}/v1/qna/qnaDelete`,body)
+          .then(res => { 
+              console.log(res);
+              alert("삭제 완료");
+              history.goBack()
+              return;
+          })
+          .catch((error) => {
+              console.log(error);
+              alert("다시 시도해주세요.");    
+              return;
+          });
+    }else{
+      return;
+    }
+  }
   const fetchQnaAllComent = async () => {
     let body = {
       id,
@@ -163,6 +236,11 @@ const QnaDescription = () => {
             <span className='QnaWrapper_title2'>{isUserId} / {isDay}</span>
           </div>
           <div className='isDesc'>{isDesc}</div>
+          <div className='button_wrapper'>
+            <button className='listQna' onClick={listQnaClick}>목록</button>
+            <button className='updateQna' onClick={updateQnaClick}>수정</button>
+            <button className='deleteQna' onClick={deleteQnaClick}>삭제</button>
+          </div>
           <Form name="QnaForm" onFinish={onSubmit}>
                   {/* 댓글내용 */}
                   <Form.Item
@@ -202,7 +280,11 @@ const QnaDescription = () => {
                   isComment && isComment.map((Qna) => {
                     return (
                       <div key={Qna.id} className="p">
-                        <div className='comment_name'>{Qna.user_name} / {dayjs(Qna.createdAt).fromNow()}</div>
+                        <div className='comment_name'>
+                          {Qna.user_name} / {dayjs(Qna.createdAt).fromNow()}
+                          <span className='closeBoxWrapper' value={Qna.id} onClick={ (e) => {deleteComent(Qna.id) }}>
+                          X</span>
+                        </div>
                         <span className='comment_desc'>{Qna.description}</span>
                         <EnterOutlined style={{ fontSize: '11px', color: 'red' }}/>
                       </div>
