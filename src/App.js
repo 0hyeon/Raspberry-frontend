@@ -13,6 +13,7 @@ import loadable from '@loadable/component'
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "./_reducers/index";
 import ReCAPTCHA from "react-google-recaptcha"
+
 const ProductPage = loadable(() => import('./components/Products'))
 const CartPage = loadable(() => import('./components/CartPage'))
 const Login = loadable(() => import('./components/Login'))
@@ -33,6 +34,7 @@ const Qna = loadable(() => import('./components/Qna'))
 const QnaWrite = loadable(() => import('./components/QnaWrite'))
 const QnaDescription = loadable(() => import('./components/QnaDescription'))
 const QnaUpdate = loadable(() => import('./components/QnaUpdate'))
+const Footer = loadable(() => import('./components/Footer'))
 // const SearchCopmonent = loadable(() => import('./components/search/SearchCopmonent'))
 function App () {
   // const history = useHistory();
@@ -189,7 +191,7 @@ function App () {
             <Route exact={true} path="/OrderResult">
               <OrderResult />
             </Route>
-            <Route exact={true} path="/Order">
+            <Route exact={true} path={["/Order","/ModifyAddress/:index"]}>
               <Order />
             </Route>
             <Route exact={true} path="/NewPage">
@@ -215,6 +217,7 @@ function App () {
             </Route>
             {/* <Route exact path="/SearchCopmonent/:word" component={SearchCopmonent}></Route> */}
           </Switch>
+          <Footer /> 
         </div>
       </ConnectedRouter>
     </React.Fragment>

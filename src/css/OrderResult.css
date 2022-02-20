@@ -9,3 +9,23 @@
     transform: translate(-50%, -50%);
     left: 50%;
 }
+.Order_success_title{
+    color: darkblue;
+    line-height: 2;
+    font-family: 'Uiyeun';
+    font-size: 25px;
+}
+.detail_result{
+    margin: 30px 0px;
+}
+.detail_result > div{
+    line-height: 1.8;
+}
+.detail_result > div > span{
+    font-weight: bold;
+}
+p{
+    margin-bottom: inherit;
+    font-family: 'Uiyeun';
+    font-size: 25px;
+}

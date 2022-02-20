@@ -1,6 +1,7 @@
 .search{
     width: 300px;
     margin: 0 auto;
+    height: 100vh;
 }
 .searchInputs {
     margin-top: 105px;

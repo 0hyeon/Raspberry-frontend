@@ -330,8 +330,34 @@
   color: white;
   background-color: black;
 }
+.designNew {
+  margin-left: 5px;
+  color: crimson;
+  padding: 2px;
+  font-family: 'Gilroy';
+  font-size: 13px;
+}
 
-
+.preClassName{
+  width: 60%;
+}
+.returnPolicy{
+  width: 40%;
+  margin: 0 auto;
+  font-size: 12px;
+  line-height: 2;
+}
+.returnPolicy_title{
+  font-family: 'Uiyeun';
+  font-size: 30px;
+  margin: 20px !important;
+}
+.returnPolicy > ul {
+  text-align: left;
+}
+.returnPolicy > ul > li {
+  font-size: 13px;
+}
 @media screen and (max-width:1800px) {
   #contents-box{
     /* max-height: 700px!important; */
@@ -413,5 +439,9 @@
   }
   .detail_Cart{
     padding-left: 20px;
+  }
+  .Qna_wraaper{
+    width: 90% !important;
+    margin: 0 auto;
   }
 }

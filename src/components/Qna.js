@@ -137,7 +137,7 @@ const Qna = () => {
     };
 
     return(
-        <div style={{paddingTop:'100px',textAlign:'center'}}>
+        <div style={{paddingTop:'100px',textAlign:'center',height:'100vh'}}>
             <div className='QnaTitle'>Q&A</div>
             <Table>
                 <thead>

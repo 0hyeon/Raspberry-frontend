@@ -24,7 +24,9 @@
 
 .logo {
   position: absolute;
+  transition:0.8s;
   left: 50%;
+  transition-delay: 0.7s;
   top: 50%;
   transform: translate(-50%, -50%);
 }
@@ -198,7 +200,16 @@
   background-color: rgb(0, 0, 0,0.7);
   transition:0.5s;
   color: white !important;
+  transition-delay: 0.6s;
 } 
+.menuBar:hover .logo{
+  /* display: none !important; */
+  opacity: 0.4 !important;
+  transition-delay: 0.6s;
+  filter: blur(0.7px);
+  transition: 0.8s;
+  
+}
 .rightMenu > .ant-menu {
   width: 600px;
 }

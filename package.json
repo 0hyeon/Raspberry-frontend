@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^6.4.3",
     "@loadable/component": "^5.15.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -15,6 +16,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
     "formik": "^2.2.9",
+    "framer-motion": "^6.2.6",
     "history": "^4.10.1",
     "howler": "^2.2.3",
     "immer": "^9.0.7",
@@ -47,9 +49,9 @@
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject",
     "postbuild": "react-snap",
     "deploy": "aws s3 sync build/ s3://myapp3.com ",
@@ -57,7 +59,8 @@
   },
   "reactSnap": {
     "include": [
-      "/","/#"
+      "/",
+      "/#"
     ],
     "puppeteerArgs": [
       "--no-sandbox",

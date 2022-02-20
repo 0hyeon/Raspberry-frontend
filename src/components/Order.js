@@ -1,21 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "../css/Login.css";
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory, Link, useRouteMatch } from 'react-router-dom';
 import {API_URL} from '../config/constants'
 import "../css/CartPage.css";
+import "../css/Order.css";
 import { useSelector } from "react-redux";
+import Test from "./Test"
+import { motion } from "framer-motion"
 const Order = () => {
     const history = useHistory();
     const Userstate = useSelector((state) => state.user.user);
     const [isLogin, setIsLogin] = useState(false)
     const [loading, setLoading] = useState(true);
+    const [htmlData, setHtmlData] = useState("");
+    const [htmlData2, setHtmlData2] = useState("");
+    const [detailhtmlData, detailsetHtmlData] = useState("");
+    
 
     const [isshopOrder, setshopOrder] = useState(null);
     
 
     const [inputordernum, setinputordernum] = useState('')//비회원일경우 조회
     const [inputPhone, setInputPhone] = useState('')
+
+    const ModifyAddressBtn = useRouteMatch("/ModifyAddress/:index")
     const handleInputordernum = (e) => {
         setinputordernum(e.target.value)
     }
@@ -47,7 +56,6 @@ const Order = () => {
         let body = {
             id: deleteId
         }
-        console.log("deleteId",deleteId);
         await axios
         .post(`${API_URL}/v1/order/deleteToCart2`, body)
         .then(function(result){
@@ -72,9 +80,45 @@ const Order = () => {
             //     // document.location.href = '/'
             // } // 로그인인데 빈배열일경우 
         }
-        // console.log("Userstate",Userstate);
+        // console.log("U   serstate",Userstate);
     },[])
+    const ModifyAddress =  (index) => {
+        history.push(`/ModifyAddress/${index}`);
+        // console.log(index);
+        // const TargetObj = document.getElementById(index);
+        // console.log(TargetObj);
+        // if(window.confirm("주소를 수정하시겠습니까?")){
+        //     // history.push(`/AddressUpdate/${e.target.value}`);
 
+        //     setAddress(true);
+        // }else{
+        //     return;
+        // }
+    }
+    const ModifySubmit =  async (od_id) => {//주소 등록업데이트 
+        const user_address1 = document.getElementById('inputAdd').value;
+        const user_address2 = document.getElementById('inputdetailAdd').value;
+        
+        let body = {
+            od_id,
+            od_addr1: user_address1,
+            od_addr2: user_address2,
+        }
+        await axios
+        .post(`${API_URL}/v1/order/ModifyAddress `, body)
+        .then(function(result){
+            // console.log("v1/order/ModifyAddress",result);
+            history.push("/Order");
+            alert("수정되었습니다.");
+
+        })
+        .catch((err) => {
+            console.log("Err: ", err);
+        });
+    }
+    const CloseAddress =  () => {
+        history.push("/Order");
+    }
     const onClickOrderCheck = () => {//비회원 주문조회
         // console.log('click orderCheck')
         // console.log('inputordernum : ', inputordernum)// input 값 반영
@@ -116,7 +160,6 @@ const Order = () => {
             alert("결제내역이 없습니다 오류시 재로그인 해주세요.")
             history.push("/");
     }
-    console.log("isshopOrder",isshopOrder);
     return (
         <div style={{paddingTop:"100px"}}>
             {isLogin //로그인상태면 
@@ -142,10 +185,10 @@ const Order = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {isshopOrder && isshopOrder.map(function (product) {
+                                {isshopOrder && isshopOrder.map(function (product,index) {
                                     return(
-                                        <tr key={product.id}>
-                                            <td>{product.od_id}</td>
+                                        <tr key={product.id} id={product.id}>
+                                            <td id='od_id_target'>{product.od_id}</td>
                                             <td className="first_td">
                                                 <div>
                                                 <Link
@@ -166,7 +209,21 @@ const Order = () => {
                                                 </div>
                                             </td>
                                             <td>{product.od_cart_price + product.od_send_cost }</td>
-                                            <td>{product.od_addr1}/{product.od_name}/{product.od_tel}</td>
+                                            
+                                            {ModifyAddressBtn && ModifyAddressBtn.params.index == product.od_id ?
+                                            <td>
+                                                <Test />
+                                                <button onClick={()=>ModifySubmit(product.od_id)} id="setAddressBtn">저장</button>
+                                                <button onClick={CloseAddress} id="ClosesetAddressBtn">취소</button>
+
+                                                <div className='saveAeeressMent'>(저장을 눌러주셔야 저장됩니다. )</div>
+                                            </td> 
+                                            :
+                                            <td >
+                                                {product.od_addr1}/{product.od_name}/{product.od_tel}
+                                                <button id="ModifyAddressBtn" onClick={()=> ModifyAddress(product.od_id)}>수정</button>
+                                            </td>
+                                            }
                                             <td>{product.od_status}</td>
                                             <td className="remove_box_wrapper" >
                                                 <div id={product.id} className="DeleteButton" onClick={Delete_Handelr2} >삭제</div>

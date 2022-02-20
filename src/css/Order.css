@@ -1,0 +1,59 @@
+#inputAdd, #inputdetailAdd{
+    height:30px;
+    display: block;
+    width: 100%;
+    margin: 8px auto;
+}
+.btn-ok{
+    color:white;
+    font-family: 'Uiyeun';
+    font-size: 19px;
+    padding: 6px;
+    cursor: pointer !important;
+    background-color: dodgerblue!important;
+}
+#setAddressBtn , #ClosesetAddressBtn {
+    margin: 0 5px;
+    height: 30px;
+}
+#setAddressBtn{
+    color: black;
+    font-family: 'Uiyeun';
+    font-size: 19px;
+    padding: 6px;
+    cursor: pointer !important;
+    /* background-color: color!important; */
+}
+#ClosesetAddressBtn{
+    color: black;
+    font-family: 'Uiyeun';
+    font-size: 19px;
+    padding: 6px;
+    cursor: pointer !important;
+    /* background-color: white!important; */
+}
+.saveAeeressMent{
+    font-family: 'Uiyeun';
+    font-size: 19px;
+}
+.postCode_btn{
+    position: absolute !important;
+    top: 0 !important;
+}
+.positionrel{
+    position: relative !important;
+    font-weight: bold;
+}
+#popupDom{
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+}
+#ModifyAddressBtn{
+    color: white;
+    background-color: black;
+    padding: 5px;
+    height: 33px;
+    margin-left: 15px;
+}

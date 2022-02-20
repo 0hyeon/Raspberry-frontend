@@ -10,6 +10,10 @@ const Test = (props) => {
     const [htmlData2, setHtmlData2] = useState(userState.user_address_postzone);
     const [detailhtmlData, detailsetHtmlData] = useState(userState.user_address_detail);
     
+    // const [htmlData, setHtmlData] = useState("");
+    // const [htmlData2, setHtmlData2] = useState("");
+    // const [detailhtmlData, detailsetHtmlData] = useState("");
+    
     // props.setHtmlData(htmlData);
 	// 팝업창 열기
     const openPostCode = () => {
@@ -43,7 +47,7 @@ const Test = (props) => {
 
             {htmlData === null || htmlData === "" || htmlData == [] || htmlData == undefined && detailhtmlData === null || detailhtmlData === "" || detailhtmlData == [] || detailhtmlData == undefined
                 ? <button type='button' onClick={openPostCode}>우편번호 검색</button> 
-                : <button type='button' className='btn-ok' onClick={openPostCode}>완료</button> 
+                : <button type='button' className='btn-ok' onClick={openPostCode}>(클릭시수정)</button> 
             }
             
             {/* // 팝업 생성 기준 div */}

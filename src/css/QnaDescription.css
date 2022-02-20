@@ -88,3 +88,10 @@
     color: tomato;
     cursor: pointer;
 }
+
+@media screen and (max-width:800px) {
+    .QnaWrapper {
+        width: 90% !important;
+        margin: 0 auto;
+    }
+}

@@ -32,8 +32,10 @@ label{
     position: absolute;
 }
 #popupDom > div > div {
-    padding: inherit!important  ;
-    top: -302px!important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
 }
 .OrderPage_productArea{
     border-top: 1px solid #909090;
@@ -55,9 +57,6 @@ label{
     width: 270px;
     margin-left: 20px;
 }
-#popupDom{
-    position: relative;
-}
 .OrderPage_Productprice{
     margin-top: 30px;
     font-size: 32px;
@@ -66,5 +65,12 @@ label{
     .OrderPage_productArea_wrapper_right{
         margin-left: 12px !important;
         width: 243px !important;
+    }
+    #popupDom > div > div {
+        width: 100% !important;
+    }   
+    .postCode_btn{
+        top: 14% !important;
+        right: 2% !important;
     }
 }

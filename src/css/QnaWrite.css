@@ -67,4 +67,8 @@
     .ant-select, .ant-input-lg{
         width: 100% !important;
     }
+    .QnaTitle{
+        margin: 130px auto 30px !important;
+        
+    }
 }

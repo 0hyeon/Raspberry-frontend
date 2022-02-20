@@ -79,12 +79,13 @@ const QnaWrite = () => {
                 qna_password:values.qna_password,
                 title : isselectVal,
                 description : values.qnaContents,
-                createDate:dummyday
+                createDate:dummyday,
+                product_id:id
             }
             
             const googlesend2= `https://www.google.com/recaptcha/api/siteverify?secret=${secretkey}&response=${token}`
     
-            axios.post(`${API_URL}/v1/product/productQna`,{//구글 recaptcha토큰값 받아오기 
+            axios.post(`${API_URL}/v1/product/productQna`,{//구글 recaptcha토큰체크
                 addresses:googlesend2,
             }).then((result) => {
                 // console.log(result.data.success);
