@@ -15,6 +15,8 @@ const AdminPage = () => {
     let state = useSelector(state => state);
     let Session = sessionStorage.getItem('user_id');
     const history = useHistory();
+    const [isOrderWait, setOrderWait] = useState("");
+    const [isOrderSuccess, setOrderSuccess] = useState("");
     if(!Session){
         alert("관리자 계정으로 로그인 해주세요");
         document.location.href = '/'
@@ -43,6 +45,30 @@ const AdminPage = () => {
             return;
         }
     }
+    const orderWaitLength = async () => {//결제대기 갯수
+        await axios
+        .get(`${API_URL}/v1/order/setOrderWait`)
+        .then(function(result){
+            console.log(result.data);
+            setOrderWait(result.data.result)   
+        })
+        .catch((err) => {
+            console.log("Err: ", err);
+        });
+    };
+
+    const orderSuccessLength = async () => {//결제완료 갯수
+        await axios
+        .get(`${API_URL}/v1/order/setOrderSuccess`)
+        .then(function(result){
+            console.log(result.data);
+            setOrderSuccess(result.data.result)   
+        })
+        .catch((err) => {
+            console.log("Err: ", err);
+        });
+    };
+    
     const ProductDelete = async(id) => {
         if(window.confirm("item_id "+id+ "삭제 하시겠습니까?")){
             // history.push("/CartPage");
@@ -67,7 +93,9 @@ const AdminPage = () => {
     }
     useEffect(() => {
         fetchProducts()
-        console.log(products);
+
+        orderWaitLength()//결제대기 갯수
+        orderSuccessLength()//결제완료 갯수
     },[])
 
     return (
@@ -75,17 +103,15 @@ const AdminPage = () => {
             <h1 id="product-headline">Admin Page</h1>
             <div className='product-delivery-wrapper'>
                 <ul>
+                    <li>결제대기
+                        <Link to="/OrderWait">
+                            <div>{isOrderWait.length}</div>
+                        </Link>
+                    </li>
                     <li>결제완료
-                        <div>0</div>
-                    </li>
-                    <li>배송준비
-                        <div>1</div>
-                    </li>
-                    <li>배송중
-                        <div>0</div>
-                    </li>
-                    <li>배송완료
-                        <div>0</div>
+                        <Link to="/OrderSuccess">
+                            <div>{isOrderSuccess.length}</div>
+                        </Link>
                     </li>
                 </ul>
             </div>

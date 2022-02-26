@@ -47,7 +47,6 @@
     width: 70%;
     margin: 50px auto;
     text-align: center;
-    background: aliceblue;
 }
 .product-delivery-wrapper > ul > li ::after {
     content: ' > ';
@@ -55,6 +54,6 @@
     top: 11px;
     right: 0;
 }
-.product-delivery-wrapper > ul > li:nth-of-type(4n) ::after {
+.product-delivery-wrapper > ul > li:nth-of-type(n+2) ::after {
     content: '';
 }

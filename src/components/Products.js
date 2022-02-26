@@ -579,8 +579,6 @@ function ProductPage() {
   };
   
   useEffect(function () {
-    
-    
     if (currentClick !== null) {//클릭상태일경우 
         let current = document.getElementById(currentClick);
         current.style.color = "black";

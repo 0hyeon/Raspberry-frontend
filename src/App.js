@@ -35,6 +35,8 @@ const QnaWrite = loadable(() => import('./components/QnaWrite'))
 const QnaDescription = loadable(() => import('./components/QnaDescription'))
 const QnaUpdate = loadable(() => import('./components/QnaUpdate'))
 const Footer = loadable(() => import('./components/Footer'))
+const OrderWait = loadable(() => import('./components/OrderWait'))
+const OrderSuccess = loadable(() => import('./components/OrderSuccess'))
 // const SearchCopmonent = loadable(() => import('./components/search/SearchCopmonent'))
 function App () {
   // const history = useHistory();
@@ -214,6 +216,12 @@ function App () {
             </Route>
             <Route exact={true} path="/QnaUpdate/:id">
               <QnaUpdate />
+            </Route>
+            <Route exact={true} path="/OrderWait">
+              <OrderWait />
+            </Route>
+            <Route exact={true} path={["/OrderSuccess","/updateSongJang/:index"]}>
+              <OrderSuccess />
             </Route>
             {/* <Route exact path="/SearchCopmonent/:word" component={SearchCopmonent}></Route> */}
           </Switch>
