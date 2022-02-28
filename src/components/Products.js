@@ -723,7 +723,6 @@ function ProductPage() {
     const changePage = ({ selected }) => {
         setPageNumber(selected);
     };
-    console.log("qnaAll : ",qnaAll);
   return (
     // <div style={{background:'url(http://localhost:8000/uploads/c2eb3b9de2d11.jpg)'}}>
     <div style={{background:'url("")', backgroundSize:"cover"}}>

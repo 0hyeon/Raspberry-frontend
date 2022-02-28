@@ -210,7 +210,6 @@
   }
   .dtail_Page > img{
     width:100%;
-    filter: brightness(1.22);
   }
   .dtail_Page22{
     width:1000px;
@@ -218,7 +217,6 @@
   }
   .dtail_Page22 > img{
     width:100%;
-    filter: brightness(1.22);
   }
   .detail_wrapper{
     text-align: center;
@@ -350,13 +348,14 @@
 .returnPolicy_title{
   font-family: 'Uiyeun';
   font-size: 30px;
-  margin: 20px !important;
+  margin: 30px 0px 70px !important;
 }
 .returnPolicy > ul {
   text-align: left;
+  font-family: 'Uiyeun';
 }
 .returnPolicy > ul > li {
-  font-size: 13px;
+  font-size: 23px;
 }
 @media screen and (max-width:1800px) {
   #contents-box{
@@ -443,5 +442,12 @@
   .Qna_wraaper{
     width: 90% !important;
     margin: 0 auto;
+  }
+  .returnPolicy{
+    width: 90% !important;
+    
+  }
+  .returnPolicy > ul > li{
+    font-size: 20px !important;
   }
 }
