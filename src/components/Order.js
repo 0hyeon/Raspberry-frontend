@@ -178,7 +178,7 @@ const Order = () => {
                                     <tr className="sod_list_head">
                                         <th scope="col" width="15%" className="text_left">주문번호</th>
                                         <th scope="col" width="15%" className="text_left">상품명</th>
-                                        <th scope="col" width="15%">가격(배송비포함)</th>
+                                        <th scope="col" width="15%">금액</th>
                                         <th scope="col" width="*">배송정보</th>
                                         <th scope="col" width="15%">결제상태</th>
                                         <th scope="col" width="10%">삭제</th>
@@ -208,7 +208,7 @@ const Order = () => {
                                                 </Link>
                                                 </div>
                                             </td>
-                                            <td>{product.od_cart_price + product.od_send_cost }</td>
+                                            <td>{product.od_cart_price}</td>
                                             
                                             {ModifyAddressBtn && ModifyAddressBtn.params.index == product.od_id ?
                                             <td>

@@ -15,10 +15,10 @@ if (rootElement.hasChildNodes()) {
   hydrate(
     <Provider store={ store }>
       {/* <React.StrictMode> */}
-        <HashRouter>
+        <BrowserRouter>
         <ScrollToTop />
           <App />
-        </HashRouter>
+        </BrowserRouter>
       {/* </React.StrictMode> */}
     </Provider>, rootElement
   );
@@ -26,10 +26,10 @@ if (rootElement.hasChildNodes()) {
   render(
     <Provider store={ store }>
       {/* <React.StrictMode> */}
-        <HashRouter>
+        <BrowserRouter>
         <ScrollToTop />
           <App />
-        </HashRouter>
+        </BrowserRouter>
       {/* </React.StrictMode> */}
     </Provider>, rootElement
   );

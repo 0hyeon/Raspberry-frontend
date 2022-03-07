@@ -345,6 +345,17 @@
   font-size: 12px;
   line-height: 2;
 }
+.deliveryPolicy{
+  width: 40%;
+  margin: 0 auto;
+  font-size: 12px;
+  line-height: 2;
+}
+.deliveryPolicy > div{
+  text-align: left;
+  font-family: 'Uiyeun';
+  font-size: 23px;
+}
 .returnPolicy_title{
   font-family: 'Uiyeun';
   font-size: 30px;

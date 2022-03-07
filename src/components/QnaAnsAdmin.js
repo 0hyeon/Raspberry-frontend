@@ -15,7 +15,7 @@ import { EnterOutlined } from "@ant-design/icons";
 import dotenv from 'dotenv'
 dayjs.extend(relativeTime);//dayjs에서 확장된 기능 사용 
 
-const QnaDescription = () => {
+const QnaAnsAdmin = () => {
   dotenv.config()//secretkey, sitekey setting
   const dispatch = useDispatch();
   const { id } = useParams();//파라미터를 가져옴
@@ -32,7 +32,6 @@ const QnaDescription = () => {
   const history = useHistory();
 
   const onSubmit = async (values) => {//댓글작성
-        
     if(!Session){
         alert("로그인 해주세요.");
         document.location.href = '/'
@@ -92,48 +91,23 @@ const QnaDescription = () => {
   }
 
   const fetchQnaDescription = async () => {
-    if(Session){
-      const decoded = jwt_decode(Session).user_id;
-      
-      var QnaPassword = prompt("비밀번호를 입력해주세요.");
-  
       let body = {
         id,
-        qna_password: QnaPassword,
       }
       await axios
-        .post(`${API_URL}/v1/qna/qnaAnswer`, body)
+        .post(`${API_URL}/v1/qna/qnaAnswerAdmin`, body)
         .then(function(res){
-          console.log(res.data.Success);
-          // if(res.data.loginSuccess == false){
-          //   console.log(false);
-          // }else{
-          //   console.log(true);
-          // }
-          if(res.data.Success === true){
-            if(decoded == res.data.data.user_id){
-              setTitle(res.data.data.title)
-              setDesc(res.data.data.description)
-              setUserId(res.data.data.user_name)
-              setDay(dayjs(res.data.data.createdAt).fromNow())
-              setLoading(false)
-            }else{
-              console.log("res.data.data.user_id : ",res.data.data.user_id);
-              console.log("decoded : ",decoded);
-              alert("작성자의 ID가 아닙니다.")
-            history.push("/Qna");  
-            }
-          }else{
-            alert("잘못된 비밀번호입니다.")
-            history.push("/Qna");
-          }
+            console.log("id ",id);
+            console.log('qnaAnswerAdmin api : ',res)
+            setTitle(res.data.result.title)
+            setDesc(res.data.result.description)
+            setUserId(res.data.result.user_name)
+            setDay(dayjs(res.data.result.createdAt).fromNow())
+            setLoading(false)
         })
         .catch((err) => {
             console.log("Err: ", err);
         });
-
-    }
-      
   };
   const updateQnaClick= () => {
     if(window.confirm("글을 수정하시겠습니까?")){
@@ -143,7 +117,7 @@ const QnaDescription = () => {
     }
   }
   const listQnaClick= () => {
-    history.push(`/Qna`);
+    history.push(`/AdminQnaComment`);
   }
   const deleteComent= (coment_id) => {
     if(window.confirm("댓글을 삭제하시겠습니까?")){
@@ -216,14 +190,17 @@ const QnaDescription = () => {
   };
 
   useEffect(() => {
+      
     if(!Session){
         alert("로그인 해주세요.");
         document.location.href = '/'
         return;
     }
+
     fetchQnaDescription();
     dispatch(userActions.setUserSV());
     fetchQnaAllComent();
+
   },[]);
   return (
       <>
@@ -231,42 +208,40 @@ const QnaDescription = () => {
       ? 
       <div style={{paddingTop:'100px',textAlign:'center'}}>
         <div className='QnaWrapper'>
-          <div className='QnaWrapper_title_wrapper'>
-            <div className='QnaWrapper_title'>{isTitle}</div>
-            <span className='QnaWrapper_title2'>{isUserId} / {isDay}</span>
-          </div>
-          <div className='isDesc'>{isDesc}</div>
-          <div className='button_wrapper'>
-            <button className='listQna' onClick={listQnaClick}>목록</button>
-            <button className='updateQna' onClick={updateQnaClick}>수정</button>
-            <button className='deleteQna' onClick={deleteQnaClick}>삭제</button>
-          </div>
-          
-              <div className='CommentWrapper'>
-                {
-                  isComment && isComment.map((Qna) => {
-                    return (
-                      <div key={Qna.id} className="p">
-                        <div className='comment_name'>
-                          {Qna.user_name} / {dayjs(Qna.createdAt).fromNow()}
-                          <span className='closeBoxWrapper' value={Qna.id} onClick={ (e) => {deleteComent(Qna.id) }}>
-                          X</span>
-                        </div>
-                        <span className='comment_desc'>{Qna.description}</span>
-                        <EnterOutlined style={{ fontSize: '11px', color: 'black' }}/>
-                      </div>
-                    );
-                  })
-                }
-                
-              </div>
-              <Form name="QnaForm" onFinish={onSubmit}>
-                  {/* 댓글내용 */}
-                  <Form.Item
-                  name="qnaContents"
-                  label={<div className="">댓글작성 : </div>}
-                  rules={[{ required: true, message: "댓글을 입력해주세요. " }]}
-                  >
+            <div className='QnaWrapper_title_wrapper'>
+                <div className='QnaWrapper_title'>{isTitle}</div>
+                <span className='QnaWrapper_title2'>{isUserId} / {isDay}</span>
+            </div>
+            <div className='isDesc'>{isDesc}</div>
+            <div className='button_wrapper'>
+                <button className='listQna' onClick={listQnaClick}>목록</button>
+                <button className='updateQna' onClick={updateQnaClick}>수정</button>
+                <button className='deleteQna' onClick={deleteQnaClick}>삭제</button>
+            </div>
+            <div className='CommentWrapper'>
+            {
+                isComment && isComment.map((Qna) => {
+                return (
+                    <div key={Qna.id} className="p">
+                    <div className='comment_name'>
+                        {Qna.user_name} / {dayjs(Qna.createdAt).fromNow()}
+                        <span className='closeBoxWrapper' value={Qna.id} onClick={ (e) => {deleteComent(Qna.id) }}>
+                        X</span>
+                    </div>
+                    <span className='comment_desc'>{Qna.description}</span>
+                    <EnterOutlined style={{ fontSize: '11px', color: 'black' }}/>
+                    </div>
+                );
+                })
+            }
+            </div>
+            <Form name="QnaForm" onFinish={onSubmit}>
+                {/* 댓글내용 */}
+                <Form.Item
+                name="qnaContents"
+                label={null}
+                rules={[{ required: false, message: "댓글을 입력해주세요. " }]}
+                >
                     <Input.TextArea
                     name="qnaContents"
                     style={{display:"block"}}
@@ -278,28 +253,28 @@ const QnaDescription = () => {
                     value=""
                     // onChange={setHtmlContent}
                     />
-                  </Form.Item>
-                  {/* google api recaptcha */}
-                  <ReCAPTCHA
-                      sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
-                      size="invisible"
-                      ref={reRef}
-                      onChange={(token) => {setToken(token)}}
-                      onExpired={e => setToken("")}
-                  />
-                  {/* 글작성 */}
-                  <Form.Item>
-                      <Button id="submit-button" size="large" htmlType="submit">
-                          댓글작성
-                      </Button>
-                  </Form.Item> 
-              </Form>
+                </Form.Item>
+                {/* google api recaptcha */}
+                <ReCAPTCHA
+                    sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+                    size="invisible"
+                    ref={reRef}
+                    onChange={(token) => {setToken(token)}}
+                    onExpired={e => setToken("")}
+                />
+                {/* 글작성 */}
+                <Form.Item>
+                    <Button id="submit-button" size="large" htmlType="submit">
+                        댓글작성
+                    </Button>
+                </Form.Item> 
+            </Form>
         </div>
       </div>
       
-      : null }
+      : <div>Loading...</div> }
       </>
   )
 };
 
-export default QnaDescription;
+export default QnaAnsAdmin;

@@ -35,6 +35,7 @@
 .CommentWrapper{
     border-top: 1px solid #ececec;
     border-bottom: 1px solid #ececec;
+    margin-bottom: 30px;
 }
 .p{
     padding: 10px;
@@ -43,6 +44,7 @@
     font-size: 23px;
     font-family: 'Uiyeun';
     color: black;
+    margin-bottom: 5px;
 }
 .comment_desc{
     margin: 0 14px;

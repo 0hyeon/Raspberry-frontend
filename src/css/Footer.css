@@ -4,12 +4,11 @@
     color: black;
     background-color: white;
     position: absolute;
-    bottom: -200px;
+    bottom: -250px;
     left: 0;
     text-align: center;
   }
   .FooterWrapper{
-    /* font-family: 'u'; */
     font-size: 12px;
   }
   .dpspan{

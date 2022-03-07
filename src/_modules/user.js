@@ -23,14 +23,14 @@ const setUserSV = ()=>{
     if(session2){
         const decoded = jwt_decode(session2).user_id;
     
-        console.log("setUserSV session2 ",session2);
-        console.log("setUserSV decoded ",decoded);
+        // console.log("setUserSV session2 ",session2);
+        // console.log("setUserSV decoded ",decoded);
         
         const body = {
             // session: sessionStorage.getItem('user_id')
             session: decoded
         };
-        console.log('body.session',body.session);
+        // console.log('body.session',body.session);
     
         return function(dispatch) {
             // instance.get(`${API_URL}/producsts`)
@@ -38,7 +38,7 @@ const setUserSV = ()=>{
                 withCredentials:true
             })
             .then(res=>{
-                console.log("onLoginData && dispatch(setUser(res.data));",res.data);
+                // console.log("onLoginData && dispatch(setUser(res.data));",res.data);
                 dispatch(setUser(res.data));
             })
             .catch(err=> console.log(err));

@@ -262,6 +262,30 @@ button{
 .FooterWrapper > div {
   margin: 5px auto;
 }
+#setAddressBtn {
+  font-family: Lato,sans-serif;
+  border-radius: 4px;
+  color: #fff;
+  background-color: #333;
+  border: 1px solid transparent;
+  height: 40px;
+  width: 50px;
+  font-size: 14px;
+  margin-right: 8px;
+}
+#ClosesetAddressBtn {
+  font-family: Lato,sans-serif;
+  border-radius: 4px;
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #333;
+  height: 40px;
+  width: 50px;
+  font-size: 14px;
+}
+#wrapperBtn{
+  margin-top: 10px;
+}
 @media screen and (max-width:800px) {
   
   .product-card{

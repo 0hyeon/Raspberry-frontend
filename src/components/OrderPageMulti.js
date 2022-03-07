@@ -290,7 +290,7 @@ function OrderPageMulti() {
         history.push("/");
     }
    
-    // console.log(useProductOpt);
+    console.log("useProductOpt :",useProductOpt);
     // const heyy = {"name":3}
     // console.log(heyy.name);
     console.log("istotalcost!!",istotalcost);
@@ -322,7 +322,7 @@ function OrderPageMulti() {
                                 );
                             })}
                             <div className='totalPriced'>
-                            총비용 : {istotalcost} won
+                            총비용 : {istotalcost + deliveryconst} won
                             </div>
                             
                     <h2 className="registerTop">배송지</h2>
@@ -398,7 +398,7 @@ function OrderPageMulti() {
                     {
                         siwpeOrder 
                         ? 
-                        <Payment userName={inputVal} userAddress={htmlData} userAddressdetail={htmlDatadetail} userPhone={inputValPhone} userEmail={inputValEmail} userMemo={inputValMemo} name={Producttitle} size={Productsize} color={Productcolor} price={istotalcost} product_option_id={product_option_id} ProductStock={ProductStock} ProductOrderNum={ProductOrderNum} ispayMethod={ispayMethod} product_it_id={product_it_id} style={{width:'100%'}}/> 
+                        <Payment userName={inputVal} userAddress={htmlData} userAddressdetail={htmlDatadetail} userPhone={inputValPhone} userEmail={inputValEmail} userMemo={inputValMemo} name={Producttitle} size={Productsize} color={Productcolor} price={istotalcost + deliveryconst} product_option_id={product_option_id} ProductStock={ProductStock} ProductOrderNum={ProductOrderNum} ispayMethod={ispayMethod} product_it_id={product_it_id} style={{width:'100%'}}/> 
                         : 
                         <button type="submit" style={{width:"100%"}}>결제하기</button>
                     }

@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Form, Input,Divider,Button,Upload,Select } from "antd";
 import jwt_decode from "jwt-decode";
 
-const OrderSuccess = () => {
+const OrderFnish = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const [isOrderSuccess, setOrderSuccess] = useState("");
@@ -34,7 +34,7 @@ const OrderSuccess = () => {
             document.location.href = '/'
         }
     }
-    const ModifySongJangBtn = useRouteMatch("/updateOrderStatus/:index")
+    const ModifySongJangBtn = useRouteMatch("/updateOrderStatus2/:index")
 
     const usersPerPage = 10;//한페이지에 보여주는 갯수
     const pagesVisited = pageNumber * usersPerPage;// 1페이지에 1 * 10 / 2페이지에 2 * 20 //최대갯수인듯
@@ -44,7 +44,7 @@ const OrderSuccess = () => {
         .get(`${API_URL}/v1/order/setOrderAll`)
         .then(function(result){
             // console.log("setOrderSuccess : ", result.data.result.filter(item => item.od_status == "결제완료"));
-            setOrderSuccess(result.data.result.filter(item => item.od_status == "결제완료"))   
+            setOrderSuccess(result.data.result.filter(item => item.od_status == "출고완료"))   
         })
         .catch((err) => {
             console.log("Err: ", err);
@@ -63,7 +63,7 @@ const OrderSuccess = () => {
         .post(`${API_URL}/v1/order/ModifyOrderStatus `, body)
         .then(function(result){
             orderWaitLength();
-            history.push("/OrderSuccess"); 
+            history.push("/OrderFnish"); 
             alert("수정되었습니다.");
         })
         .catch((err) => {
@@ -71,7 +71,7 @@ const OrderSuccess = () => {
         });
     }
     const CloseAddress =  () => {
-        history.push("/OrderSuccess");
+        history.push("/OrderFnish");
     }
     function calculateProduct(it_id,color,size,ordernum){
         
@@ -102,7 +102,7 @@ const OrderSuccess = () => {
         return (
             <Tr value={od.id}  key={od.id}>
                 <Td value={od.id}>
-                    <Link to={`/updateOrderStatus/${od.od_id}`}>
+                    <Link to={`/updateOrderStatus2/${od.od_id}`}>
                             <span className="marginleft5">
                                 {od.od_id}
                             </span>
@@ -155,26 +155,26 @@ const OrderSuccess = () => {
 
   return (
     <div style={{paddingTop:'200px',textAlign:'center'}}>
-        <OrderTitle>결제완료내역</OrderTitle>
+        <OrderTitle>출고완료 내역</OrderTitle>
         <Table>
-                <thead>
-                    <Tr className="sod_list_head">
-                        <Th scope="col" width="*">주문번호</Th>
-                        <Th scope="col" width="8%" className="second_td">주문자</Th>
-                        <Th scope="col" width="15%">상품명</Th>
-                        <Th scope="col" width="8%">연락처</Th>
-                        <Th scope="col" width="8%">금액</Th>
-                        <Th scope="col" width="8%">주소</Th>
-                        <Th scope="col" width="8%">결제현황</Th>
-                        <Th scope="col" width="8%">고객메모</Th>
-                        <Th scope="col" width="15%">송장번호</Th>
-                        <Th scope="col" width="8%">주문시간</Th>
-                    </Tr>
-                </thead>
-                <tbody>
-                    {OrderList}   
-                </tbody>
-            </Table>
+            <thead>
+                <Tr className="sod_list_head">
+                    <Th scope="col" width="*">주문번호</Th>
+                    <Th scope="col" width="8%" className="second_td">주문자</Th>
+                    <Th scope="col" width="15%">상품명</Th>
+                    <Th scope="col" width="8%">연락처</Th>
+                    <Th scope="col" width="8%">금액</Th>
+                    <Th scope="col" width="8%">주소</Th>
+                    <Th scope="col" width="8%">결제현황</Th>
+                    <Th scope="col" width="8%">고객메모</Th>
+                    <Th scope="col" width="15%">송장번호</Th>
+                    <Th scope="col" width="8%">주문시간</Th>
+                </Tr>
+            </thead>
+            <tbody>
+                {OrderList}   
+            </tbody>
+        </Table>
         <ReactPaginate
                 previousLabel={"Previous"}
                 nextLabel={"Next"}
@@ -225,4 +225,4 @@ const ToListBtn = styled.button`
     font-size: 14px;
     width: 120px;
 `
-export default OrderSuccess
+export default OrderFnish

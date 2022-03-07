@@ -1,6 +1,7 @@
 .registerTop{
-    font-weight: bold;
-    margin:30px 0 20px;
+    font-family: 'Uiyeun';
+    margin: 30px 0 20px;
+    font-size: 37px;
 }
 .input_id{
     font-size: 14px;
@@ -60,6 +61,31 @@ label{
 .OrderPage_Productprice{
     margin-top: 30px;
     font-size: 32px;
+}
+.contents{
+    padding: 10px;
+    border: 1px solid #d5d5d5;
+    background: #fff;
+}
+.contentinPre{
+    white-space: break-spaces;
+    height: 120px;
+    overflow: auto;
+}
+.agree_service_check0, .icheckbox_minimal{
+    display: inline-block !important;
+}
+.check {
+    border-bottom: 1px solid #ddd;
+}
+.check > span {
+    margin-right: 10px;
+}
+.icheckbox_minimal > input {
+    width: 18px;
+    height: 18px;
+    vertical-align: bottom;
+    margin-right: 4px;
 }
 @media screen and (max-width:800px) {
     .OrderPage_productArea_wrapper_right{

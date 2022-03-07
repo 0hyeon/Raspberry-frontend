@@ -14,7 +14,7 @@ import { LockOutlined } from "@ant-design/icons";
 import "../css/Qna.css";
 dayjs.extend(relativeTime);//dayjs에서 확장된 기능 사용 
 
-const Qna = () => {
+const AdminQnaComment = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     let Session = sessionStorage.getItem('user_id');
@@ -54,7 +54,7 @@ const Qna = () => {
         .get(`${API_URL}/v1/qna/qnaAll`)
         .then(function(result){
             console.log(result.data);
-            setqnaAll(result.data.result)   
+            setqnaAll(result.data.result.filter(rsl=>rsl.response_result == "1"));
         })
         .catch((err) => {
             console.log("Err: ", err);
@@ -113,11 +113,8 @@ const Qna = () => {
     qnaAll && qnaAll.slice(pagesVisited, pagesVisited + usersPerPage).map((qna) => {
         return (
             <Tr value={qna.id}  key={qna.id}>
-                <Link to={`/Qna/${qna.id}`}>
+                <Link to={`/QnaAnsAdmin/${qna.id}`}>{/* //qnaAnswerAdmin api */}
                 <Td value={qna.id}>
-                    <span className="marginleft5">
-                        <LockOutlined style={{ fontSize: '16px', color: 'black' }} /> 
-                    </span>
                     {qna.title}
                     ({qna.comments && qna.comments.length}) 
                     <span className='designNew'>{AddNew(qna.createDate)}</span>
@@ -161,21 +158,9 @@ const Qna = () => {
                 disabledClassName={"paginationDisabled"}
                 activeClassName={"paginationActive"}
             />
-            {
-                Session 
-                ?
-                <Button
-                size="large"
-                onClick={function () {
-                    history.push("/QnaWrite");
-                }}
-                >
-                글쓰기
-                </Button>
-                :
-                null
-            }
-            
+            <ToListBtn>
+                <Link to={`/adminpage`} style={{color:'white'}}>목록으로</Link>
+            </ToListBtn>
         </div>
     ) 
 };
@@ -196,5 +181,15 @@ const Td = styled.td`
 const Th = styled.th`
     padding:12px;
 `
+const ToListBtn = styled.button`
+    font-family: Lato, sans-serif;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #333;
+    border: 1px solid transparent;
+    height: 50px;
+    font-size: 14px;
+    width: 120px;
+`
 
-export default Qna;
+export default AdminQnaComment;

@@ -37,6 +37,12 @@ const QnaUpdate = loadable(() => import('./components/QnaUpdate'))
 const Footer = loadable(() => import('./components/Footer'))
 const OrderWait = loadable(() => import('./components/OrderWait'))
 const OrderSuccess = loadable(() => import('./components/OrderSuccess'))
+const AGREEMENT = loadable(() => import('./components/AGREEMENT'))
+const PRIVACYPOLICY = loadable(() => import('./components/PRIVACYPOLICY'))
+const OrderDelivery = loadable(() => import('./components/OrderDelivery'))
+const OrderFnish = loadable(() => import('./components/OrderFnish'))
+const AdminQnaComment = loadable(() => import('./components/AdminQnaComment'))
+const QnaAnsAdmin = loadable(() => import('./components/QnaAnsAdmin'))
 // const SearchCopmonent = loadable(() => import('./components/search/SearchCopmonent'))
 function App () {
   // const history = useHistory();
@@ -184,7 +190,7 @@ function App () {
             <Route exact={true} path="/Search">
               <Search />
             </Route>
-            <Route exact={true} path="/OrderPage">
+            <Route exact={true} path="/OrderPage/:id">
               <OrderPage />
             </Route>
             <Route exact={true} path="/OrderPageMulti">
@@ -208,6 +214,9 @@ function App () {
             <Route exact={true} path="/Qna/:id">
               <QnaDescription />
             </Route>
+            <Route exact={true} path="/QnaAnsAdmin/:id">
+              <QnaAnsAdmin />
+            </Route>
             <Route exact={true} path="/QnaWrite">
               <QnaWrite />
             </Route>
@@ -220,8 +229,23 @@ function App () {
             <Route exact={true} path="/OrderWait">
               <OrderWait />
             </Route>
-            <Route exact={true} path={["/OrderSuccess","/updateSongJang/:index"]}>
+            <Route exact={true} path={["/OrderSuccess","/updateOrderStatus/:index"]}>
               <OrderSuccess />
+            </Route>
+            <Route exact={true} path={["/OrderDelivery","/updateSongJang/:index"]}>
+              <OrderDelivery />
+            </Route>
+            <Route exact={true} path={["/OrderFnish","/updateOrderStatus2/:index"]}>
+              <OrderFnish />
+            </Route>
+            <Route exact={true} path="/AdminQnaComment">
+              <AdminQnaComment />
+            </Route>
+            <Route exact={true} path="/AGREEMENT">
+              <AGREEMENT />
+            </Route>
+            <Route exact={true} path="/PRIVACYPOLICY">
+              <PRIVACYPOLICY />
             </Route>
             {/* <Route exact path="/SearchCopmonent/:word" component={SearchCopmonent}></Route> */}
           </Switch>

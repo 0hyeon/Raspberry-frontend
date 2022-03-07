@@ -6,7 +6,6 @@ import ReactPaginate from "react-paginate";
 import { withRouter,Link,useHistory,useRouteMatch } from "react-router-dom";
 import { actionCreators as productActions } from "../_modules/product";
 import { useDispatch, useSelector } from "react-redux";
-import { Form, Input,Divider,Button,Upload,Select } from "antd";
 import jwt_decode from "jwt-decode";
 
 const OrderSuccess = () => {
@@ -14,13 +13,13 @@ const OrderSuccess = () => {
     const dispatch = useDispatch();
     const [isOrderSuccess, setOrderSuccess] = useState("");
     const [pageNumber, setPageNumber] = useState(0);
+    const [sjvalue, setsjvalue] = useState("");
 
-    const { Option } = Select;
-    const [isselectVal, setselectVal ] = useState("결제완료");
-    function handleChange(value) {
-        // console.log(`selected ${value}`);
-        setselectVal(value);
-    }
+    const ModifySongJangBtn = useRouteMatch("/updateSongJang/:index")
+
+    const usersPerPage = 10;//한페이지에 보여주는 갯수
+    const pagesVisited = pageNumber * usersPerPage;// 1페이지에 1 * 10 / 2페이지에 2 * 20 //최대갯수인듯
+    const ProductsData = useSelector((state) => state.allProducts.products.products);
 
     let Session = sessionStorage.getItem('user_id');
     if(!Session){
@@ -34,44 +33,44 @@ const OrderSuccess = () => {
             document.location.href = '/'
         }
     }
-    const ModifySongJangBtn = useRouteMatch("/updateOrderStatus/:index")
 
-    const usersPerPage = 10;//한페이지에 보여주는 갯수
-    const pagesVisited = pageNumber * usersPerPage;// 1페이지에 1 * 10 / 2페이지에 2 * 20 //최대갯수인듯
-    const ProductsData = useSelector((state) => state.allProducts.products.products);
     const orderWaitLength = async () => {//결제대기 갯수
         await axios
-        .get(`${API_URL}/v1/order/setOrderAll`)
+        .get(`${API_URL}/v1/order/setOrderSuccess`)
         .then(function(result){
-            // console.log("setOrderSuccess : ", result.data.result.filter(item => item.od_status == "결제완료"));
-            setOrderSuccess(result.data.result.filter(item => item.od_status == "결제완료"))   
+            setOrderSuccess(result.data.result)   
         })
         .catch((err) => {
             console.log("Err: ", err);
         });
     };
-    
+    const handleFilter = (event) => {
+        
+        const searchWord = event.target.value; //검색의 input value 
+        setsjvalue(searchWord);
+    }
     const ModifySubmit =  async (od_id) => {//주소 등록업데이트 
         // const od_songjang = document.getElementById('inputAdd').value;
-        const od_status = isselectVal
+        const od_songjang = sjvalue
         
         let body = {
             od_id,
-            od_status
+            od_songjang
         }
         await axios
-        .post(`${API_URL}/v1/order/ModifyOrderStatus `, body)
+        .post(`${API_URL}/v1/order/ModifySongJang `, body)
         .then(function(result){
             orderWaitLength();
-            history.push("/OrderSuccess"); 
+            history.push("/OrderDelivery"); 
             alert("수정되었습니다.");
+
         })
         .catch((err) => {
             console.log("Err: ", err);
         });
     }
     const CloseAddress =  () => {
-        history.push("/OrderSuccess");
+        history.push("/OrderDelivery");
     }
     function calculateProduct(it_id,color,size,ordernum){
         
@@ -79,16 +78,15 @@ const OrderSuccess = () => {
         const colorSeperate = color.split(',');
         const sizeSeperate = size.split(',');
         const ordernumSeperate = ordernum.split(',');
+        console.log("it_idSeperate.length : ",it_idSeperate.length);
         const emptyArray = []
         for(let i=0;i<it_idSeperate.length; i++){
-            emptyArray.push(<strong key={i}>{`${ProductsData && ProductsData.find((item) => String(item.id) === String(it_idSeperate[i])).name},${colorSeperate[i]},${sizeSeperate[i]},${ordernumSeperate[i]}개`}<br /><br /></strong>)
+            emptyArray.push(<strong>{`${ProductsData && ProductsData.find((item) => String(item.id) === String(it_idSeperate[i])).name},${colorSeperate[i]},${sizeSeperate[i]},${ordernumSeperate[i]}개`}<br /><br /></strong>)
         }
         return (emptyArray);
 
         
     }
-    
-
     useEffect(() => {
         orderWaitLength()//결제대기 갯수
 
@@ -102,13 +100,14 @@ const OrderSuccess = () => {
         return (
             <Tr value={od.id}  key={od.id}>
                 <Td value={od.id}>
-                    <Link to={`/updateOrderStatus/${od.od_id}`}>
+                    <Link to={`/updateSongJang/${od.od_id}`}>
                             <span className="marginleft5">
                                 {od.od_id}
                             </span>
                     </Link>
                 </Td>
                 <Td>{od.mb_id}</Td>
+                {/*  */}
                 <Td>
                     {od.name}
                     <br /> 
@@ -123,25 +122,17 @@ const OrderSuccess = () => {
                 <Td>{od.od_tel}</Td>
                 <Td>{od.od_cart_price}</Td>
                 <Td>{od.od_addr1 + od.od_addr2}</Td>
-                {ModifySongJangBtn && ModifySongJangBtn.params.index == od.od_id ? 
-                    <Td>
-                        <Select defaultValue="disabled" style={{ width: 120 }} onChange={handleChange} value={isselectVal}>
-                            <Option value="disabled" disabled>
-                            결제상태를 선택해주세요.
-                            </Option>
-                            <Option value="결제완료">결제완료</Option>
-                            <Option value="상품준비중">상품준비중</Option>
-                        </Select>
-                        <div id='wrapperBtn'>
-                            <button onClick={()=>ModifySubmit(od.od_id)} id="setAddressBtn">저장</button>
-                            <button onClick={CloseAddress} id="ClosesetAddressBtn">취소</button>
-                        </div>
-                    </Td>
-                    :
-                    <Td>{od.od_status}</Td>
-                }
+                <Td>{od.od_status}</Td>
                 <Td>{od.od_memo}</Td>
+                {ModifySongJangBtn && ModifySongJangBtn.params.index == od.od_id ? 
+                <Td>
+                    <input type='text' style={{width:'100%'}} placeholder="송장번호를 입력해주세요." value={sjvalue}  onChange={handleFilter} />
+                    <button onClick={()=>ModifySubmit(od.od_id)} id="setAddressBtn">저장</button>
+                    <button onClick={CloseAddress} id="ClosesetAddressBtn">취소</button>
+                </Td>
+                :
                 <Td>{od.od_songjang}</Td>
+                }
                 <Td>{od.createdAt}</Td>
             </Tr>
         )
@@ -155,26 +146,26 @@ const OrderSuccess = () => {
 
   return (
     <div style={{paddingTop:'200px',textAlign:'center'}}>
-        <OrderTitle>결제완료내역</OrderTitle>
+        <OrderTitle>상품준비중 내역</OrderTitle>
         <Table>
-                <thead>
-                    <Tr className="sod_list_head">
-                        <Th scope="col" width="*">주문번호</Th>
-                        <Th scope="col" width="8%" className="second_td">주문자</Th>
-                        <Th scope="col" width="15%">상품명</Th>
-                        <Th scope="col" width="8%">연락처</Th>
-                        <Th scope="col" width="8%">금액</Th>
-                        <Th scope="col" width="8%">주소</Th>
-                        <Th scope="col" width="8%">결제현황</Th>
-                        <Th scope="col" width="8%">고객메모</Th>
-                        <Th scope="col" width="15%">송장번호</Th>
-                        <Th scope="col" width="8%">주문시간</Th>
-                    </Tr>
-                </thead>
-                <tbody>
-                    {OrderList}   
-                </tbody>
-            </Table>
+            <thead>
+                <Tr className="sod_list_head">
+                    <Th scope="col" width="*">주문번호</Th>
+                    <Th scope="col" width="8%" className="second_td">주문자</Th>
+                    <Th scope="col" width="15%">상품명</Th>
+                    <Th scope="col" width="8%">연락처</Th>
+                    <Th scope="col" width="8%">금액</Th>
+                    <Th scope="col" width="8%">주소</Th>
+                    <Th scope="col" width="8%">결제현황</Th>
+                    <Th scope="col" width="8%">고객메모</Th>
+                    <Th scope="col" width="15%">송장번호</Th>
+                    <Th scope="col" width="8%">주문시간</Th>
+                </Tr>
+            </thead>
+            <tbody>
+                {OrderList}   
+            </tbody>
+        </Table>
         <ReactPaginate
                 previousLabel={"Previous"}
                 nextLabel={"Next"}

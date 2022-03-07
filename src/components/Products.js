@@ -649,6 +649,10 @@ function ProductPage() {
   // }, [setCartUi_View,setPrevClick,prevClick,prevClick2,id]);
   // },[]);
   useEffect(() => {
+    window.scrollTo(0,0);
+    // document.getElementById('root').scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
     const p_name = product.name
     const p_price = product.price
     const p_imgUrl = product.imageUrl
@@ -832,7 +836,7 @@ function ProductPage() {
                     <Button id="purchase-button">
                       <Link  
                         style={{color:'inherit'}}
-                        to={`/OrderPage`}
+                        to={`/OrderPage/${id}`}
                     >결제하기</Link>
                     </Button>
                   
@@ -946,6 +950,10 @@ function ProductPage() {
               
             </div>
           </div>
+          <div className='deliveryPolicy'>
+            <h1 class="returnPolicy_title">배송안내</h1>
+            <div>ㆍ배송방법 : CJ택배<br/>ㆍ배송비 : 7만원 이상 결제시 무료배송 <br/>ㆍ취소시(품절포함) 최종 결제 금액에 따라 배송비가 발생되거나 사용한쿠폰이 취소 될 수 있습니다. <br/>ㆍ결제시 적립금을 사용하신 경우, 취소시에&nbsp;적립금이 선환불 처리됩니다 (ex. 신용카드+적립금 결제시, 적립금 선환불처리).<br/>ㆍ옵션 변경은 꼭 Q&amp;A로 문의주셔야 변경이 가능합니다.<br/><br/>ㆍ상품 준비기간 (주말, 공휴일제외)&nbsp;자체 제작 상품 및 사입상품 : 3~7일 소요&nbsp;/ 수입상품 : 5일~10일 소요 <br/>ㆍ제작 상황에 따라 기본 배송일보다 조금 더 지연될 수 있습니다.<br/><br/>ㆍ당일발송&nbsp;오후 2시 이전 결제완료 : 당일 출고 / 오후 2시 이후 결제완료 : 익일 출고 <br/>ㆍ무통장 입금의 경우 입금 확인까지 1~2시간 소요됩니다. <br/>ㆍ당일 발송은 당일 출고 서비스로 단독으로 주문하셔야 당일 출고됩니다. <br/>ㆍ당일 발송 상품과 일반 발송 상품 같이 주문시 상품 준비 기간이소요됩니다.<br/><br/><strong>ㆍ배송지연</strong><br/> 주문 확인일로부터 5일(주말, 공휴일제외) 이후 카카오톡 또는 문자메시지로 지연 안내해 드리고 있으며, 일부 준비된 상품 먼저 발송될 수 있습니다.<br/><br/><strong>ㆍ품절안내</strong><br/>결제 완료 후 품절된 경우 카카오톡 또는 문자메시지로 품절 안내해 드리고 있습니다.  안내 후 익일 내 재문의 없을 경우 임의 취소 될 수 있는 점 양해 부탁드립니다.</div>
+          </div>
           <div className='returnPolicy'>
               <br /> 
               <h1 className='returnPolicy_title'>교환/반품 불가사유</h1>
@@ -972,7 +980,7 @@ function ProductPage() {
               <ul>
                 <li>※ 고객님의 마음이 바뀌어 교환, 반품을 하실 경우 상품반송 비용은 고객님께서 부담하셔야 합니다.(색상 교환, 사이즈 교환 등 포함) </li>
                 <li>*전자상거래법에 의거하여 교환/반품은 상품 수령일부터 7일 이내에 당해계약에 관한 청약철회가 가능합니다. </li>
-                <li>*교환/반품시 수거 완료 후 10일 이상 연락두절로 인해 처리가 어려울 시 착불로 반송처리 될 수 있습니다. 오배송/불량상품의 경우 </li>
+                <li>*교환/반품시 수거 완료 후 10일 이상 연락두절로 인해 처리가 어려울 시 착불로 반송처리 될 수 있습니다. (오배송/불량상품의 경우) </li>
               </ul>
               <ul>
                 <li>-불량상품 또는 오배송으로 인한 타 상품 수령시엔 무상교환 원칙으로 신속한 재발송을 도와드리고 있으나  반품 처리 진행을 원하실 경우 변심이 일부 반영되어 최종 반품비 2,500원이 청구되시는 점 참고부탁드립니다. </li>

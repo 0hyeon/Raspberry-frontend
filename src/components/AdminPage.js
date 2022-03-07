@@ -17,6 +17,8 @@ const AdminPage = () => {
     const history = useHistory();
     const [isOrderWait, setOrderWait] = useState("");
     const [isOrderSuccess, setOrderSuccess] = useState("");
+    const [isOrderAllstate, setOrderAllstate] = useState("");
+    const [iscommentsLength, setcommentsLength] = useState("");
     if(!Session){
         alert("관리자 계정으로 로그인 해주세요");
         document.location.href = '/'
@@ -45,30 +47,52 @@ const AdminPage = () => {
             return;
         }
     }
-    const orderWaitLength = async () => {//결제대기 갯수
-        await axios
-        .get(`${API_URL}/v1/order/setOrderWait`)
-        .then(function(result){
-            console.log(result.data);
-            setOrderWait(result.data.result)   
-        })
-        .catch((err) => {
-            console.log("Err: ", err);
-        });
-    };
+    // const orderWaitLength = async () => {//결제대기 갯수
+    //     await axios
+    //     .get(`${API_URL}/v1/order/setOrderWait`)
+    //     .then(function(result){
+    //         console.log(result.data);
+    //         setOrderWait(result.data.result)   
+    //     })
+    //     .catch((err) => {
+    //         console.log("Err: ", err);
+    //     });
+    // };
 
-    const orderSuccessLength = async () => {//결제완료 갯수
+    // const orderSuccessLength = async () => {//결제완료 갯수
+    //     await axios
+    //     .get(`${API_URL}/v1/order/setOrderSuccess`)
+    //     .then(function(result){
+    //         console.log(result.data);
+    //         setOrderSuccess(result.data.result)   
+    //     })
+    //     .catch((err) => {
+    //         console.log("Err: ", err);
+    //     });
+    // };
+    const setOrderAll = async () => {//결제완료 갯수
         await axios
-        .get(`${API_URL}/v1/order/setOrderSuccess`)
+        .get(`${API_URL}/v1/order/setOrderAll`)
         .then(function(result){
-            console.log(result.data);
-            setOrderSuccess(result.data.result)   
+            console.log('setOrderAll :',result.data);
+            setOrderAllstate(result.data.result)  
+
         })
         .catch((err) => {
             console.log("Err: ", err);
         });
     };
-    
+    const commentsLength = async () => {//답변해야할 qna갯수
+        await axios
+        .get(`${API_URL}/v1/qna/qnaAll`)
+        .then(function(result){
+            console.log('qnaAll :',result.data);
+            setcommentsLength(result.data.result.filter(rsl=>rsl.response_result === '1').length);
+        })
+        .catch((err) => {
+            console.log("Err: ", err);
+        });
+    };
     const ProductDelete = async(id) => {
         if(window.confirm("item_id "+id+ "삭제 하시겠습니까?")){
             // history.push("/CartPage");
@@ -92,10 +116,9 @@ const AdminPage = () => {
         }
     }
     useEffect(() => {
-        fetchProducts()
-
-        orderWaitLength()//결제대기 갯수
-        orderSuccessLength()//결제완료 갯수
+        fetchProducts();//모든상품 로드
+        setOrderAll();//모든결제상태 로드
+        commentsLength();//qna답변해야하는 갯수 로드
     },[])
 
     return (
@@ -104,16 +127,41 @@ const AdminPage = () => {
             <div className='product-delivery-wrapper'>
                 <ul>
                     <li>결제대기
-                        <Link to="/OrderWait">
-                            <div>{isOrderWait.length}</div>
-                        </Link>
+                        <div>
+                            <Link to="/OrderWait">
+                                {isOrderAllstate&&isOrderAllstate.filter(item => item.od_status == "결제대기").length}
+                            </Link>
+                        </div>
                     </li>
                     <li>결제완료
-                        <Link to="/OrderSuccess">
-                            <div>{isOrderSuccess.length}</div>
-                        </Link>
+                        <div>
+                            <Link to="/OrderSuccess">
+                                {isOrderAllstate&&isOrderAllstate.filter(item => item.od_status == "결제완료").length}
+                            </Link>
+                        </div>
+                    </li>
+                    <li>상품준비중
+                        <div>
+                            <Link to="/OrderDelivery">
+                                {isOrderAllstate&&isOrderAllstate.filter(item => item.od_status == "상품준비중").length}
+                            </Link>
+                        </div>
+                    </li>
+                    <li>출고완료
+                        <div>
+                            <Link to="/OrderFnish">
+                                {isOrderAllstate&&isOrderAllstate.filter(item => item.od_status == "출고완료").length}
+                            </Link>
+                        </div>
                     </li>
                 </ul>
+                <div className='Comment_response_length'>질문답변
+                    <div>
+                        <Link to="AdminQnaComment">
+                            {iscommentsLength && iscommentsLength}
+                        </Link>
+                    </div>
+                </div>
             </div>
             <div className="product-list-wrapper" id="product-list">
                 {/* 상품리스트 */}
@@ -137,15 +185,15 @@ const AdminPage = () => {
                 );
                 })}
             </div>
-                    <Button
-                    size="large"
-                    onClick={function () {
-                        history.push("/Admin");
-                    }}
-                    icon={<DownloadOutlined />}
-                    >
-                    상품 등록준비
-                    </Button>
+            <Button
+            size="large"
+            onClick={function () {
+                history.push("/Admin");
+            }}
+            icon={<DownloadOutlined />}
+            >
+            상품 등록준비
+            </Button>
         </div>
     );
     // return (

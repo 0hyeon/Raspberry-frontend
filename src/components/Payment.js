@@ -35,8 +35,8 @@ const Payment = (props) => {
         
         
         const { IMP } = window;
-        // IMP.init('imp31132542'); // 가맹점 식별코드
-        IMP.init('iamport'); // 가맹점 식별코드
+        IMP.init('imp31132542'); // 가맹점 식별코드
+        // IMP.init('iamport'); // 가맹점 식별코드
         
         //배송비
         // 결제 데이터 정의
@@ -92,9 +92,14 @@ const Payment = (props) => {
 
         }).catch((error) => {
             console.log(error);
-            alert("결제실패1");
+            alert("결제실패");
         });
         IMP.request_pay(data, callback);
+        // IMP.request_pay({
+        //     /* ...중략... */
+        //     // m_redirect_url: "{리디렉션 될 URL}" // 예: https://www.myservice.com/payments/complete/mobile
+        //     m_redirect_url: "{https://test.rasberry-berry.com/v1/webhook/setMobile}" // 예: https://www.myservice.com/payments/complete/mobile
+        // }, /* callback */); // callback은 실행 안됨
 
 
     }
