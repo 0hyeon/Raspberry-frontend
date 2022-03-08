@@ -8,6 +8,10 @@ import "../css/Order.css";
 import { useSelector } from "react-redux";
 import Test from "./Test"
 import { motion } from "framer-motion"
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime"
+dayjs.extend(relativeTime);//dayjs에서 확장된 기능 사용 
+
 const Order = () => {
     const history = useHistory();
     const Userstate = useSelector((state) => state.user.user);
@@ -155,11 +159,25 @@ const Order = () => {
             console.log(error);
         });
     }
+    function AddComma(value) {
+        return Number(value).toLocaleString('en');
+    }
+    function Unix_timestamp(t){
+        var date = new Date(t*1000);
+        var year = date.getFullYear();
+        var month = "0" + (date.getMonth()+1);
+        var day = "0" + date.getDate();
+        var hour = "0" + date.getHours();
+        var minute = "0" + date.getMinutes();
+        var second = "0" + date.getSeconds();
+        return year + "-" + month.substr(-2) + "-" + day.substr(-2) + " " + hour.substr(-2) + ":" + minute.substr(-2) + ":" + second.substr(-2);
+    }
     if(isshopOrder && isshopOrder.length == 0){
             sessionStorage.removeItem('user_id')
             alert("결제내역이 없습니다 오류시 재로그인 해주세요.")
             history.push("/");
     }
+    
     return (
         <div style={{paddingTop:"100px"}}>
             {isLogin //로그인상태면 
@@ -176,11 +194,14 @@ const Order = () => {
                             <table id="sod_list2" className="table">
                                 <thead>
                                     <tr className="sod_list_head">
-                                        <th scope="col" width="15%" className="text_left">주문번호</th>
-                                        <th scope="col" width="15%" className="text_left">상품명</th>
-                                        <th scope="col" width="15%">금액</th>
+                                        <th scope="col" width="10%" className="text_left_order">주문번호</th>
+                                        <th scope="col" width="10%" className="text_left_order">상품명</th>
+                                        <th scope="col" width="5%" className="text_left_order">주문자명</th>
+                                        <th scope="col" width="10%">금액</th>
+                                        <th scope="col" width="10%" className="text_left_order">가상계좌</th>
                                         <th scope="col" width="*">배송정보</th>
-                                        <th scope="col" width="15%">결제상태</th>
+                                        <th scope="col" width="10*">주문날짜</th>
+                                        <th scope="col" width="10%">결제상태</th>
                                         <th scope="col" width="10%">삭제</th>
                                     </tr>
                                 </thead>
@@ -208,22 +229,25 @@ const Order = () => {
                                                 </Link>
                                                 </div>
                                             </td>
-                                            <td>{product.od_cart_price}</td>
+                                            <td>{product.od_name}</td>
+                                            <td>{AddComma(product.od_cart_price)}</td>
+                                            <td>{product.vbank_num} {product.vbank_name}  /  ({Unix_timestamp(product.vbank_date)} 까지) </td>
                                             
                                             {ModifyAddressBtn && ModifyAddressBtn.params.index == product.od_id ?
                                             <td>
                                                 <Test />
-                                                <button onClick={()=>ModifySubmit(product.od_id)} id="setAddressBtn">저장</button>
+                                                <button onClick={()=>ModifySubmit(product.od_id)} id="setAddressBtn" style={{color:'white'}}>저장</button>
                                                 <button onClick={CloseAddress} id="ClosesetAddressBtn">취소</button>
 
                                                 <div className='saveAeeressMent'>(저장을 눌러주셔야 저장됩니다. )</div>
                                             </td> 
                                             :
-                                            <td >
-                                                {product.od_addr1}/{product.od_name}/{product.od_tel}
+                                            <td style={{ padding: "10px" }} >
+                                                {product.od_addr1}
                                                 <button id="ModifyAddressBtn" onClick={()=> ModifyAddress(product.od_id)}>수정</button>
                                             </td>
                                             }
+                                            <td>{dayjs(product.createdAt).fromNow()}</td>
                                             <td>{product.od_status}</td>
                                             <td className="remove_box_wrapper" >
                                                 <div id={product.id} className="DeleteButton" onClick={Delete_Handelr2} >삭제</div>

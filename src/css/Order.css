@@ -57,3 +57,10 @@
     height: 33px;
     margin-left: 15px;
 }
+.text_left_order{
+    text-align: center;
+}
+.first_td {
+    text-align: left;
+    padding: 20px 10px;
+}
