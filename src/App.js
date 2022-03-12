@@ -43,6 +43,8 @@ const OrderDelivery = loadable(() => import('./components/OrderDelivery'))
 const OrderFnish = loadable(() => import('./components/OrderFnish'))
 const AdminQnaComment = loadable(() => import('./components/AdminQnaComment'))
 const QnaAnsAdmin = loadable(() => import('./components/QnaAnsAdmin'))
+const AdminBanner = loadable(() => import('./components/AdminBanner'))
+const AdminBannerSet = loadable(() => import('./components/AdminBannerSet'))
 // const SearchCopmonent = loadable(() => import('./components/search/SearchCopmonent'))
 function App () {
   // const history = useHistory();
@@ -246,6 +248,12 @@ function App () {
             </Route>
             <Route exact={true} path="/PRIVACYPOLICY">
               <PRIVACYPOLICY />
+            </Route>
+            <Route exact={true} path="/AdminBanner">
+              <AdminBanner />
+            </Route>
+            <Route exact={true} path="/AdminBannerSet">
+              <AdminBannerSet />
             </Route>
             {/* <Route exact path="/SearchCopmonent/:word" component={SearchCopmonent}></Route> */}
           </Switch>

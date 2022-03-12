@@ -6,6 +6,7 @@ import "swiper/components/navigation/navigation.scss";
 import "swiper/components/pagination/pagination.scss";
 import "./css/Swiper_custom.css";
 import {API_URL} from "./config/constants.js";
+import { Link } from "react-router-dom";
 SwiperCore.use([Navigation, Pagination, Autoplay])	// 추가
 
 function MainPage(props) {
@@ -63,17 +64,23 @@ function MainPage(props) {
         >
           {window.innerWidth > 767 ? 
           <>
-            <SwiperSlide><img src={`${API_URL}/uploads/main_renewal01.jpg`} alt="메인배너이미지1"/></SwiperSlide>
-            <SwiperSlide><img src={`${API_URL}/uploads/main_renewal02.jpg`} alt="메인배너이미지2"/></SwiperSlide>
-            <SwiperSlide><img src={`${API_URL}/uploads/main_renewal03.jpg`} alt="메인배너이미지3"/></SwiperSlide>
-            <SwiperSlide><img src={`${API_URL}/uploads/main_renewal04.jpg`} alt="메인배너이미지4"/></SwiperSlide>
+            <SwiperSlide>
+              <Link to="/products/1">
+                <img src={`${API_URL}/uploads/bn3.jpg`} alt="메인배너이미지3"/>
+              </Link>
+              </SwiperSlide>
+            <SwiperSlide>
+              <Link to="/products/1">
+                <img src={`${API_URL}/uploads/bn1.jpg`} alt="메인배너이미지1"/>
+              </Link>
+            </SwiperSlide>
+            <SwiperSlide><img src={`${API_URL}/uploads/bn2.jpg`} alt="메인배너이미지2"/></SwiperSlide>
           </>
             :
             <>
-            <SwiperSlide><img src={`${API_URL}/uploads/m_main_renewal01.jpg`} alt="메인배너이미지1"/></SwiperSlide>
-            <SwiperSlide><img src={`${API_URL}/uploads/m_main_renewal02.jpg`} alt="메인배너이미지2"/></SwiperSlide>
-            <SwiperSlide><img src={`${API_URL}/uploads/m_main_renewal03.jpg`} alt="메인배너이미지3"/></SwiperSlide>
-            <SwiperSlide><img src={`${API_URL}/uploads/m_main_renewal04.jpg`} alt="메인배너이미지4"/></SwiperSlide>
+            <SwiperSlide><img src={`${API_URL}/uploads/bnm1.jpg`} alt="메인배너이미지1"/></SwiperSlide>
+            <SwiperSlide><img src={`${API_URL}/uploads/bnm2.jpg`} alt="메인배너이미지2"/></SwiperSlide>
+            <SwiperSlide><img src={`${API_URL}/uploads/bnm3.jpg`} alt="메인배너이미지3"/></SwiperSlide>
             </>
             }
         </Swiper>

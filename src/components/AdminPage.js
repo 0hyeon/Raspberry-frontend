@@ -157,10 +157,15 @@ const AdminPage = () => {
                 </ul>
                 <div className='Comment_response_length'>질문답변
                     <div>
-                        <Link to="AdminQnaComment">
+                        <Link to="/AdminQnaComment">
                             {iscommentsLength && iscommentsLength}
                         </Link>
                     </div>
+                </div>
+                <div className='Comment_response_length'>배너관련
+                    <Link to="/AdminBanner">
+                        <div>Click!</div>
+                    </Link>
                 </div>
             </div>
             <div className="product-list-wrapper" id="product-list">

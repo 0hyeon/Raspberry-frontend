@@ -97,19 +97,19 @@
     color: rgb(204, 204, 204);
   }
   
-  #description {
+  .description {
     font-family: 'Uiyeun';
-    font-size: 22px;
+    font-size: 21px;
     margin: 0;
     white-space: break-spaces;
     letter-spacing: 0.5px;
     line-height: 1.8;
     border-bottom: 1px solid #e8e8e8;
-    border-top: 1px solid #e8e8e8;
     /* border-top: 1px solid #aaa; */
-    padding: 30px 0px 40px;
+    padding: 10px 0px 40px;
     max-height: 45vh;
-    height: 25vh;
+    height: 35vh;
+    color: black;
   }
   #purchase-button{
     margin-top: 8px;
@@ -212,7 +212,7 @@
     width:100%;
   }
   .dtail_Page22{
-    width:1000px;
+    width:750px;
     margin:0 auto;
   }
   .dtail_Page22 > img{
@@ -294,7 +294,9 @@
     font-size: 2.5em;
   }
   
-  p{margin-bottom: inherit!important;}
+  p{
+    margin-bottom: inherit!important;
+  }
   /* .description > p {
     word-break: break-word;
   } */
@@ -339,22 +341,17 @@
 .preClassName{
   width: 60%;
 }
-.returnPolicy{
-  width: 40%;
-  margin: 0 auto;
-  font-size: 12px;
-  line-height: 2;
-}
+
 .deliveryPolicy{
   width: 40%;
   margin: 0 auto;
-  font-size: 12px;
+  font-size: 11px;
   line-height: 2;
 }
 .deliveryPolicy > div{
   text-align: left;
   font-family: 'Uiyeun';
-  font-size: 23px;
+  font-size: 21px;
 }
 .returnPolicy_title{
   font-family: 'Uiyeun';
@@ -364,9 +361,6 @@
 .returnPolicy > ul {
   text-align: left;
   font-family: 'Uiyeun';
-}
-.returnPolicy > ul > li {
-  font-size: 23px;
 }
 @media screen and (max-width:1800px) {
   #contents-box{
@@ -427,8 +421,9 @@
   .content_wrapper{
     padding: 100px 10px 70px!important;
   }
-  #description{
-    height: auto!important;
+  .description{
+    height: 30vh!important;
+    overflow: auto !important;
   }
   #contents-box:before{
     display: none!important;
@@ -454,11 +449,5 @@
     width: 90% !important;
     margin: 0 auto;
   }
-  .returnPolicy{
-    width: 90% !important;
-    
-  }
-  .returnPolicy > ul > li{
-    font-size: 20px !important;
-  }
+  
 }
