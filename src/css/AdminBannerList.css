@@ -1,0 +1,10 @@
+.BannerList{
+  border: 1px solid #ddd;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.BannerList > img {
+  width: 35%;
+  padding: 15px;
+}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import "../css/AdminBanner.css";
+import "../css/AdminBannerList.css";
 import {API_URL} from "../config/constants.js";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
@@ -9,10 +9,10 @@ import { useHistory }from "react-router-dom";
 import { Form, Divider, Input, InputNumber, Button, Upload, message } from "antd";
 import FileUpload from './utils/FileUpload';
 
-const AdminBannerSet = () => {
+const AdminBannerList = () => {
   let Session = sessionStorage.getItem('user_id');
 
-  const [isBanner, setBanner] = useState('');
+  const [isBanner, setBanner] = useState(null);
   if(!Session){
     alert("관리자 계정으로 로그인 해주세요");
     document.location.href = '/'
@@ -30,8 +30,12 @@ const AdminBannerSet = () => {
       await axios
       .get(`${API_URL}/v1/banner/fetchBanner`)
       .then(function(res){
-          console.log(res.data.result);
-          setBanner(res.data.result);
+          // console.log(res.data.result);
+          // console.log(res.data.result.imageUrl);
+
+          // console.log(res.data.result);
+          // console.log(res.data.result.filter(ct => ct.category == "pc").map((ct)=>(ct.imageUrl)));   
+          setBanner(res.data.result.filter(ct => ct.category == "pc").map((ct)=>(ct.imageUrl))[0]);   
       })
       .catch((err) => {
           console.log("Err: ", err);
@@ -40,20 +44,25 @@ const AdminBannerSet = () => {
   useEffect(() => {
     fetchBanner();//배너조회
   },[])
-  if(isBanner == ''){
+  if(isBanner === ''){
     return <div>Loading...</div>;
   }
   return (
     <div style={{paddingTop:'100px',textAlign:'center'}}>
       <div className='TopHeadder'>Admin Banner List</div>
+      <div style={{fontSize:'18px'}}>Desktop</div>
       <div className='bannerListWrapper'>
-        {/* {isBanner && isBanner.map((bn,index)=>{
-          <div>{bn.id}</div>
-        })}   */}
+        {isBanner ? 
+        isBanner && isBanner.map((bn,index)=>(
+          <div className='BannerList' key={index}>
+            <img id="" src= {`${API_URL}/${bn}`} alt="."/> 
+          </div>
+        ))
+        :null
+        }
+        <div style={{fontSize:'18px'}}>Mobile</div>
       </div>
-      <ToListBtn>
-          <Link to={`/adminpage`} style={{color:'white'}}>목록으로</Link>
-      </ToListBtn>
+      
     </div>
   )
 }
@@ -69,4 +78,4 @@ const ToListBtn = styled.button`
     width: 120px;
 `
 
-export default AdminBannerSet
+export default AdminBannerList

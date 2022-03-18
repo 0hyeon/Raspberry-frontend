@@ -44,7 +44,7 @@ const OrderFnish = loadable(() => import('./components/OrderFnish'))
 const AdminQnaComment = loadable(() => import('./components/AdminQnaComment'))
 const QnaAnsAdmin = loadable(() => import('./components/QnaAnsAdmin'))
 const AdminBanner = loadable(() => import('./components/AdminBanner'))
-const AdminBannerSet = loadable(() => import('./components/AdminBannerSet'))
+const AdminBannerList = loadable(() => import('./components/AdminBannerList'))
 // const SearchCopmonent = loadable(() => import('./components/search/SearchCopmonent'))
 function App () {
   // const history = useHistory();
@@ -252,8 +252,8 @@ function App () {
             <Route exact={true} path="/AdminBanner">
               <AdminBanner />
             </Route>
-            <Route exact={true} path="/AdminBannerSet">
-              <AdminBannerSet />
+            <Route exact={true} path="/AdminBannerList">
+              <AdminBannerList />
             </Route>
             {/* <Route exact path="/SearchCopmonent/:word" component={SearchCopmonent}></Route> */}
           </Switch>
