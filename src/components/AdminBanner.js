@@ -56,7 +56,7 @@ const AdminBanner = () => {
   const onSubmitMobile = (values) => {//제출
 
     const body = {
-      imageUrl : Images,
+      imageUrl : Images2,
       href : values.href,
       category : 'mobile'
     }
@@ -65,7 +65,7 @@ const AdminBanner = () => {
       withCredentials:true
     }).then(() => {
       alert("배너등록 완료");
-      history.replace('/adminpage');//이전페이지의 기록이 사라지고 대체됨
+      document.location.href = '/AdminBanner'
     }).catch((error) => {
       console.log(error);
       message.error(`에러가 발생했습니다. ${error.message}`)
@@ -113,7 +113,7 @@ const AdminBanner = () => {
       <ToListBtn>
           <Link to={`/adminpage`} style={{color:'white'}}>목록으로</Link>
       </ToListBtn>
-      <div id="upload-container">
+      <div id="upload-container-banner" style={{margin:'0 auto'}}>
       {/* pc */}
       {isBanner && isBanner.filter(ct => ct.category === "pc").length < 1 
       ? 

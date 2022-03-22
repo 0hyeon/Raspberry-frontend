@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";	// 추가
 import "swiper/swiper.scss";
@@ -7,9 +7,12 @@ import "swiper/components/pagination/pagination.scss";
 import "./css/Swiper_custom.css";
 import {API_URL} from "./config/constants.js";
 import { Link } from "react-router-dom";
+import axios from "axios";
 SwiperCore.use([Navigation, Pagination, Autoplay])	// 추가
 
 function MainPage(props) {
+  const [isBanner, setBanner] = useState(null);
+  const [isMobileBanner, setMobileBanner] = useState(null);
 
   // const [size, setCurrentSize] = useState(null);
 
@@ -21,34 +24,31 @@ function MainPage(props) {
   //   setCurrentSize(size)
   // },[size])
   
-  console.log(window.innerWidth);
+  // console.log(window.innerWidth);useEffect(() => {
+    const fetchBanner = async () => { 
+        await axios
+        .get(`${API_URL}/v1/banner/fetchBanner`)
+        .then(function(res){
+            // console.log(res.data.result.imageUrl);
+
+            // console.log(res.data.result);
+            // console.log(res.data.result.filter(ct => ct.category == "pc").map((ct)=>(ct.imageUrl)));   
+            setBanner(res.data.result.filter(ct => ct.category == "pc").map((ct)=>(ct.imageUrl))[0]);   
+            setMobileBanner(res.data.result.filter(ct => ct.category == "mobile").map((ct)=>(ct.imageUrl))[0]);   
+        })
+        .catch((err) => {
+            console.log("Err: ", err);
+        });
+    };
+    useEffect(() => {
+      fetchBanner();//배너조회
+    },[])
+    if(isBanner === '' || isMobileBanner === ''){
+      return <div>Loading...</div>;
+    }
   return(
     <div className="main_Swiper">
         <Swiper 
-            // breakpoints={{
-            //   // when window width is >= 640px
-            //   640: {
-            //     width: 640,
-            //     slidesPerView: 1,
-            //   },
-            //   // when window width is >= 768px
-            //   768: {
-            //     width: 768,
-            //     slidesPerView: 2,
-            //   },
-            // }}
-            // breakpoints={{
-            //   // when window width is >= 640px
-            //   // when window width is >= 768px
-            //   767: {
-            //     slidesPerView:1.2,
-            //     spaceBetween: 20,
-            //     speed:500,
-            //     loop:true,
-            //     autoplay:true
-            //   },
-            // }}
-
             className="banner"
             spaceBetween={0}
             speed={500}
@@ -57,32 +57,49 @@ function MainPage(props) {
             pagination={{ clickable: true }}
             loop={true}
             autoplay={true}
-
             centeredSlides={true} 
-            // slidesOffsetBefore={true}
-            // grabCursor={true}
         >
           {window.innerWidth > 767 ? 
           <>
-            <SwiperSlide>
-              <Link to="/products/1">
-                <img src={`${API_URL}/uploads/bn3.jpg`} alt="메인배너이미지3"/>
-              </Link>
-              </SwiperSlide>
-            <SwiperSlide>
-              <Link to="/products/1">
-                <img src={`${API_URL}/uploads/bn1.jpg`} alt="메인배너이미지1"/>
-              </Link>
-            </SwiperSlide>
-            <SwiperSlide><img src={`${API_URL}/uploads/bn2.jpg`} alt="메인배너이미지2"/></SwiperSlide>
-          </>
-            :
-            <>
-            <SwiperSlide><img src={`${API_URL}/uploads/bnm1.jpg`} alt="메인배너이미지1"/></SwiperSlide>
-            <SwiperSlide><img src={`${API_URL}/uploads/bnm2.jpg`} alt="메인배너이미지2"/></SwiperSlide>
-            <SwiperSlide><img src={`${API_URL}/uploads/bnm3.jpg`} alt="메인배너이미지3"/></SwiperSlide>
-            </>
+            {isBanner ?
+              <>
+                {isBanner && isBanner.map((bn,index)=>(
+                  <>
+                    {/* <div className='BannerList' key={index}>
+                      <img id="" src= {`${API_URL}/${bn}`} alt="."/> 
+                    </div> */}
+                    <SwiperSlide>
+                      <Link to="/products/1">
+                        <img src= {`${API_URL}/${bn}`} alt={`메인배너이미지 ${index}`}/>
+                      </Link>
+                    </SwiperSlide>
+                  </>
+                  ))}
+              </>
+            : null 
             }
+          </>
+          :
+          <>
+            {isBanner ?
+              <>
+                {isMobileBanner && isMobileBanner.map((bn,index)=>(
+                  <>
+                    {/* <div className='BannerList' key={index}>
+                      <img id="" src= {`${API_URL}/${bn}`} alt="."/> 
+                    </div> */}
+                    <SwiperSlide>
+                      <Link to="/products/1">
+                        <img src= {`${API_URL}/${bn}`} alt={`메인배너이미지 ${index}`}/>
+                      </Link>
+                    </SwiperSlide>
+                  </>
+                  ))}
+              </>
+            : null 
+            }
+          </> 
+          }
         </Swiper>
     </div>
   )

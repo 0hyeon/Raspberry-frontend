@@ -102,7 +102,7 @@ function App () {
     }
 
     window.addEventListener("scroll", handleScroll);
-    console.log(scrollFlag)
+    // console.log(scrollFlag)
     
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -125,7 +125,7 @@ function App () {
     const { scrollY } = window;
     const isScrolled = scrollY !== 0;
     setScrollFlag(isScrolled);
-    console.log(isScrolled);
+    // console.log(isScrolled);
   };
   
   const handleScroll = throttle(updateScroll, 1000);

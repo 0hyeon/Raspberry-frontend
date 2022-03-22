@@ -4,7 +4,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import {API_URL} from "../../config/constants.js";
 const FileUpload = (props) => {
-    const [ Images, setImages ] = useState([]);
+    const [ Images2, setImages2 ] = useState([]);
     const dropHandler = (files) => {
         let formData = new FormData();
 
@@ -18,8 +18,8 @@ const FileUpload = (props) => {
         .then((res) => {
             if(res.data.success){
                 console.log('/v1/banner/setBanner',res.data);
-                setImages([...Images, res.data.filePath])//있던거에 추가 추가 ([1,2,3])
-                props.refreshFunction([...Images, res.data.filePath]) 
+                setImages2([...Images2, res.data.filePath])//있던거에 추가 추가 ([1,2,3])
+                props.refreshFunction([...Images2, res.data.filePath]) 
             }else{
                 alert('파일을 저장하는데 실패했습니다.');
             }
@@ -33,11 +33,11 @@ const FileUpload = (props) => {
     }
     const deleteHandler =  (image) => {
         
-        const currentIndex = Images.indexOf(image);
-        let newImages = [...Images]
+        const currentIndex = Images2.indexOf(image);
+        let newImages = [...Images2]
 
         newImages.splice(currentIndex,1)//currentIndex 부터 한개만 지운다 즉 본인만 
-        setImages(newImages)
+        setImages2(newImages)
         props.refreshFunction(newImages) 
     }
     return (
@@ -55,9 +55,9 @@ const FileUpload = (props) => {
             )}
             </Dropzone>
             <div style={{display:'flex',width:'350px',height:'240px',overflowX:'scroll'}}>
-                {Images.map((image,index)=>(
+                {Images2.map((image,index)=>(
                     <div onClick={ ()=> deleteHandler(image)} key={index}>
-                        <img style={{width:'350px',height:'100%',padding:'0px 15px'}} 
+                        <img style={{height:'100%',padding:'0px 15px'}} 
                             src={`${API_URL}/${image}`} alt="hello"
                         />
                     </div>
