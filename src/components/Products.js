@@ -82,6 +82,7 @@ function ProductPage() {
   //스크롤 시 상품off 잡아 Add class 
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isProductColor,setProductColor] = useState(null);
+  const [isSizeDesc,setSizeDesc] = useState(null);
   //장바구니 
   
   const parentRef   = useRef(null);
@@ -436,6 +437,7 @@ function ProductPage() {
         setProduct(product);
         settotalPrice(product.price);
         setProductColor(product.description);
+        setSizeDesc(product.sizeDesc);
         dispatch(selectedProduct(result.data));
         // console.log("setProductColor" ,isProductColor);
         // console.log(product);
@@ -769,7 +771,7 @@ function ProductPage() {
                     <pre className="description" dangerouslySetInnerHTML={{ __html: `${isProductColor}` }}></pre>
                   </TabPane>
                   <TabPane tab="Size" key="2">
-                    Content of Tab Pane 2
+                    <pre className="description" dangerouslySetInnerHTML={{ __html: `${isSizeDesc}` }}></pre>
                   </TabPane>
                   <TabPane tab="Shipping Return " key="3">
                     <div className='description'>
@@ -899,7 +901,7 @@ function ProductPage() {
                 }
             </div>
             <div className="dtail_Page">
-              <img src={`${API_URL}/${product.detailPage}`} ref={parentRef} id="target" alt="" />
+              <img src={`${API_URL}/${product.detailPage1}`} ref={parentRef} id="target" alt="" />
             </div>
             {/* <div id="profile-box">
                 <img src="/images/icons/avatar.png" />
@@ -918,12 +920,16 @@ function ProductPage() {
               </div>
             </>
           }
-          {product.detailPage == null? 
+          {product.detailPage1 == null? 
           null 
           :
           <div className="dtail_Page22">
             <h3 className="detail_title">Detail Page.</h3>
-            <img src={`${API_URL}/${product.detailPage}`} alt="" />
+            <img src={`${API_URL}/${product.detailPage1}`} alt="" />
+            {product.detailPage2 == null? null 
+            :<img src={`${API_URL}/${product.detailPage2}`} alt="" />}
+            {product.detailPage3 == null? null 
+            :<img src={`${API_URL}/${product.detailPage3}`} alt="" />}
           </div>
           }
           <div className='relate_wraaper'>

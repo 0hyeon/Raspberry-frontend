@@ -63,7 +63,7 @@
   }
   .ant-form-item{
     display: inline-block;
-    width: 50%;
+    width: 60%;
   }
   .ant-form-item:nth-of-type(1){
     width: 100%;

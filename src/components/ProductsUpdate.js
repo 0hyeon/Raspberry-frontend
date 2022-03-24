@@ -49,7 +49,9 @@ function ProductsUpdate() {
   const [imageUrl3, setImageUrl3] = useState(updateProduct && updateProduct.imageUrl3);
   const [imageUrl4, setImageUrl4] = useState(updateProduct && updateProduct.imageUrl4);
   const [imageUrl5, setImageUrl5] = useState(updateProduct && updateProduct.imageUrl5);
-  const [detailPage, setDetailPage] = useState(updateProduct && updateProduct.detailPage);
+  const [detailPage1, setDetailPage1] = useState(updateProduct && updateProduct.detailPage1);
+  const [detailPage2, setDetailPage2] = useState(updateProduct && updateProduct.detailPage2);
+  const [detailPage3, setDetailPage3] = useState(updateProduct && updateProduct.detailPage3);
   const [htmlContent, setHtmlContent] = useState(updateProduct && updateProduct.description); //🌈
   const [isSeller, setSeller] = useState(updateProduct && updateProduct.seller); //🌈
   const history = useHistory();//리액트훅   
@@ -103,7 +105,9 @@ function ProductsUpdate() {
       imageUrl3 : imageUrl3,
       imageUrl4 : imageUrl4,
       imageUrl5 : imageUrl5,
-      detailPage : detailPage,
+      detailPage1 : detailPage1,
+      detailPage2 : detailPage2,
+      detailPage3 : detailPage3,
       relateProduct1 : parseInt(values.relateProduct1),
       relateProduct2 : parseInt(values.relateProduct2),
       relateProduct3 : parseInt(values.relateProduct3),
@@ -170,14 +174,34 @@ function ProductsUpdate() {
       setImageUrl5(imageUrl5);
     }
   }
-  const onChangeDetailPage = (info) => {
+  const onChangeDetailPage1 = (info) => {
     if(info.file.status === 'uploading'){
       return;
     }
     if(info.file.status === 'done'){
       const response = info.file.response;
-      const detailPage = response.detailPage;
-      setDetailPage(detailPage);
+      const detailPage1 = response.detailPage;
+      setDetailPage1(detailPage1);
+    }
+  }
+  const onChangeDetailPage2 = (info) => {
+    if(info.file.status === 'uploading'){
+      return;
+    }
+    if(info.file.status === 'done'){
+      const response = info.file.response;
+      const detailPage2 = response.detailPage;
+      setDetailPage2(detailPage2);
+    }
+  }
+  const onChangeDetailPage3 = (info) => {
+    if(info.file.status === 'uploading'){
+      return;
+    }
+    if(info.file.status === 'done'){
+      const response = info.file.response;
+      const detailPage3 = response.detailPage;
+      setDetailPage3(detailPage3);
     }
   }
   
@@ -294,13 +318,37 @@ function ProductsUpdate() {
           name="upload"
           label={<div className="upload-label">상세페이지</div>}
         >
-        <Upload name="image" action={`${API_URL}/detailPage`} listType="picture" showUploadList={false} onChange={onChangeDetailPage}>
+        <Upload name="image" action={`${API_URL}/detailPage1`} listType="picture" showUploadList={false} onChange={onChangeDetailPage1}>
             {
-              detailPage ? (
-                <img id="upload-img" src= {`${API_URL}/${detailPage}`} alt="."/> 
+              detailPage1 ? (
+                <img id="upload-img" src= {`${API_URL}/${detailPage1}`} alt="."/> 
               ) : (
               <div id="upload-img-placeholder">
-                <img src={`${API_URL}/${updateProduct.detailPage}`} alt="."/>
+                <img src={`${API_URL}/${updateProduct.detailPage1}`} alt="."/>
+                <span>이미지를 업로드해주세요.</span>
+              </div>
+              )
+            }
+          </Upload>
+        <Upload name="image" action={`${API_URL}/detailPage2`} listType="picture" showUploadList={false} onChange={onChangeDetailPage2}>
+            {
+              detailPage2 ? (
+                <img id="upload-img" src= {`${API_URL}/${detailPage2}`} alt="."/> 
+              ) : (
+              <div id="upload-img-placeholder">
+                <img src={`${API_URL}/${updateProduct.detailPage2}`} alt="."/>
+                <span>이미지를 업로드해주세요.</span>
+              </div>
+              )
+            }
+          </Upload>
+        <Upload name="image" action={`${API_URL}/detailPage3`} listType="picture" showUploadList={false} onChange={onChangeDetailPage3}>
+            {
+              detailPage3 ? (
+                <img id="upload-img" src= {`${API_URL}/${detailPage3}`} alt="."/> 
+              ) : (
+              <div id="upload-img-placeholder">
+                <img src={`${API_URL}/${updateProduct.detailPage3}`} alt="."/>
                 <span>이미지를 업로드해주세요.</span>
               </div>
               )

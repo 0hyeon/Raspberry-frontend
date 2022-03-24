@@ -29,7 +29,9 @@ function UploadPage() {
   const [imageUrl3, setImageUrl3] = useState(null);
   const [imageUrl4, setImageUrl4] = useState(null);
   const [imageUrl5, setImageUrl5] = useState(null);
-  const [detailPage, setDetailPage] = useState(null);
+  const [detailPage1, setDetailPage1] = useState(null);
+  const [detailPage2, setDetailPage2] = useState(null);
+  const [detailPage3, setDetailPage3] = useState(null);
   const history = useHistory();//리액트훅
 
   const [htmlContent, setHtmlContent] = useState(""); //🌈
@@ -85,7 +87,10 @@ function UploadPage() {
       imageUrl3 : imageUrl3,
       imageUrl4 : imageUrl4,
       imageUrl5 : imageUrl5,
-      detailPage : detailPage,
+      detailPage1 : detailPage1,
+      detailPage2 : detailPage2,
+      detailPage3 : detailPage3,
+      sizeDesc : values.sizeDesc,
     }
 
     
@@ -155,14 +160,34 @@ function UploadPage() {
       setImageUrl5(imageUrl5);
     }
   }
-  const onChangeDetailPage = (info) => {
+  const onChangeDetailPage1 = (info) => {
     if(info.file.status === 'uploading'){
       return;
     }
     if(info.file.status === 'done'){
       const response = info.file.response;
-      const detailPage = response.detailPage;
-      setDetailPage(detailPage);
+      const detailPage1 = response.detailPage1;
+      setDetailPage1(detailPage1);
+    }
+  }
+  const onChangeDetailPage2 = (info) => {
+    if(info.file.status === 'uploading'){
+      return;
+    }
+    if(info.file.status === 'done'){
+      const response = info.file.response;
+      const detailPage2 = response.detailPage2;
+      setDetailPage2(detailPage2);
+    }
+  }
+  const onChangeDetailPage3 = (info) => {
+    if(info.file.status === 'uploading'){
+      return;
+    }
+    if(info.file.status === 'done'){
+      const response = info.file.response;
+      const detailPage3 = response.detailPage3;
+      setDetailPage3(detailPage3);
     }
   }
 
@@ -249,10 +274,34 @@ function UploadPage() {
           name="upload"
           label={<div className="upload-label">상세페이지</div>}
         >
-         <Upload name="image" action={`${API_URL}/detailPage`} listType="picture" showUploadList={false} onChange={onChangeDetailPage}>
+         <Upload name="image" action={`${API_URL}/detailPage1`} listType="picture" showUploadList={false} onChange={onChangeDetailPage1}>
             {
-              detailPage ? (
-                <img id="upload-img" src= {`${API_URL}/${detailPage}`} /> 
+              detailPage1 ? (
+                <img id="upload-img" src= {`${API_URL}/${detailPage1}`} alt={detailPage1}/> 
+              ) : (
+              <div id="upload-img-placeholder">
+                <img src="/images/icons/camera.png" />
+                <span>이미지를 업로드해주세요.</span>
+              </div>
+              )
+            }
+          </Upload>
+          <Upload name="image" action={`${API_URL}/detailPage2`} listType="picture" showUploadList={false} onChange={onChangeDetailPage2}>
+            {
+              detailPage2 ? (
+                <img id="upload-img" src= {`${API_URL}/${detailPage2}`} alt={detailPage2}/> 
+              ) : (
+              <div id="upload-img-placeholder">
+                <img src="/images/icons/camera.png" />
+                <span>이미지를 업로드해주세요.</span>
+              </div>
+              )
+            }
+          </Upload>
+          <Upload name="image" action={`${API_URL}/detailPage3`} listType="picture" showUploadList={false} onChange={onChangeDetailPage3}>
+            {
+              detailPage3 ? (
+                <img id="upload-img" src= {`${API_URL}/${detailPage3}`} alt={detailPage3}/> 
               ) : (
               <div id="upload-img-placeholder">
                 <img src="/images/icons/camera.png" />
@@ -614,7 +663,6 @@ function UploadPage() {
         <Divider />
         {/* 위지윅 에디터  */}
         <Form.Item
-
           name="description2"
           label={<div className="upload-label">상품 소개</div>}
           rules={[{ required: false, message: "상품설명을 입력해주세요" }]}
@@ -633,6 +681,20 @@ function UploadPage() {
           <QuillEditor  quillRef={quillRef} htmlContent={htmlContent} setHtmlContent={setHtmlContent} api=""/>
         </Form.Item>
         <Divider />
+        {/* 사이즈 */}
+        <Divider />
+        <Form.Item
+          name="sizeDesc"
+          label={<div className="upload-label">상품 사이즈</div>}
+          rules={[{ required: true, message: "상품 사이즈를 입력해주세요" }]}
+        >
+          <Input
+            name="sizeDesc"
+            className="product-size"
+            size="large"
+            placeholder="상품 사이즈를 입력해주세요"
+          />
+        </Form.Item>
         {/* 제품 등록 */}
         <Form.Item>
           <Button id="submit-button" size="large" htmlType="submit">

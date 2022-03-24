@@ -104,7 +104,7 @@ function Main(props) {
     }
     
     
-    console.log("products",products); // ok 
+    // console.log("products",products); // ok 
     // 여기서부터 pagenation
     // const [users, setUsers] = useState(products.slice(0,2));//전체 데이터를 자른다 역순이아닌 정순서대로
     // console.log("users",users);
@@ -138,6 +138,10 @@ function Main(props) {
                             {product.soldout === 1 
                                 ?<span className="product-price">Soldout.</span> 
                                 :<span className="product-price">{AddComma(product.price)} won</span> 
+                            }
+                            {product.soldout === 1 
+                                ? null
+                                :<span className="product-Colors">{AddComma(product.price)} won</span> 
                             }
                             <div className="product-footer">
                                 <div className="product-seller">
