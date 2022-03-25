@@ -178,7 +178,7 @@ button {
 
 #Logo_style {
   width:90px;
-  margin-top: 30px;
+  margin-top: 12px;
 }
 button{
   cursor: pointer;
@@ -289,7 +289,7 @@ button{
 @media screen and (max-width:800px) {
   
   .product-card{
-    width:calc(50% - 20px)!important;
+    width:calc(50% - 40px)!important;
     margin-right:10px!important;
 
   }

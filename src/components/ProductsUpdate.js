@@ -18,20 +18,20 @@ function ProductsUpdate() {
   let Session = sessionStorage.getItem('user_id');
   const { id } = useParams();
   console.log(id); //문자 
-  // console.log(products);
+  console.log(products);
   const quillRef = useRef(); //🌈
   
   const { Option } = Select;
   
   const [isselectVal, setselectVal ] = useState(null);
   function handleChange(value) {
-    console.log(`selected ${value}`);
+    // console.log(`selected ${value}`);
     setselectVal(value);
-    console.log(isselectVal);
+    //console.log(isselectVal);
   }
 
   const updateProduct = products.products && products.products.find((item) => String(item.id) === String(id)); 
-  
+  console.log("updateProduct :",updateProduct);
   if(!Session){
     alert("관리자 계정으로 로그인 해주세요");
     document.location.href = '/'
@@ -108,6 +108,7 @@ function ProductsUpdate() {
       detailPage1 : detailPage1,
       detailPage2 : detailPage2,
       detailPage3 : detailPage3,
+      sizeDesc : values.sizeDesc,
       relateProduct1 : parseInt(values.relateProduct1),
       relateProduct2 : parseInt(values.relateProduct2),
       relateProduct3 : parseInt(values.relateProduct3),
@@ -180,7 +181,7 @@ function ProductsUpdate() {
     }
     if(info.file.status === 'done'){
       const response = info.file.response;
-      const detailPage1 = response.detailPage;
+      const detailPage1 = response.detailPage1;
       setDetailPage1(detailPage1);
     }
   }
@@ -190,7 +191,7 @@ function ProductsUpdate() {
     }
     if(info.file.status === 'done'){
       const response = info.file.response;
-      const detailPage2 = response.detailPage;
+      const detailPage2 = response.detailPage2;
       setDetailPage2(detailPage2);
     }
   }
@@ -200,7 +201,7 @@ function ProductsUpdate() {
     }
     if(info.file.status === 'done'){
       const response = info.file.response;
-      const detailPage3 = response.detailPage;
+      const detailPage3 = response.detailPage3;
       setDetailPage3(detailPage3);
     }
   }
@@ -723,6 +724,20 @@ function ProductsUpdate() {
           <QuillEditor  quillRef={quillRef} htmlContent={htmlContent} setHtmlContent={setHtmlContent} api=""/>
         </Form.Item>
         <Divider />
+        {/* 사이즈 */}
+        <Divider />
+        <Form.Item
+          name="sizeDesc"
+          label={<div className="upload-label">상품 사이즈</div>}
+          rules={[{ required: true, message: "상품 사이즈를 입력해주세요" }]}
+        >
+          <Input
+            name="sizeDesc"
+            className="product-size"
+            size="large"
+            placeholder="상품 사이즈를 입력해주세요"
+          />
+        </Form.Item>
         {/* 카테고리분류 */}
         <Form.Item
           name="category"

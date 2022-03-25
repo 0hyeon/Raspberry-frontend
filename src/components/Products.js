@@ -646,10 +646,11 @@ function ProductPage() {
     
     
     // console.log("doing productOptionActions!!!",product.name);
-      
+    
     if (product === null || state === null || whyerrorObject === null) {
           setwhyerrorObject(whyerrorObject);
           setwhyerrorObject2(product);
+          
         return <h1>상품 정보를 받고 있습니다...</h1>;
     }
   }, [product,dispatch])

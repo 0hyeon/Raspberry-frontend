@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime"
 import {API_URL} from "../config/constants.js";
 import MainPage from "../swiperSlide";
+import styled from "styled-components";
 
 import { useDispatch, useSelector } from "react-redux";
 import {setProducts,setCartItem,setRequestLoding2} from "../_actions/userAction";
@@ -24,10 +25,13 @@ function Main(props) {
     const [currentPage, setCurrentPage] = useState(1); //현재 페이지
     const [postPerPage] = useState(4); //페이지당 포스트 개수
     const [isproduct_list,setproduct_list] = useState([]);
+    const [isproductsOptionsAll, setproductsOptionsAll] = useState([]);
     // const [banners, setBanners] = React.useState([]);
     // const state = useSelector((state) => state);
     // const products = useSelector((state) => state.allProducts.products);
     const products = useSelector((state) => state.products.products);
+    const whyerrorObject = useSelector((state) => state.productoptions.productoptions.products);
+    console.log("whyerrorObject",whyerrorObject);
     const dispatch = useDispatch();
     // const fetchProducts = async () => { 
     //     await axios
@@ -55,7 +59,25 @@ function Main(props) {
    
      //현재 페이지 가져오기
     // console.log(posts);
+    const [pageNumber, setPageNumber] = useState(0);
 
+    
+    
+    const productsOptionsAll = async (limitNum) => {
+        let body = {
+            limitNum
+        }
+        await axios
+            .post(`${API_URL}/v1/product/productsOptionsAll`, body)
+            .then(function(result){
+            console.log('productsOptionsAll : ',result.data);
+            setproductsOptionsAll(result.data.result);
+        })
+        .catch((err) => {
+            console.log("Err: ", err);
+            dispatch(setRequestLoding2())//loding true로 장바구니 랜더링
+        });
+    }
     const fetchCartItem = async () => {
         let Session = sessionStorage.getItem('user_id');
         if(Session){
@@ -87,33 +109,11 @@ function Main(props) {
         
         // dispatch(setProducts(result.data));
     };
-    React.useEffect(function () {
-        // 상품관련
-        // fetchProducts();
-        dispatch(productActions.setProductSV());
-        dispatch(productOptionActions.setProductOptionsSV(products.name));
-        setproduct_list(products);
-        fetchCartItem();
-        setLoading(false);
-    }, []);
-
-	
-    //콤마 함수
-    function AddComma(value) {
-        return Number(value).toLocaleString('en');
-    }
-    
-    
-    // console.log("products",products); // ok 
-    // 여기서부터 pagenation
-    // const [users, setUsers] = useState(products.slice(0,2));//전체 데이터를 자른다 역순이아닌 정순서대로
-    // console.log("users",users);
-    const [pageNumber, setPageNumber] = useState(0);
-
-    const usersPerPage = 5;//한페이지에 보여주는 갯수
+    const ItemFetchLength = 50;//모든페이지에 들어가는 아이템수
+    const usersPerPage = 4;//한페이지에 보여주는 갯수
     const pagesVisited = pageNumber * usersPerPage;// 1페이지에 1 * 10 / 2페이지에 2 * 20 //최대갯수인듯
 
-    const displayUsers = products.slice(0,5)//50중에 
+    const displayUsers = products.slice(0,ItemFetchLength)//50중에 
         .slice(pagesVisited, pagesVisited + usersPerPage)// 최대갯수 ~  최대갯수 + 10
         .map((product) => {
             return (
@@ -141,7 +141,14 @@ function Main(props) {
                             }
                             {product.soldout === 1 
                                 ? null
-                                :<span className="product-Colors">{AddComma(product.price)} won</span> 
+                                :<span className="product-Colors">
+                                    {isproductsOptionsAll && isproductsOptionsAll.filter(item => item.product_id == product.id).map((qna) => {
+                                        return (
+                                                <div className='ColorCircle' style={{backgroundColor:`${qna.color1}`}} />
+                                            )
+                                        })
+                                    }
+                                </span> 
                             }
                             <div className="product-footer">
                                 <div className="product-seller">
@@ -160,10 +167,38 @@ function Main(props) {
         });
 
     const pageCount = Math.ceil(products.length / usersPerPage);
+    React.useEffect(function () {
+        // 상품관련
+        // fetchProducts();
+        dispatch(productActions.setProductSV());
+        dispatch(productOptionActions.setProductOptionsSV(products.name));
+        setproduct_list(products);
+        productsOptionsAll(ItemFetchLength);
+        fetchCartItem();
+        setLoading(false);
+        console.log("isproductsOptionsAll : ",isproductsOptionsAll);
+    }, []);
+
+	
+    //콤마 함수
+    function AddComma(value) {
+        return Number(value).toLocaleString('en');
+    }
+    
+    
+    // console.log("products",products); // ok 
+    // 여기서부터 pagenation
+    // const [users, setUsers] = useState(products.slice(0,2));//전체 데이터를 자른다 역순이아닌 정순서대로
+    // console.log("users",users);
+    
 
     const changePage = ({ selected }) => {
         setPageNumber(selected);
     };
+    if (isproductsOptionsAll == null){
+        return <div>Loading...</div>
+    }
+    
     return(
         <div>
             { loading ? <div>Loading...</div>
@@ -193,4 +228,10 @@ function Main(props) {
         </div>
     )
 }
+
+const ColorCircle = styled.span`
+    width: 20px;
+    height: 20px;
+`
+
 export default Main;
