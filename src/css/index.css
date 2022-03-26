@@ -1,4 +1,5 @@
 @import url("//vendor-cdn.imweb.me/css/gilroy.css");
+@import url("https://use.typekit.net/sfa0iuf.css");
 @font-face {
   font-family: 'Uiyeun';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105@1.1/Uiyeun.woff') format('woff');
@@ -227,6 +228,7 @@
     width: 12px;
     height: 12px;
     border-radius:12px;
+    margin-right: 2px;
     display: inline-block;
     border: 1px solid #efefef;
   }
