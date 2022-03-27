@@ -9,7 +9,7 @@ const OrderResult = () => {
     
     const [data,setData] = useState(null);
     const [loading, setLoading] = useState(true);
-
+    let Session = sessionStorage.getItem('user_id');
     const fetchOrderDisplay = async (id) => {
             console.log("fetchOrderDisplay(userOrderResult.id) :",id);
             let body = {
@@ -57,12 +57,16 @@ const OrderResult = () => {
                     <p>(라즈베리베리를 이용해주셔서 감사합니다.)</p>
                     <br /> 
                     <div className='detail_result'>
-                        <div><span>주문번호</span> : {data.od_id}</div>
+                        <div><span>주문번호</span> : {data.od_id} {Session ? null  : <span style={{color: 'darkmagenta'}}></span>} </div>
                         <div><span>주문제품</span> : {data.name}</div>
-                        <div><span>가격</span> : {data.od_cart_price}</div>
-                        <div><span>가상계좌번호</span> : {data.vbank_num}</div>
-                        <div><span>입금은행</span> : {data.vbank_name}</div>
-                        <div><span>입금기한</span> : {Unix_timestamp(data.vbank_date)}</div>
+                        <div><span>가격</span> : {data.od_cart_price}원</div>
+                        {data.od_settle_case === 'vbank' ? 
+                        <>
+                            <div><span>가상계좌번호</span> : {data.vbank_num}</div>
+                            <div><span>입금은행</span> : {data.vbank_name}</div>
+                            <div><span>입금기한</span> : {Unix_timestamp(data.vbank_date)}</div>
+                        </>
+                        : null}
                         <div><span>주문수량</span> : {data.ordernum}</div>
                         <div><span>컬러</span> : {data.color}</div>
                         <div><span>사이즈</span> : {data.size}</div>

@@ -43,7 +43,7 @@ const OrderSuccess = () => {
         await axios
         .get(`${API_URL}/v1/order/setOrderAll`)
         .then(function(result){
-            // console.log("setOrderSuccess : ", result.data.result.filter(item => item.od_status == "결제완료"));
+            console.log("setOrderSuccess : ", result.data.result.filter(item => item.od_status == "결제완료"));
             setOrderSuccess(result.data.result.filter(item => item.od_status == "결제완료"))   
         })
         .catch((err) => {
@@ -51,13 +51,17 @@ const OrderSuccess = () => {
         });
     };
     
-    const ModifySubmit =  async (od_id) => {//주소 등록업데이트 
+    const ModifySubmit =  async (od_id,name,od_addr1,od_cart_price,od_tel) => {//주소 등록업데이트 
         // const od_songjang = document.getElementById('inputAdd').value;
         const od_status = isselectVal
         
         let body = {
             od_id,
-            od_status
+            od_status,
+            name,
+            od_addr1,
+            od_cart_price,
+            od_tel
         }
         await axios
         .post(`${API_URL}/v1/order/ModifyOrderStatus `, body)
@@ -133,7 +137,7 @@ const OrderSuccess = () => {
                             <Option value="상품준비중">상품준비중</Option>
                         </Select>
                         <div id='wrapperBtn'>
-                            <button onClick={()=>ModifySubmit(od.od_id)} id="setAddressBtn">저장</button>
+                            <button onClick={()=>ModifySubmit(od.od_id,od.name,od.od_addr1,od.od_cart_price,od.od_tel)} id="setAddressBtn">저장</button>
                             <button onClick={CloseAddress} id="ClosesetAddressBtn">취소</button>
                         </div>
                     </Td>

@@ -69,9 +69,9 @@ function MainPage(props) {
                       <img id="" src= {`${API_URL}/${bn}`} alt="."/> 
                     </div> */}
                     <SwiperSlide>
-                      <Link to="/products/1">
+                      {/* <Link to="/products/1"> */}
                         <img src= {`${API_URL}/${bn}`} alt={`메인배너이미지 ${index}`}/>
-                      </Link>
+                      {/* </Link> */}
                     </SwiperSlide>
                   </>
                   ))}

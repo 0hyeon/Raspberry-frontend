@@ -50,6 +50,26 @@ function Registration() {
         user_phonenumber: Yup.string().min(1, '1자리 이상 입력해 주세요.').matches(phoneRegExp, '너무짧습니다.')
     });
     
+
+    const onalertkakao = (name_naming) => {
+        let company = '라즈베리베리'
+            let msg=`[${company}]
+    ${name_naming}(${name_naming})님
+
+    ${company}에 회원가입 감사합니다.`;
+            let body = {
+                senderkey: "cd0e3a2b9549589491efae77c9115b9407ff0992", 
+                tpl_code : "TI_0549",
+                sender: "010-4109-6590", 
+                receiver_1: "010-4109-6590", 
+                subject_1: '회원가입', 
+                message_1: msg 
+            }
+
+            axios.post(`${API_URL}/v1/kakaoalert/alimtalkSend/`, body).then(()=>{
+                console.log(body);
+            })
+    }
     const onSubmit = useCallback(
         (data) => {
             const pw_naming = document.getElementById('inputCreatePostuser_pw').value;
@@ -89,10 +109,16 @@ function Registration() {
                 return;
             }
             console.log(data);
+            
             axios.post(`${API_URL}/v1/user_inform/`, data).then(()=>{
                 console.log(data);
+                // onalertkakao(name_naming);
             })
+
+
+            
             alert("회원가입 완료");
+
             history.replace('/login')//이전페이지의 기록이 사라지고 대체됨
         },[nickBtn,isAllChecked],
     );

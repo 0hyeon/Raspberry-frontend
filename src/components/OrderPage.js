@@ -281,7 +281,7 @@ function OrderPage() {
                             
                         </div>
                         <div className='totalPriced'>
-                            총비용 : {Productprice * ProductOrderNum} won
+                            총비용 : {Productprice * ProductOrderNum + deliveryconst} won
                         </div>
                     <h2 className="registerTop">배송지</h2>
                     {/* 아이디 */}

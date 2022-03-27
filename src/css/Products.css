@@ -43,9 +43,9 @@
   
   #contents-box {
     margin-left:150px;
-    padding:60px 30px 30px 60px;
+    padding:60px 30px 30px 40px;
     position: fixed;
-    width:520px;
+    width:450px;
     z-index: 1;
     /* max-height: 810px; */
   }
@@ -85,7 +85,7 @@
   #price {
     font-size: 18px;
     font-weight: 600;
-    margin-bottom:40px;
+    margin-bottom:10px;
     color: #000000;
     font-family: Lato, sans-serif;
     font-weight: 700;
@@ -108,7 +108,7 @@
     /* border-top: 1px solid #aaa; */
     padding: 10px 0px 40px;
     max-height: 45vh;
-    height: 35vh;
+    height: 23vh;
     color: black;
   }
   #purchase-button{
@@ -125,7 +125,7 @@
   .content_wrapper{
     width:1400px; 
     margin:0 auto;
-    padding:100px 0px 70px;
+    padding:140px 0px 70px;
     position:relative;
     height:auto;
   }
@@ -186,19 +186,19 @@
   .content_wrapper .swiper-button-prev{left:40px!important}
 
   li {list-style: none;}
-  .detail_first,.detail_second{margin: 13px 0 20px;}
+  .detail_first,.detail_second{margin: 10px 0 15px;}
   .detail_third{margin: 10px 0;}
   .detail_Common > li {
-    width:35px;
-    height:35px;
+    width:20px;
+    height:20px;
     border-bottom: 2px solid #aaa;
     border-right: 1px solid #909090;
     display: inline-block;
     vertical-align: top;
-    margin-right:10px;
+    margin-right:5px;
     border-radius: 7px; 
     text-align: center;
-    line-height: 30px;
+    line-height: 16px;
     font-size: 13px;
     cursor: pointer;
   } 
@@ -362,12 +362,25 @@
   text-align: left;
   font-family: 'Uiyeun';
 }
+.ant-tabs-tab{
+  font-family: 'Noto Sans KR';
+  font-weight: 200;
+  font-size: 13px;
+}
+/* .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+  color:#ddd;
+}
+.ant-tabs-ink-bar {
+  background: #ddd;
+
+} */
+
 @media screen and (max-width:1800px) {
   #contents-box{
     /* max-height: 700px!important; */
     padding: 22px 35px 19px 35px!important;
     margin-left: 100px!important;
-    width:485px !important;
+    width:445px !important;
   }
   .content_wrapper{
     width: 1400px;
