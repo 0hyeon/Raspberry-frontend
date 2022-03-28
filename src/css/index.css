@@ -76,7 +76,7 @@
   .product-contents {
     display: flex;
     flex-direction: column;
-    padding: 10px 8px 9px;
+    padding: 13px 8px 9px;
     border-bottom: 1px solid #e2e2e2;
   }
   /* .ant-divider-horizontal{
@@ -223,6 +223,7 @@
   }
   .product-Colors {
    /* margin-top: 7px;  */
+   height:20px;
   }
   .ColorCircle{
     width: 12px;

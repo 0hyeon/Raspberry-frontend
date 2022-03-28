@@ -39,6 +39,7 @@ const OrderSuccess = () => {
         .get(`${API_URL}/v1/order/setOrderSuccess`)
         .then(function(result){
             setOrderSuccess(result.data.result)   
+            console.log("setOrderSuccess : ",result.data.result ,)
         })
         .catch((err) => {
             console.log("Err: ", err);
@@ -49,13 +50,17 @@ const OrderSuccess = () => {
         const searchWord = event.target.value; //검색의 input value 
         setsjvalue(searchWord);
     }
-    const ModifySubmit =  async (od_id) => {//주소 등록업데이트 
+    const ModifySubmit =  async (od_id,name,od_addr1,od_cart_price,od_tel) => {//주소 등록업데이트 
         // const od_songjang = document.getElementById('inputAdd').value;
         const od_songjang = sjvalue
         
         let body = {
             od_id,
-            od_songjang
+            od_songjang,
+            name,
+            od_addr1,
+            od_cart_price,
+            od_tel
         }
         await axios
         .post(`${API_URL}/v1/order/ModifySongJang `, body)
@@ -127,7 +132,7 @@ const OrderSuccess = () => {
                 {ModifySongJangBtn && ModifySongJangBtn.params.index == od.od_id ? 
                 <Td>
                     <input type='text' style={{width:'100%'}} placeholder="송장번호를 입력해주세요." value={sjvalue}  onChange={handleFilter} />
-                    <button onClick={()=>ModifySubmit(od.od_id)} id="setAddressBtn">저장</button>
+                    <button onClick={()=>ModifySubmit(od.od_id,od.name,od.od_addr1,od.od_cart_price,od.od_tel)} id="setAddressBtn">저장</button>
                     <button onClick={CloseAddress} id="ClosesetAddressBtn">취소</button>
                 </Td>
                 :

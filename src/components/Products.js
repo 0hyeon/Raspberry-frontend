@@ -169,7 +169,7 @@ function ProductPage() {
     }
 
     // console.log("props : ",props);
-    console.log("state : ",state);
+    // console.log("state : ",state);
     // alert(state.allProducts.cartItem3.msg);
     if(window.confirm(state.allProducts.cartItem3.msg + '.  장바구니로 이동 하시겠습니까?')){
       history.push("/CartPage");
@@ -511,7 +511,7 @@ function ProductPage() {
         await axios
         .get(`${API_URL}/v1/qna/qnaAll`)
         .then(function(result){
-            console.log(result.data);
+            // console.log(result.data);
             setqnaAll(result.data.result)   
         })
         .catch((err) => {

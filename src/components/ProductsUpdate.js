@@ -17,8 +17,8 @@ function ProductsUpdate() {
   const products = useSelector((state) => state.allProducts.products);
   let Session = sessionStorage.getItem('user_id');
   const { id } = useParams();
-  console.log(id); //문자 
-  console.log(products);
+  // console.log(id); //문자 
+  // console.log(products);
   const quillRef = useRef(); //🌈
   
   const { Option } = Select;
@@ -31,7 +31,7 @@ function ProductsUpdate() {
   }
 
   const updateProduct = products.products && products.products.find((item) => String(item.id) === String(id)); 
-  console.log("updateProduct :",updateProduct);
+  // console.log("updateProduct :",updateProduct);
   if(!Session){
     alert("관리자 계정으로 로그인 해주세요");
     document.location.href = '/'
@@ -65,7 +65,7 @@ function ProductsUpdate() {
     // }
     const editor_wysywic = document.getElementById("product-description").value
     
-    console.log("values.name.length : ",values.name.length);
+    // console.log("values.name.length : ",values.name.length);
     if(values.name.length < 2 || values.name.length > 38){
     alert('상품명 2 ~ 37자 사이로 입력해주세요.');
       return;

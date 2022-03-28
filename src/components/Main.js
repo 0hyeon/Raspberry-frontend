@@ -31,7 +31,7 @@ function Main(props) {
     // const products = useSelector((state) => state.allProducts.products);
     const products = useSelector((state) => state.products.products);
     const whyerrorObject = useSelector((state) => state.productoptions.productoptions.products);
-    console.log("whyerrorObject",whyerrorObject);
+    // console.log("whyerrorObject",whyerrorObject);
     const dispatch = useDispatch();
     // const fetchProducts = async () => { 
     //     await axios

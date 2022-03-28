@@ -129,7 +129,7 @@ const OrderFnish = () => {
                             <Option value="disabled" disabled>
                             결제상태를 선택해주세요.
                             </Option>
-                            <Option value="결제완료">결제완료</Option>
+                            <Option value="출고완료">출고완료</Option>
                             <Option value="상품준비중">상품준비중</Option>
                         </Select>
                         <div id='wrapperBtn'>
