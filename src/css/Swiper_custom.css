@@ -50,7 +50,7 @@
     --swiper-navigation-size: 50px;
 }
 #image-box > .swiper-container > .swiper-wrapper{
-    filter: drop-shadow(2px 4px 6px black);
+    filter: drop-shadow(2px 4px 6px #ddd);
 }
 @media screen and (max-width:767px) {
     .main_Swiper > .swiper-container > .swiper-wrapper > .swiper-slide > img{

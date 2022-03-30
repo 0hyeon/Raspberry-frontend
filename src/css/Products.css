@@ -84,11 +84,11 @@
   
   #price {
     font-size: 18px;
-    font-weight: 600;
-    margin-bottom:10px;
+    /* font-weight: 600; */
+    margin-bottom: 10px;
     color: #000000;
-    font-family: Lato, sans-serif;
-    font-weight: 700;
+    font-family: 'Noto Sans KR';
+    font-weight: 500;
     letter-spacing: 0.01em;
   }
   
@@ -187,7 +187,7 @@
 
   li {list-style: none;}
   .detail_first,.detail_second{margin: 10px 0 15px;}
-  .detail_third{margin: 10px 0;}
+  .detail_third{margin: 4px 0;}
   .detail_Common > li {
     width:20px;
     height:20px;
@@ -367,6 +367,9 @@
   font-weight: 200;
   font-size: 13px;
 }
+.mobile_size_compo{
+  height: 32px !important;
+}
 /* .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
   color:#ddd;
 }
@@ -442,10 +445,10 @@
     display: none!important;
   }
   #name{
-    margin-top: 25px!important;
+    margin: 45px 0 35px !important;
   }
   #image-box > .swiper-container > .swiper-wrapper>.swiper-slide> img{
-    padding: 0px 27px!important;
+    padding: 0px 5px!important;
   }
   .content_wrapper .swiper-button-next, .content_wrapper .swiper-button-prev{
     /* color: white!important; */
@@ -462,5 +465,5 @@
     width: 90% !important;
     margin: 0 auto;
   }
-  
+  .detail_third{margin: 10px 0;}
 }

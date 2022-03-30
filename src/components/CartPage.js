@@ -96,8 +96,8 @@ function CartPage(props) {
     }
     //수량클릭시 수량변경 state && 수량dispatch
     const input_qty_handler = (product,e) => {
-        console.log(e.target.id)
-        console.log(product);
+        // console.log(e.target.id)
+        // console.log(product);
 
         if(e.target.id == "input_qty_plus"){
             dispatch(increment(product))

@@ -813,7 +813,7 @@ function ProductPage() {
                 </Tabs>
                   <div className="detail_2_wrapper">
                     <div className="detail_color">
-                      COLOR : {isColorName}
+                      <div className="mobile_size_compo">COLOR : {isColorName}</div>
                       <ul className="detail_first detail_Common">
                         <li className="detail_first_li" style={{background:case1_colorName2 && case1_colorName2.color1}} id="case1" onClick={GetClick}></li>
                         <li className="detail_first_li" style={{background:case1_colorName2_1 && case1_colorName2_1.color1}} id="case2" onClick={GetClick}></li>
@@ -826,7 +826,7 @@ function ProductPage() {
                     </div>
                     {isShowSize == `${case1_colorName2 && case1_colorName2.colorName1}`
                       ? <div className="detail_size">
-                          SIZE : {isShowSizeName}
+                          <div className="mobile_size_compo">SIZE : {isShowSizeName}</div>
                           <ul className="detail_second detail_Common">
                           {/* {product.color1 ? <div>heyy1</div> : null} */}
                           <li className="detail_second_li" id="case1_1" style={case1_colorName2 && case1_colorName2.size1 ? null: {border:'none'}}onClick={GetClick2} value={case1_colorName2 && case1_colorName2.size1}>{case1_colorName2 &&case1_colorName2.size1}</li>
@@ -838,7 +838,7 @@ function ProductPage() {
                     }
                     {isShowSize == `${case1_colorName2_1 && case1_colorName2_1.colorName1}`
                       ? <div className="detail_size">
-                          SIZE : {isShowSizeName}
+                          <div className="mobile_size_compo">SIZE : {isShowSizeName}</div>
                           <ul className="detail_second detail_Common">
                           {/* {product.color1 ? <div>heyy2</div> : null} */}
                           <li className="detail_second_li" id="case1_1" style={case1_colorName2_1 && case1_colorName2_1.size1 ? null: {border:'none'}}onClick={GetClick2} value={case1_colorName2_1 && case1_colorName2_1.size1}>{case1_colorName2_1 && case1_colorName2_1.size1}</li>
@@ -850,7 +850,7 @@ function ProductPage() {
                     }
                     {isShowSize == `${case1_colorName2_2 && case1_colorName2_2.colorName1}`
                       ? <div className="detail_size">
-                          SIZE : {isShowSizeName}
+                          <div className="mobile_size_compo">SIZE : {isShowSizeName}</div>
                           <ul className="detail_second detail_Common">
                           {/* {product.color1 ? <div>heyy3</div> : null} */}
                           <li className="detail_second_li" id="case1_1" style={case1_colorName2_2 && case1_colorName2_2.size1 ? null: {border:'none'}}onClick={GetClick3} value={case1_colorName2_2 && case1_colorName2_2.size1}>{case1_colorName2_2 && case1_colorName2_2.size1}</li>
@@ -862,7 +862,7 @@ function ProductPage() {
                     }
                     {isCartUi_View 
                     ? <div className="detail_Cart">
-                        <div className="detail_third_name">{isColorName} / {isShowSizeName}</div>
+                        <div className="detail_third_name mobile_size_compo">{isColorName} / {isShowSizeName}</div>
                         <div className="detail_third">
                           <div className="input_qty input_qty_side" id="input_qty_minus" onClick={ CartListButton }>-</div>
                             <input className="input_qty" type="number" autoComplete="off" min="1" max="100" value={isCartUi} readOnly/>

@@ -70,7 +70,7 @@ function Main(props) {
         await axios
             .post(`${API_URL}/v1/product/productsOptionsAll`, body)
             .then(function(result){
-            console.log('productsOptionsAll : ',result.data);
+            // console.log('productsOptionsAll : ',result.data);
             setproductsOptionsAll(result.data.result);
         })
         .catch((err) => {
@@ -142,9 +142,9 @@ function Main(props) {
                             {product.soldout === 1 
                                 ? null
                                 :<span className="product-Colors">
-                                    {isproductsOptionsAll && isproductsOptionsAll.filter(item => item.product_id == product.id).map((qna) => {
+                                    {product.color1 && product.color1.map((qna) => {
                                         return (
-                                                <div className='ColorCircle' style={{backgroundColor:`${qna.color1}`}} />
+                                                <div className='ColorCircle' style={{backgroundColor:`${qna}`}} />
                                             )
                                         })
                                     }
@@ -176,7 +176,6 @@ function Main(props) {
         productsOptionsAll(ItemFetchLength);
         fetchCartItem();
         setLoading(false);
-        console.log("isproductsOptionsAll : ",isproductsOptionsAll);
     }, []);
 
 	

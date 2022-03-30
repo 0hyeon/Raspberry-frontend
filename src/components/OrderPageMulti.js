@@ -46,16 +46,16 @@ function OrderPageMulti() {
     console.log("제품명 : ",Producttitle);
 
     const Productcolor = useProductOpt.map((item)=>{return(item.it_Detail_color)}).join();
-    console.log(Productcolor);
+    // console.log(Productcolor);
 
     const Productsize = useProductOpt.map((item)=>{return(item.it_Detail_size)}).join();
-    console.log(Productsize);
+    // console.log(Productsize);
 
     const Productprice = useProductOpt.map((item)=>{return(item.it_sc_price)}).join();
-    console.log(Productprice);
+    // console.log(Productprice);
 
     const Productimg = useProductOpt.map((item)=>{return(item.thumb_name)}).join();
-    console.log(Productimg);
+    // console.log(Productimg);
 
     //이게없음
     const ProductStock = useProductOpt.map((item)=>{return(item.it_sc_stock)}).join();

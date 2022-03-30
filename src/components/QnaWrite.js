@@ -134,7 +134,7 @@ const QnaWrite = () => {
         alert("로그인 해주세요.");
         history.push("/login");
     }
-    console.log(ProductsData);
+    // console.log(ProductsData);
     return(
         <div className="QnaWirteWrapper" style={{paddingTop:'100px',textAlign:'center'}}>
             {/* 글제목 */}
