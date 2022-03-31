@@ -7,6 +7,7 @@ import {API_URL} from "../config/constants.js";
 import axios from 'axios';
 import { useHistory }from "react-router-dom";
 import QuillEditor from "./editor/QuillEditor"
+import QuillEditor2 from "./editor/QuillEditor2"
 import jwt_decode from "jwt-decode";
 
 
@@ -35,7 +36,9 @@ function UploadPage() {
   const history = useHistory();//리액트훅
 
   const [htmlContent, setHtmlContent] = useState(""); //🌈
+  const [htmlContent2, setHtmlContent2] = useState(""); //🌈
   const quillRef = useRef(); //🌈
+  const quillRef2 = useRef(); //🌈
   const onSubmit = (values) => {//제출
 
     //상품내용 안쓸경우 alert
@@ -47,6 +50,7 @@ function UploadPage() {
     // }'
 
     const editor_wysywic = document.getElementById("product-description").value
+    const editor_wysywic2 = document.getElementById("product-description2").value
 
     const body = {
       name : values.name,
@@ -90,7 +94,7 @@ function UploadPage() {
       detailPage1 : detailPage1,
       detailPage2 : detailPage2,
       detailPage3 : detailPage3,
-      sizeDesc : values.sizeDesc,
+      sizeDesc : editor_wysywic2,
     }
 
     
@@ -679,6 +683,7 @@ function UploadPage() {
             onChange={setHtmlContent}
           />
           <QuillEditor  quillRef={quillRef} htmlContent={htmlContent} setHtmlContent={setHtmlContent} api=""/>
+          
         </Form.Item>
         <Divider />
         {/* 사이즈 */}
@@ -686,14 +691,20 @@ function UploadPage() {
         <Form.Item
           name="sizeDesc"
           label={<div className="upload-label">상품 사이즈</div>}
-          rules={[{ required: true, message: "상품 사이즈를 입력해주세요" }]}
+          rules={[{ required: false, message: "상품 사이즈를 입력해주세요" }]}
         >
-          <Input
+          <Input.TextArea
             name="sizeDesc"
-            className="product-size"
+            style={{display:"none"}}
             size="large"
-            placeholder="상품 사이즈를 입력해주세요"
+            id="product-description2"
+            showCount
+            maxLength={300}
+            placeholder="상품 사이즈를 입력해주세요."
+            value={htmlContent2}
+            onChange={setHtmlContent2}
           />
+          <QuillEditor2  quillRef2={quillRef2} htmlContent2={htmlContent2} setHtmlContent2={setHtmlContent2} api2=""/>
         </Form.Item>
         {/* 제품 등록 */}
         <Form.Item>
