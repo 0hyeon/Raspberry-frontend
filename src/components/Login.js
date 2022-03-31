@@ -22,9 +22,9 @@ function Login() {
     }
  
     const onClickLogin = () => {
-        console.log('click login')//클릭시 바로 실행 
-        console.log('ID : ', inputId)// input 값 반영
-        console.log('PW : ', inputPw)// input 값 반영2
+        // console.log('click login')//클릭시 바로 실행 
+        // console.log('ID : ', inputId)// input 값 반영
+        // console.log('PW : ', inputPw)// input 값 반영2
         const body = {
             user_id: inputId, 
             user_pw: inputPw
@@ -33,15 +33,15 @@ function Login() {
             withCredentials:true
         })
         .then(res => {
-            console.log('res',res);
-            console.log('res.data',res.data);
-            console.log('res.data.user_id :: ', res.data.user_id);//토큰값
-            console.log('res.data.msg :: ', res.data.msg);//백엔드에서 보낸메시지
+            // console.log('res',res);
+            // console.log('res.data',res.data);
+            // console.log('res.data.user_id :: ', res.data.user_id);//토큰값
+            // console.log('res.data.msg :: ', res.data.msg);//백엔드에서 보낸메시지
 
             if(res.data.loginSuccess == false){
                 // id 일치하지 않는 경우 userId = undefined, msg = '입력하신 id 가 일치하지 않습니다.'
-                console.log('======================',res.data.msg)
-                console.log('======================',res.data)
+                // console.log('======================',res.data.msg)
+                // console.log('======================',res.data)
                 // alert('입력하신 id 가 존재하지 않습니다.');
                 alert(res.data.msg);
             } else if(res.data.loginSuccess == true) {
@@ -51,10 +51,10 @@ function Login() {
                 //     console.log('user_id!!!',Session);
                 // }else{
                 sessionStorage.setItem('user_id',res.data.user_id)//세션 생성
-                console.log( "token : ",sessionStorage.getItem('user_id') );
+                // console.log( "token : ",sessionStorage.getItem('user_id') );
                 // }
                 dispatch(userActions.setUserSV());
-                console.log('======================','로그인 성공')
+                // console.log('======================','로그인 성공')
                 alert(res.data.msg);
                 history.push("/");
                 // history.goBack();
