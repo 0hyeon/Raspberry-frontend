@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import Dropzone from 'react-dropzone'
 import { PlusOutlined } from '@ant-design/icons';
 import axios from 'axios';
-import {API_URL} from "../../config/constants.js";
+import {API_URL,S3_URL} from "../../config/constants.js";
 const FileUpload = (props) => {
     const [ Images, setImages ] = useState([]);
     const dropHandler = (files) => {
@@ -13,10 +13,13 @@ const FileUpload = (props) => {
         }
 
         formData.append("file",files[0]);
+        console.log("files : ",files);
+        console.log("formData.append('file',files[0]) : ",formData.append("file",files[0]));
        
         axios.post(`${API_URL}/v1/banner/setBanner`,formData,config)
         .then((res) => {
             if(res.data.success){
+                console.log("formData :",formData);
                 console.log('/v1/banner/setBanner',res.data);
                 setImages([...Images, res.data.filePath])//있던거에 추가 추가 ([1,2,3])
                 props.refreshFunction([...Images, res.data.filePath]) 
@@ -58,7 +61,7 @@ const FileUpload = (props) => {
                 {Images.map((image,index)=>(
                     <div onClick={ ()=> deleteHandler(image)} key={index}>
                         <img style={{width:'350px',height:'100%',padding:'0px 15px'}} 
-                            src={`${API_URL}/${image}`} alt="hello"
+                            src={`${S3_URL}/${image}`} alt="hello"
                         />
                     </div>
 

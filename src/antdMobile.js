@@ -1,6 +1,6 @@
 import React from "react";
 import { Carousel, WingBlank } from 'antd-mobile';
-import {API_URL} from "../src/config/constants.js";
+import {API_URL,S3_URL} from "../src/config/constants.js";
 class SliderMobile extends React.Component {
   
   state = {
@@ -34,7 +34,7 @@ class SliderMobile extends React.Component {
               style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight}}
             >
               <img
-                src={`${API_URL}/${val}`}
+                src={`${S3_URL}/${val}`}
                 alt=""
                 style={{ width: '100%', verticalAlign: 'top' }}
                 onLoad={() => {

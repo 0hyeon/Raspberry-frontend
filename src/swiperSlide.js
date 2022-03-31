@@ -5,7 +5,7 @@ import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
 import "swiper/components/pagination/pagination.scss";
 import "./css/Swiper_custom.css";
-import {API_URL} from "./config/constants.js";
+import {API_URL,S3_URL} from "./config/constants.js";
 import { Link } from "react-router-dom";
 import axios from "axios";
 SwiperCore.use([Navigation, Pagination, Autoplay])	// 추가
@@ -70,7 +70,7 @@ function MainPage(props) {
                     </div> */}
                     <SwiperSlide>
                       {/* <Link to="/products/1"> */}
-                        <img src= {`${API_URL}/${bn}`} alt={`메인배너이미지 ${index}`}/>
+                        <img src= {`${S3_URL}/${bn}`} alt={`메인배너이미지 ${index}`}/>
                       {/* </Link> */}
                     </SwiperSlide>
                   </>
@@ -90,7 +90,7 @@ function MainPage(props) {
                     </div> */}
                     <SwiperSlide>
                       <Link to="/products/1">
-                        <img src= {`${API_URL}/${bn}`} alt={`메인배너이미지 ${index}`}/>
+                        <img src= {`${S3_URL}/${bn}`} alt={`메인배너이미지 ${index}`}/>
                       </Link>
                     </SwiperSlide>
                   </>

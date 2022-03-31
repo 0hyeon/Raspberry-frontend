@@ -3,7 +3,7 @@ import "antd/dist/antd.css";
 import { Form, Divider, Input, InputNumber, Button, Upload, message } from "antd";
 import "../css/Admin.css";
 // import { ForkOutlined } from "@ant-design/icons";
-import {API_URL} from "../config/constants.js";
+import {API_URL,S3_URL} from "../config/constants.js";
 import axios from 'axios';
 import { useHistory }from "react-router-dom";
 import QuillEditor from "./editor/QuillEditor"
@@ -206,7 +206,7 @@ function UploadPage() {
           <Upload name="image" action={`${API_URL}/image`} listType="picture" showUploadList={false} onChange={onChangeImage}>
             {
               imageUrl ? (
-                <img id="upload-img" src= {`${API_URL}/${imageUrl}`} /> 
+                <img id="upload-img" src= {`${S3_URL}/${imageUrl}`} /> 
               ) : (
               <div id="upload-img-placeholder">
                 <img src="/images/icons/camera.png" />
@@ -218,7 +218,7 @@ function UploadPage() {
           <Upload name="image" action={`${API_URL}/image2`} listType="picture" showUploadList={false} onChange={onChangeImage2}>
             {
               imageUrl2 ? (
-                <img id="upload-img" src= {`${API_URL}/${imageUrl2}`} /> 
+                <img id="upload-img" src= {`${S3_URL}/${imageUrl2}`} /> 
               ) : (
               <div id="upload-img-placeholder">
                 <img src="/images/icons/camera.png" />
@@ -230,7 +230,7 @@ function UploadPage() {
           <Upload name="image" action={`${API_URL}/image3`} listType="picture" showUploadList={false} onChange={onChangeImage3}>
             {
               imageUrl3 ? (
-                <img id="upload-img" src= {`${API_URL}/${imageUrl3}`} /> 
+                <img id="upload-img" src= {`${S3_URL}/${imageUrl3}`} /> 
               ) : (
               <div id="upload-img-placeholder">
                 <img src="/images/icons/camera.png" />
@@ -242,7 +242,7 @@ function UploadPage() {
           <Upload name="image" action={`${API_URL}/image4`} listType="picture" showUploadList={false} onChange={onChangeImage4}>
             {
               imageUrl4 ? (
-                <img id="upload-img" src= {`${API_URL}/${imageUrl4}`} /> 
+                <img id="upload-img" src= {`${S3_URL}/${imageUrl4}`} /> 
               ) : (
               <div id="upload-img-placeholder">
                 <img src="/images/icons/camera.png" />
@@ -261,7 +261,7 @@ function UploadPage() {
               <Upload name="image" action={`${API_URL}/image5`} listType="picture" showUploadList={false} onChange={onChangeImage5}>
               {
                 imageUrl5 ? (
-                  <video id="upload-img" src= {`${API_URL}/${imageUrl5}`} /> 
+                  <video id="upload-img" src= {`${S3_URL}/${imageUrl5}`} /> 
                 ) : (
                 <div id="upload-img-placeholder">
                   <img src="/images/icons/camera.png" />
@@ -281,7 +281,7 @@ function UploadPage() {
          <Upload name="image" action={`${API_URL}/detailPage1`} listType="picture" showUploadList={false} onChange={onChangeDetailPage1}>
             {
               detailPage1 ? (
-                <img id="upload-img" src= {`${API_URL}/${detailPage1}`} alt={detailPage1}/> 
+                <img id="upload-img" src= {`${S3_URL}/${detailPage1}`} alt={detailPage1}/> 
               ) : (
               <div id="upload-img-placeholder">
                 <img src="/images/icons/camera.png" />
@@ -293,7 +293,7 @@ function UploadPage() {
           <Upload name="image" action={`${API_URL}/detailPage2`} listType="picture" showUploadList={false} onChange={onChangeDetailPage2}>
             {
               detailPage2 ? (
-                <img id="upload-img" src= {`${API_URL}/${detailPage2}`} alt={detailPage2}/> 
+                <img id="upload-img" src= {`${S3_URL}/${detailPage2}`} alt={detailPage2}/> 
               ) : (
               <div id="upload-img-placeholder">
                 <img src="/images/icons/camera.png" />
@@ -305,7 +305,7 @@ function UploadPage() {
           <Upload name="image" action={`${API_URL}/detailPage3`} listType="picture" showUploadList={false} onChange={onChangeDetailPage3}>
             {
               detailPage3 ? (
-                <img id="upload-img" src= {`${API_URL}/${detailPage3}`} alt={detailPage3}/> 
+                <img id="upload-img" src= {`${S3_URL}/${detailPage3}`} alt={detailPage3}/> 
               ) : (
               <div id="upload-img-placeholder">
                 <img src="/images/icons/camera.png" />
