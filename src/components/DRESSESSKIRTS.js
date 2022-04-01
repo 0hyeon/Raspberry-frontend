@@ -43,7 +43,10 @@ const NewPage = () => {
                         to={`/products/${product.id}`}
                     >
                         <div>
-                            <img className="product-img" src={`${API_URL}/${product.imageUrl}`} alt="" />
+                            <img className="product-img" src={
+                                process.env.NODE_ENV === 'production'
+                                ?`${product.imageUrl}`
+                                :`${API_URL}/${product.imageUrl}`} alt="" />
                         </div>
                         <div className="product-contents">
                             {product.soldout === 1 

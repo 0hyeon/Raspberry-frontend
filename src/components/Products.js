@@ -755,10 +755,22 @@ function ProductPage() {
                   centeredSlides={true} 
                   loopedSlides={4}
                 >
-                  {product.imageUrl == null ? null : <SwiperSlide><img src={`${API_URL}/${product.imageUrl}`} alt="" /></SwiperSlide> }
-                  {product.imageUrl2 == null ? null : <SwiperSlide><img src={`${API_URL}/${product.imageUrl2}`} alt="" /></SwiperSlide> }
-                  {product.imageUrl3 == null ? null : <SwiperSlide><img src={`${API_URL}/${product.imageUrl3}`} alt="" /></SwiperSlide> }
-                  {product.imageUrl4 == null ? null : <SwiperSlide><img src={`${API_URL}/${product.imageUrl4}`} alt="" /></SwiperSlide> }
+                  {product.imageUrl == null ? null : <SwiperSlide><img src={
+                    process.env.NODE_ENV === 'production'
+                    ?`${product.imageUrl}`
+                    :`${API_URL}/${product.imageUrl}`} alt="" /></SwiperSlide> }
+                  {product.imageUrl2 == null ? null : <SwiperSlide><img src={
+                    process.env.NODE_ENV === 'production'
+                    ?`${product.imageUrl2}`
+                    :`${API_URL}/${product.imageUrl2}`} alt="" /></SwiperSlide> }
+                  {product.imageUrl3 == null ? null : <SwiperSlide><img src={
+                    process.env.NODE_ENV === 'production'
+                    ?`${product.imageUrl3}`
+                    :`${API_URL}/${product.imageUrl3}`} alt="" /></SwiperSlide> }
+                  {product.imageUrl4 == null ? null : <SwiperSlide><img src={
+                    process.env.NODE_ENV === 'production'
+                    ?`${product.imageUrl4}`
+                    :`${API_URL}/${product.imageUrl4}`} alt="" /></SwiperSlide> }
                 </Swiper>
             </div>
             
@@ -902,7 +914,10 @@ function ProductPage() {
                 }
             </div>
             <div className="dtail_Page">
-              <img src={`${API_URL}/${product.detailPage1}`} ref={parentRef} id="target" alt="" />
+              <img src={
+                process.env.NODE_ENV === 'production'
+                ?`${product.detailPage1}`
+                :`${API_URL}/${product.detailPage1}`} ref={parentRef} id="target" alt="" />
             </div>
             {/* <div id="profile-box">
                 <img src="/images/icons/avatar.png" />
@@ -916,7 +931,10 @@ function ProductPage() {
               <h3 className="detail_title">Real Fit Check.</h3>
               <div id="detail_camera_image">
                 <video width="400" height="500" controls >
-                      <source src={`${API_URL}/${product.imageUrl5}`} type="video/mp4"/>
+                      <source src={
+                        process.env.NODE_ENV === 'production'
+                        ?`${product.imageUrl5}`
+                        :`${API_URL}/${product.imageUrl5}`} type="video/mp4"/>
                 </video>
               </div>
             </>
@@ -926,11 +944,20 @@ function ProductPage() {
           :
           <div className="dtail_Page22">
             <h3 className="detail_title">Detail Page.</h3>
-            <img src={`${API_URL}/${product.detailPage1}`} alt="" />
+            <img src={
+              process.env.NODE_ENV === 'production'
+              ?`${product.detailPage1}`
+              :`${API_URL}/${product.detailPage1}`} alt="" />
             {product.detailPage2 == null? null 
-            :<img src={`${API_URL}/${product.detailPage2}`} alt="" />}
+            :<img src={
+              process.env.NODE_ENV === 'production'
+              ?`${product.detailPage2}`
+              :`${API_URL}/${product.detailPage2}`} alt="" />}
             {product.detailPage3 == null? null 
-            :<img src={`${API_URL}/${product.detailPage3}`} alt="" />}
+            :<img src={
+              process.env.NODE_ENV === 'production'
+              ?`${product.detailPage3}`
+              :`${API_URL}/${product.detailPage3}`} alt="" />}
           </div>
           }
           <div className='relate_wraaper'>
@@ -947,7 +974,10 @@ function ProductPage() {
                 style={{ color: "inherit" }}
                 href={`/products/${state.allProducts.products.products &&state.allProducts.products.products.find((item) => String(item.id) === String(product.relateProduct1)).id}`}
               >
-                <img src={`${API_URL}/${state.allProducts.products.products &&state.allProducts.products.products.find((item) => String(item.id) === String(product.relateProduct1)).imageUrl}`} alt="연관상품1" />
+                <img src={
+                  process.env.NODE_ENV === 'production'
+                  ?`${state.allProducts.products.products &&state.allProducts.products.products.find((item) => String(item.id) === String(product.relateProduct1)).imageUrl}`
+                  :`${API_URL}/${state.allProducts.products.products &&state.allProducts.products.products.find((item) => String(item.id) === String(product.relateProduct1)).imageUrl}`} alt="연관상품1" />
                 <div>{state.allProducts.products.products &&state.allProducts.products.products.find((item) => String(item.id) === String(product.relateProduct1)).name}</div>
                 <div>price : {AddComma(state.allProducts.products.products &&state.allProducts.products.products.find((item) => String(item.id) === String(product.relateProduct1)).price)}</div>
               </a>

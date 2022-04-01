@@ -308,7 +308,10 @@ function OrderPageMulti() {
                                     <>
                                     <div className='OrderPage_productArea_wrapper'>
                                         <div className='OrderPage_productArea_wrapper_left'>
-                                            <img style={{width:'90px'}}src={`${API_URL}/${item.thumb_name}`} alt="ThumbImage" />
+                                            <img style={{width:'90px'}}src={
+                                                process.env.NODE_ENV === 'production'
+                                                ?`${item.thumb_name}`
+                                                :`${API_URL}/${item.thumb_name}`} alt="ThumbImage" />
                                         </div>
                                         <div className='OrderPage_productArea_wrapper_right'>
                                             <div>{`${item.it_name} / ${item.it_Detail_color} / ${item.it_Detail_size} / ${item.it_Detail_quanity}개` }</div>

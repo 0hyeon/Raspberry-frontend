@@ -247,10 +247,18 @@ function ProductsUpdate() {
           <Upload name="image" action={`${API_URL}/image`} listType="picture" showUploadList={false} onChange={onChangeImage}>
             {
               imageUrl ? (
-                <img id="upload-img" src= {`${API_URL}/${imageUrl}`} alt="."/> 
+                <img id="upload-img" src= {
+                  process.env.NODE_ENV === 'production'
+                  ?`${imageUrl}`
+                  :`${API_URL}/${imageUrl}`
+                } alt="."/> 
               ) : (
               <div id="upload-img-placeholder">
-                <img src= {`${API_URL}/${updateProduct.imageUrl}`} alt="."/>
+                <img src= {
+                  process.env.NODE_ENV === 'production'
+                  ?`${updateProduct.imageUrl}`
+                  :`${API_URL}/${updateProduct.imageUrl}`
+                } alt="."/>
                 <span>이미지를 업로드해주세요.</span>
               </div>
               )
@@ -259,10 +267,16 @@ function ProductsUpdate() {
           <Upload name="image" action={`${API_URL}/image2`} listType="picture" showUploadList={false} onChange={onChangeImage2}>
             {
               imageUrl2 ? (
-                <img id="upload-img" src= {`${API_URL}/${imageUrl2}`} alt="."/> 
+                <img id="upload-img" src= {
+                  process.env.NODE_ENV === 'production'
+                  ?`${imageUrl2}`
+                  :`${API_URL}/${imageUrl2}`} alt="."/> 
               ) : (
               <div id="upload-img-placeholder">
-                <img src={`${API_URL}/${updateProduct.imageUrl2}`} alt="."/>
+                <img src={
+                  process.env.NODE_ENV === 'production'
+                  ?`${updateProduct.imageUrl2}`
+                  :`${API_URL}/${updateProduct.imageUrl2}`} alt="."/>
                 <span>이미지를 업로드해주세요.</span>
               </div>
               )
@@ -271,10 +285,16 @@ function ProductsUpdate() {
           <Upload name="image" action={`${API_URL}/image3`} listType="picture" showUploadList={false} onChange={onChangeImage3}>
             {
               imageUrl3 ? (
-                <img id="upload-img" src= {`${API_URL}/${imageUrl3}`} alt="."/> 
+                <img id="upload-img" src= {
+                  process.env.NODE_ENV === 'production'
+                  ?`${imageUrl3}`
+                  :`${API_URL}/${imageUrl3}`} alt="."/> 
               ) : (
               <div id="upload-img-placeholder">
-                <img src={`${API_URL}/${updateProduct.imageUrl3}`} alt="."/>
+                <img src={
+                  process.env.NODE_ENV === 'production'
+                  ?`${updateProduct.imageUrl3}`
+                  :`${API_URL}/${updateProduct.imageUrl3}`} alt="."/>
                 <span>이미지를 업로드해주세요.</span>
               </div>
               )
@@ -283,10 +303,16 @@ function ProductsUpdate() {
           <Upload name="image" action={`${API_URL}/image4`} listType="picture" showUploadList={false} onChange={onChangeImage4}>
             {
               imageUrl4 ? (
-                <img id="upload-img" src= {`${API_URL}/${imageUrl4}`} alt="."/> 
+                <img id="upload-img" src= {
+                  process.env.NODE_ENV === 'production'
+                  ?`${imageUrl4}`
+                  :`${API_URL}/${imageUrl4}`} alt="."/> 
               ) : (
               <div id="upload-img-placeholder">
-                <img src={`${API_URL}/${updateProduct.imageUrl4}`} alt="."/>
+                <img src={
+                  process.env.NODE_ENV === 'production'
+                  ?`${updateProduct.imageUrl4}`
+                  :`${API_URL}/${updateProduct.imageUrl4}`} alt="."/>
                 <span>이미지를 업로드해주세요.</span>
               </div>
               )
@@ -302,10 +328,16 @@ function ProductsUpdate() {
               <Upload name="image" action={`${API_URL}/image5`} listType="picture" showUploadList={false} onChange={onChangeImage5}>
               {
                 imageUrl5 ? (
-                  <video id="upload-img" src= {`${API_URL}/${imageUrl5}`} alt="."/> 
+                  <video id="upload-img" src= {
+                    process.env.NODE_ENV === 'production'
+                    ?`${imageUrl5}`
+                    :`${API_URL}/${imageUrl5}`} alt="."/> 
                 ) : (
                 <div id="upload-img-placeholder">
-                  <img src={`${API_URL}/${updateProduct.imageUrl5}`} alt="."/>
+                  <img src={
+                    process.env.NODE_ENV === 'production'
+                    ?`${updateProduct.imageUrl5}`
+                    :`${API_URL}/${updateProduct.imageUrl5}`} alt="."/>
                   <span>이미지를 업로드해주세요.</span>
                 </div>
                 )
@@ -322,10 +354,16 @@ function ProductsUpdate() {
         <Upload name="image" action={`${API_URL}/detailPage1`} listType="picture" showUploadList={false} onChange={onChangeDetailPage1}>
             {
               detailPage1 ? (
-                <img id="upload-img" src= {`${API_URL}/${detailPage1}`} alt="."/> 
+                <img id="upload-img" src= {
+                  process.env.NODE_ENV === 'production'
+                  ?`${detailPage1}`
+                  :`${API_URL}/${detailPage1}`} alt="."/> 
               ) : (
               <div id="upload-img-placeholder">
-                <img src={`${API_URL}/${updateProduct.detailPage1}`} alt="."/>
+                <img src={
+                  process.env.NODE_ENV === 'production'
+                  ?`${updateProduct.detailPage1}`
+                  :`${API_URL}/${updateProduct.detailPage1}`} alt="."/>
                 <span>이미지를 업로드해주세요.</span>
               </div>
               )
@@ -334,10 +372,16 @@ function ProductsUpdate() {
         <Upload name="image" action={`${API_URL}/detailPage2`} listType="picture" showUploadList={false} onChange={onChangeDetailPage2}>
             {
               detailPage2 ? (
-                <img id="upload-img" src= {`${API_URL}/${detailPage2}`} alt="."/> 
+                <img id="upload-img" src= {
+                  process.env.NODE_ENV === 'production'
+                  ?`${detailPage2}`
+                  :`${API_URL}/${detailPage2}`} alt="."/> 
               ) : (
               <div id="upload-img-placeholder">
-                <img src={`${API_URL}/${updateProduct.detailPage2}`} alt="."/>
+                <img src={
+                  process.env.NODE_ENV === 'production'
+                  ?`${updateProduct.detailPage2}`
+                  :`${API_URL}/${updateProduct.detailPage2}`} alt="."/>
                 <span>이미지를 업로드해주세요.</span>
               </div>
               )
@@ -346,7 +390,10 @@ function ProductsUpdate() {
         <Upload name="image" action={`${API_URL}/detailPage3`} listType="picture" showUploadList={false} onChange={onChangeDetailPage3}>
             {
               detailPage3 ? (
-                <img id="upload-img" src= {`${API_URL}/${detailPage3}`} alt="."/> 
+                <img id="upload-img" src= {
+                  process.env.NODE_ENV === 'production'
+                  ?`${API_URL}/${detailPage3}`
+                  :`${API_URL}/${detailPage3}`} alt="."/> 
               ) : (
               <div id="upload-img-placeholder">
                 <img src={`${API_URL}/${updateProduct.detailPage3}`} alt="."/>

@@ -175,7 +175,10 @@ const QnaUpdate = () => {
                         <Upload name="image" action={`${API_URL}/image`} listType="picture" showUploadList={false} onChange={onChangeImage}>
                             {
                             imageUrlQna ? (
-                                <img id="upload-img" src= {`${API_URL}/${imageUrlQna}`} /> 
+                                <img id="upload-img" src= {
+                                    process.env.NODE_ENV === 'production'
+                                    ?`${imageUrlQna}`
+                                    :`${API_URL}/${imageUrlQna}`} /> 
                             ) : (
                             <div id="upload-img-placeholder">
                                 <img src="/images/icons/camera.png" />

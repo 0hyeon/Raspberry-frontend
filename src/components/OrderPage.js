@@ -269,7 +269,10 @@ function OrderPage() {
                     {Session == null ?<div className="registerTop">(비회원)주문</div> : <div className="registerTop">주문상품</div> }
                         <div className='OrderPage_productArea_wrapper'>
                             <div className='OrderPage_productArea_wrapper_left'>
-                                <img style={{width:'90px'}}src={`${API_URL}/${Productimg}`} alt="ThumbImage" />
+                                <img style={{width:'90px'}}src={
+                                    process.env.NODE_ENV === 'production'
+                                    ?`${Productimg}`
+                                    :`${API_URL}/${Productimg}`} alt="ThumbImage" />
                             </div>
                             <div className='OrderPage_productArea_wrapper_right'>
                                 <div>{`${Producttitle} / ${Productsize} / ${Productcolor} / ${ProductOrderNum}개` }</div>

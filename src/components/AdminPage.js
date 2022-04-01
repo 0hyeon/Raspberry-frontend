@@ -178,7 +178,11 @@ const AdminPage = () => {
                         }
                             <div className='product-img-wrapper'>
                                 
-                                <img className="adm-product-img" src={`${API_URL}/${product.imageUrl}`} alt={product.imageUrl} />
+                                <img className="adm-product-img" src={
+                                    process.env.NODE_ENV === 'production'
+                                    ?`${product.imageUrl}`
+                                    :`${API_URL}/${product.imageUrl}`
+                                } alt={product.imageUrl} />
                             </div>
                         <div className="admCommon adm-product-name"><span>Item_ID :</span> {product.id}</div>
                         <div className="admCommon adm-name"><span>Name: :</span> {product.name}</div>

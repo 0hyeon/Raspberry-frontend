@@ -160,7 +160,10 @@ function CartPage(props) {
                                     className="product-link2"
                                     to={`/products/${product.it_id}`}
                                 >
-                                    <img className="thumb_img" src={`${API_URL}/${product.thumb_name}`} alt={product.it_id} />
+                                    <img className="thumb_img" src={
+                                        process.env.NODE_ENV === 'production'
+                                        ?`${product.thumb_name}`
+                                        :`${API_URL}/${product.thumb_name}`} alt={product.it_id} />
                                 </Link>
                                 <Link
                                     style={{ color: "inherit" }}

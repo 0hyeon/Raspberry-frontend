@@ -145,7 +145,10 @@ const QnaWrite = () => {
                     ProductsData && ProductsData.find((item) => String(item.id) === String(id)) 
                     ?
                     <div className='ProductTitle'>
-                        <img src={`${API_URL}/${ProductsData && ProductsData.find((item) => String(item.id) === String(id)).imageUrl }`} alt="대표사진" />
+                        <img src={
+                            process.env.NODE_ENV === 'production'
+                            ?`${ProductsData && ProductsData.find((item) => String(item.id) === String(id)).imageUrl }`
+                            :`${API_URL}/${ProductsData && ProductsData.find((item) => String(item.id) === String(id)).imageUrl }`} alt="대표사진" />
                         <div className='ProductName'>{ProductsData && ProductsData.find((item) => String(item.id) === String(id)).name}</div>
                     </div>
                     :null
@@ -216,7 +219,10 @@ const QnaWrite = () => {
                     <Upload name="image" action={`${API_URL}/image`} listType="picture" showUploadList={false} onChange={onChangeImage}>
                         {
                         imageUrlQna ? (
-                            <img id="upload-img" src= {`${API_URL}/${imageUrlQna}`} /> 
+                            <img id="upload-img" src= {
+                                process.env.NODE_ENV === 'production'
+                                ?`${imageUrlQna}`
+                                :`${API_URL}/${imageUrlQna}`} /> 
                         ) : (
                         <div id="upload-img-placeholder">
                             <img src="/images/icons/camera.png" />
