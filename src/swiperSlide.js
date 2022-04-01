@@ -70,7 +70,12 @@ function MainPage(props) {
                     </div> */}
                     <SwiperSlide>
                       {/* <Link to="/products/1"> */}
-                        <img src= {`${S3_URL}/${bn}`} alt={`메인배너이미지 ${index}`}/>
+                        <img src= {
+                          process.env.NODE_ENV === 'production' 
+                          ?`${bn}`
+                          :`${API_URL}/${bn}`
+                          } alt={`메인배너이미지 ${index}`}
+                        />
                       {/* </Link> */}
                     </SwiperSlide>
                   </>
@@ -90,7 +95,12 @@ function MainPage(props) {
                     </div> */}
                     <SwiperSlide>
                       <Link to="/products/1">
-                        <img src= {`${S3_URL}/${bn}`} alt={`메인배너이미지 ${index}`}/>
+                        <img src= {
+                          process.env.NODE_ENV === 'production' 
+                          ?`${bn}`
+                          :`${API_URL}/${bn}`
+                          } alt={`메인배너이미지 ${index}`}
+                        />
                       </Link>
                     </SwiperSlide>
                   </>

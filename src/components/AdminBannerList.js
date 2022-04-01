@@ -82,7 +82,11 @@ const AdminBannerList = () => {
                 <div style={{fontSize:'18px',fontWeight:'bold'}}>Desktop ({ isBanner ? isBanner && isBanner.length : 0 })</div>
                 {isBanner && isBanner.map((bn,index)=>(
                   <div className='BannerList' key={index}>
-                    <img id="" src= {`${API_URL}/${bn}`} alt="."/> 
+                    <img id="" src= {
+                      process.env.NODE_ENV === 'production' 
+                      ?`${bn}`
+                      :`${API_URL}/${bn}`
+                    } alt="."/> 
                   </div>
                 ))}
                 <DeleteBox onClick={() => DeleteBanner("pc")} >삭제</DeleteBox>
@@ -95,7 +99,11 @@ const AdminBannerList = () => {
                 <div style={{fontSize:'18px',fontWeight:'bold'}}>Mobile ({ isMobileBanner ? isMobileBanner && isMobileBanner.length : 0 })</div>
                 {isMobileBanner && isMobileBanner.map((bn,index)=>(
                   <div className='BannerList' key={index}>
-                    <img id="" src= {`${API_URL}/${bn}`} alt="."/> 
+                    <img id="" src= {
+                      process.env.NODE_ENV === 'production' 
+                      ?`${bn}`
+                      :`${API_URL}/${bn}`
+                    } alt="."/> 
                   </div>
                 ))}
                 <DeleteBox onClick={ () => DeleteBanner("mobile")} >삭제</DeleteBox>

@@ -57,8 +57,12 @@ const FileUpload = (props) => {
             <div style={{display:'flex',width:'350px',height:'240px',overflowX:'scroll'}}>
                 {Images.map((image,index)=>(
                     <div onClick={ ()=> deleteHandler(image)} key={index}>
+                        {/* 로컬일때 */}
                         <img style={{width:'350px',height:'100%',padding:'0px 15px'}} 
-                            src={`${API_URL}/${image}`} alt="hello"
+                            src={
+                                process.env.NODE_ENV === 'production' ? `${image}`
+                                : `${API_URL}/${image}`
+                            } alt="hello"
                         />
                     </div>
 
