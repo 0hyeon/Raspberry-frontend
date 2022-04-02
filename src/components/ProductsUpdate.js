@@ -9,6 +9,7 @@ import { useHistory,useParams }from "react-router-dom";
 import { useSelector, connect,useDispatch } from 'react-redux';
 import {removeSelectedProduct, selectedProduct} from '../_actions/userAction'
 import QuillEditor from "./editor/QuillEditor"
+import QuillEditor2 from "./editor/QuillEditor2"
 import jwt_decode from "jwt-decode";
 
 function ProductsUpdate() {
@@ -19,7 +20,6 @@ function ProductsUpdate() {
   const { id } = useParams();
   // console.log(id); //문자 
   // console.log(products);
-  const quillRef = useRef(); //🌈
   
   const { Option } = Select;
   
@@ -52,8 +52,13 @@ function ProductsUpdate() {
   const [detailPage1, setDetailPage1] = useState(updateProduct && updateProduct.detailPage1);
   const [detailPage2, setDetailPage2] = useState(updateProduct && updateProduct.detailPage2);
   const [detailPage3, setDetailPage3] = useState(updateProduct && updateProduct.detailPage3);
-  const [htmlContent, setHtmlContent] = useState(updateProduct && updateProduct.description); //🌈
   const [isSeller, setSeller] = useState(updateProduct && updateProduct.seller); //🌈
+  
+  const [htmlContent, setHtmlContent] = useState(updateProduct && updateProduct.description); //🌈
+  const [htmlContent2, setHtmlContent2] = useState(""); //🌈
+
+  const quillRef = useRef(); //🌈
+  const quillRef2 = useRef(); //🌈
   const history = useHistory();//리액트훅   
 
 
@@ -64,7 +69,7 @@ function ProductsUpdate() {
 
     // }
     const editor_wysywic = document.getElementById("product-description").value
-    
+    const editor_wysywic2 = document.getElementById("product-description2").value
     // console.log("values.name.length : ",values.name.length);
     if(values.name.length < 2 || values.name.length > 38){
     alert('상품명 2 ~ 37자 사이로 입력해주세요.');
@@ -108,7 +113,7 @@ function ProductsUpdate() {
       detailPage1 : detailPage1,
       detailPage2 : detailPage2,
       detailPage3 : detailPage3,
-      sizeDesc : values.sizeDesc,
+      sizeDesc : editor_wysywic2,
       relateProduct1 : parseInt(values.relateProduct1),
       relateProduct2 : parseInt(values.relateProduct2),
       relateProduct3 : parseInt(values.relateProduct3),
@@ -776,14 +781,20 @@ function ProductsUpdate() {
         <Form.Item
           name="sizeDesc"
           label={<div className="upload-label">상품 사이즈</div>}
-          rules={[{ required: true, message: "상품 사이즈를 입력해주세요" }]}
+          rules={[{ required: false, message: "상품 사이즈를 입력해주세요" }]}
         >
-          <Input
+          <Input.TextArea
             name="sizeDesc"
-            className="product-size"
+            style={{display:"none"}}
             size="large"
-            placeholder="상품 사이즈를 입력해주세요"
+            id="product-description2"
+            showCount
+            maxLength={300}
+            placeholder="상품 사이즈를 입력해주세요."
+            value={htmlContent2}
+            onChange={setHtmlContent2}
           />
+          <QuillEditor2  quillRef2={quillRef2} htmlContent2={htmlContent2} setHtmlContent2={setHtmlContent2} api2=""/>
         </Form.Item>
         {/* 카테고리분류 */}
         <Form.Item
