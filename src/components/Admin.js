@@ -33,6 +33,8 @@ function UploadPage() {
   const [detailPage1, setDetailPage1] = useState(null);
   const [detailPage2, setDetailPage2] = useState(null);
   const [detailPage3, setDetailPage3] = useState(null);
+  const [detailPage4, setDetailPage4] = useState(null);
+  const [detailPage5, setDetailPage5] = useState(null);
   const history = useHistory();//리액트훅
 
   const [htmlContent, setHtmlContent] = useState(""); //🌈
@@ -94,6 +96,8 @@ function UploadPage() {
       detailPage1 : detailPage1,
       detailPage2 : detailPage2,
       detailPage3 : detailPage3,
+      detailPage4 : detailPage4,
+      detailPage5 : detailPage5,
       sizeDesc : editor_wysywic2,
     }
 
@@ -192,6 +196,26 @@ function UploadPage() {
       const response = info.file.response;
       const detailPage3 = response.detailPage3;
       setDetailPage3(detailPage3);
+    }
+  }
+  const onChangeDetailPage4 = (info) => {
+    if(info.file.status === 'uploading'){
+      return;
+    }
+    if(info.file.status === 'done'){
+      const response = info.file.response;
+      const detailPage4 = response.detailPage4;
+      setDetailPage4(detailPage4);
+    }
+  }
+  const onChangeDetailPage5 = (info) => {
+    if(info.file.status === 'uploading'){
+      return;
+    }
+    if(info.file.status === 'done'){
+      const response = info.file.response;
+      const detailPage5 = response.detailPage5;
+      setDetailPage5(detailPage5);
     }
   }
 
@@ -335,6 +359,36 @@ function UploadPage() {
                   process.env.NODE_ENV === 'production' 
                   ?`${detailPage3}`
                   :`${API_URL}/${detailPage3}`} alt={detailPage3}/> 
+              ) : (
+              <div id="upload-img-placeholder">
+                <img src="/images/icons/camera.png" />
+                <span>이미지를 업로드해주세요.</span>
+              </div>
+              )
+            }
+          </Upload>
+          <Upload name="image" action={`${API_URL}/detailPage4`} listType="picture" showUploadList={false} onChange={onChangeDetailPage4}>
+            {
+              detailPage4 ? (
+                <img id="upload-img" src= {
+                  process.env.NODE_ENV === 'production' 
+                  ?`${detailPage4}`
+                  :`${API_URL}/${detailPage4}`} alt={detailPage4}/> 
+              ) : (
+              <div id="upload-img-placeholder">
+                <img src="/images/icons/camera.png" />
+                <span>이미지를 업로드해주세요.</span>
+              </div>
+              )
+            }
+          </Upload>
+          <Upload name="image" action={`${API_URL}/detailPage5`} listType="picture" showUploadList={false} onChange={onChangeDetailPage5}>
+            {
+              detailPage5 ? (
+                <img id="upload-img" src= {
+                  process.env.NODE_ENV === 'production' 
+                  ?`${detailPage5}`
+                  :`${API_URL}/${detailPage5}`} alt={detailPage5}/> 
               ) : (
               <div id="upload-img-placeholder">
                 <img src="/images/icons/camera.png" />

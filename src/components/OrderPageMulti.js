@@ -28,7 +28,7 @@ function OrderPageMulti() {
     //주소에 따른 배송비
     let userStateAddress = useSelector(state => state.setaddress.setaddress);
     let [isuserStateAddress, setuserStateAddress] = useState(null);
-    let [deliveryconst, setdeliveryconst] = useState(100);
+    let [deliveryconst, setdeliveryconst] = useState(2500);
 
     const [htmlData, setHtmlData] = useState(userState.user_address);
     const [htmlDatadetail, setHtmlDatadetail] = useState(userState.user_address_detail);
@@ -202,7 +202,7 @@ function OrderPageMulti() {
             }else if(delivery2 >= 22386 && delivery2 <= 22388 ){//인천 중구 섬지역 : 6,000원
                 setdeliveryconst(6000);
             }else{
-                setdeliveryconst(100);//그외 전부 3000원
+                setdeliveryconst(2500);//그외 전부 3000원
             }
         }
 

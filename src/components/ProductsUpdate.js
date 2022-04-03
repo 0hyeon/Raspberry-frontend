@@ -52,6 +52,8 @@ function ProductsUpdate() {
   const [detailPage1, setDetailPage1] = useState(updateProduct && updateProduct.detailPage1);
   const [detailPage2, setDetailPage2] = useState(updateProduct && updateProduct.detailPage2);
   const [detailPage3, setDetailPage3] = useState(updateProduct && updateProduct.detailPage3);
+  const [detailPage4, setDetailPage4] = useState(updateProduct && updateProduct.detailPage4);
+  const [detailPage5, setDetailPage5] = useState(updateProduct && updateProduct.detailPage5);
   const [isSeller, setSeller] = useState(updateProduct && updateProduct.seller); //🌈
   
   const [htmlContent, setHtmlContent] = useState(updateProduct && updateProduct.description); //🌈
@@ -113,6 +115,8 @@ function ProductsUpdate() {
       detailPage1 : detailPage1,
       detailPage2 : detailPage2,
       detailPage3 : detailPage3,
+      detailPage4 : detailPage4,
+      detailPage5 : detailPage5,
       sizeDesc : editor_wysywic2,
       relateProduct1 : parseInt(values.relateProduct1),
       relateProduct2 : parseInt(values.relateProduct2),
@@ -208,6 +212,26 @@ function ProductsUpdate() {
       const response = info.file.response;
       const detailPage3 = response.detailPage3;
       setDetailPage3(detailPage3);
+    }
+  }
+  const onChangeDetailPage4 = (info) => {
+    if(info.file.status === 'uploading'){
+      return;
+    }
+    if(info.file.status === 'done'){
+      const response = info.file.response;
+      const detailPage4 = response.detailPage4;
+      setDetailPage4(detailPage4);
+    }
+  }
+  const onChangeDetailPage5 = (info) => {
+    if(info.file.status === 'uploading'){
+      return;
+    }
+    if(info.file.status === 'done'){
+      const response = info.file.response;
+      const detailPage5 = response.detailPage5;
+      setDetailPage5(detailPage5);
     }
   }
   
@@ -397,11 +421,41 @@ function ProductsUpdate() {
               detailPage3 ? (
                 <img id="upload-img" src= {
                   process.env.NODE_ENV === 'production'
-                  ?`${API_URL}/${detailPage3}`
+                  ?`${detailPage3}`
                   :`${API_URL}/${detailPage3}`} alt="."/> 
               ) : (
               <div id="upload-img-placeholder">
                 <img src={`${API_URL}/${updateProduct.detailPage3}`} alt="."/>
+                <span>이미지를 업로드해주세요.</span>
+              </div>
+              )
+            }
+          </Upload>
+        <Upload name="image" action={`${API_URL}/detailPage4`} listType="picture" showUploadList={false} onChange={onChangeDetailPage4}>
+            {
+              detailPage4 ? (
+                <img id="upload-img" src= {
+                  process.env.NODE_ENV === 'production'
+                  ?`${detailPage4}`
+                  :`${API_URL}/${detailPage4}`} alt="."/> 
+              ) : (
+              <div id="upload-img-placeholder">
+                <img src={`${API_URL}/${updateProduct.detailPage4}`} alt="."/>
+                <span>이미지를 업로드해주세요.</span>
+              </div>
+              )
+            }
+          </Upload>
+        <Upload name="image" action={`${API_URL}/detailPage5`} listType="picture" showUploadList={false} onChange={onChangeDetailPage5}>
+            {
+              detailPage5 ? (
+                <img id="upload-img" src= {
+                  process.env.NODE_ENV === 'production'
+                  ?`${detailPage5}`
+                  :`${API_URL}/${detailPage5}`} alt="."/> 
+              ) : (
+              <div id="upload-img-placeholder">
+                <img src={`${API_URL}/${updateProduct.detailPage5}`} alt="."/>
                 <span>이미지를 업로드해주세요.</span>
               </div>
               )

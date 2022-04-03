@@ -1,5 +1,6 @@
 @import url("//vendor-cdn.imweb.me/css/gilroy.css");
 @import url("https://use.typekit.net/sfa0iuf.css");
+@import url("//db.onlinewebfonts.com/c/67680f2eb947c5cbd58b40961b4a61e9?family=Apple+SD+Gothic+Neo");
 @font-face {
   font-family: 'Uiyeun';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105@1.1/Uiyeun.woff') format('woff');
@@ -266,7 +267,7 @@
       box-shadow: 1px 0px 0px rgb(0 0 0 / 50%)!important;
     }
     .product-img {
-      height: auto!important;
+      height: 321px!important;
     }
     #product-list,.product-list-wrapper{
       width: 100%!important;

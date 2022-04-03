@@ -1,7 +1,8 @@
 .swiper-wrapper{
     width:700px;
     text-align: center;
-    
+    display: flex;
+    align-items: center;
 }
 
 .main_Swiper{
@@ -51,6 +52,7 @@
 }
 #image-box > .swiper-container > .swiper-wrapper{
     filter: drop-shadow(2px 4px 6px #ddd);
+    
 }
 @media screen and (max-width:767px) {
     .main_Swiper > .swiper-container > .swiper-wrapper > .swiper-slide > img{

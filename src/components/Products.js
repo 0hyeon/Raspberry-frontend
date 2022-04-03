@@ -841,9 +841,9 @@ function ProductPage() {
                           <div className="mobile_size_compo">SIZE : {isShowSizeName}</div>
                           <ul className="detail_second detail_Common">
                           {/* {product.color1 ? <div>heyy1</div> : null} */}
-                          <li className="detail_second_li" id="case1_1" style={case1_colorName2 && case1_colorName2.size1 ? null: {border:'none'}}onClick={GetClick2} value={case1_colorName2 && case1_colorName2.size1}>{case1_colorName2 &&case1_colorName2.size1}</li>
-                          <li className="detail_second_li" id="case2_1" style={case1_colorName20 && case1_colorName20.size1 ? null: {border:'none'}}onClick={GetClick2} value={case1_colorName20 && case1_colorName20.size1}>{case1_colorName20 &&case1_colorName20.size1}</li>
-                          <li className="detail_second_li" id="case3_1" style={case1_colorName200 && case1_colorName200.size1 ? null: {border:'none'}}onClick={GetClick2} value={case1_colorName200 && case1_colorName200.size1}>{case1_colorName200 &&case1_colorName200.size1}</li>
+                          <li className="detail_second_li" id="case1_1" style={case1_colorName2 && case1_colorName2.size1 ? null: {border:'none'}}onClick={GetClick2} value={case1_colorName2 && case1_colorName2.size1}><span className="autoMiddleText">{case1_colorName2 &&case1_colorName2.size1}</span></li>
+                          <li className="detail_second_li" id="case2_1" style={case1_colorName20 && case1_colorName20.size1 ? null: {border:'none'}}onClick={GetClick2} value={case1_colorName20 && case1_colorName20.size1}><span className="autoMiddleText">{case1_colorName20 &&case1_colorName20.size1}</span></li>
+                          <li className="detail_second_li" id="case3_1" style={case1_colorName200 && case1_colorName200.size1 ? null: {border:'none'}}onClick={GetClick2} value={case1_colorName200 && case1_colorName200.size1}><span className="autoMiddleText">{case1_colorName200 &&case1_colorName200.size1}</span></li>
                           </ul>
                         </div>
                       : null
@@ -853,9 +853,9 @@ function ProductPage() {
                           <div className="mobile_size_compo">SIZE : {isShowSizeName}</div>
                           <ul className="detail_second detail_Common">
                           {/* {product.color1 ? <div>heyy2</div> : null} */}
-                          <li className="detail_second_li" id="case1_1" style={case1_colorName2_1 && case1_colorName2_1.size1 ? null: {border:'none'}}onClick={GetClick2} value={case1_colorName2_1 && case1_colorName2_1.size1}>{case1_colorName2_1 && case1_colorName2_1.size1}</li>
-                          <li className="detail_second_li" id="case2_1" style={case1_colorName2_10 && case1_colorName2_10.size1 ? null: {border:'none'}}onClick={GetClick2} value={case1_colorName2_10 && case1_colorName2_10.size1}>{case1_colorName2_10 && case1_colorName2_10.size1}</li>
-                          <li className="detail_second_li" id="case3_1" style={case1_colorName2_100 && case1_colorName2_100.size1 ? null: {border:'none'}}onClick={GetClick2} value={case1_colorName2_100 && case1_colorName2_100.size1}>{case1_colorName2_100 && case1_colorName2_100.size1}</li>
+                          <li className="detail_second_li" id="case1_1" style={case1_colorName2_1 && case1_colorName2_1.size1 ? null: {border:'none'}}onClick={GetClick2} value={case1_colorName2_1 && case1_colorName2_1.size1}><span className="autoMiddleText">{case1_colorName2_1 && case1_colorName2_1.size1}</span></li>
+                          <li className="detail_second_li" id="case2_1" style={case1_colorName2_10 && case1_colorName2_10.size1 ? null: {border:'none'}}onClick={GetClick2} value={case1_colorName2_10 && case1_colorName2_10.size1}><span className="autoMiddleText">{case1_colorName2_10 && case1_colorName2_10.size1}</span></li>
+                          <li className="detail_second_li" id="case3_1" style={case1_colorName2_100 && case1_colorName2_100.size1 ? null: {border:'none'}}onClick={GetClick2} value={case1_colorName2_100 && case1_colorName2_100.size1}><span className="autoMiddleText">{case1_colorName2_100 && case1_colorName2_100.size1}</span></li>
                           </ul>
                         </div>
                       : null 
@@ -865,9 +865,9 @@ function ProductPage() {
                           <div className="mobile_size_compo">SIZE : {isShowSizeName}</div>
                           <ul className="detail_second detail_Common">
                           {/* {product.color1 ? <div>heyy3</div> : null} */}
-                          <li className="detail_second_li" id="case1_1" style={case1_colorName2_2 && case1_colorName2_2.size1 ? null: {border:'none'}}onClick={GetClick3} value={case1_colorName2_2 && case1_colorName2_2.size1}>{case1_colorName2_2 && case1_colorName2_2.size1}</li>
-                          <li className="detail_second_li" id="case2_1" style={case1_colorName2_20 && case1_colorName2_20.size1 ? null: {border:'none'}}onClick={GetClick3} value={case1_colorName2_20 && case1_colorName2_20.size1}>{case1_colorName2_20 && case1_colorName2_20.size1}</li>
-                          <li className="detail_second_li" id="case3_1" style={case1_colorName2_200 && case1_colorName2_200.size1 ? null: {border:'none'}}onClick={GetClick3} value={case1_colorName2_200 && case1_colorName2_200.size1}>{case1_colorName2_200 && case1_colorName2_200.size1}</li>
+                          <li className="detail_second_li" id="case1_1" style={case1_colorName2_2 && case1_colorName2_2.size1 ? null: {border:'none'}}onClick={GetClick3} value={case1_colorName2_2 && case1_colorName2_2.size1}><span className="autoMiddleText">{case1_colorName2_2 && case1_colorName2_2.size1}</span></li>
+                          <li className="detail_second_li" id="case2_1" style={case1_colorName2_20 && case1_colorName2_20.size1 ? null: {border:'none'}}onClick={GetClick3} value={case1_colorName2_20 && case1_colorName2_20.size1}><span className="autoMiddleText">{case1_colorName2_20 && case1_colorName2_20.size1}</span></li>
+                          <li className="detail_second_li" id="case3_1" style={case1_colorName2_200 && case1_colorName2_200.size1 ? null: {border:'none'}}onClick={GetClick3} value={case1_colorName2_200 && case1_colorName2_200.size1}><span className="autoMiddleText">{case1_colorName2_200 && case1_colorName2_200.size1}</span></li>
                           </ul>
                         </div>
                       : null 
@@ -958,6 +958,16 @@ function ProductPage() {
               process.env.NODE_ENV === 'production'
               ?`${product.detailPage3}`
               :`${API_URL}/${product.detailPage3}`} alt="" />}
+            {product.detailPage4 == null? null 
+            :<img src={
+              process.env.NODE_ENV === 'production'
+              ?`${product.detailPage4}`
+              :`${API_URL}/${product.detailPage4}`} alt="" />}
+            {product.detailPage5 == null? null 
+            :<img src={
+              process.env.NODE_ENV === 'production'
+              ?`${product.detailPage5}`
+              :`${API_URL}/${product.detailPage5}`} alt="" />}
           </div>
           }
           <div className='relate_wraaper'>

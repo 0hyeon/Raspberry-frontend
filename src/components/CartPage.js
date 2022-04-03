@@ -182,7 +182,7 @@ function CartPage(props) {
                             </td>
                             <td>{AddComma( product.it_Detail_quanity * product.it_sc_price)}</td>
                             <td rowSpan={CartList.length}  className="targetRowspan">2500원
-                                100,000이상 
+                                (100,000이상 무상)
                             </td>
                             <td className="remove_box_wrapper" >
                                 <div id={product.id} className="DeleteButton"  onClick={ Delete_Handelr }>삭제</div>

@@ -80,6 +80,7 @@
     color: #222222;
     letter-spacing: 0.01em;
     margin-bottom:20px;
+    word-break: keep-all;
   }
   
   #price {
@@ -110,6 +111,21 @@
     max-height: 45vh;
     height: 23vh;
     color: black;
+  }
+  .SizeTabFont{
+    font-family: inherit!important;
+    font-size: 14px;
+    margin: 0;
+    white-space: break-spaces;
+    line-height: 1.8;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 10px 0 40px;
+    max-height: 45vh;
+    height: 23vh;
+    color: #000;
+  }
+  .autoMiddleText{
+    vertical-align: middle;
   }
   #purchase-button{
     margin-top: 8px;
@@ -369,6 +385,7 @@
 }
 .mobile_size_compo{
   height: 32px !important;
+  word-break: keep-all;
 }
 /* .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
   color:#ddd;
