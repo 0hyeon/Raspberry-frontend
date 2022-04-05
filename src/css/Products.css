@@ -5,7 +5,8 @@
     /* display: flex;
     align-items: center;
     justify-content: center; */
-    margin-bottom: 15px;
+    margin-bottom: 100px;
+    
   }
   
   #image-box img {
@@ -20,6 +21,7 @@
   #image-box > .swiper-container > .swiper-wrapper>.swiper-slide> img{
     width: 500px;
     /* max-height: 700px; */
+    filter: drop-shadow(2px 4px 6px black);
   }
   
   #profile-box {
@@ -435,6 +437,7 @@
     width: 100%!important;
     /* padding: 10px 50px !important; */
     filter: drop-shadow(2px 4px 6px black);
+    margin-bottom: inherit !important;
   }
   #detail_camera_image > video {
     width: 100% !important;
@@ -483,4 +486,7 @@
     margin: 0 auto;
   }
   .detail_third{margin: 10px 0;}
+  #image-box > .swiper-container > .swiper-wrapper>.swiper-slide> img{
+    filter: inherit !important;
+  }
 }
