@@ -266,7 +266,7 @@ function ProductPage() {
       let parentTop  = parentRef.current.offsetTop ;
 
       // console.log('parentHeight : ', parentHeight);
-      // console.log('parentWidth : ', parentWidth);
+      console.log('parentWidth : ', parentWidth);
       // console.log('parentTop : ', parentTop);
       const target = document.getElementById('target');
       const clientRect = target.getBoundingClientRect();
@@ -1046,7 +1046,7 @@ function ProductPage() {
             </div>
           </div>
           <div className='deliveryPolicy'>
-            <h1 class="returnPolicy_title">배송안내</h1>
+            <h1 class="returnPolicy_title">Delivery Policy</h1>
             <div>ㆍ배송방법 : CJ택배<br/>ㆍ배송비 : 7만원 이상 결제시 무료배송 <br/>ㆍ취소시(품절포함) 최종 결제 금액에 따라 배송비가 발생되거나 사용한쿠폰이 취소 될 수 있습니다. <br/>ㆍ결제시 적립금을 사용하신 경우, 취소시에&nbsp;적립금이 선환불 처리됩니다 (ex. 신용카드+적립금 결제시, 적립금 선환불처리).<br/>ㆍ옵션 변경은 꼭 Q&amp;A로 문의주셔야 변경이 가능합니다.<br/><br/>ㆍ상품 준비기간 (주말, 공휴일제외)&nbsp;자체 제작 상품 및 사입상품 : 3~7일 소요&nbsp;/ 수입상품 : 5일~10일 소요 <br/>ㆍ제작 상황에 따라 기본 배송일보다 조금 더 지연될 수 있습니다.<br/><br/>ㆍ당일발송&nbsp;오후 2시 이전 결제완료 : 당일 출고 / 오후 2시 이후 결제완료 : 익일 출고 <br/>ㆍ무통장 입금의 경우 입금 확인까지 1~2시간 소요됩니다. <br/>ㆍ당일 발송은 당일 출고 서비스로 단독으로 주문하셔야 당일 출고됩니다. <br/>ㆍ당일 발송 상품과 일반 발송 상품 같이 주문시 상품 준비 기간이소요됩니다.<br/><br/><strong>ㆍ배송지연</strong><br/> 주문 확인일로부터 5일(주말, 공휴일제외) 이후 카카오톡 또는 문자메시지로 지연 안내해 드리고 있으며, 일부 준비된 상품 먼저 발송될 수 있습니다.<br/><br/><strong>ㆍ품절안내</strong><br/>결제 완료 후 품절된 경우 카카오톡 또는 문자메시지로 품절 안내해 드리고 있습니다.  안내 후 익일 내 재문의 없을 경우 임의 취소 될 수 있는 점 양해 부탁드립니다.</div>
           </div>
           

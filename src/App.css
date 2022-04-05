@@ -322,4 +322,11 @@ button{
   .dpspan{
     display: block !important;
   }
+  .ant-menu-item{
+      height: 48px !important;
+  }
+  .react-audio-player  {
+      width: 100% !important;
+      top: 0px !important;
+  }
 }

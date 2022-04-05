@@ -55,6 +55,10 @@
     
 }
 @media screen and (max-width:767px) {
+    .main_Swiper > .swiper-container>.swiper-button-next:after, .main_Swiper > .swiper-container>.swiper-button-prev:after {
+        /* font-size: 32px !important; */
+        display: none !important;
+    }
     .main_Swiper > .swiper-container > .swiper-wrapper > .swiper-slide > img{
         height:inherit!important;
     }
@@ -70,7 +74,7 @@
 }
 @media screen and (max-width:559px) {
     .swiper-wrapper{
-        width: 100%!important;
+        width: 940%!important;
     }
     #image-box > .swiper-container > .swiper-wrapper>.swiper-slide> img{
         width: 100%!important;

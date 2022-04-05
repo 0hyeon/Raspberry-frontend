@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import Dropzone from 'react-dropzone'
 import { PlusOutlined } from '@ant-design/icons';
 import axios from 'axios';
-import {API_URL,S3_URL} from "../../config/constants.js";
+import {API_URL} from "../../config/constants.js";
 const FileUpload = (props) => {
     const [ Images2, setImages2 ] = useState([]);
     const dropHandler = (files) => {
@@ -58,7 +58,10 @@ const FileUpload = (props) => {
                 {Images2.map((image,index)=>(
                     <div onClick={ ()=> deleteHandler(image)} key={index}>
                         <img style={{height:'100%',padding:'0px 15px'}} 
-                            src={`${S3_URL}/${image}`} alt="hello"
+                            src={
+                                process.env.NODE_ENV === 'production' ? `${image}`
+                                : `${API_URL}/${image}`
+                            } alt="hello"
                         />
                     </div>
 

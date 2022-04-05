@@ -110,7 +110,7 @@ function Main(props) {
         // dispatch(setProducts(result.data));
     };
     const ItemFetchLength = 50;//모든페이지에 들어가는 아이템수
-    const usersPerPage = 4;//한페이지에 보여주는 갯수
+    const usersPerPage = 10;//한페이지에 보여주는 갯수
     const pagesVisited = pageNumber * usersPerPage;// 1페이지에 1 * 10 / 2페이지에 2 * 20 //최대갯수인듯
 
     const displayUsers = products.slice(0,ItemFetchLength)//50중에 

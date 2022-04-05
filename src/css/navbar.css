@@ -252,8 +252,9 @@
     height: 80px!important;
   }
   #Logo_style {
-    width: 90px !important;
-    margin-top: 10px !important;
+    width: 120px!important;
+    margin-top: 10px!important;
+    filter: drop-shadow(2px 4px 6px #ab4d69);
   }
   .RM_2a_link{
     font-size: 15px;
