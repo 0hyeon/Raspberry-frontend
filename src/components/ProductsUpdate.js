@@ -22,7 +22,7 @@ function ProductsUpdate() {
   // console.log(products);
   
   const { Option } = Select;
-  
+  const [form] = Form.useForm()
   const [isselectVal, setselectVal ] = useState(null);
   function handleChange(value) {
     // console.log(`selected ${value}`);
@@ -43,6 +43,10 @@ function ProductsUpdate() {
         document.location.href = '/'
     }
   }
+  
+  const [isSeller, setSeller] = useState(updateProduct && updateProduct.seller); 
+  const [isPrice, setPrice] = useState(updateProduct && updateProduct.price);
+  const [isName, setName] = useState(updateProduct && updateProduct.name);
 
   const [imageUrl, setImageUrl] = useState(updateProduct && updateProduct.imageUrl);
   const [imageUrl2, setImageUrl2] = useState(updateProduct && updateProduct.imageUrl2);
@@ -54,7 +58,7 @@ function ProductsUpdate() {
   const [detailPage3, setDetailPage3] = useState(updateProduct && updateProduct.detailPage3);
   const [detailPage4, setDetailPage4] = useState(updateProduct && updateProduct.detailPage4);
   const [detailPage5, setDetailPage5] = useState(updateProduct && updateProduct.detailPage5);
-  const [isSeller, setSeller] = useState(updateProduct && updateProduct.seller); //🌈
+  
   
   const [htmlContent, setHtmlContent] = useState(updateProduct && updateProduct.description); //🌈
   const [htmlContent2, setHtmlContent2] = useState(""); //🌈
@@ -62,7 +66,56 @@ function ProductsUpdate() {
   const quillRef = useRef(); //🌈
   const quillRef2 = useRef(); //🌈
   const history = useHistory();//리액트훅   
+  
+  const defaultValues = {
+    
+    seller : isSeller ? isSeller : '',
+    price : isPrice ? isPrice :'',
+    name : isName ? isName :'',
+    description : htmlContent ? htmlContent :'',
 
+    // color1 : isSeller ? isSeller :'',
+    // colorName1 : isSeller ? isSeller :'',
+    // size1 : isSeller ? isSeller :'',
+    // quantity1 : isSeller ? isSeller :'',
+    // size1_2 : isSeller ? isSeller :'',
+    // quantity1_2 : isSeller ? isSeller :'',
+    // size1_3 : isSeller ? isSeller :'',
+    // quantity1_3 : isSeller ? isSeller :'',
+    // color2 : isSeller ? isSeller :'',
+    // colorName2 : isSeller ? isSeller :'',
+    // size2 : isSeller ? isSeller :'',
+    // quantity2 : isSeller ? isSeller :'',
+    // size2_2 : isSeller ? isSeller :'',
+    // quantity2_2 : isSeller ? isSeller :'',
+    // size2_3 : isSeller ? isSeller :'',
+    // quantity2_3 : isSeller ? isSeller :'',
+    // color3 : isSeller ? isSeller :'',
+    // colorName3 : isSeller ? isSeller :'',
+    // size3 : isSeller ? isSeller :'',
+    // quantity3 : isSeller ? isSeller :'',
+    // size3_2 : isSeller ? isSeller :'',
+    // quantity3_2 : isSeller ? isSeller :'',
+    // size3_3 : isSeller ? isSeller :'',
+    // quantity3_3 : isSeller ? isSeller :'',
+    // imageUrl : isSeller ? isSeller :'',
+    // imageUrl2 : isSeller ? isSeller :'',
+    // imageUrl3 : isSeller ? isSeller :'',
+    // imageUrl4 : isSeller ? isSeller :'',
+    // imageUrl5 : isSeller ? isSeller :'',
+    // detailPage1 : isSeller ? isSeller :'',
+    // detailPage2 : isSeller ? isSeller :'',
+    // detailPage3 : isSeller ? isSeller :'',
+    // detailPage4 : isSeller ? isSeller :'',
+    // detailPage5 : isSeller ? isSeller :'',
+    // sizeDesc : isSeller ? isSeller :'',
+    // relateProduct1 : isSeller ? isSeller :'',
+    // relateProduct2 : isSeller ? isSeller :'',
+    // relateProduct3 : isSeller ? isSeller :'',
+    // relateProduct4 : isSeller ? isSeller :'',
+    // relateProduct5 : isSeller ? isSeller :'',
+    // category : isSeller ? isSeller :'',
+  }
 
   const onSubmit = (values) => {//제출
     // if(imageUrl == null){
@@ -77,11 +130,11 @@ function ProductsUpdate() {
     alert('상품명 2 ~ 37자 사이로 입력해주세요.');
       return;
     }
-
+    
     axios.post(`${API_URL}/v1/product/Updateproducts/${id}`,{
-      name : values.name,
+      name : defaultValues.name,
       description : editor_wysywic,
-      seller : values.seller,
+      seller : defaultValues.seller,
       price :  parseInt(values.price),
       color1 : values.color1,
       colorName1 : values.colorName1,
@@ -238,6 +291,12 @@ function ProductsUpdate() {
   const onChangeSeller = (e) => {
     setSeller(e.target.value);
   }
+  const onChangePrice = (e) => {
+    setPrice(e.target.value);
+  }
+  const onChangeName = (e) => {
+    setName(e.target.value);
+  }
 
   const fetchProductDetail = async () => {
     dispatch(removeSelectedProduct());
@@ -260,6 +319,10 @@ function ProductsUpdate() {
   // }
   useEffect(() => {
     fetchProductDetail();
+    setSeller(updateProduct && updateProduct.seller);
+    setPrice(updateProduct && updateProduct.price);
+    setName(updateProduct && updateProduct.name);
+    form.setFieldsValue(defaultValues)
   },[]);
 
   if (products === null) {
@@ -267,7 +330,11 @@ function ProductsUpdate() {
   }
   return (
     <div id="upload-container">
-      <Form name="상품 업로드" onFinish={onSubmit}>
+      <Form 
+        name="상품 업로드" 
+        initialValues={defaultValues}
+        onFinish={onSubmit}
+      >
         {/* 메인사진 */}
         <Form.Item
           name="upload"
@@ -474,7 +541,7 @@ function ProductsUpdate() {
             size="large"
             placeholder={updateProduct.seller}
             onChange={onChangeSeller}
-            value={isSeller}
+            defaultValue={isSeller?isSeller:null}
           />
         </Form.Item>
         <Divider />
@@ -488,6 +555,8 @@ function ProductsUpdate() {
             className="product-name"
             size="large"
             placeholder={updateProduct.name}
+            onChange={onChangeName}
+            defaultValue={isName?isName:null}
           />
         </Form.Item>
         <Divider />
@@ -501,6 +570,8 @@ function ProductsUpdate() {
             className="product-price" 
             size="large" 
             placeholder={updateProduct.price}
+            onChange={onChangePrice}
+            defaultValue={isPrice?isPrice:null}
           />
         </Form.Item>
         <Divider />

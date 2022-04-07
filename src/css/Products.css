@@ -1,5 +1,9 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap'); */
-
+@font-face {
+  font-family: 'Uiyeun';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105@1.1/Uiyeun.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 #image-box {
     /* max-height: 300px; */
     /* display: flex;
@@ -72,7 +76,7 @@
     border-bottom-right-radius: 30px;
     filter: drop-shadow(3px 4px 6px black);
   }
-  #name {
+  #name2 {
     font-size: 55px;
     /* font-weight: 700; */
     /* font-family: 'Malgun Gothic'; */
@@ -143,7 +147,7 @@
   .content_wrapper{
     width:1400px; 
     margin:0 auto;
-    padding:140px 0px 70px;
+    padding:125px 0px 70px;
     position:relative;
     height:auto;
   }
@@ -204,11 +208,11 @@
   .content_wrapper .swiper-button-prev{left:40px!important}
 
   li {list-style: none;}
-  .detail_first,.detail_second{margin: 10px 0 15px;}
-  .detail_third{margin: 4px 0;}
+  .detail_first,.detail_second{margin: 15px 0;}
+  .detail_third{margin: 9px 0;}
   .detail_Common > li {
-    width:20px;
-    height:20px;
+    width:27px;
+    height:27px;
     border-bottom: 2px solid #aaa;
     border-right: 1px solid #909090;
     display: inline-block;
@@ -235,6 +239,7 @@
   }
   .dtail_Page22 > img{
     width:100%;
+    margin-bottom: 70px;
   }
   .detail_wrapper{
     text-align: center;
@@ -247,7 +252,7 @@
     font-size: 12px;
   }
   .detail_size{
-    /* padding-left:20px; */
+    padding-left:20px;
   }
   .input_qty{
     display: inline-block;
@@ -257,7 +262,7 @@
   .detail_third > input {
     text-align: center;
     width: 39px;
-    padding-left: 13px;
+    padding-left: 0px;
   }
   .input_qty_side{
     line-height: 32px;
@@ -388,7 +393,6 @@
 }
 .mobile_size_compo{
   height: 32px !important;
-  word-break: keep-all;
 }
 /* .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
   color:#ddd;
@@ -397,7 +401,6 @@
   background: #ddd;
 
 } */
-
 @media screen and (max-width:1800px) {
   #contents-box{
     /* max-height: 700px!important; */
@@ -421,13 +424,13 @@
     max-height: 177px !important;
   } */
   .detail_first{
-    margin: 10px 0 0px;
+    margin: 15px 0 0px;
   }
   #price{
     margin-bottom: 14px !important;
   }
   .detail_totalbox{
-    padding-top: 10px !important;
+    padding-top: 12px !important;
   }
 }
 @media screen and (max-width:800px) {
@@ -445,6 +448,7 @@
   }
   .dtail_Page22{
     width: 100%!important;
+    margin-bottom: 35px;
   }
   .dtail_Page{
     width: 100%!important;
@@ -465,7 +469,7 @@
   #contents-box:before{
     display: none!important;
   }
-  #name{
+  #name2{
     margin: 70px 0 10px!important;
     font-size:39px !important;
   }
@@ -480,9 +484,9 @@
     width: 6.8vw !important;
     height: 6.8vw !important;
   }
-  .detail_Cart{
-    padding-left: 20px;
-  }
+  /* .detail_Cart{
+    padding-left: 10px;
+  } */
   .Qna_wraaper{
     width: 90% !important;
     margin: 0 auto;
@@ -501,4 +505,14 @@
     margin: 0px 0px 50PX;
   }
   .change_header{bottom: 0 !important;}
+  .input_qty{
+    width: 33.33% !important;
+  }
+  .input_qty_side{
+    line-height: 26px !important;
+  }
+  .detail_size{padding-left: 3vw;}
+  .detail_totalbox {
+    padding-top: 10px !important;
+  }
 }

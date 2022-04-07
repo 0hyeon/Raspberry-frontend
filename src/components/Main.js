@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime"
 import {API_URL} from "../config/constants.js";
-import MainPage from "../swiperSlide";
+// import MainPage from "../swiperSlide";
 import styled from "styled-components";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +16,9 @@ import { actionCreators as productOptionActions } from "../_modules/productoptio
 
 import ReactPaginate from "react-paginate";
 import jwt_decode from "jwt-decode";
+
+import loadable from '@loadable/component'
+const MainPage = loadable(() => import('../swiperSlide'));
 dayjs.extend(relativeTime);//dayjs에서 확장된 기능 사용 
 
 function Main(props) {

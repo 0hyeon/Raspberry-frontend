@@ -94,14 +94,14 @@ function MainPage(props) {
                       <img id="" src= {`${API_URL}/${bn}`} alt="."/> 
                     </div> */}
                     <SwiperSlide>
-                      <Link to="/products/1">
+                      {/* <Link to={`/products/${bn}`}> */}
                         <img src= {
                           process.env.NODE_ENV === 'production' 
                           ?`${bn}`
                           :`${API_URL}/${bn}`
                           } alt={`메인배너이미지 ${index}`}
                         />
-                      </Link>
+                      {/* </Link> */}
                     </SwiperSlide>
                   </>
                   ))}

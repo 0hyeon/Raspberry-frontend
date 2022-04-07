@@ -41,8 +41,10 @@
     width: 25%;
     display: inline-block;
     font-family: 'Uiyeun';
-    font-size: 35px;
+    font-size: 25px;
     position: relative;
+    font-family: 'Gilroy';
+    font-family: Lato, sans-serif;
 }
 .product-delivery-wrapper > ul{
     width: 70%;
@@ -58,13 +60,14 @@
 .product-delivery-wrapper > ul > li:nth-of-type(n+4) ::after {
     content: '';
 }
-#product-list{
-    margin-bottom:50px;
+#adm-product-list, .product-list-wrapper{
+    margin:50px 0px;
+    display: flex;
+    width: 1800px;
 }
 .Comment_response_length{
     width: 25%;
     display: inline-block;
-    font-family: 'Uiyeun';
-    font-size: 35px;
+    font-size: 25px;
     position: relative;
 }

@@ -1,14 +1,13 @@
 @import url("//vendor-cdn.imweb.me/css/gilroy.css");
 @import url("https://use.typekit.net/sfa0iuf.css");
-@import url("//db.onlinewebfonts.com/c/67680f2eb947c5cbd58b40961b4a61e9?family=Apple+SD+Gothic+Neo");
 @font-face {
   font-family: 'Uiyeun';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105@1.1/Uiyeun.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
-@font-face {font-family:MalgunGothic; src:url(../font/MalgunGothic.eot);}
-@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+/* @font-face {font-family:MalgunGothic; src:url(../font/MalgunGothic.eot);} */
+/* @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); */
 
 .notosanskr * { 
  font-family: 'Noto Sans KR', sans-serif;

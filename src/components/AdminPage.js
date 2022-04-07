@@ -168,7 +168,7 @@ const AdminPage = () => {
                     </Link>
                 </div>
             </div>
-            <div className="product-list-wrapper" id="product-list">
+            <div className="product-list-wrapper" id="adm-product-list">
                 {/* 상품리스트 */}
                 {products.products && products.products.map(function (product, index) {
                 return (

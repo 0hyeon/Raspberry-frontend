@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import "./App.css";
 // import Login from './components/Login';
-import Main from './components/Main';
+//import Main from './components/Main';
+
 // import Registration from './components/Register';
 // import Admin from './components/Admin';
 import Banners from './components/Banners';
@@ -14,38 +15,70 @@ import { ConnectedRouter } from "connected-react-router";
 import { history } from "./_reducers/index";
 import ReCAPTCHA from "react-google-recaptcha"
 
-const ProductPage = loadable(() => import('./components/Products'))
-const CartPage = loadable(() => import('./components/CartPage'))
-const Login = loadable(() => import('./components/Login'))
-const PassWordEmail = loadable(() => import('./components/PassWordEmail'))
-const Registration = loadable(() => import('./components/Register'))
-const AdminPage = loadable(() => import('./components/AdminPage'))
-const AdminLogin = loadable(() => import('./components/AdminLogin'))
-const Admin = loadable(() => import('./components/Admin'))
-const ProductsUpdate = loadable(() => import('./components/ProductsUpdate'))
-const Search = loadable(() => import('./components/Search'))
-const OrderPage = loadable(() => import('./components/OrderPage'))
-const OrderPageMulti = loadable(() => import('./components/OrderPageMulti'))
-const OrderResult = loadable(() => import('./components/OrderResult'))
-const Order = loadable(() => import('./components/Order'))
-const NewPage = loadable(() => import('./components/NewPage'))
-const DRESSESSKIRTS = loadable(() => import('./components/DRESSESSKIRTS'))
-const Qna = loadable(() => import('./components/Qna'))
-const QnaWrite = loadable(() => import('./components/QnaWrite'))
-const QnaDescription = loadable(() => import('./components/QnaDescription'))
-const QnaUpdate = loadable(() => import('./components/QnaUpdate'))
-const Footer = loadable(() => import('./components/Footer'))
-const OrderWait = loadable(() => import('./components/OrderWait'))
-const OrderSuccess = loadable(() => import('./components/OrderSuccess'))
-const AGREEMENT = loadable(() => import('./components/AGREEMENT'))
-const PRIVACYPOLICY = loadable(() => import('./components/PRIVACYPOLICY'))
-const OrderDelivery = loadable(() => import('./components/OrderDelivery'))
-const OrderFnish = loadable(() => import('./components/OrderFnish'))
-const AdminQnaComment = loadable(() => import('./components/AdminQnaComment'))
-const QnaAnsAdmin = loadable(() => import('./components/QnaAnsAdmin'))
-const AdminBanner = loadable(() => import('./components/AdminBanner'))
-const AdminBannerList = loadable(() => import('./components/AdminBannerList'))
+// const ProductPage = loadable(() => import('./components/Products'))
+import ProductPage from './components/Products';
+// const CartPage = loadable(() => import('./components/CartPage'))
+import CartPage from './components/CartPage';
+// const Login = loadable(() => import('./components/Login'))
+import Login from './components/Login';
+// const PassWordEmail = loadable(() => import('./components/PassWordEmail'))
+import PassWordEmail from './components/PassWordEmail';
+// const Registration = loadable(() => import('./components/Register'))
+import Registration from './components/Register';
+// const AdminPage = loadable(() => import('./components/AdminPage'))
+import AdminPage from './components/AdminPage';
+// const AdminLogin = loadable(() => import('./components/AdminLogin'))
+import AdminLogin from './components/AdminLogin';
+// const Admin = loadable(() => import('./components/Admin'))
+import Admin from './components/Admin';
+// const ProductsUpdate = loadable(() => import('./components/ProductsUpdate'))
+import ProductsUpdate from './components/ProductsUpdate';
+// const Search = loadable(() => import('./components/Search'))
+import Search from './components/Search';
+// const OrderPage = loadable(() => import('./components/OrderPage'))
+import OrderPage from './components/OrderPage';
+// const OrderPageMulti = loadable(() => import('./components/OrderPageMulti'))
+import OrderPageMulti from './components/OrderPageMulti';
+// const OrderResult = loadable(() => import('./components/OrderResult'))
+import OrderResult from './components/OrderResult';
+// const Order = loadable(() => import('./components/Order'))
+import Order from './components/Order';
+// const NewPage = loadable(() => import('./components/NewPage'))
+import NewPage from './components/NewPage';
+// const DRESSESSKIRTS = loadable(() => import('./components/DRESSESSKIRTS'))
+import DRESSESSKIRTS from './components/DRESSESSKIRTS';
+// const Qna = loadable(() => import('./components/Qna'))
+import Qna from './components/Qna';
+// const QnaWrite = loadable(() => import('./components/QnaWrite'))
+import QnaWrite from './components/QnaWrite';
+// const QnaDescription = loadable(() => import('./components/QnaDescription'))
+import QnaDescription from './components/QnaDescription';
+// const QnaUpdate = loadable(() => import('./components/QnaUpdate'))
+import QnaUpdate from './components/QnaUpdate';
+// const Footer = loadable(() => import('./components/Footer'))
+import Footer from './components/Footer';
+// const OrderWait = loadable(() => import('./components/OrderWait'))
+import OrderWait from './components/OrderWait';
+// const OrderSuccess = loadable(() => import('./components/OrderSuccess'))
+import OrderSuccess from './components/OrderSuccess';
+// const AGREEMENT = loadable(() => import('./components/AGREEMENT'))
+import AGREEMENT from './components/AGREEMENT';
+// const PRIVACYPOLICY = loadable(() => import('./components/PRIVACYPOLICY'))
+import PRIVACYPOLICY from './components/PRIVACYPOLICY';
+// const OrderDelivery = loadable(() => import('./components/OrderDelivery'))
+import OrderDelivery from './components/OrderDelivery';
+// const OrderFnish = loadable(() => import('./components/OrderFnish'))
+import OrderFnish from './components/OrderFnish';
+// const AdminQnaComment = loadable(() => import('./components/AdminQnaComment'))
+import AdminQnaComment from './components/AdminQnaComment';
+// const QnaAnsAdmin = loadable(() => import('./components/QnaAnsAdmin'))
+import QnaAnsAdmin from './components/QnaAnsAdmin';
+// const AdminBanner = loadable(() => import('./components/AdminBanner'))
+import AdminBanner from './components/AdminBanner';
+// const AdminBannerList = loadable(() => import('./components/AdminBannerList'))
+import AdminBannerList from './components/AdminBannerList';
 // const SearchCopmonent = loadable(() => import('./components/search/SearchCopmonent'))
+const Main = loadable(() => import('./components/Main'));
 function App () {
   // const history = useHistory();
  // 로그인 상태 관리
