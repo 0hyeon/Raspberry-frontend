@@ -290,12 +290,15 @@ function ProductsUpdate() {
   
   const onChangeSeller = (e) => {
     setSeller(e.target.value);
+    console.log('setSeller : ',e.target.value);
   }
   const onChangePrice = (e) => {
     setPrice(e.target.value);
+    console.log('setPrice : ',e.target.value);
   }
   const onChangeName = (e) => {
     setName(e.target.value);
+    console.log('setName : ',e.target.value);
   }
 
   const fetchProductDetail = async () => {
@@ -540,7 +543,7 @@ function ProductsUpdate() {
             className="product-seller"
             size="large"
             placeholder={updateProduct.seller}
-            onChange={onChangeSeller}
+            onChange={(e)=>onChangeSeller(e)}
             defaultValue={isSeller?isSeller:null}
           />
         </Form.Item>
@@ -555,7 +558,7 @@ function ProductsUpdate() {
             className="product-name"
             size="large"
             placeholder={updateProduct.name}
-            onChange={onChangeName}
+            onChange={(e)=>onChangeName(e)}
             defaultValue={isName?isName:null}
           />
         </Form.Item>
@@ -566,11 +569,11 @@ function ProductsUpdate() {
           label={<div className="upload-label">상품 가격</div>}
           rules={[{ required: true, message: "상품 가격을 입력해주세요" }]}
         >
-          <InputNumber 
+          <Input
             className="product-price" 
             size="large" 
             placeholder={updateProduct.price}
-            onChange={onChangePrice}
+            onChange={(e) => onChangePrice(e)}
             defaultValue={isPrice?isPrice:null}
           />
         </Form.Item>
