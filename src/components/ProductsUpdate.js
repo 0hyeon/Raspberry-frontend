@@ -59,6 +59,8 @@ function ProductsUpdate() {
   const [detailPage4, setDetailPage4] = useState(updateProduct && updateProduct.detailPage4);
   const [detailPage5, setDetailPage5] = useState(updateProduct && updateProduct.detailPage5);
   
+  const [isColor1, setColor1] = useState(updateProduct && updateProduct.color1[0]);
+  
   
   const [htmlContent, setHtmlContent] = useState(updateProduct && updateProduct.description); //🌈
   const [htmlContent2, setHtmlContent2] = useState(""); //🌈
@@ -73,8 +75,8 @@ function ProductsUpdate() {
     price : isPrice ? isPrice :'',
     name : isName ? isName :'',
     description : htmlContent ? htmlContent :'',
+    color1 : isColor1 ? isColor1 :'',
 
-    // color1 : isSeller ? isSeller :'',
     // colorName1 : isSeller ? isSeller :'',
     // size1 : isSeller ? isSeller :'',
     // quantity1 : isSeller ? isSeller :'',
@@ -300,6 +302,10 @@ function ProductsUpdate() {
     setName(e.target.value);
     console.log('setName : ',e.target.value);
   }
+  const onChangeColor1 = (e) => {
+    setColor1(e.target.value);
+    console.log('setName : ',e.target.value);
+  }
 
   const fetchProductDetail = async () => {
     dispatch(removeSelectedProduct());
@@ -325,6 +331,8 @@ function ProductsUpdate() {
     setSeller(updateProduct && updateProduct.seller);
     setPrice(updateProduct && updateProduct.price);
     setName(updateProduct && updateProduct.name);
+    setColor1(updateProduct && updateProduct.color1[0]);
+    
     form.setFieldsValue(defaultValues)
   },[]);
 
@@ -588,6 +596,8 @@ function ProductsUpdate() {
             className="product-color1"
             size="large"
             placeholder={updateProduct.color1}
+            onChange={(e)=>onChangeColor1(e)}
+            defaultValue={isColor1?isColor1:null}
           />
         </Form.Item>
         {/* 상품컬러이름1 */}
