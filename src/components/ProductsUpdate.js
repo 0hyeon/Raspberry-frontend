@@ -59,7 +59,7 @@ function ProductsUpdate() {
   const [detailPage4, setDetailPage4] = useState(updateProduct && updateProduct.detailPage4);
   const [detailPage5, setDetailPage5] = useState(updateProduct && updateProduct.detailPage5);
   
-  const [isColor1, setColor1] = useState(updateProduct && updateProduct.color1[0]);
+  const [isColor1, setColor1] = useState(updateProduct && updateProduct.color1);
   
   
   const [htmlContent, setHtmlContent] = useState(updateProduct && updateProduct.description); //🌈
@@ -331,11 +331,14 @@ function ProductsUpdate() {
     setSeller(updateProduct && updateProduct.seller);
     setPrice(updateProduct && updateProduct.price);
     setName(updateProduct && updateProduct.name);
-    setColor1(updateProduct && updateProduct.color1[0]);
+    
+    if(updateProduct.color1 !== null){
+      setColor1(updateProduct && updateProduct.color1[0]);
+    }
     
     form.setFieldsValue(defaultValues)
   },[]);
-
+  console.log("updateProduct :",updateProduct);
   if (products === null) {
     return <h1>상품 정보를 받고 있습니다...</h1>;
   }
