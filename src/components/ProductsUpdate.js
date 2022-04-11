@@ -60,6 +60,8 @@ function ProductsUpdate() {
   const [detailPage5, setDetailPage5] = useState(updateProduct && updateProduct.detailPage5);
   
   const [isColor1, setColor1] = useState(updateProduct && updateProduct.color1);
+  const [isColorName1, setColorName1] = useState(updateProduct && updateProduct.colorName1);
+  const [isColorSize1, setColorSize1] = useState(updateProduct && updateProduct.size1);
   
   
   const [htmlContent, setHtmlContent] = useState(updateProduct && updateProduct.description); //🌈
@@ -76,8 +78,7 @@ function ProductsUpdate() {
     name : isName ? isName :'',
     description : htmlContent ? htmlContent :'',
     color1 : isColor1 ? isColor1 :'',
-
-    // colorName1 : isSeller ? isSeller :'',
+    colorName1 : isColorName1 ? isColorName1 :'',
     // size1 : isSeller ? isSeller :'',
     // quantity1 : isSeller ? isSeller :'',
     // size1_2 : isSeller ? isSeller :'',
@@ -138,8 +139,8 @@ function ProductsUpdate() {
       description : editor_wysywic,
       seller : defaultValues.seller,
       price :  parseInt(values.price),
-      color1 : values.color1,
-      colorName1 : values.colorName1,
+      color1 : defaultValues.color1,
+      colorName1 : defaultValues.colorName1,
       size1 : values.size1,
       quantity1 : parseInt(values.quantity1),
       size1_2 : values.size1_2,
@@ -306,6 +307,10 @@ function ProductsUpdate() {
     setColor1(e.target.value);
     console.log('setName : ',e.target.value);
   }
+  const onChangeColorName1 = (e) => {
+    setColorName1(e.target.value);
+    console.log('setName : ',e.target.value);
+  }
 
   const fetchProductDetail = async () => {
     dispatch(removeSelectedProduct());
@@ -334,6 +339,9 @@ function ProductsUpdate() {
     
     if(updateProduct.color1 !== null){
       setColor1(updateProduct && updateProduct.color1[0]);
+    }
+    if(updateProduct.colorName1 !== null){
+      setColorName1(updateProduct && updateProduct.colorName1[0]);
     }
     
     form.setFieldsValue(defaultValues)
@@ -613,6 +621,8 @@ function ProductsUpdate() {
             className="product-colorName1"
             size="large"
             placeholder={updateProduct.colorName1}
+            onChange={(e)=>onChangeColorName1(e)}
+            defaultValue={isColorName1?isColorName1:null}
           />
         </Form.Item>
         {/* 상품사이즈1 */}
@@ -625,6 +635,8 @@ function ProductsUpdate() {
             className="product-size1"
             size="large"
             placeholder={updateProduct.size1}
+            // onChange={(e)=>onChangeColorName1(e)}
+            defaultValue={isColorSize1?isColorSize1:null}
           />
         </Form.Item>
         {/* 재고1 */}
