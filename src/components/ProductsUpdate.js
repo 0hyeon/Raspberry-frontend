@@ -60,7 +60,9 @@ function ProductsUpdate() {
   const [detailPage5, setDetailPage5] = useState(updateProduct && updateProduct.detailPage5);
   
   const [isColor1, setColor1] = useState(updateProduct && updateProduct.color1);
-  const [isColorName1, setColorName1] = useState(updateProduct && updateProduct.colorName1);
+  
+  
+  const [isColorName1, setColorName1] = useState(null);
   const [isColorSize1, setColorSize1] = useState(updateProduct && updateProduct.size1);
   
   
@@ -340,15 +342,22 @@ function ProductsUpdate() {
     if(updateProduct.color1 !== null){
       setColor1(updateProduct && updateProduct.color1[0]);
     }
+    //colorName1 상태관리 업데이트
     if(updateProduct.colorName1 !== null){
-      setColorName1(updateProduct && updateProduct.colorName1[0]);
+      const ObjectPaerse = JSON.parse(updateProduct.colorName1);
+      setColorName1(ObjectPaerse[0]);
+    }else{
+      setColorName1("");
     }
     
     form.setFieldsValue(defaultValues)
-  },[]);
+  },[isColorName1]);
   console.log("updateProduct :",updateProduct);
   if (products === null) {
     return <h1>상품 정보를 받고 있습니다...</h1>;
+  }
+  if(isColorName1 == null){
+    return <h1>상품 컬러네임음 받고 있습니다...</h1>;
   }
   return (
     <div id="upload-container">
