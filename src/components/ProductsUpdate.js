@@ -59,15 +59,37 @@ function ProductsUpdate() {
   const [detailPage4, setDetailPage4] = useState(updateProduct && updateProduct.detailPage4);
   const [detailPage5, setDetailPage5] = useState(updateProduct && updateProduct.detailPage5);
   
-  const [isColor1, setColor1] = useState(updateProduct && updateProduct.color1);
+  const [isColor1, setColor1] = useState(false);
+  const [isColor2, setColor2] = useState(false);
+  const [isColor3, setColor3] = useState(false);
   
+  const [isColorName1, setColorName1] = useState(false);
+  const [isColorName2, setColorName2] = useState(false);
+  const [isColorName3, setColorName3] = useState(false);
+
+  const [isColorSize1, setColorSize1] = useState(false);
+  const [isColorSize1_2, setColorSize1_2] = useState(false);
+  const [isColorSize1_3, setColorSize1_3] = useState(false);
+  const [isColorSize2, setColorSize2] = useState(false);
+  const [isColorSize2_2, setColorSize2_2] = useState(false);
+  const [isColorSize2_3, setColorSize2_3] = useState(false);
+  const [isColorSize3, setColorSize3] = useState(false);
+  const [isColorSize3_2, setColorSize3_2] = useState(false);
+  const [isColorSize3_3, setColorSize3_3] = useState(false);
   
-  const [isColorName1, setColorName1] = useState(null);
-  const [isColorSize1, setColorSize1] = useState(updateProduct && updateProduct.size1);
+  const [isQuantity1, setQuantity1] = useState(false);
+  const [isQuantity1_2, setQuantity1_2] = useState(false);
+  const [isQuantity1_3, setQuantity1_3] = useState(false);
+  const [isQuantity2, setQuantity2] = useState(false);
+  const [isQuantity2_2, setQuantity2_2] = useState(false);
+  const [isQuantity2_3, setQuantity2_3] = useState(false);
+  const [isQuantity3, setQuantity3] = useState(false);
+  const [isQuantity3_2, setQuantity3_2] = useState(false);
+  const [isQuantity3_3, setQuantity3_3] = useState(false);
   
   
   const [htmlContent, setHtmlContent] = useState(updateProduct && updateProduct.description); //🌈
-  const [htmlContent2, setHtmlContent2] = useState(""); //🌈
+  const [htmlContent2, setHtmlContent2] = useState(updateProduct && updateProduct.sizeDesc); //🌈
 
   const quillRef = useRef(); //🌈
   const quillRef2 = useRef(); //🌈
@@ -75,26 +97,28 @@ function ProductsUpdate() {
   
   const defaultValues = {
     
-    seller : isSeller ? isSeller : '',
-    price : isPrice ? isPrice :'',
-    name : isName ? isName :'',
-    description : htmlContent ? htmlContent :'',
-    color1 : isColor1 ? isColor1 :'',
-    colorName1 : isColorName1 ? isColorName1 :'',
-    // size1 : isSeller ? isSeller :'',
-    // quantity1 : isSeller ? isSeller :'',
-    // size1_2 : isSeller ? isSeller :'',
-    // quantity1_2 : isSeller ? isSeller :'',
-    // size1_3 : isSeller ? isSeller :'',
-    // quantity1_3 : isSeller ? isSeller :'',
-    // color2 : isSeller ? isSeller :'',
-    // colorName2 : isSeller ? isSeller :'',
-    // size2 : isSeller ? isSeller :'',
-    // quantity2 : isSeller ? isSeller :'',
-    // size2_2 : isSeller ? isSeller :'',
-    // quantity2_2 : isSeller ? isSeller :'',
-    // size2_3 : isSeller ? isSeller :'',
-    // quantity2_3 : isSeller ? isSeller :'',
+    seller : isSeller ? isSeller : null,
+    price : isPrice ? isPrice :null,
+    name : isName ? isName :null,
+    description : htmlContent ? htmlContent :null,
+    
+    color1 : isColor1 ? isColor1 :null,
+    colorName1 : isColorName1 ? isColorName1 :null,
+    size1 : isColorSize1 ? isColorSize1 :null,
+    quantity1 : isQuantity1 ? isQuantity1 :null,
+    size1_2 : isColorSize1_2 ? isColorSize1_2 :null,
+    quantity1_2 : isQuantity1_2 ? isQuantity1_2 :null,
+    size1_3 : isColorSize1_3 ? isColorSize1_3 :null,
+    quantity1_3 : isQuantity1_3 ? isQuantity1_3 :null,
+    color2 : isColor2 ? isColor2 :null,
+    colorName2 : isColorName2 ? isColorName2 :null,
+    size2 : isColorSize2 ? isColorSize2 :null,
+    quantity2 : isQuantity2 ? isQuantity2 :null,
+    size2_2 : isColorSize2_2 ? isColorSize2_2 :null,
+    quantity2_2 : isQuantity2_2 ? isQuantity2_2 :null,
+    size2_3 : isColorSize2_3 ? isColorSize2_3 :null,
+    quantity2_3 : isQuantity2_3 ? isQuantity2_3 :null,
+
     // color3 : isSeller ? isSeller :'',
     // colorName3 : isSeller ? isSeller :'',
     // size3 : isSeller ? isSeller :'',
@@ -135,7 +159,7 @@ function ProductsUpdate() {
     alert('상품명 2 ~ 37자 사이로 입력해주세요.');
       return;
     }
-    
+    console.log('!!!!defaultValues.colorName1 :', defaultValues.colorName1);
     axios.post(`${API_URL}/v1/product/Updateproducts/${id}`,{
       name : defaultValues.name,
       description : editor_wysywic,
@@ -143,20 +167,20 @@ function ProductsUpdate() {
       price :  parseInt(values.price),
       color1 : defaultValues.color1,
       colorName1 : defaultValues.colorName1,
-      size1 : values.size1,
-      quantity1 : parseInt(values.quantity1),
-      size1_2 : values.size1_2,
-      quantity1_2 : parseInt(values.quantity1_2),
-      size1_3 : values.size1_3,
-      quantity1_3 : parseInt(values.quantity1_3),
-      color2 : values.color2,
-      colorName2 : values.colorName2,
-      size2 : values.size2,
-      quantity2 : parseInt(values.quantity2),
-      size2_2 : values.size2_2,
-      quantity2_2 : parseInt(values.quantity2_2),
-      size2_3 : values.size2_3,
-      quantity2_3 : parseInt(values.quantity2_3),
+      size1 : defaultValues.size1,
+      quantity1 : parseInt(defaultValues.quantity1),
+      size1_2 : defaultValues.size1_2,
+      quantity1_2 : parseInt(defaultValues.quantity1_2),
+      size1_3 : defaultValues.size1_3,
+      quantity1_3 : parseInt(defaultValues.quantity1_3),
+      color2 : defaultValues.color2,
+      colorName2 : defaultValues.colorName2,
+      size2 : defaultValues.size2,
+      quantity2 : parseInt(defaultValues.quantity2),
+      size2_2 : defaultValues.size2_2,
+      quantity2_2 : parseInt(defaultValues.quantity2_2),
+      size2_3 : defaultValues.size2_3,
+      quantity2_3 : parseInt(defaultValues.quantity2_3),
       color3 : values.color3,
       colorName3 : values.colorName3,
       size3 : values.size3,
@@ -185,7 +209,9 @@ function ProductsUpdate() {
       soldout : 1,
     }).then((result) =>{
       console.log(result);//제출 잘됐으면 리디렉션
-      history.replace('/');//이전페이지의 기록이 사라지고 대체됨
+      //history.replace('/');//이전페이지의 기록이 사라지고 대체됨
+      history.goBack();
+      
     }).catch((error) => {
       console.log(error);
       message.error(`에러가 발생했습니다. ${error.message}`)
@@ -303,15 +329,111 @@ function ProductsUpdate() {
   }
   const onChangeName = (e) => {
     setName(e.target.value);
-    console.log('setName : ',e.target.value);
+    console.log('setonChangeNameName : ',e.target.value);
   }
+  // 상품컬러
   const onChangeColor1 = (e) => {
     setColor1(e.target.value);
-    console.log('setName : ',e.target.value);
+    console.log('setColor1 : ',e.target.value);
   }
+  const onChangeColor2 = (e) => {
+    setColor2(e.target.value);
+    console.log('setColor2 : ',e.target.value);
+  }
+  const onChangeColor3 = (e) => {
+    setColor3(e.target.value);
+    console.log('setColor3 : ',e.target.value);
+  }
+  // 상품컬러이름1,2,3
   const onChangeColorName1 = (e) => {
     setColorName1(e.target.value);
-    console.log('setName : ',e.target.value);
+    console.log('setColorName1 : ',e.target.value);
+  }
+  const onChangeColorName2 = (e) => {
+    setColorName2(e.target.value);
+    console.log('setColorName2 : ',e.target.value);
+  }
+  const onChangeColorName3 = (e) => {
+    setColorName3(e.target.value);
+    console.log('setColorName3 : ',e.target.value);
+  }
+  // 상품사이즈1
+  const onChangeColorSize1 = (e) => {
+    setColorSize1(e.target.value);
+    console.log('setColorSize1 : ',e.target.value);
+  }
+  const onChangeColorSize1_2 = (e) => {
+    setColorSize1_2(e.target.value);
+    console.log('setColorSize1_2 : ',e.target.value);
+  }
+  const onChangeColorSize1_3 = (e) => {
+    setColorSize1_3(e.target.value);
+    console.log('setColorSize1_3 : ',e.target.value);
+  }
+  // 상품사이즈2
+  const onChangeColorSize2 = (e) => {
+    setColorSize2(e.target.value);
+    console.log('setColorSize2 : ',e.target.value);
+  }
+  const onChangeColorSize2_2 = (e) => {
+    setColorSize2_2(e.target.value);
+    console.log('setColorSize2_2 : ',e.target.value);
+  }
+  const onChangeColorSize2_3 = (e) => {
+    setColorSize2_3(e.target.value);
+    console.log('setColorSize2_3 : ',e.target.value);
+  }
+  // 상품사이즈3
+  const onChangeColorSize3 = (e) => {
+    setColorSize3(e.target.value);
+    console.log('setColorSize2 : ',e.target.value);
+  }
+  const onChangeColorSize3_2 = (e) => {
+    setColorSize3_2(e.target.value);
+    console.log('setColorSize3_2 : ',e.target.value);
+  }
+  const onChangeColorSize3_3 = (e) => {
+    setColorSize3_3(e.target.value);
+    console.log('setColorSize3_3 : ',e.target.value);
+  }
+  // 상품수량1 ( isQuantity1 )
+  const onChangeQuantity1 = (e) => {
+    setQuantity1(e.target.value);
+    console.log('isQuantity1 : ',e.target.value);
+  }
+  const onChangeQuantity1_2 = (e) => {
+    setQuantity1_2(e.target.value);
+    console.log('isQuantity1_2 : ',e.target.value);
+  }
+  const onChangeQuantity1_3 = (e) => {
+    setQuantity1_3(e.target.value);
+    console.log('isQuantity1_3 : ',e.target.value);
+  }
+  // 상품수량2 ( isQuantity2 )
+  const onChangeQuantity2 = (e) => {
+    setQuantity2(e.target.value);
+    console.log('isQuantity2 : ',e.target.value);
+  }
+  const onChangeQuantity2_2 = (e) => {
+    setQuantity2_2(e.target.value);
+    console.log('isQuantity2_2 : ',e.target.value);
+  }
+  const onChangeQuantity2_3 = (e) => {
+    setQuantity2_3(e.target.value);
+    console.log('isQuantity2_3 : ',e.target.value);
+  }
+  // 상품수량3 ( isQuantity3 )
+  const onChangeQuantity3 = (e) => {
+    setQuantity3(e.target.value);
+    console.log('isQuantity3 : ',e.target.value);
+  }
+  const onChangeQuantity3_2 = (e) => {
+    setQuantity3_2(e.target.value);
+    console.log('isQuantity3_2 : ',e.target.value);
+  }
+  const onChangeQuantity3_3 = (e) => {
+    setQuantity3_3(e.target.value);
+    console.log('isQuantity3_3 : ',e.target.value);
   }
 
   const fetchProductDetail = async () => {
@@ -341,24 +463,64 @@ function ProductsUpdate() {
     
     if(updateProduct.color1 !== null){
       setColor1(updateProduct && updateProduct.color1[0]);
+      setColor2(updateProduct && updateProduct.color1[1]);
+      setColor3(updateProduct && updateProduct.color1[2]);
     }
     //colorName1 상태관리 업데이트
     if(updateProduct.colorName1 !== null){
-      const ObjectPaerse = JSON.parse(updateProduct.colorName1);
-      setColorName1(ObjectPaerse[0]);
+      // const ObjectPaerse = JSON.parse(updateProduct.colorName1);
+      // setColorName1(ObjectPaerse[0]);
+      setColorName1(updateProduct.colorName1[0]);
+      setColorName2(updateProduct.colorName1[1]);
+      setColorName3(updateProduct.colorName1[2]);
     }else{
-      setColorName1("");
+      setColorName1(null);
+    }
+
+    // colorSize1 상태관리 업데이트
+    if(updateProduct.size1 !== null) {
+      setColorSize1(updateProduct.size1[0]);
+      setColorSize1_2(updateProduct.size1[1]);
+      setColorSize1_3(updateProduct.size1[2]);
+      setColorSize2(updateProduct.size1[3]);
+      setColorSize2_2(updateProduct.size1[4]);
+      setColorSize2_3(updateProduct.size1[5]);
+      setColorSize3(updateProduct.size1[6]);
+      setColorSize3_2(updateProduct.size1[7]);
+      setColorSize3_3(updateProduct.size1[8]);
+    }else{
+      setColorSize1(null);
     }
     
+    // setQuantity1 상태관리 업데이트
+    if(updateProduct.quantity1 !== null) {
+      setQuantity1(updateProduct.quantity1[0]);
+      setQuantity1_2(updateProduct.quantity1[1]);
+      setQuantity1_3(updateProduct.quantity1[2]);
+      setQuantity2(updateProduct.quantity1[3]);
+      setQuantity2_2(updateProduct.quantity1[4]);
+      setQuantity2_3(updateProduct.quantity1[5]);
+      setQuantity3(updateProduct.quantity1[6]);
+      setQuantity3_2(updateProduct.quantity1[7]);
+      setQuantity3_3(updateProduct.quantity1[8]);
+    }else{
+      setQuantity1(null);
+    }
+    console.log("updateProduct :",updateProduct);
     form.setFieldsValue(defaultValues)
-  },[isColorName1]);
-  console.log("updateProduct :",updateProduct);
+
+  },[setColorName1,setColorSize1,setQuantity1]);
+  
   if (products === null) {
     return <h1>상품 정보를 받고 있습니다...</h1>;
   }
-  if(isColorName1 == null){
-    return <h1>상품 컬러네임음 받고 있습니다...</h1>;
+  if(isColorName1 === false ){
+    return <h1>상품 컬러사이즈 받고 있습니다...</h1>;
   }
+  if(isColorSize1 === false){
+    return <h1>상품 컬러사이즈 받고 있습니다...</h1>;
+  }
+  
   return (
     <div id="upload-container">
       <Form 
@@ -644,7 +806,7 @@ function ProductsUpdate() {
             className="product-size1"
             size="large"
             placeholder={updateProduct.size1}
-            // onChange={(e)=>onChangeColorName1(e)}
+            onChange={(e)=>onChangeColorSize1(e)}
             defaultValue={isColorSize1?isColorSize1:null}
           />
         </Form.Item>
@@ -658,6 +820,8 @@ function ProductsUpdate() {
             className="product-quantity1"
             size="large"
             placeholder={updateProduct.quantity1}
+            onChange={(e)=>onChangeQuantity1(e)}
+            defaultValue={isQuantity1?isQuantity1:null}
           />
         </Form.Item>
         {/* 상품사이즈1_2 */}
@@ -669,7 +833,8 @@ function ProductsUpdate() {
           <Input
             className="product-size1_2"
             size="large"
-            placeholder={updateProduct.size1_2}
+            onChange={(e)=>onChangeColorSize1_2(e)}
+            defaultValue={isColorSize1_2?isColorSize1_2:null}
           />
         </Form.Item>
         {/* 재고1_2 */}
@@ -682,6 +847,8 @@ function ProductsUpdate() {
             className="product-quantity1_2"
             size="large"
             placeholder={updateProduct.quantity1_2}
+            onChange={(e)=>onChangeQuantity1_2(e)}
+            defaultValue={isQuantity1_2?isQuantity1_2:null}
           />
         </Form.Item>
         {/* 상품사이즈1_3 */}
@@ -694,6 +861,8 @@ function ProductsUpdate() {
             className="product-size1_3"
             size="large"
             placeholder={updateProduct.size1_3}
+            onChange={(e)=>onChangeColorSize1_3(e)}
+            defaultValue={isColorSize1_3?isColorSize1_3:null}
           />
         </Form.Item>
         {/* 재고1 */}
@@ -706,6 +875,8 @@ function ProductsUpdate() {
             className="product-quantity1"
             size="large"
             placeholder={updateProduct.quantity1_3}
+            onChange={(e)=>onChangeQuantity1_3(e)}
+            defaultValue={isQuantity1_3?isQuantity1_3:null}
           />
         </Form.Item>
         <Divider />
@@ -719,6 +890,8 @@ function ProductsUpdate() {
             className="product-color2"
             size="large"
             placeholder={updateProduct.color2}
+            onChange={(e)=>onChangeColor2(e)}
+            defaultValue={isColor2?isColor2:null}
           />
         </Form.Item>
         {/* 상품컬러이름2 */}
@@ -731,6 +904,8 @@ function ProductsUpdate() {
             className="product-colorName2"
             size="large"
             placeholder={updateProduct.colorName2}
+            onChange={(e)=>onChangeColorName2(e)}
+            defaultValue={isColorName2?isColorName2:null}
           />
         </Form.Item>
         {/* 상품사이즈2 */}
@@ -743,6 +918,8 @@ function ProductsUpdate() {
             className="product-size2"
             size="large"
             placeholder={updateProduct.size2}
+            onChange={(e)=>onChangeColorSize2(e)}
+            defaultValue={isColorSize2?isColorSize2:null}
           />
         </Form.Item>
         {/* 재고2 */}
@@ -755,6 +932,8 @@ function ProductsUpdate() {
             className="product-quantity2"
             size="large"
             placeholder={updateProduct.quantity2}
+            onChange={(e)=>onChangeQuantity2(e)}
+            defaultValue={isQuantity2?isQuantity2:null}
           />
         </Form.Item>
         {/* 상품사이즈2 */}
@@ -767,6 +946,8 @@ function ProductsUpdate() {
             className="product-size2_2"
             size="large"
             placeholder={updateProduct.size2_2}
+            onChange={(e)=>onChangeColorSize2_2(e)}
+            defaultValue={isColorSize2_2?isColorSize2_2:null}
           />
         </Form.Item>
         {/* 재고2 */}
@@ -779,6 +960,8 @@ function ProductsUpdate() {
             className="product-quantity2_2"
             size="large"
             placeholder={updateProduct.quantity2_2}
+            onChange={(e)=>onChangeQuantity2_2(e)}
+            defaultValue={isQuantity2_2?isQuantity2_2:null}
           />
         </Form.Item>
         {/* 상품사이즈2_3 */}
@@ -791,6 +974,8 @@ function ProductsUpdate() {
             className="product-size2_3"
             size="large"
             placeholder={updateProduct.size2_3}
+            onChange={(e)=>onChangeColorSize2_3(e)}
+            defaultValue={isColorSize2_3?isColorSize2_3:null}
           />
         </Form.Item>
         {/* 재고2 */}
@@ -803,6 +988,8 @@ function ProductsUpdate() {
             className="product-quantity2"
             size="large"
             placeholder={updateProduct.quantity2_3}
+            onChange={(e)=>onChangeQuantity2_3(e)}
+            defaultValue={isQuantity2_3?isQuantity2_3:null}
           />
         </Form.Item>
         <Divider />
@@ -816,6 +1003,8 @@ function ProductsUpdate() {
             className="product-color3"
             size="large"
             placeholder={updateProduct.color3}
+            onChange={(e)=>onChangeColor3(e)}
+            defaultValue={isColor3?isColor3:null}
           />
         </Form.Item>
         {/* 상품컬러이름3 */}
@@ -828,6 +1017,8 @@ function ProductsUpdate() {
             className="product-colorName3"
             size="large"
             placeholder={updateProduct.colorName3}
+            onChange={(e)=>onChangeColorName3(e)}
+            defaultValue={isColorName3?isColorName3:null}
           />
         </Form.Item>
         {/* 상품사이즈3 */}
@@ -840,6 +1031,8 @@ function ProductsUpdate() {
             className="product-size3"
             size="large"
             placeholder={updateProduct.size3}
+            onChange={(e)=>onChangeColorSize3(e)}
+            defaultValue={isColorSize3?isColorSize3:null}
           />
         </Form.Item>
         {/* 재고3 */}
@@ -852,6 +1045,8 @@ function ProductsUpdate() {
             className="product-quantity3"
             size="large"
             placeholder={updateProduct.quantity3}
+            onChange={(e)=>onChangeQuantity3(e)}
+            defaultValue={isQuantity3?isQuantity3:null}
           />
         </Form.Item>
         {/* 상품사이즈3_2 */}
@@ -864,6 +1059,8 @@ function ProductsUpdate() {
             className="product-size3_2"
             size="large"
             placeholder={updateProduct.size3_2}
+            onChange={(e)=>onChangeColorSize3_2(e)}
+            defaultValue={isColorSize3_2?isColorSize3_2:null}
           />
         </Form.Item>
         {/* 재고3_2 */}
@@ -876,6 +1073,8 @@ function ProductsUpdate() {
             className="product-quantity3_2"
             size="large"
             placeholder={updateProduct.quantity3_2}
+            onChange={(e)=>onChangeQuantity3_2(e)}
+            defaultValue={isQuantity3_2?isQuantity3_2:null}
           />
         </Form.Item>
         <Divider />
@@ -888,7 +1087,9 @@ function ProductsUpdate() {
           <Input
             className="product-size3_3"
             size="large"
-            placeholder={updateProduct.size3_2}
+            placeholder={updateProduct.size3_3}
+            onChange={(e)=>onChangeColorSize3_3(e)}
+            defaultValue={isColorSize3_3?isColorSize3_3:null}
           />
         </Form.Item>
         {/* 재고3_3 */}
@@ -901,6 +1102,8 @@ function ProductsUpdate() {
             className="product-quantity3_3"
             size="large"
             placeholder={updateProduct.quantity3_3}
+            onChange={(e)=>onChangeQuantity3_3(e)}
+            defaultValue={isQuantity3_3?isQuantity3_3:null}
           />
         </Form.Item>
         <Divider />

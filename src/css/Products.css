@@ -4,6 +4,38 @@
   font-weight: normal;
   font-style: normal;
 }
+
+.topBtn {
+  position: fixed; 
+  opacity: 0; 
+  bottom: 40px; 
+  right: 40px;
+  z-index: -10; 
+  width: 50px; 
+  height: 50px;
+  border-radius: 100%;
+  border: 0 none;
+  color: deeppink;
+  border: 2px solid deeppink;
+  font-size: 28px;
+  font-family: 'Uiyeun';
+  letter-spacing: -0.06em;
+  box-shadow: 1px 1px 6px 3px rgba(0,0,0,0.3);
+  cursor: pointer;
+  transition: opacity 0.3s ease-in;
+}
+
+.topBtn.active {
+  z-index: 10; 
+  opacity: 1; 
+}
+
+.topBtn:hover,
+.topBtn:focus,
+.topBtn:active { 
+  outline: 0 none; 
+}
+
 #image-box {
     /* max-height: 300px; */
     /* display: flex;
@@ -26,6 +58,7 @@
     width: 500px;
     /* max-height: 700px; */
     filter: drop-shadow(2px 4px 6px black);
+    padding:20px;
   }
   
   #profile-box {
@@ -514,5 +547,14 @@
   .detail_size{padding-left: 3vw;}
   .detail_totalbox {
     padding-top: 10px !important;
+  }
+  .topBtn{
+    right: 10px !important;
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 26px !important;
+    border: 1px solid lightcoral !important;
+    background: transparent;
+    box-shadow: 1px 1px 6px 3px rgb(0 0 0 / 10%) !important;
   }
 }
