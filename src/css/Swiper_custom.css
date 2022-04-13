@@ -69,7 +69,7 @@
         right:inherit !important;
     }
     .main_Swiper > .swiper-container > .swiper-wrapper > .swiper-slide > img {
-        padding: inherit !important;
+        padding: 100px 10px 0px !important;
     }
 }
 @media screen and (max-width:559px) {
