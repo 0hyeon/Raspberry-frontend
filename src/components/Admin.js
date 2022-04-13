@@ -57,6 +57,7 @@ function UploadPage() {
     const body = {
       name : values.name,
       description : editor_wysywic,
+      subDescription : values.subname,
       seller : values.seller,
       price :  parseInt(values.price),
 
@@ -424,6 +425,20 @@ function UploadPage() {
             className="product-name"
             size="large"
             placeholder="상품 이름을 입력해주세요"
+          />
+        </Form.Item>
+        <Divider />
+        {/* 상품서브명 */}
+        <Form.Item
+          name="subname"
+          label={<div className="upload-label">상품 서브이름</div>}
+          rules={[{ required: true, message: "상품 서브이름을 입력해주세요" }]}
+        >
+          <Input
+            name="subname"
+            className="product-subname"
+            size="large"
+            placeholder="상품 서브이름을 입력해주세요"
           />
         </Form.Item>
         <Divider />

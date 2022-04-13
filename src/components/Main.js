@@ -129,7 +129,7 @@ function Main(props) {
                         className="product-link"
                         to={`/products/${product.id}`}
                     >
-                        <div>
+                        <div className="wrppper-product-img">
                             <img className="product-img" src={
                                 process.env.NODE_ENV === 'production'
                                 ?`${product.imageUrl}`
@@ -139,6 +139,10 @@ function Main(props) {
                             {product.soldout === 1 
                                 ?<span className="product-name" style={{textDecoration: 'line-through' }}>{product.name}</span> 
                                 :<span className="product-name">{product.name}</span>
+                            }
+                            {product.soldout === 1 
+                                ?null
+                                :<span className="product-subName">{product.subDescription}</span>
                             }
                             
                             {product.soldout === 1 
