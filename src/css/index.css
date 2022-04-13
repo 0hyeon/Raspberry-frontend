@@ -101,9 +101,9 @@
   }
   
   .product-price {
-    font-size: 11px;
+    font-size: 13px;
     /* font-weight: 600; */
-    margin-top: 7px;
+    margin-top: 19px;
     /* padding-bottom: 10px; */
     text-align: center;
     /* font-family: Gilroy; */
@@ -238,7 +238,6 @@
   }
   .product-subName{
     font-size:11px ;
-    margin-top: 20px;
     color: #9f9f9f;
   }
   @media screen and (max-width:1500px) {
@@ -333,10 +332,10 @@
       padding:30px 0px 40px!important;
     }
     .product-name {
-      font-size: 26px!important;
+      font-size: 25px!important;
       line-height: 0.8!important;
       padding: inherit !important;
-      height: 65px !important;
+      height: 50px !important;
     }
     .product-price {
       font-size: 12px!important;

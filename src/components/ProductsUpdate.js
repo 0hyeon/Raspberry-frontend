@@ -1174,6 +1174,8 @@ function ProductsUpdate() {
             <Option value="New">New</Option>
             <Option value="Outerwear">Outerwear</Option>
             <Option value="Tops">Tops</Option>
+            <Option value="Bottoms">Bottoms</Option>
+            <Option value="Dresses/Skirts">Dresses/Skirts</Option>
           </Select>
         </Form.Item>
         <Divider />

@@ -8,7 +8,7 @@ import dayjs from "dayjs";
 import ReactPaginate from "react-paginate";
 import { actionCreators as productActions } from "../_modules/product";
 import { actionCreators as productOptionActions } from "../_modules/productoptions";
-const DressesSkirts = () => {
+const Bottoms = () => {
     const dispatch = useDispatch();
     const [pageNumber, setPageNumber] = useState(0);
     const [loading, setLoading] = useState(true);
@@ -30,8 +30,8 @@ const DressesSkirts = () => {
 
     const displayUsers = products.slice(0,5)//50중에 
         .slice(pagesVisited, pagesVisited + usersPerPage)// 최대갯수 ~  최대갯수 + 10
-        // .filter(item => item.category == "NEW").map((product) => {
-        .filter(item => item.category == "Dresses/Skirts").map((product) => {
+        .filter(item => item.category == "Bottoms").map((product) => {
+        // .filter(item => item.category == "DRESSES/SKIRTS").map((product) => {
             return (
                 <div className="product-card">
                 {
@@ -42,18 +42,21 @@ const DressesSkirts = () => {
                         className="product-link"
                         to={`/products/${product.id}`}
                     >
-                        <div>
+                        <div className="wrppper-product-img">
                             <img className="product-img" src={
                                 process.env.NODE_ENV === 'production'
                                 ?`${product.imageUrl}`
-                                :`${API_URL}/${product.imageUrl}`} alt="" />
+                                :`${API_URL}/${product.imageUrl}`} alt="." />
                         </div>
                         <div className="product-contents">
                             {product.soldout === 1 
                                 ?<span className="product-name" style={{textDecoration: 'line-through' }}>{product.name}</span> 
                                 :<span className="product-name">{product.name}</span>
                             }
-                            
+                            {product.soldout === 1 
+                                ?null
+                                :<span className="product-subName">{product.subDescription}</span>
+                            }
                             {product.soldout === 1 
                                 ?<span className="product-price">Soldout.</span> 
                                 :<span className="product-price">{AddComma(product.price)} won</span> 
@@ -83,7 +86,7 @@ const DressesSkirts = () => {
     return <div style={{paddingTop:"100px",textAlign:'center'}}>
         { loading ? <div>Loading...</div>  :
             <>
-                <h1 id="product-headline">Dresses / Skirts.</h1>
+                <h1 id="product-headline">New Arrivals.</h1>
                 <div className="product-list-wrapper" id="product-list">
                     {displayUsers}
                     <ReactPaginate
@@ -104,4 +107,4 @@ const DressesSkirts = () => {
 
 };
 
-export default DressesSkirts;
+export default Bottoms;

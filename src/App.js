@@ -45,8 +45,10 @@ import OrderResult from './components/OrderResult';
 import Order from './components/Order';
 // const NewPage = loadable(() => import('./components/NewPage'))
 import NewPage from './components/NewPage';
-// const DRESSESSKIRTS = loadable(() => import('./components/DRESSESSKIRTS'))
-import DRESSESSKIRTS from './components/DRESSESSKIRTS';
+import DressesSkirts from './components/DressesSkirts';
+import Tops from './components/Tops';
+import Bottoms from './components/Bottoms';
+import OuterWear from './components/OuterWear';
 // const Qna = loadable(() => import('./components/Qna'))
 import Qna from './components/Qna';
 // const QnaWrite = loadable(() => import('./components/QnaWrite'))
@@ -240,8 +242,17 @@ function App () {
             <Route exact={true} path="/NewPage">
               <NewPage />
             </Route>
-            <Route exact={true} path="/DRESSESSKIRTS">
-              <DRESSESSKIRTS />
+            <Route exact={true} path="/DressesSkirts">
+              <DressesSkirts />
+            </Route>
+            <Route exact={true} path="/OuterWear">
+              <OuterWear />
+            </Route>
+            <Route exact={true} path="/Tops">
+              <Tops />
+            </Route>
+            <Route exact={true} path="/Bottoms">
+              <Bottoms />
             </Route>
             <Route exact={true} path="/Qna">
               <Qna />

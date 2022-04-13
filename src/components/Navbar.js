@@ -23,7 +23,7 @@ const Navbar = (props) => {
           <div className="menuCon">
             {/* leftMenu */}
             <div className="leftMenu">
-              <LeftMenu />
+              <LeftMenu onClose={onClose} />
             </div>
             {/* logo */}
             <div className="logo">

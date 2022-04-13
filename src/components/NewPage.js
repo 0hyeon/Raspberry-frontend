@@ -42,18 +42,21 @@ const NewPage = () => {
                         className="product-link"
                         to={`/products/${product.id}`}
                     >
-                        <div>
+                        <div className="wrppper-product-img">
                             <img className="product-img" src={
-                                process.env.NODE_ENV === "production"
+                                process.env.NODE_ENV === 'production'
                                 ?`${product.imageUrl}`
-                                :`${API_URL}/${product.imageUrl}`} alt="" />
+                                :`${API_URL}/${product.imageUrl}`} alt="." />
                         </div>
                         <div className="product-contents">
                             {product.soldout === 1 
                                 ?<span className="product-name" style={{textDecoration: 'line-through' }}>{product.name}</span> 
                                 :<span className="product-name">{product.name}</span>
                             }
-                            
+                            {product.soldout === 1 
+                                ?null
+                                :<span className="product-subName">{product.subDescription}</span>
+                            }
                             {product.soldout === 1 
                                 ?<span className="product-price">Soldout.</span> 
                                 :<span className="product-price">{AddComma(product.price)} won</span> 
