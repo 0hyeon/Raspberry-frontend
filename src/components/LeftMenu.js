@@ -29,6 +29,7 @@ const LeftMenu = (props) => {
               style={{ color: "inherit" }}
               className=""
               to={`/Outerwear`}
+              onClick={() => props.onClose()}
             >Outerwear</Link>
           </Menu.Item>
         {/* </MenuItemGroup> */}
@@ -41,6 +42,7 @@ const LeftMenu = (props) => {
           style={{ color: "inherit" }}
           className=""
           to={`/Tops`}
+          onClick={() => props.onClose()}
         >Tops</Link>
       </Menu.Item>
       <Menu.Item key="setting:4">
@@ -48,6 +50,7 @@ const LeftMenu = (props) => {
           style={{ color: "inherit" }}
           className=""
           to={`/Bottoms`}
+          onClick={() => props.onClose()}
         >Bottoms</Link>
       </Menu.Item>
       {/* <SubMenu key="sub5" title={<span>Dresses / Skirts</span>}> */}
@@ -57,6 +60,7 @@ const LeftMenu = (props) => {
               style={{ color: "inherit" }}
               className=""
               to={`/DressesSkirts`}
+              onClick={() => props.onClose()}
             >
             Dresses/Skirts</Link>
           </Menu.Item>

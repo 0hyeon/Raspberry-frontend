@@ -304,6 +304,9 @@
     .product-subName{
       margin-top: inherit !important;
     }
+    .product-img{
+      object-fit: cover !important;
+    }
   }
   @media screen and (max-width:550px) {
     #product-list, .product-list-wrapper {
@@ -336,6 +339,7 @@
       line-height: 0.8!important;
       padding: inherit !important;
       height: 50px !important;
+      margin-top: 4px !important; 
     }
     .product-price {
       font-size: 12px!important;

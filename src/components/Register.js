@@ -430,8 +430,6 @@ function Registration() {
                         </div>
                         <label className="agree_service_check0" for="agree_service_check2">동의함</label>
                     </p>
-
-                    
                     <p className="check">
                         <span>약관에 모두동의</span> 
                         <div className="icheckbox_minimal" >
@@ -441,7 +439,7 @@ function Registration() {
                         <label className="agree_service_check0" for="agree_service_check3">동의함</label>
                     </p>
 
-                    <button type="submit"> 회원가입</button>
+                    <button type="submit" style={{margin:'30px 0px'}}> 회원가입</button>
                 </Form>
             </Formik>
         </div>

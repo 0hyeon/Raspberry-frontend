@@ -14,8 +14,9 @@
 }
 label{
     display: block;
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'swiper-icons';
     line-height: 17px;
     margin: 20px 0px 12px;
 }

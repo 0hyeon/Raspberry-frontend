@@ -14,7 +14,7 @@ const DressesSkirts = () => {
     const [loading, setLoading] = useState(true);
     const products = useSelector((state) => state.products.products);
     // const products = useSelector((state) => state.products.products.category == 'NEW');
-    const usersPerPage = 5;//한페이지에 보여주는 갯수
+    const usersPerPage = 10;//한페이지에 보여주는 갯수
     const pagesVisited = pageNumber * usersPerPage;// 1페이지에 1 * 10 / 2페이지에 2 * 20 //최대갯수인듯
 
     React.useEffect(function () {
@@ -28,7 +28,7 @@ const DressesSkirts = () => {
         return Number(value).toLocaleString('en');
     }
 
-    const displayUsers = products.slice(0,5)//50중에 
+    const displayUsers = products.slice(0,50)//50중에 
         .slice(pagesVisited, pagesVisited + usersPerPage)// 최대갯수 ~  최대갯수 + 10
         // .filter(item => item.category == "NEW").map((product) => {
         .filter(item => item.category == "Dresses/Skirts").map((product) => {
@@ -79,7 +79,6 @@ const DressesSkirts = () => {
     const changePage = ({ selected }) => {
         setPageNumber(selected);
     };
-    console.log("in New category page products",products);
     return <div style={{paddingTop:"100px",textAlign:'center'}}>
         { loading ? <div>Loading...</div>  :
             <>
