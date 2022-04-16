@@ -116,14 +116,25 @@ function Main(props) {
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
 
     function mouserOverHover(e,imageUrl2,imageUrl){
-        if(imageUrl2 == null){
+        if (isMobile){
             return;
+
+        }else{
+            if(imageUrl2 == null){
+                return;
+            }
+            document.getElementById(`${e.target.id}`).src = process.env.NODE_ENV === 'production' ?`${imageUrl2}` : `${API_URL}/${imageUrl2}`;
         }
-        document.getElementById(`${e.target.id}`).src = `${API_URL}/${imageUrl2}`;
 
     }
     function mouserOutHover(e,imageUrl){
-        document.getElementById(`${e.target.id}`).src = `${API_URL}/${imageUrl}`;
+        if (isMobile){
+            return;
+        }else{
+            
+            document.getElementById(`${e.target.id}`).src = process.env.NODE_ENV === 'production' ?`${imageUrl}` : `${API_URL}/${imageUrl}`;
+        }
+        
     }
     const ItemFetchLength = 50;//모든페이지에 들어가는 아이템수
     const usersPerPage = 10;//한페이지에 보여주는 갯수
@@ -149,20 +160,8 @@ function Main(props) {
                                 id={product.id} 
                                 className="product-img" src={
                                 process.env.NODE_ENV === 'production'
-                                    ?
-                                        isMobile 
-                                        ? 
-                                            product.imageUrl4 == null
-                                            ?`${product.imageUrl}`
-                                            :`${product.imageUrl4}`
-                                        : `${product.imageUrl}`
-                                    :
-                                        isMobile 
-                                        ? 
-                                            product.imageUrl4 == null
-                                            ?`${API_URL}/${product.imageUrl}`
-                                            :`${API_URL}/${product.imageUrl4}`
-                                        : `${API_URL}/${product.imageUrl}`
+                                    ?`${product.imageUrl}`
+                                    :`${API_URL}/${product.imageUrl}`
                                 } alt="." 
                                 onMouseOver={(e) => mouserOverHover(e,product.imageUrl2,product.imageUrl)}
                                 onMouseOut={(e) => mouserOutHover(e,product.imageUrl)}

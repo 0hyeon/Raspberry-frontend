@@ -69,8 +69,6 @@ const Qna = () => {
         let month = today.getMonth() + 1;  // 월
         let date = today.getDate();  // 날짜
         const dummyday = `${year}-${month}-${date}`
-        console.log(dummyday);
-        console.log(createDay);
 
         if(dummyday == createDay){
             return 'New'
@@ -123,7 +121,7 @@ const Qna = () => {
                     <span className='designNew'>{AddNew(qna.createDate)}</span>
                 </Td>
                 </Link>
-                <Td>{qna.user_id}</Td>
+                <Td>{qna.user_name}</Td>
                 <Td>{dayjs(qna.createdAt).fromNow()}</Td>
             </Tr>
         )

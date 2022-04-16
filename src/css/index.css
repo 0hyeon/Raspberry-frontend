@@ -287,8 +287,8 @@
     .product-card{
       border: none!important;
       border-radius: inherit!important;
-      width: calc(100%/2 - 15px) !important;
-      margin: 0px 7.5px 30px!important;
+      width: calc(100%/2 - 5px) !important;
+      margin: 0px 2.5px 30px!important;
     }
     .product-name{
       line-height: inherit!important;

@@ -2,12 +2,22 @@ import React from 'react'
 import "../css/Footer.css";
 import { Link } from "react-router-dom";
 const Footer = () => {
+
+  const onopen = (e) => {
+    e.preventDefault();
+    var url =
+    "http://www.ftc.go.kr/bizCommPop.do?wrkr_no="+2481301765
+    window.open(url, "bizCommPop", "width=500, height=700;");
+  }
+
   return (
     <div className='Footer'>
       <div className='FooterWrapper'>
         <div className='Policy' style={{marginBottom:'30px'}}>
           <Link style={{color:'black',marginRight:'20px'}} className="" to="/AGREEMENT">AGREEMENT</Link>
           <Link style={{color:'black'}} className="" to="/PRIVACYPOLICY">PRIVACY POLICY</Link>
+          <Link style={{color:'black'}} className="" 
+          onClick={(e)=>{onopen(e)}}>사업자정보확인</Link>
         </div>
         <div>
           <div className='dpspan'>업체명 : 라즈베리베리 </div>
