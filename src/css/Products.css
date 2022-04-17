@@ -81,10 +81,12 @@
   }
   
   #contents-box {
+    margin-top:20px;
+
     margin-left:150px;
-    padding:60px 30px 30px 40px;
+    padding:78px 34px 20px 33px!important;
     position: fixed;
-    width:450px;
+    width:420px;
     z-index: 1;
     /* max-height: 810px; */
   }
@@ -110,20 +112,21 @@
     filter: drop-shadow(3px 4px 6px black);
   }
   #name2 {
-    font-size: 55px;
+    font-size: 22px;
     /* font-weight: 700; */
     /* font-family: 'Malgun Gothic'; */
-    font-family: 'Uiyeun';
+    font-family: 'Roboto';
     /* font-size: 35px; */
     line-height: 1em;
+    font-weight:bold;
     color: #222222;
     letter-spacing: 0.01em;
-    margin-bottom:20px;
+    margin-bottom:16px;
     word-break: keep-all;
   }
   
   #price {
-    font-size: 18px;
+    font-size: 12px;
     /* font-weight: 600; */
     margin-bottom: 10px;
     color: #000000;
@@ -146,9 +149,9 @@
     line-height: 1.8;
     border-bottom: 1px solid #e8e8e8;
     /* border-top: 1px solid #aaa; */
-    padding: 10px 0px 40px;
+    padding: 0px 0px 40px;
     max-height: 45vh;
-    height: 23vh;
+    height: 20vh;
     color: black;
   }
   .SizeTabFont{
@@ -422,7 +425,7 @@
 .ant-tabs-tab{
   font-family: 'Noto Sans KR';
   font-weight: 200;
-  font-size: 13px;
+  font-size: 12px;
 }
 .mobile_size_compo{
   height: 32px !important;
@@ -439,7 +442,6 @@
     /* max-height: 700px!important; */
     padding: 22px 35px 19px 35px!important;
     margin-left: 100px!important;
-    width:445px !important;
   }
   .content_wrapper{
     width: 1400px;
@@ -460,7 +462,7 @@
     margin: 15px 0 0px;
   }
   #price{
-    margin-bottom: 14px !important;
+    margin-bottom: 19px !important;
   }
   .detail_totalbox{
     padding-top: 12px !important;
@@ -489,7 +491,7 @@
   #contents-box{
     position: inherit!important;
     margin-left: inherit!important;
-    padding: 0px 19px 40px!important;
+    padding: 0px 9px 40px!important;
     width: 100% !important;
   }
   .content_wrapper{
@@ -503,8 +505,8 @@
     display: none!important;
   }
   #name2{
-    margin: 70px 0 10px!important;
-    font-size:39px !important;
+    margin: 22px 0 10px!important;
+    font-size:20px !important;
   }
   #image-box > .swiper-container > .swiper-wrapper>.swiper-slide> img{
     padding: 0px 5px!important;

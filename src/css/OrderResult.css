@@ -21,6 +21,8 @@
 }
 p{
     margin-bottom: inherit;
-    font-family: 'Uiyeun';
-    font-size: 25px;
+    font-family: 'Nanumgothic';
+    font-size: 13px;
+    color:#1b1b1b;
+    line-height : 1.6;
 }

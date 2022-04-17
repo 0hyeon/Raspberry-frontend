@@ -135,7 +135,7 @@ function ProductPage() {
         // heyt: session_redux
       }
       // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
-      await axios
+      await axios//db에저장한걸 불러온다 
         .post(`${API_URL}/v1/cart/setCartItem`, body)
         .then(function(result){
           dispatch(setCartItem(result.data));
@@ -169,33 +169,34 @@ function ProductPage() {
 
   const clickHandler = () => {
 
-    if (Session == null){
-      alert('장바구니 기능은 로그인을 해주셔야 합니다.')
-      return;
-    }
-    if(!currentClick){
-      alert('상품컬러를 선택하세요.')
-      return;
-    }
-    if(!currentClick2){
-      alert('사이즈를 선택하세요.')
-      return;
-    }
-    // server axios cart data
-    decideToCartItem();
-
-    //total price dispatch
-    if (state.allProducts.cartItem3.msg == "장바구니 저장완료" ){
-      dispatch(totalprice(istotalPrice));
-    }
-
-    // console.log("props : ",props);
-    // console.log("state : ",state);
-    // alert(state.allProducts.cartItem3.msg);
-    if(window.confirm(state.allProducts.cartItem3.msg + '.  장바구니로 이동 하시겠습니까?')){
-      history.push("/CartPage");
+    if (Session !== null){
+      if(!currentClick){
+        alert('상품컬러를 선택하세요.')
+        return;
+      }
+      if(!currentClick2){
+        alert('사이즈를 선택하세요.')
+        return;
+      }
+      // server axios cart data
+      decideToCartItem();
+  
+      //total price dispatch
+      if (state.allProducts.cartItem3.msg == "장바구니 저장완료" ){
+        dispatch(totalprice(istotalPrice));
+      }
+  
+      // console.log("props : ",props);
+      // console.log("state : ",state);
+      // alert(state.allProducts.cartItem3.msg);
+      if(window.confirm(state.allProducts.cartItem3.msg + '.  장바구니로 이동 하시겠습니까?')){
+        history.push("/CartPage");
+      }else{
+        return;
+      }
+      
     }else{
-      return;
+      alert('go dev');
     }
   }
   // console.log("props : ",props);
@@ -595,6 +596,7 @@ function ProductPage() {
         it_option_id :isProductId,
         it_sc_stock:isnowProductNum
       }
+      //db에저장 
       await axios
         .post(`${API_URL}/v1/cart/decideToCart`, body)
         .then(function(result){
