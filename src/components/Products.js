@@ -197,6 +197,20 @@ function ProductPage() {
       
     }else{
       alert('go dev');
+      let body2 = {
+        productId: id,
+        seSsionId: null,
+        price:Number(product.price),
+        uploadImage:product.imageUrl,
+        productName:product.name,
+        it_Detail_color: isColorName,
+        it_Detail_size : isShowSizeName, 
+        it_Detail_quanity: Number(isCartUi),
+        it_option_id :isProductId,
+        it_sc_stock:isnowProductNum
+      }
+      console.log("body2 :",body2);
+      dispatch(setCartItem(body2));
     }
   }
   // console.log("props : ",props);

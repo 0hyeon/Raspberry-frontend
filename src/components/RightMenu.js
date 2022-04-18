@@ -104,12 +104,13 @@ const RightMenu = (props) => {
       {/* 장바구니 */}
       <Menu.Item key="cart">
         <Link to="/CartPage" className="cartCount_in_a">
-        {isLogin ? <ShoppingCartOutlined /> : null}
+        {isLogin ? <ShoppingCartOutlined /> : <ShoppingCartOutlined />}
         {/* {isLogin ? <cartCount /> : null}
         <cartCount /> */}
-        {isLogin ? <div className="cartCount">
-        {user.cartItem.length}
-        </div> : null}
+        {isLogin 
+        ? <div className="cartCount">{user.cartItem.length}</div> 
+        : <div className="cartCount">{user.cartItem.length}</div> 
+        }
         </Link>
       </Menu.Item>
       {/* Qna */}
