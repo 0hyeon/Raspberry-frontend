@@ -6,7 +6,7 @@ import {API_URL} from "../config/constants.js";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import Payment from "./Payment";
-import {deleteCart,increment,decrement,setCartItem,setRequestLoding2} from '../_actions/userAction'
+import {removefromcart,increment,decrement,setCartItem,setRequestLoding2} from '../_actions/userAction'
 import { DeleteOutlined } from '@ant-design/icons';
 import { actionCreators as productActions } from "../_modules/product";
 import { actionCreators as productOptionActions } from "../_modules/productoptions";
@@ -70,8 +70,12 @@ function CartPage(props) {
     useEffect(function () {
         // 상품관련
         // fetchProducts();
+        let Session = sessionStorage.getItem('user_id');
         dispatch(productActions.setProductSV());
-        dispatch(userActions.setUserSV());
+        if (Session){
+            dispatch(userActions.setUserSV());
+        }
+
         dispatch(productOptionActions.setProductOptionsSV(products.name));
         setproduct_list(products);
         fetchCartItem();
@@ -80,20 +84,26 @@ function CartPage(props) {
 
     
     const Delete_Handelr = async(e) => {
-        
+        let Session = sessionStorage.getItem('user_id');
         let cartId = e.target.id;
-        let body = {
-        cartId: cartId
+        if (Session){
+            let body = {
+            cartId: cartId
+            }
+            await axios
+            .post(`${API_URL}/v1/cart/deleteToCart`, body)
+            .then(function(result){
+                console.log(result.data);
+            })
+            .catch((err) => {
+                console.log("Err: ", err);
+            });
+            fetchCartItem();
+
+        }else{
+            console.log("cartId" ,cartId);
+            dispatch(removefromcart(cartId));
         }
-        await axios
-        .post(`${API_URL}/v1/cart/deleteToCart`, body)
-        .then(function(result){
-            console.log(result.data);
-        })
-        .catch((err) => {
-            console.log("Err: ", err);
-        });
-        fetchCartItem();
     }
     //수량클릭시 수량변경 state && 수량dispatch
     const input_qty_handler = (product,e) => {

@@ -15,6 +15,7 @@ import { actionCreators as productActions } from "../_modules/product";
 import { actionCreators as productOptionActionsDetails } from "../_modules/productoptionDetails";
 function OrderPageMulti() {
     const dispatch = useDispatch();
+    let Session = sessionStorage.getItem('user_id');
     let userState = useSelector(state => state.user.user);
     let useProductOpt = useSelector(state => state.productoptionDetails.productoptionDetails);
     const CartList = useSelector((state) => state.allProducts.cartItem);
@@ -128,85 +129,89 @@ function OrderPageMulti() {
             return;
         }else{
             const delivery2 = Number(isuserStateAddress.zonecode);
-        
-            if(delivery2 === 63000 || delivery2 === 63001 ){//제주 추자면 : 7,000원
-                setdeliveryconst(7000);
-            }else if(delivery2 === 63365){//제주 우도 : 6,000원
-                setdeliveryconst(6000);
-            }else if(delivery2 >= 59781 && delivery2 <= 59790 ){//전남 여수 섬지역3 : 8,000원
-                setdeliveryconst(8000);
-            }else if(delivery2 === 59766 ){//전남 여수 섬지역2 : 8,000원
-                setdeliveryconst(8000);
-            }else if(delivery2 === 59650 ){//전남 여수 섬지역1 : 8,000원
-                setdeliveryconst(8000);
-            }else if(delivery2 === 59658 ){//전남 고흥 섬지역4 : 5,000원
-                setdeliveryconst(5000);
-            }else if(delivery2 === 59563 ){//전남 고흥 섬지역3 : 5,000원
-                setdeliveryconst(5000);
-            }else if(delivery2 === 59551 ){//전남 고흥 섬지역2 : 5,000원
-                setdeliveryconst(5000);
-            }else if(delivery2 === 59531 ){//전남 고흥 섬지역1 : 5,000원
-                setdeliveryconst(5000);
-            }else if(delivery2 === 59421 ){//전남 보성 섬지역 : 4,000원
-                setdeliveryconst(4000);
-            }else if(delivery2 >= 59137 && delivery2 <= 59166 ){//전남 완도 섬지역5 : 5,000원
-                setdeliveryconst(5000);
-            }else if(delivery2 === 59129 ){//전남 완도 섬지역4 : 5,000원
-                setdeliveryconst(5000);
-            }else if(delivery2 === 59127 ){//전남 완도 섬지역3 : 5,000원
-                setdeliveryconst(5000);
-            }else if(delivery2 === 59106 ){//전남 완도 섬지역2 : 5,000원
-                setdeliveryconst(5000);
-            }else if(delivery2 === 59102 || delivery2 === 59103 ){// 전남 완도 섬지역1 : 5,000원
-                setdeliveryconst(5000);
-            }else if(delivery2 >= 58953 && delivery2 <= 58958 ){// 전남 진도 섬지역 : 7,000원
-                setdeliveryconst(7000);
-            }else if(delivery2 >= 58828 && delivery2 <= 58866 ){//전남 신안 섬지역4 : 7,000원
-                setdeliveryconst(7000);
-            }else if(delivery2 === 58826 ){//전남 신안 섬지역3 : 7,000원
-                setdeliveryconst(7000);
-            }else if(delivery2 >= 58816 && delivery2 <= 58818 ){//전남 신안 섬지역2 : 7,000원
-                setdeliveryconst(7000);
-            }else if(delivery2 >= 58800 && delivery2 <= 58810 ){//전남 신안 섬지역1 : 7,000원
-                setdeliveryconst(7000);
-            }else if(delivery2 >= 58760 && delivery2 <= 58762 ){//전남 목포 섬지역 : 6,000원
-                setdeliveryconst(6000);
-            }else if(delivery2 >= 57068 && delivery2 <= 57069 ){//전남 영광 섬지역 : 4,000원
-                setdeliveryconst(4000);
-            }else if(delivery2 >= 56347 && delivery2 <= 56349 ){//전북 부안 섬지역 : 5,000원
-                setdeliveryconst(5000);
-            }else if(delivery2 >= 46768 && delivery2 <= 46771 ){//부산 강서구 섬지역 : 4,000원
-                setdeliveryconst(4000);
-            }else if(delivery2 === 54000 ){//경남 통영 섬지역3 : 4,000원
-                setdeliveryconst(4000);
-            }else if(delivery2 >= 53089 && delivery2 <= 53104 ){//경남 통영 섬지역2 : 4,000원
-                setdeliveryconst(4000);
-            }else if(delivery2 >= 53031 && delivery2 <= 53033 ){//경남 통영 섬지역1 : 4,000원
-                setdeliveryconst(4000);
-            }else if(delivery2 >= 52570 && delivery2 <= 52571 ){//경남 사천 섬지역 : 4,000원
-                setdeliveryconst(4000);
-            }else if(delivery2 >= 40200 && delivery2 <= 40240 ){//경북 울릉도 전지역 : 4,000원
-                setdeliveryconst(4000);
-            }else if(delivery2 === 33411 ){//충남 보령 섬지역 : 5,000원
-                setdeliveryconst(5000);
-            }else if(delivery2 === 32133 ){//충남 태안 섬지역 : 5,000원
-                setdeliveryconst(5000);
-            }else if(delivery2 === 31708 ){//충남 당진 섬지역 : 4,000원
-                setdeliveryconst(4000);
-            }else if(delivery2 >= 23124 && delivery2 <= 23136 ){//인천 옹진 섬지역2 : 6,000원
-                setdeliveryconst(6000);
-            }else if(delivery2 >= 23100 && delivery2 <= 23116 ){//인천 옹진 섬지역1 : 6,000원
-                setdeliveryconst(6000);
-            }else if(delivery2 >= 23004 && delivery2 <= 23010 ){//인천 강화 섬지역 : 4,500원
-                setdeliveryconst(4500);
-            }else if(delivery2 >= 22386 && delivery2 <= 22388 ){//인천 중구 섬지역 : 6,000원
-                setdeliveryconst(6000);
+            if(istotalcost > 100000){
+                setdeliveryconst(0)
             }else{
-                setdeliveryconst(2500);//그외 전부 3000원
+
+                if(delivery2 === 63000 || delivery2 === 63001 ){//제주 추자면 : 7,000원
+                    setdeliveryconst(7000);
+                }else if(delivery2 === 63365){//제주 우도 : 6,000원
+                    setdeliveryconst(6000);
+                }else if(delivery2 >= 59781 && delivery2 <= 59790 ){//전남 여수 섬지역3 : 8,000원
+                    setdeliveryconst(8000);
+                }else if(delivery2 === 59766 ){//전남 여수 섬지역2 : 8,000원
+                    setdeliveryconst(8000);
+                }else if(delivery2 === 59650 ){//전남 여수 섬지역1 : 8,000원
+                    setdeliveryconst(8000);
+                }else if(delivery2 === 59658 ){//전남 고흥 섬지역4 : 5,000원
+                    setdeliveryconst(5000);
+                }else if(delivery2 === 59563 ){//전남 고흥 섬지역3 : 5,000원
+                    setdeliveryconst(5000);
+                }else if(delivery2 === 59551 ){//전남 고흥 섬지역2 : 5,000원
+                    setdeliveryconst(5000);
+                }else if(delivery2 === 59531 ){//전남 고흥 섬지역1 : 5,000원
+                    setdeliveryconst(5000);
+                }else if(delivery2 === 59421 ){//전남 보성 섬지역 : 4,000원
+                    setdeliveryconst(4000);
+                }else if(delivery2 >= 59137 && delivery2 <= 59166 ){//전남 완도 섬지역5 : 5,000원
+                    setdeliveryconst(5000);
+                }else if(delivery2 === 59129 ){//전남 완도 섬지역4 : 5,000원
+                    setdeliveryconst(5000);
+                }else if(delivery2 === 59127 ){//전남 완도 섬지역3 : 5,000원
+                    setdeliveryconst(5000);
+                }else if(delivery2 === 59106 ){//전남 완도 섬지역2 : 5,000원
+                    setdeliveryconst(5000);
+                }else if(delivery2 === 59102 || delivery2 === 59103 ){// 전남 완도 섬지역1 : 5,000원
+                    setdeliveryconst(5000);
+                }else if(delivery2 >= 58953 && delivery2 <= 58958 ){// 전남 진도 섬지역 : 7,000원
+                    setdeliveryconst(7000);
+                }else if(delivery2 >= 58828 && delivery2 <= 58866 ){//전남 신안 섬지역4 : 7,000원
+                    setdeliveryconst(7000);
+                }else if(delivery2 === 58826 ){//전남 신안 섬지역3 : 7,000원
+                    setdeliveryconst(7000);
+                }else if(delivery2 >= 58816 && delivery2 <= 58818 ){//전남 신안 섬지역2 : 7,000원
+                    setdeliveryconst(7000);
+                }else if(delivery2 >= 58800 && delivery2 <= 58810 ){//전남 신안 섬지역1 : 7,000원
+                    setdeliveryconst(7000);
+                }else if(delivery2 >= 58760 && delivery2 <= 58762 ){//전남 목포 섬지역 : 6,000원
+                    setdeliveryconst(6000);
+                }else if(delivery2 >= 57068 && delivery2 <= 57069 ){//전남 영광 섬지역 : 4,000원
+                    setdeliveryconst(4000);
+                }else if(delivery2 >= 56347 && delivery2 <= 56349 ){//전북 부안 섬지역 : 5,000원
+                    setdeliveryconst(5000);
+                }else if(delivery2 >= 46768 && delivery2 <= 46771 ){//부산 강서구 섬지역 : 4,000원
+                    setdeliveryconst(4000);
+                }else if(delivery2 === 54000 ){//경남 통영 섬지역3 : 4,000원
+                    setdeliveryconst(4000);
+                }else if(delivery2 >= 53089 && delivery2 <= 53104 ){//경남 통영 섬지역2 : 4,000원
+                    setdeliveryconst(4000);
+                }else if(delivery2 >= 53031 && delivery2 <= 53033 ){//경남 통영 섬지역1 : 4,000원
+                    setdeliveryconst(4000);
+                }else if(delivery2 >= 52570 && delivery2 <= 52571 ){//경남 사천 섬지역 : 4,000원
+                    setdeliveryconst(4000);
+                }else if(delivery2 >= 40200 && delivery2 <= 40240 ){//경북 울릉도 전지역 : 4,000원
+                    setdeliveryconst(4000);
+                }else if(delivery2 === 33411 ){//충남 보령 섬지역 : 5,000원
+                    setdeliveryconst(5000);
+                }else if(delivery2 === 32133 ){//충남 태안 섬지역 : 5,000원
+                    setdeliveryconst(5000);
+                }else if(delivery2 === 31708 ){//충남 당진 섬지역 : 4,000원
+                    setdeliveryconst(4000);
+                }else if(delivery2 >= 23124 && delivery2 <= 23136 ){//인천 옹진 섬지역2 : 6,000원
+                    setdeliveryconst(6000);
+                }else if(delivery2 >= 23100 && delivery2 <= 23116 ){//인천 옹진 섬지역1 : 6,000원
+                    setdeliveryconst(6000);
+                }else if(delivery2 >= 23004 && delivery2 <= 23010 ){//인천 강화 섬지역 : 4,500원
+                    setdeliveryconst(4500);
+                }else if(delivery2 >= 22386 && delivery2 <= 22388 ){//인천 중구 섬지역 : 6,000원
+                    setdeliveryconst(6000);
+                }else{
+                    setdeliveryconst(2500);//그외 전부 3000원
+                }
             }
         }
 
-    },[htmlData,htmlDatadetail,inputValMemo,isuserStateAddress,userStateAddress,deliveryconst])
+    },[htmlData,htmlDatadetail,inputValMemo,isuserStateAddress,userStateAddress,deliveryconst,istotalcost])
     const formik = useFormik({
         initialValues
     })
@@ -266,6 +271,9 @@ function OrderPageMulti() {
             const sumPakage2 = sumPakage.reduce((accumulator, currentNumber) => 
                 accumulator + currentNumber
             )
+            // if (sumPakage2 > 100000){
+            //     setdeliveryconst(0)
+            // }
             return settotalcost(sumPakage2);
 
 
@@ -273,6 +281,9 @@ function OrderPageMulti() {
             useProductOpt && useProductOpt
             .map((item )=> settotalcost(item.it_sc_price * item.it_Detail_quanity))
             
+            // if (istotalcost > 100000){
+            //     setdeliveryconst(0)
+            // }
         }        
 
     }, [istotalcost,useProductOpt])
@@ -289,7 +300,7 @@ function OrderPageMulti() {
     if ( useProductOpt == [] ||useProductOpt == "" || useProductOpt == null || useProductOpt == undefined ){//리덕스 새로고침시 state없어져서 루트로 보냄 
         history.push("/");
     }
-   
+  
     console.log("useProductOpt :",useProductOpt);
     // const heyy = {"name":3}
     // console.log(heyy.name);
@@ -302,6 +313,7 @@ function OrderPageMulti() {
                 validationSchema={validationSchema}
             >
                 <Form className="formContainer">
+                {Session == null ?<div className="registerTop">(비회원)주문</div> : <div className="registerTop">주문상품</div> }
                     <h2 className="registerTop2 CartPage_HeadLine">Order ({CartList.length})</h2>
                             {useProductOpt && useProductOpt.map((item )=>{
                                 return(

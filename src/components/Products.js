@@ -39,6 +39,7 @@ function ProductPage() {
   // const [product, setProduct] = useState(null);
   const [ScrollY, setScrollY] = useState(0);
   const [BtnStatus, setBtnStatus] = useState(false); // 버튼 상태
+  const [inputDate, setinputDate] = useState(null); // 버튼 상태
   
   // const handleFollow = () => {
   //   setScrollY(parentRef.current.offsetHeight);
@@ -138,6 +139,7 @@ function ProductPage() {
       await axios//db에저장한걸 불러온다 
         .post(`${API_URL}/v1/cart/setCartItem`, body)
         .then(function(result){
+          console.log("넣어야할 result.data ",result.data);
           dispatch(setCartItem(result.data));
       })
       .catch((err) => {
@@ -197,20 +199,71 @@ function ProductPage() {
       
     }else{
       alert('go dev');
-      let body2 = {
-        productId: id,
-        seSsionId: null,
-        price:Number(product.price),
-        uploadImage:product.imageUrl,
-        productName:product.name,
-        it_Detail_color: isColorName,
-        it_Detail_size : isShowSizeName, 
-        it_Detail_quanity: Number(isCartUi),
-        it_option_id :isProductId,
-        it_sc_stock:isnowProductNum
+      if(state.allProducts.cartItem.length === 0){
+        const inputDate2 = {
+          id,
+          it_Detail_color: isColorName,
+          it_Detail_quanity: Number(isCartUi),
+          it_Detail_size: isShowSizeName, 
+          it_id: isProductId,
+          it_name: product.name,
+          it_option_id: "122",
+          it_sc_price: Number(product.price),
+          it_sc_qty: null,
+          it_sc_stock: isnowProductNum,
+          mb_id: null,
+          od_id: null,
+          result: null,
+          thumb_name: product.imageUrl,
+        };
+        // setinputDate(inputDate2);
+        let body3 = {
+          "cartItem": [
+            inputDate2
+          ]
+        }
+        console.log("state.allProducts.cartItem",state.allProducts.cartItem);
+        console.log("body3 :",body3);
+        
+        dispatch(setCartItem(body3));
+      }else{
+        //빈배열을 만든다.
+        const inputDate3 = {
+          id,
+          it_Detail_color: isColorName,
+          it_Detail_quanity: Number(isCartUi),
+          it_Detail_size: isShowSizeName, 
+          it_id: isProductId,
+          it_name: product.name,
+          it_option_id: "122",
+          it_sc_price: Number(product.price),
+          it_sc_qty: null,
+          it_sc_stock: isnowProductNum,
+          mb_id: null,
+          od_id: null,
+          result: null,
+          thumb_name: product.imageUrl,
+        };
+        console.log("inputDate3 : ",inputDate3);
+        alert("this is else!");
+
+        //state를 불러서 push에담는다 
+        const acceptarray9 = state.allProducts.cartItem;
+        console.log("acceptarray9 : ",acceptarray9);
+        // const [acceptarray] = state.allProducts.cartItem;
+// console.log("acceptarray : ",acceptarray);
+        //현재 누를걸 불러서 push에 담는다 
+        acceptarray9.push(inputDate3);
+        console.log("acceptarray9 : ",acceptarray9);
+        let body4 = {
+          "cartItem": 
+            acceptarray9
+          
+        }
+        console.log("body4 : ",body4);
+        dispatch(setCartItem(body4));
       }
-      console.log("body2 :",body2);
-      dispatch(setCartItem(body2));
+      
     }
   }
   // console.log("props : ",props);
@@ -701,6 +754,10 @@ function ProductPage() {
     window.scrollTo(0,0);
     // document.getElementById('root').scrollTo(0, 0);
   }, []);
+  useEffect(() => {
+    setinputDate(state.allProducts.cartItem);
+  }, [state.allProducts.cartItem]);
+
   useEffect(() => {
     const p_name = product.name
     const p_price = product.price

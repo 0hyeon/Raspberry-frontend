@@ -1,15 +1,17 @@
 import React,{ useState , useEffect} from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch,useSelector, connect } from 'react-redux';
 import "../css/OrderResult.css";
 import { history } from "../_reducers/index";
 import axios from 'axios';
 import {API_URL} from '../config/constants'
+import {setCartItem} from '../_actions/userAction'
 const OrderResult = () => {
     let userOrderResult = useSelector(state => state.orderresult.orderresult);
     
     const [data,setData] = useState(null);
     const [loading, setLoading] = useState(true);
     let Session = sessionStorage.getItem('user_id');
+    const dispatch = useDispatch();
     const fetchOrderDisplay = async (id) => {
             console.log("fetchOrderDisplay(userOrderResult.id) :",id);
             let body = {
@@ -41,7 +43,13 @@ const OrderResult = () => {
     useEffect(() => {
         
         fetchOrderDisplay(userOrderResult.id);
-
+        let body4 = {
+            "cartItem": 
+              []
+            
+        }
+          console.log("body4 : ",body4);
+        dispatch(setCartItem(body4));
     },[])
 
     if(data === null){

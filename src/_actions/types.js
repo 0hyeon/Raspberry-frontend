@@ -16,7 +16,7 @@ export const INCREMENT ="INCREMENT";
 export const DECREMENT ="DECREMENT";
 export const TOTALPRICE ="TOTALPRICE";
 export const LOGGEDIN ="LOGGEDIN";
-
+export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 // export const ActionTypes = {
 //     SET_PRODUCTS: "SET_PRODUCTS",
 //     SELECTED_PRODUCT: "SELECTED_PRODUCT",

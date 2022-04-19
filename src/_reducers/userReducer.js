@@ -1,6 +1,6 @@
 // import { response } from "express";
 import { produce } from "immer";
-import { ADD_TO_CART, SET_PRODUCTS,SELECTED_PRODUCT,REMOVE_SELECTED_PRODUCT, DECIDE_TO_CART, CART_ITEM, REQUEST_LODING,REQUEST_LODING2,FETCH_TO_CART, INCREMENT, DECREMENT,TOTALPRICE} from "../_actions/types";
+import { ADD_TO_CART, SET_PRODUCTS,SELECTED_PRODUCT,REMOVE_SELECTED_PRODUCT, DECIDE_TO_CART, CART_ITEM, REQUEST_LODING,REQUEST_LODING2,FETCH_TO_CART, INCREMENT, DECREMENT,TOTALPRICE,REMOVE_FROM_CART} from "../_actions/types";
 export const initialState = {
   products: [],
   cartItem: [],
@@ -39,6 +39,11 @@ export const productsReducer = (state = initialState, { type, payload }) => {
       return { 
         ...state, 
         total: state.total +  payload
+      };
+    case REMOVE_FROM_CART:
+      return {
+        ...state,
+        cartItem: state.cartItem.filter((item) => item.id !== payload.id),
       };
     case INCREMENT:
       const inCart = state.cartItem.find((item) => item.id == payload.id ? true : false);
