@@ -611,22 +611,22 @@ function ProductPage() {
             console.log("Err: ", err);
         });
         
-    };
-    function AddNew(day){
-        
-      const createDay = day
-      // const createDay.split("T");
-      let today = new Date();   
-      let year = today.getFullYear(); // 년도
-      let month = today.getMonth() + 1;  // 월
-      let date = today.getDate();  // 날짜
-      const dummyday = `${year}-${month}-${date}`
+  };
 
-      if(dummyday == createDay){
-          return 'New'
-      }else{
-          return;
-      }
+  function AddNew(day){
+    const createDay = day
+    // const createDay.split("T");
+    let today = new Date();   
+    let year = today.getFullYear(); // 년도
+    let month = today.getMonth() + 1;  // 월
+    let date = today.getDate();  // 날짜
+    const dummyday = `${year}-${month}-${date}`
+
+    if(dummyday == createDay){
+        return 'New'
+    }else{
+        return;
+    }
   }
   //댓글갯수
   const commentsLength = () => {//0번째만 3개들어감
@@ -1092,8 +1092,9 @@ function ProductPage() {
             </>
             }
           </div>
+          {/* qna */}
           <div className='Qna_wraaper'>
-          <div className='QnaTitle'>Q&A</div>
+            <div className='QnaTitle'>Q&A</div>
             <Table>
                 <thead>
                     <Tr className="sod_list_head">
@@ -1136,7 +1137,53 @@ function ProductPage() {
                 >
                 List
               </button>
-              
+            </div>
+          </div>
+          {/* reivew */}
+          <div className='Qna_wraaper'>
+            <div className='QnaTitle'>제품후기</div>
+            <Table>
+                <thead>
+                    <Tr className="sod_list_head">
+                        <Th scope="col" width="*" className="text_left">제목</Th>
+                        <Th scope="col" width="15%" className="second_td">작성자</Th>
+                        <Th scope="col" width="25%">작성일</Th>
+                    </Tr>
+                </thead>
+                <tbody>
+                    {displayUsers && displayUsers}
+                </tbody>
+            </Table>
+            <ReactPaginate
+                previousLabel={"Previous"}
+                nextLabel={"Next"}
+                pageCount={pageCount}
+                onPageChange={changePage}
+                containerClassName={"paginationBttns"}
+                previousLinkClassName={"previousBttn"}
+                nextLinkClassName={"nextBttn"}
+                disabledClassName={"paginationDisabled"}
+                activeClassName={"paginationActive"}
+            />
+            <div className='button_wrpper'>
+              <button
+                className='pdButton writeButton'
+                size="large"
+                onClick={function () {
+                    history.push(`/QnaWrite/${id}`);
+                }}
+                >
+                Write
+              </button>
+              <button
+                className='pdButton ListButton'
+                size="large"
+                onClick={function () {
+                    history.push("/Qna");
+                }}
+                >
+                List
+              </button>
             </div>
           </div>
           <div className='deliveryPolicy'>
