@@ -19,12 +19,12 @@ const initialState = {
 
 //middle
 //메인페이지에서 상품 리스트 불러오기
-const setProductOptionsSV = (productname)=>{
-    // console.log("Action productname 받아오는곳",productname);
+const setProductOptionsSV = (product_id)=>{
+    // console.log("Action product_id 받아오는곳",product_id);
     return function(dispatch) {
         // instance.get(`${API_URL}/producsts`)
 
-        axios.post(`${API_URL}/v1/product/productsOptions`,{productname:productname} )
+        axios.post(`${API_URL}/v1/product/productsOptions`,{product_id:product_id} )
         .then(res=>{
             dispatch(setProductoptions(res.data));
         })

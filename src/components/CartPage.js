@@ -76,7 +76,7 @@ function CartPage(props) {
             dispatch(userActions.setUserSV());
         }
 
-        dispatch(productOptionActions.setProductOptionsSV(products.name));
+        dispatch(productOptionActions.setProductOptionsSV(products.id));
         setproduct_list(products);
         fetchCartItem();
         setCart(true);

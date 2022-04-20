@@ -213,7 +213,7 @@ function Main(props) {
         // 상품관련
         // fetchProducts();
         dispatch(productActions.setProductSV());
-        dispatch(productOptionActions.setProductOptionsSV(products.name));
+        dispatch(productOptionActions.setProductOptionsSV(products.id));
         setproduct_list(products);
         productsOptionsAll(ItemFetchLength);
         fetchCartItem();

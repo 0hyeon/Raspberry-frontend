@@ -212,7 +212,7 @@ const QnaWrite = () => {
                     onChange={(token) => {setToken(token)}}
                     onExpired={e => setToken("")}
                 />
-                <Form.Item
+                {/* <Form.Item
                     name="upload"
                     label={<div className="upload-label">사진업로드</div>}
                     >
@@ -231,7 +231,7 @@ const QnaWrite = () => {
                         )
                         }
                     </Upload>
-                </Form.Item>
+                </Form.Item> */}
                 {/* 글작성 */}
                 <Form.Item>
                     <Button id="submit-button" size="large" htmlType="submit">

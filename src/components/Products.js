@@ -734,7 +734,7 @@ function ProductPage() {
 
   useEffect(() => {
     dispatch(productActions.setProductSV());
-    dispatch(productOptionActions.setProductOptionsSV(product.name));
+    dispatch(productOptionActions.setProductOptionsSV(product.id));
     setScrollFlag(case1_colorName2_1 && case1_colorName2_1.color1)
     setScrollFlag2(case1_colorName2_2 && case1_colorName2_2.color1)
     

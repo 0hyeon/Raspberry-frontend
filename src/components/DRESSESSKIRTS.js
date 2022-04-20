@@ -21,7 +21,7 @@ const DressesSkirts = () => {
         // 상품관련
         // fetchProducts();
         dispatch(productActions.setProductSV());
-        dispatch(productOptionActions.setProductOptionsSV(products.name));
+        dispatch(productOptionActions.setProductOptionsSV(products.id));
         setLoading(false);
     }, []);
     function AddComma(value) {

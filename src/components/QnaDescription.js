@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../_modules/user";
 import { EnterOutlined } from "@ant-design/icons";
 import dotenv from 'dotenv'
+import { actionCreators as productActions } from "../_modules/product";
 dayjs.extend(relativeTime);//dayjs에서 확장된 기능 사용 
 
 const QnaDescription = () => {
@@ -25,10 +26,12 @@ const QnaDescription = () => {
   const [isDesc, setDesc] = useState("");
   const [isUserId, setUserId] = useState("");
   const [isDay, setDay] = useState("");
+  const [isId, setId] = useState("");
   const [isComment, setComment] = useState(false);
   const UserData = useSelector((state) => state.user.user);
   const reRef = useRef();
   let Session = sessionStorage.getItem('user_id');
+  const ProductsData = useSelector((state) => state.allProducts.products.products);
   const history = useHistory();
 
   const onSubmit = async (values) => {//댓글작성
@@ -116,6 +119,7 @@ const QnaDescription = () => {
               setDesc(res.data.data.description)
               setUserId(res.data.data.user_name)
               setDay(dayjs(res.data.data.createdAt).fromNow())
+              setId(res.data.data.product_id)
               setLoading(false)
             }else{
               console.log("res.data.data.user_id : ",res.data.data.user_id);
@@ -223,6 +227,7 @@ const QnaDescription = () => {
     }
     fetchQnaDescription();
     dispatch(userActions.setUserSV());
+    dispatch(productActions.setProductSV());
     fetchQnaAllComent();
   },[]);
   return (
@@ -235,7 +240,22 @@ const QnaDescription = () => {
             <div className='QnaWrapper_title'>{isTitle}</div>
             <span className='QnaWrapper_title2'>{isUserId} / {isDay}</span>
           </div>
-          <div className='isDesc'>{isDesc}</div>
+          <div className='isDesc'>
+            {
+                ProductsData && ProductsData.find((item) => String(item.id) === String(isId)) 
+                ?
+                <div className='ProductTitle'>
+                    <img src={
+                        process.env.NODE_ENV === 'production'
+                        ?`${ProductsData && ProductsData.find((item) => String(item.id) === String(isId)).imageUrl }`
+                        :`${API_URL}/${ProductsData && ProductsData.find((item) => String(item.id) === String(isId)).imageUrl }`} alt="대표사진" />
+                    <div className='ProductName'>{ProductsData && ProductsData.find((item) => String(item.id) === String(isId)).name}</div>
+                    {isDesc}
+                </div>
+                :null
+            }
+            
+            </div>
           <div className='button_wrapper'>
             <button className='listQna' onClick={listQnaClick}>목록</button>
             <button className='updateQna' onClick={updateQnaClick}>수정</button>
