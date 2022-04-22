@@ -10,7 +10,6 @@ import QuillEditor from "./editor/QuillEditor"
 import QuillEditor2 from "./editor/QuillEditor2"
 import jwt_decode from "jwt-decode";
 
-
 function UploadPage() {
   let Session = sessionStorage.getItem('user_id');
   if(!Session){

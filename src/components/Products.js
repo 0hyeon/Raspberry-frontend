@@ -191,10 +191,10 @@ function ProductPage() {
       // console.log("props : ",props);
       // console.log("state : ",state);
       // alert(state.allProducts.cartItem3.msg);
-      if(window.confirm(state.allProducts.cartItem3.msg + '.  장바구니로 이동 하시겠습니까?')){
-        history.push("/CartPage");
-      }else{
+      if(window.confirm(state.allProducts.cartItem3.msg + '.  계속 쇼핑 하시겠습니까?')){
         return;
+      }else{
+        history.push("/CartPage");
       }
       
     }else{
@@ -1166,15 +1166,28 @@ function ProductPage() {
                 activeClassName={"paginationActive"}
             />
             <div className='button_wrpper'>
+              {Session 
+              ? 
               <button
                 className='pdButton writeButton'
                 size="large"
                 onClick={function () {
-                    history.push(`/QnaWrite/${id}`);
+                    history.push(`/ReviewList`);
+                }}
+                >
+                Write
+              </button> 
+              : 
+              <button
+                className='pdButton writeButton'
+                size="large"
+                onClick={function () {
+                    alert('회원만 후기작성이 가능합니다.');
                 }}
                 >
                 Write
               </button>
+              }
               <button
                 className='pdButton ListButton'
                 size="large"

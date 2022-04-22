@@ -77,7 +77,7 @@
   .product-contents {
     display: flex;
     flex-direction: column;
-    padding: 13px 8px 9px;
+    padding: 14px 14px 9px;
     border-bottom: 1px solid #e2e2e2;
   }
   /* .ant-divider-horizontal{

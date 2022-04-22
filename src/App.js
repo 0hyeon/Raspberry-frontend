@@ -51,8 +51,10 @@ import Bottoms from './components/Bottoms';
 import OuterWear from './components/OuterWear';
 // const Qna = loadable(() => import('./components/Qna'))
 import Qna from './components/Qna';
+import ReviewList from './components/ReviewList';
 // const QnaWrite = loadable(() => import('./components/QnaWrite'))
 import QnaWrite from './components/QnaWrite';
+import ReviewWrite from './components/ReviewWrite';
 // const QnaDescription = loadable(() => import('./components/QnaDescription'))
 import QnaDescription from './components/QnaDescription';
 // const QnaUpdate = loadable(() => import('./components/QnaUpdate'))
@@ -268,6 +270,15 @@ function App () {
             </Route>
             <Route exact={true} path="/QnaWrite/:id">
               <QnaWrite />
+            </Route>
+            <Route exact={true} path="/ReviewList">
+              <ReviewList />
+            </Route>
+            <Route exact={true} path="/ReviewWrite">
+              <ReviewWrite />
+            </Route>
+            <Route exact={true} path="/ReviewWrite/:id">
+              <ReviewWrite />
             </Route>
             <Route exact={true} path="/QnaUpdate/:id">
               <QnaUpdate />
