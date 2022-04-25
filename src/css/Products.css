@@ -437,6 +437,9 @@
   background: #ddd;
 
 } */
+.autoimagecenter{
+  width: 100%;
+}
 @media screen and (max-width:1800px) {
   #contents-box{
     /* max-height: 700px!important; */

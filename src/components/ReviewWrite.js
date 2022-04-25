@@ -84,7 +84,8 @@ const ReviewWrite = () => {
                 thumbnail_image:imageUrlQna,
                 description : values.qnaContents,
                 createDate:dummyday,
-                // product_option_id:id
+                response_result:id,
+                product_option_id:id
             }
             
             const googlesend2= `https://www.google.com/recaptcha/api/siteverify?secret=${secretkey}&response=${token}`

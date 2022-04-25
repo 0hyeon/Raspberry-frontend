@@ -80,6 +80,7 @@ const OrderSuccess = () => {
     function calculateProduct(it_id,color,size,ordernum){
         
         const it_idSeperate = it_id.split(',');
+        console.log("it_idSeperate :" ,it_idSeperate);
         const colorSeperate = color.split(',');
         const sizeSeperate = size.split(',');
         const ordernumSeperate = ordernum.split(',');

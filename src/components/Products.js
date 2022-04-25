@@ -24,7 +24,7 @@ import { Button, message,Tabs } from "antd";
 import Payment from "./Payment";
 import jwt_decode from "jwt-decode";
 import "../css/QnaDescription.css";
-import { LockOutlined } from "@ant-design/icons";
+import { LockOutlined,MailOutlined,CameraOutlined } from "@ant-design/icons";
 
 function ProductPage() {
   
@@ -70,6 +70,7 @@ function ProductPage() {
   const [prevClick, setPrevClick] = useState(null);
   const [prevClick2, setPrevClick2] = useState(null);
   const [qnaAll, setqnaAll] = useState(null);
+  const [reviewAll, setreviewAll] = useState(null);
   const [qnaComentAll, setqnaComentAll] = useState(null);
   
   // fetchProduct all 
@@ -86,6 +87,7 @@ function ProductPage() {
   const [isColorName, setColorName] = useState(null);
 
   const [pageNumber, setPageNumber] = useState(0);
+  const [pageNumber2, setPageNumber2] = useState(0);
   
   //컬러 클릭후 사이즈 보여주기 -> Free , m
   const [isShowSizeName, setShowSizeName] = useState(null);
@@ -117,6 +119,52 @@ function ProductPage() {
 
   const [isSoldOut, setSoldOut] = useState(false);
 
+
+  
+  const togglePopup = (e,anything) => {
+    console.log("e.target :",e.target.className);
+    console.log("anything.id :",anything.id);
+    let headerStyle2 = document.getElementsByClassName(`control${e.target.className}`)[0];
+    if(headerStyle2.style.display = 'none'){
+      headerStyle2.style.display = 'block' ;
+    }
+    let headerStyle3 = document.getElementsByClassName(`control${e.target.className}`)[0];
+    
+    // if(headerStyle3.style.display = 'block'){
+    //   console.log('heyy;;')
+    //   headerStyle3.style.display = 'none' ;
+    // }
+    if(headerStyle2.style.display == 'block'){
+      headerStyle2.style.display = 'none !important' ;
+    }
+    console.log("headerStyle2 :",headerStyle2.style.display);
+    // if(e.target.className == anything.id){
+    //   console.log("gogo");
+    // }
+    // if (e.target.className == "detail_first_li" ){}
+    
+  };
+  const togglePopup2 = (e) => {
+    // let headerStyle3 = document.getElementsByClassName(`control${e.target.className}`)[0];
+    // if(headerStyle3.style.display = 'block'){
+    //   headerStyle3.style.display = 'none' ;
+    // }
+    let headerStyle3 = document.getElementsByClassName(`control${e.target.className}`)[0];
+    console.log(e.target)
+    console.log(headerStyle3)
+    console.log(headerStyle3.style.display)
+    if(headerStyle3.style.display = 'block'){
+      headerStyle3.style.display = 'none' ;
+    }
+
+    // let headerStyle2 = document.getElementsByClassName(`control${e.target.className}`)[0];
+    // if(headerStyle2.style.display = 'block'){
+    //   headerStyle2.style.display = 'none' ;
+    // }
+    
+  };
+  
+  
   let Session = sessionStorage.getItem('user_id');
   //antd
   const { TabPane } = Tabs;
@@ -332,7 +380,6 @@ function ProductPage() {
   // console.log(scrollFlag);
   // console.log(scrollFlag2);
   // const loggogo = whyerrorObject &&whyerrorObject.find((item) => String(item.id) === String(product.relateProduct1)).id
-  
   useEffect(() => {
     //스크롤 잡아주는 장치
     const updateScroll = () => {
@@ -591,7 +638,7 @@ function ProductPage() {
         .get(`${API_URL}/v1/qna/qnaAllComentGET`)
         .then(function(result){
             // console.log("fetchqnaAllComent : ",result.data);
-            setqnaComentAll(result.data.result.slice(0, 5));
+            setqnaComentAll(result.data.result.slice(0, 50));
         })
         .catch((err) => {
             console.log("Err: ", err);
@@ -606,6 +653,19 @@ function ProductPage() {
         .then(function(result){
             // console.log(result.data);
             setqnaAll(result.data.result)   
+        })
+        .catch((err) => {
+            console.log("Err: ", err);
+        });
+        
+  };
+  const fetchreviewAll = async () => {
+        await axios
+        .get(`${API_URL}/v1/review/reviewAll`)
+        .then(function(result){
+            // console.log(result.data);
+            setreviewAll(result.data.result)   
+            console.log("setreviewAll :",result.data.result);
         })
         .catch((err) => {
             console.log("Err: ", err);
@@ -719,6 +779,8 @@ function ProductPage() {
 
     fetchqnaAllComent()//qna댓글
 
+    fetchreviewAll();//reveiw fetch
+
     getProduct();//useEffect시 1개아이템
 
     youCanAddToCart();//장바구니
@@ -803,8 +865,10 @@ function ProductPage() {
     // message.info("구매가 완료되었습니다.");
     
   }
-  const usersPerPage = 5;//한페이지에 보여주는 갯수
+  const usersPerPage = 8;//한페이지에 보여주는 갯수
   const pagesVisited = pageNumber * usersPerPage;// 1페이지에 1 * 10 / 2페이지에 2 * 20 //최대갯수인듯
+  const usersPerPage2 = 8;//한페이지에 보여주는 갯수
+  const pagesVisited2 = pageNumber2 * usersPerPage;// 1페이지에 1 * 10 / 2페이지에 2 * 20 //최대갯수인듯
   const displayUsers = 
     qnaAll && qnaAll.slice(pagesVisited, pagesVisited + usersPerPage).filter(item => item.product_id == id).map((qna) => {
         return (
@@ -824,14 +888,56 @@ function ProductPage() {
             </Tr>
         )
     })
+
+  //review
+  const displayUsers2 = 
+    reviewAll && reviewAll.slice(pagesVisited2, pagesVisited2 + usersPerPage2).filter(item => item.response_result == id).map((review) => {
+        return (
+            <>
+              <tr style={{overflow: 'hidden',position: 'relative',padding: '14px 0 14px 7px',minHeight: '50px',color: '#757575',borderBottom: '1px solid #ececec'}}value={review.id}  key={review.id} className={review.id} onClick={(e)=>togglePopup(e,review)}>
+                  <td value={review.id} className={review.id} style={{padding:'12px'}}>
+                      <span className="marginleft5">
+                          {review.thumbnail_image  !== null 
+                            ?<CameraOutlined style={{ fontSize: '16px', color: 'black' }} />  
+                            :<MailOutlined style={{ fontSize: '16px', color: 'black' }} /> 
+                          }
+                      </span>
+                      {review.title}
+                      <span className='designNew'>{AddNew(review.createDate)}</span>
+                  </td>
+                  <Td>{review.user_name}</Td>
+                  <Td>{dayjs(review.createdAt).fromNow()}</Td>
+              </tr>
+              <tr style={{width: '100%',display:'none',overflow: 'hidden',position: 'relative',padding: '14px 0 14px 7px',minHeight: '50px',color: '#757575',borderBottom: '1px solid #ececec'}} className={`control${review.id}`} >
+                <Td>
+                  <div className="popup">
+                    <div className="popup_inner">
+                      <div><img className='autoimagecenter' style={{width:'100%'}} src={
+                      process.env.NODE_ENV === 'production'
+                      ?`${review.thumbnail_image}`
+                      :`${API_URL}/${review.thumbnail_image}`} alt="." /></div>
+                      <div style={{margin :'15px auto'}}>{review.description}</div>
+                      <div>구매일자 : {review.createDate}</div>
+                      <button style={{width:'50px'}} className={review.id} onClick={(e)=>togglePopup2(e)}>닫기</button>
+                    </div>
+                  </div>
+                </Td>
+              </tr>
+            </>
+        )
+    })
       
       //qnaAll 질문글
       //qnaComentAll 질문의댓글
 
     const pageCount = Math.ceil(qnaAll&&qnaAll.length / usersPerPage);
+    const pageCount2 = Math.ceil(reviewAll&&reviewAll.length / usersPerPage2);
 
     const changePage = ({ selected }) => {
         setPageNumber(selected);
+    };
+    const changePage2 = ({ selected2 }) => {
+        setPageNumber2(selected2);
     };
   return (
     // <div style={{background:'url(http://localhost:8000/uploads/c2eb3b9de2d11.jpg)'}}>
@@ -1098,7 +1204,7 @@ function ProductPage() {
             <Table>
                 <thead>
                     <Tr className="sod_list_head">
-                        <Th scope="col" width="*" className="text_left">제목</Th>
+                        <Th scope="col" width="50%" className="text_left">제목</Th>
                         <Th scope="col" width="15%" className="second_td">작성자</Th>
                         <Th scope="col" width="25%">작성일</Th>
                     </Tr>
@@ -1141,7 +1247,7 @@ function ProductPage() {
           </div>
           {/* reivew */}
           <div className='Qna_wraaper'>
-            <div className='QnaTitle'>제품후기</div>
+            <div className='QnaTitle'>Reviews</div>
             <Table>
                 <thead>
                     <Tr className="sod_list_head">
@@ -1151,14 +1257,14 @@ function ProductPage() {
                     </Tr>
                 </thead>
                 <tbody>
-                    {displayUsers && displayUsers}
+                    {displayUsers2 && displayUsers2}
                 </tbody>
             </Table>
             <ReactPaginate
                 previousLabel={"Previous"}
                 nextLabel={"Next"}
-                pageCount={pageCount}
-                onPageChange={changePage}
+                pageCount={pageCount2}
+                onPageChange={changePage2}
                 containerClassName={"paginationBttns"}
                 previousLinkClassName={"previousBttn"}
                 nextLinkClassName={"nextBttn"}
@@ -1200,7 +1306,7 @@ function ProductPage() {
             </div>
           </div>
           <div className='deliveryPolicy'>
-            <h1 class="returnPolicy_title">Delivery Policy</h1>
+            <h1 className="returnPolicy_title">Delivery Policy</h1>
             <div>ㆍ배송방법 : CJ택배<br/>ㆍ배송비 : 7만원 이상 결제시 무료배송 <br/>ㆍ취소시(품절포함) 최종 결제 금액에 따라 배송비가 발생되거나 사용한쿠폰이 취소 될 수 있습니다. <br/>ㆍ결제시 적립금을 사용하신 경우, 취소시에&nbsp;적립금이 선환불 처리됩니다 (ex. 신용카드+적립금 결제시, 적립금 선환불처리).<br/>ㆍ옵션 변경은 꼭 Q&amp;A로 문의주셔야 변경이 가능합니다.<br/><br/>ㆍ상품 준비기간 (주말, 공휴일제외)&nbsp;자체 제작 상품 및 사입상품 : 3~7일 소요&nbsp;/ 수입상품 : 5일~10일 소요 <br/>ㆍ제작 상황에 따라 기본 배송일보다 조금 더 지연될 수 있습니다.<br/><br/>ㆍ당일발송&nbsp;오후 2시 이전 결제완료 : 당일 출고 / 오후 2시 이후 결제완료 : 익일 출고 <br/>ㆍ무통장 입금의 경우 입금 확인까지 1~2시간 소요됩니다. <br/>ㆍ당일 발송은 당일 출고 서비스로 단독으로 주문하셔야 당일 출고됩니다. <br/>ㆍ당일 발송 상품과 일반 발송 상품 같이 주문시 상품 준비 기간이소요됩니다.<br/><br/><strong>ㆍ배송지연</strong><br/> 주문 확인일로부터 5일(주말, 공휴일제외) 이후 카카오톡 또는 문자메시지로 지연 안내해 드리고 있으며, 일부 준비된 상품 먼저 발송될 수 있습니다.<br/><br/><strong>ㆍ품절안내</strong><br/>결제 완료 후 품절된 경우 카카오톡 또는 문자메시지로 품절 안내해 드리고 있습니다.  안내 후 익일 내 재문의 없을 경우 임의 취소 될 수 있는 점 양해 부탁드립니다.</div>
           </div>
           

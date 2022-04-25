@@ -234,7 +234,10 @@ const Order = () => {
                                             </td>
                                             <td>{product.od_name}</td>
                                             <td>{AddComma(product.od_cart_price)}</td>
-                                            <td>{product.vbank_num} {product.vbank_name}  /  ({Unix_timestamp(product.vbank_date)} 까지) </td>
+                                            {product.vbank_num !== null
+                                            ?<td>{product.vbank_num} {product.vbank_name}  /  ({Unix_timestamp(product.vbank_date)} 까지) </td>
+                                            :<td>해당없음</td>
+                                            }
                                             
                                             {ModifyAddressBtn && ModifyAddressBtn.params.index == product.od_id ?
                                             <td>
