@@ -28,7 +28,7 @@ const NewPage = () => {
         return Number(value).toLocaleString('en');
     }
 
-    const displayUsers = products.slice(0,50)//50중에 
+    const displayUsers = products.slice(0,7)//50중에 
         .slice(pagesVisited, pagesVisited + usersPerPage)// 최대갯수 ~  최대갯수 + 10
         .map((product) => {
         // .filter(item => item.category == "DRESSES/SKIRTS").map((product) => {

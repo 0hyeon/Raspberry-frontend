@@ -30,7 +30,7 @@ const OuterWear = () => {
 
     const displayUsers = products.slice(0,50)//50중에 
         .slice(pagesVisited, pagesVisited + usersPerPage)// 최대갯수 ~  최대갯수 + 10
-        .filter(item => item.category == "OuterWear").map((product) => {
+        .filter(item => item.category == "Outerwear").map((product) => {
         // .filter(item => item.category == "DRESSES/SKIRTS").map((product) => {
             return (
                 <div className="product-card">

@@ -71,8 +71,9 @@
   } */
   .bestCategoryWrap > div > div:first-child > section {
     pointer-events: inherit !important;
+    width: 90%;
+    margin: auto;
   }
-  
   
   .main_Swiper > {
     pointer-events: none;

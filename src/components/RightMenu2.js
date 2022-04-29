@@ -6,7 +6,8 @@ import { BrowserRouter as Router, Route, Switch, Link,useHistory } from
 import { ShoppingCartOutlined, SearchOutlined } from "@ant-design/icons";
 // import BGM from '../pogo.mp3';
 // import BGM from '../DOORAGS.mp3';
-import BGM from '../only_thing_i_ever_get_for_christmas.mp3';
+// import BGM from '../only_thing_i_ever_get_for_christmas.mp3';
+import BGM from '../Zedd & Alessia Cara - Stay (UPLINK & MAGNÜS Remix) [Free Download].mp3';
 import ReactAudioPlayer from 'react-audio-player';
 import axios from 'axios';
 import {API_URL} from '../config/constants'
