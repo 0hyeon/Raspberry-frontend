@@ -18,7 +18,10 @@ import ReactPaginate from "react-paginate";
 import jwt_decode from "jwt-decode";
 
 import loadable from '@loadable/component'
+import { Tabs, Tab } from "@tarragon/swipeable-tabs/dist";
+
 const MainPage = loadable(() => import('../swiperSlide'));
+
 dayjs.extend(relativeTime);//dayjs에서 확장된 기능 사용 
 
 function Main(props) {
@@ -36,35 +39,16 @@ function Main(props) {
     const whyerrorObject = useSelector((state) => state.productoptions.productoptions.products);
     // console.log("whyerrorObject",whyerrorObject);
     const dispatch = useDispatch();
-    // const fetchProducts = async () => { 
-    //     await axios
-        
-    //       .get(`${API_URL}/products`)
-    //     //   .get('https://jsonplaceholder.typicode.com/posts')
-    //       .then(function(result){
-    //         // setLoading(true);
-    //         // const products = result.data.products;
-    //         // setProducts(products);
-    //         // console.log(result.data.products);
-    //         dispatch(setProducts(result.data));
-    //         setPosts(result.data.products);
-    //         // console.log(result.data.products);
-    //         // console.log(products);
-    //         // setLoading(false);
-    //         // console.log(result.data.products);
-            
-    //     })
-    //     .catch((err) => {
-    //         console.log("Err: ", err);
-    //     });
-        
-    // };
-   
-     //현재 페이지 가져오기
-    // console.log(posts);
     const [pageNumber, setPageNumber] = useState(0);
-    
-    
+    const [selectedTab, setSelectedTab] = useState(0);
+
+    const changeTab = (updatedTab)  => {
+        setSelectedTab(updatedTab.label);
+    }
+
+    const uniqueCategory = products.map((it)=>(it.category));
+    let uniqueCategory2 = [...new Set(uniqueCategory)]
+
     const productsOptionsAll = async (limitNum) => {
         let body = {
             limitNum
@@ -93,14 +77,7 @@ function Main(props) {
             await axios
                 .post(`${API_URL}/v1/cart/setCartItem`, body)
                 .then(function(result){
-                // const products = result.data.products;
-                // setProducts(products);
-                // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
                 dispatch(setCartItem(result.data));
-                // dispatch(setRequestLoding())//loding true로 장바구니 랜더링
-                // console.log(result.data);
-                // console.log(result.data.cartItem);
-                // console.log('state : ',state);
             })
             .catch((err) => {
                 console.log("Err: ", err);
@@ -108,8 +85,6 @@ function Main(props) {
             });
             
         } 
-        
-        // dispatch(setProducts(result.data));
     };
 
     //mobile check
@@ -118,23 +93,17 @@ function Main(props) {
     function mouserOverHover(e,imageUrl2,imageUrl){
         if (isMobile){
             return;
-
         }else{
-            if(imageUrl2 == null){
-                return;
-            }
+            if(imageUrl2 == null){return;}
             document.getElementById(`${e.target.id}`).src = process.env.NODE_ENV === 'production' ?`${imageUrl2}` : `${API_URL}/${imageUrl2}`;
         }
-
     }
     function mouserOutHover(e,imageUrl){
         if (isMobile){
             return;
         }else{
-            
             document.getElementById(`${e.target.id}`).src = process.env.NODE_ENV === 'production' ?`${imageUrl}` : `${API_URL}/${imageUrl}`;
         }
-        
     }
     const ItemFetchLength = 50;//모든페이지에 들어가는 아이템수
     const usersPerPage = 10;//한페이지에 보여주는 갯수
@@ -153,9 +122,7 @@ function Main(props) {
                         className="product-link"
                         to={`/products/${product.id}`}
                     >
-                        <div className="wrppper-product-img"
-                          
-                        >
+                        <div className="wrppper-product-img">
                             <img
                                 id={product.id} 
                                 className="product-img" src={
@@ -247,8 +214,50 @@ function Main(props) {
                 : 
                 <>
                     <MainPage />
-                    <div style={{background:'', backgroundSize:"cover"}}>
-                        <h1 id="product-headline">New Arrivals.</h1>
+                        <div style={{background:'', backgroundSize:"cover"}} className="bestCategoryWrap">
+                            <h1 className="product-headline">BEST CATEGORY</h1>
+                            <Tabs 
+                                value={selectedTab} 
+                                onChange={changeTab} 
+                                styleProps={{
+                                    selectedHeaderTextColor: "#1890ff",
+                                    headerTextColor: "black",
+                                    activeInkBarColor: "#1890ff",
+                                    inkBarColor: "hsla(0,0%,100%,.45)",
+                                    size: "medium",
+                                    barColor: "transparent"
+                                }}
+                            >
+                            {uniqueCategory2.map((it,i)=>{
+                                return(<Tab label={it} key={i || 0}>
+                                    {products.length > 0 ? (
+                                        products
+                                        .filter(goods => goods.category === it)
+                                        .slice(0,6)
+                                        .map((goods, index) => (
+                                            <>
+                                                <Link
+                                                    style={{ color: "inherit"}}
+                                                    className="product-link"
+                                                    to={`/products/${goods.id}`}
+                                                >
+                                                    <div className='objectMenu' style={{width:'33.33%',display:'inline-block',pointerEvents:'inherit'}}>
+                                                            <img key={`goods-${index}`}  src={
+                                                            process.env.NODE_ENV === 'production'
+                                                            ?`${goods.imageUrl}`
+                                                            :`${API_URL}/${goods.imageUrl}`} alt={`${i}번째사진`} style={{width:'100%',pointerEvents:'none'}}/> 
+                                                    </div>
+                                                </Link>
+                                            </>
+                                        ))
+                                    ) : (
+                                        <div className="no-goods">상품 없음</div>
+                                    )}
+                                </Tab>)
+                            })}
+                            </Tabs>
+                        </div>
+                        <h1 className="product-headline">New Arrivals.</h1>
                         <div className="product-list-wrapper" id="product-list">
                             {displayUsers}
                             <ReactPaginate
@@ -264,7 +273,7 @@ function Main(props) {
                             />
                         </div>
                         
-                    </div>
+                    
                 </>
             }
         </div>
