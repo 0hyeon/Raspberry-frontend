@@ -54,7 +54,8 @@ const Payment = (props) => {
             buyer_tel: userPhone,   // 구매자 전화번호 (필수항목)
             buyer_email: userEmail, // 구매자 이메일
             buyer_addr: `${userAddress} / ${userAddressdetail}`,//구매자주소
-            buyer_postalcode: setAddressState.zonecode//우편주소
+            buyer_postalcode: setAddressState.zonecode,//우편주소
+            m_redirect_url:'https://test.rasberry-berry.com/v1/order/mobile'
         };
         console.log("data",data);
 
@@ -94,12 +95,14 @@ const Payment = (props) => {
             console.log(error);
             alert("결제실패");
         });
-        IMP.request_pay(data, callback);
-        IMP.request_pay({
-            /* ...중략... */
-            // m_redirect_url: "{리디렉션 될 URL}" // 예: https://www.myservice.com/payments/complete/mobile
-            m_redirect_url: "{https://test.rasberry-berry.com/v1/webhook/setMobile}" // 예: https://www.myservice.com/payments/complete/mobile
-        }, /* callback */); // callback은 실행 안됨
+        
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
+        if(isMobile){
+            console.log('data.m_redirect_url : ',data.m_redirect_url);
+            IMP.request_pay(data.m_redirect_url, /* callback */); // callback은 실행 안됨
+        }else{
+            IMP.request_pay(data, callback);
+        }
 
 
     }
