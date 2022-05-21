@@ -1,5 +1,6 @@
 @import url("//vendor-cdn.imweb.me/css/gilroy.css");
 @import url("https://use.typekit.net/sfa0iuf.css");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
 @font-face {
   font-family: 'Uiyeun';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105@1.1/Uiyeun.woff') format('woff');
@@ -121,6 +122,22 @@
     text-align: left;
     font-family: 'Noto Sans KR';
   }
+  .productSalePercent{
+    font-size: 14px;
+    font-weight: bold;
+    color: #FF9995 !important;
+    font-family: 'Poppins', sans-serif;
+
+  }
+  .product-marketPrice {
+    color:#dfdfdf;
+    text-decoration: line-through;
+    font-size: 14px!important;
+    color: #353535;
+    margin-top:3px !important;
+    text-align: left;
+    font-family: 'Noto Sans KR';
+  }
   
   .product-seller {
     display: flex;
@@ -237,17 +254,17 @@
     background-color: black!important;
   }
   .product-Colors {
-   /* margin-top: 7px;  */
+   margin-top: 3px; 
    text-align:left;
    height:20px;
   }
   .ColorCircle{
-    width: 12px;
-    height: 12px;
-    border-radius:12px;
+    width: 13px;
+    height: 13px;
+    border-radius:13px;
     margin-right: 1px;
     display: inline-block;
-    border: 1px solid #efefef;
+    border: 1.5px solid #efefef;
   }
   .product-subName{
     font-size:12px ;
@@ -328,11 +345,14 @@
       display: flex;
     }
     .product-subName{
-      font-size:10px !important;
+      font-size:11px !important;
       margin-top: inherit !important;
       letter-spacing: 0.5px !important;
       text-align:left;
       word-break: keep-all;
+      min-height: 37.5px;
+      display: flex;
+      align-items: center;
     }
     .product-img{
       object-fit: contain !important;
@@ -363,7 +383,7 @@
       padding:30px 0px 40px!important;
     }
     .product-name {
-      font-size: 12px!important;
+      font-size: 13px!important;
       text-align:left;
       line-height: 1.2em!important;
       height: auto !important;
@@ -371,8 +391,8 @@
       word-break: keep-all;
     }
     .product-price {
-      font-size: 10px!important;
-      font-weight: normal;
+      font-size: 14px!important;
+      font-weight:bold;
       color: #353535;
       margin-top:3px !important;
     }

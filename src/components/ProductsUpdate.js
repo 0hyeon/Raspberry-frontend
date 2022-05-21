@@ -1171,7 +1171,6 @@ function ProductsUpdate() {
             <Option value="disabled" disabled>
               Disabled
             </Option>
-            <Option value="New">New</Option>
             <Option value="Outerwear">Outerwear</Option>
             <Option value="Tops">Tops</Option>
             <Option value="Bottoms">Bottoms</Option>

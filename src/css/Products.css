@@ -126,7 +126,7 @@
   }
   
   #price {
-    font-size: 12px;
+    font-size: 16px;
     /* font-weight: 600; */
     margin-bottom: 10px;
     color: #000000;
@@ -494,11 +494,11 @@
   #contents-box{
     position: inherit!important;
     margin-left: inherit!important;
-    padding: 0px 9px 40px!important;
+    padding: 0px 24px 40px!important;
     width: 100% !important;
   }
   .content_wrapper{
-    padding: 80px 15px 70px!important;
+    padding: 0px 0px 70px!important;
   }
   .description{
     height: 30vh!important;
@@ -517,6 +517,10 @@
   .content_wrapper .swiper-button-next, .content_wrapper .swiper-button-prev{
     /* color: white!important; */
     display: none!important;
+  }
+  pre > p:first-child {
+    font-weight: bold;
+    font-size: 13px;
   }
   .detail_Common > li {
     width: 6.8vw !important;

@@ -11,7 +11,7 @@ const BestCategory = () => {
   const products = useSelector((state) => state.products.products);
 
   const uniqueCategory = products.map((it)=>(it.category));
-  let uniqueCategory2 = [...new Set(uniqueCategory)]
+  let uniqueCategory2 = [...new Set(uniqueCategory)]//카테고리 중복제거 
   return (
     <div style={{background:'', backgroundSize:"cover"}} className="bestCategoryWrap">
         <h1 className="product-headline">BEST CATEGORY</h1>

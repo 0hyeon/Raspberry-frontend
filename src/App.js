@@ -41,6 +41,7 @@ import OrderPage from './components/OrderPage';
 import OrderPageMulti from './components/OrderPageMulti';
 // const OrderResult = loadable(() => import('./components/OrderResult'))
 import OrderResult from './components/OrderResult';
+import OrderResultMobile from './components/OrderResultMobile';
 // const Order = loadable(() => import('./components/Order'))
 import Order from './components/Order';
 // const NewPage = loadable(() => import('./components/NewPage'))
@@ -237,6 +238,9 @@ function App () {
             </Route>
             <Route exact={true} path="/OrderResult">
               <OrderResult />
+            </Route>
+            <Route exact={true} path="/OrderResultMobile">
+              <OrderResultMobile />
             </Route>
             <Route exact={true} path={["/Order","/ModifyAddress/:index"]}>
               <Order />

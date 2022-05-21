@@ -24,6 +24,7 @@
     "jwt-decode": "^3.1.2",
     "mysql": "^2.18.1",
     "puppeteer": "^13.0.1",
+    "query-string": "^7.1.1",
     "react": "^16.14.0",
     "react-audio-player": "^0.17.0",
     "react-cookie": "^4.1.1",

@@ -249,7 +249,7 @@
     /* padding: 25px 20px; */
   }
   .menuCon{
-    height: 80px!important;
+    height: 65px!important;
   }
   #Logo_style {
     width: 73px!important;
@@ -264,5 +264,8 @@
     display: inline-block !important;
     position: absolute;
     left: 15px;
+  }
+  .menuBar{
+    min-width:inherit !important;
   }
 }

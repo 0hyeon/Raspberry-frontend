@@ -59,6 +59,7 @@ function UploadPage() {
       subDescription : values.subname,
       seller : values.seller,
       price :  parseInt(values.price),
+      marketPrice :  parseInt(values.marketPrice),
 
       color1 : values.color1,
       colorName1 : values.colorName1,
@@ -107,6 +108,13 @@ function UploadPage() {
     alert('상품명 2 ~ 37자 사이로 입력해주세요.');
       return;
     }
+    // 시중가격 < 상품가격 alert
+    if(values.price > values.marketPrice){
+      alert('시중가격이 판매가격보다 높습니다.');
+        return;
+    }
+
+
     axios.post(`${API_URL}/v1/product/products_post`,body,{
       withCredentials:true
     }).then(() => {
@@ -439,6 +447,15 @@ function UploadPage() {
             size="large"
             placeholder="상품 서브이름을 입력해주세요"
           />
+        </Form.Item>
+        <Divider />
+        {/* 시장가격 */}
+        <Form.Item
+          name="marketPrice"
+          label={<div className="upload-label">시중 가격</div>}
+          rules={[{ required: true, message: "시중 가격을 입력해주세요" }]}
+        >
+          <InputNumber name="marketPrice" defaultValue={0} className="product-marketPrice" size="large" />
         </Form.Item>
         <Divider />
         {/* 상품가격 */}

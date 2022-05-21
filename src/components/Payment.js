@@ -55,11 +55,9 @@ const Payment = (props) => {
             buyer_email: userEmail, // 구매자 이메일
             buyer_addr: `${userAddress} / ${userAddressdetail}`,//구매자주소
             buyer_postalcode: setAddressState.zonecode,//우편주소
-            m_redirect_url:'https://test.rasberry-berry.com/v1/order/mobile'
+            m_redirect_url: "https://rasberry-berry.com/OrderResultMobile" // 예: https://www.myservice.com/payments/complete/mobile
         };
         console.log("data",data);
-
-        
 
         axios.post(`${API_URL}/v1/order/payment`,{//1차적으로 db에추가
             od_id : data.merchant_uid, //거래번호 
@@ -95,16 +93,7 @@ const Payment = (props) => {
             console.log(error);
             alert("결제실패");
         });
-        
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
-        if(isMobile){
-            console.log('data.m_redirect_url : ',data.m_redirect_url);
-            IMP.request_pay(data.m_redirect_url, /* callback */); // callback은 실행 안됨
-        }else{
-            IMP.request_pay(data, callback);
-        }
-
-
+        IMP.request_pay(data, callback);
     }
 
     const callback= async (response) => {

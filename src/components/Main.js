@@ -143,7 +143,23 @@ function Main(props) {
                             
                             {product.soldout === 1 
                                 ?<span className="product-price">Soldout.</span> 
-                                :<span className="product-price">{AddComma(product.price)} won</span> 
+                                :
+                                <>
+                                    <div className='product_price_wrapper' style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+                                        <div>
+                                            {product.marketPrice !== null 
+                                                ? <div className="product-marketPrice">{AddComma(product.marketPrice)} won</div>  
+                                                : null 
+                                            }
+                                            <div className="product-price">{AddComma(product.price)} won</div> 
+                                        </div>
+                                        {product.marketPrice !== null 
+                                            ? <div className="productSalePercent">{PdSalePercent(product.price,product.marketPrice)}%</div> 
+                                            : null} 
+                                        
+                                    </div>
+                                </>
+                                
                             }
                             {product.soldout === 1 
                                 ? null
@@ -188,6 +204,12 @@ function Main(props) {
     //콤마 함수
     function AddComma(value) {
         return Number(value).toLocaleString('en');
+    }
+    //퍼센트 계산
+    function PdSalePercent(price,maketPrice) {
+        console.log(price);
+        console.log(maketPrice);
+        return Math.round((1 - ( price/ maketPrice )) * 100)
     }
     
         
