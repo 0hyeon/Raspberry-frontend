@@ -883,7 +883,7 @@ function ProductPage() {
                     <span className='designNew'>{AddNew(qna.createDate)}</span>
                 </Td>
                 </Link>
-                <Td>{qna.user_name}</Td>
+                <Td>{qna.user_name.slice(0, -1)}*</Td>
                 <Td>{dayjs(qna.createdAt).fromNow()}</Td>
             </Tr>
         )
