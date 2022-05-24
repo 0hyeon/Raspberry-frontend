@@ -905,7 +905,7 @@ function ProductPage() {
                       {review.title}
                       <span className='designNew'>{AddNew(review.createDate)}</span>
                   </td>
-                  <Td>{review.user_name}</Td>
+                  <Td>{review.user_name.slice(0, -1)}*</Td>
                   <Td>{dayjs(review.createdAt).fromNow()}</Td>
               </tr>
               <tr style={{width: '100%',display:'none',overflow: 'hidden',position: 'relative',padding: '14px 0 14px 7px',minHeight: '50px',color: '#757575',borderBottom: '1px solid #ececec'}} className={`control${review.id}`} >
@@ -1147,27 +1147,27 @@ function ProductPage() {
           null 
           :
           <div className="dtail_Page22">
-            <h3 className="detail_title">Detail Page.</h3>
+            <h3 className="detail_title">Other Color</h3>
             {product.detailPage2 == null? null 
             :<img src={
               process.env.NODE_ENV === 'production'
               ?`${product.detailPage2}`
-              :`${API_URL}/${product.detailPage2}`} alt="" />}
+              :`${API_URL}/${product.detailPage2}`} alt="." />}
             {product.detailPage3 == null? null 
             :<img src={
               process.env.NODE_ENV === 'production'
               ?`${product.detailPage3}`
-              :`${API_URL}/${product.detailPage3}`} alt="" />}
+              :`${API_URL}/${product.detailPage3}`} alt="." />}
             {product.detailPage4 == null? null 
             :<img src={
               process.env.NODE_ENV === 'production'
               ?`${product.detailPage4}`
-              :`${API_URL}/${product.detailPage4}`} alt="" />}
+              :`${API_URL}/${product.detailPage4}`} alt="." />}
             {product.detailPage5 == null? null 
             :<img src={
               process.env.NODE_ENV === 'production'
               ?`${product.detailPage5}`
-              :`${API_URL}/${product.detailPage5}`} alt="" />}
+              :`${API_URL}/${product.detailPage5}`} alt="." />}
           </div>
           }
           <div className='relate_wraaper'>

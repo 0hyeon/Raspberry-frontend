@@ -194,14 +194,12 @@ function Main(props) {
                                         ? <span className="product-reviewAndsellNum">구매 {product.sellCount} </span>  
                                         : null 
                                     }
-                                    
-                                        {reviewAll && reviewAll.filter(item => String(item.response_result) === String(product.id)).length > 0 
-                                        ? <span className="product-reviewAndsellNum">
-                                            | 리뷰 {reviewAll && reviewAll.filter(item => String(item.response_result) === String(product.id)).length}
-                                        </span>
-                                        : null
-                                        }
-                                    
+                                    {reviewAll && reviewAll.filter(item => String(item.response_result) === String(product.id)).length > 0 
+                                    ? <span className="product-reviewAndsellNum">
+                                        | 리뷰 {reviewAll && reviewAll.filter(item => String(item.response_result) === String(product.id)).length}
+                                    </span>
+                                    : null
+                                    }
                                 </div>
                             </div>
                             <div className="product-footer">
