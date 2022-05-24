@@ -33,6 +33,7 @@ function Main(props) {
     const [postPerPage] = useState(4); //페이지당 포스트 개수
     const [isproduct_list,setproduct_list] = useState([]);
     const [isproductsOptionsAll, setproductsOptionsAll] = useState([]);
+    const [reviewAll, setreviewAll] = useState([]);
     // const [banners, setBanners] = React.useState([]);
     // const state = useSelector((state) => state);
     // const products = useSelector((state) => state.allProducts.products);
@@ -83,6 +84,20 @@ function Main(props) {
             
         } 
     };
+    //fetchreviewAll
+    const fetchreviewAll = async () => {
+        await axios
+        .get(`${API_URL}/v1/review/reviewAll`)
+        .then(function(result){
+            // console.log(result.data);
+            setreviewAll(result.data.result)   
+            console.log("setreviewAll :",result.data.result);
+        })
+        .catch((err) => {
+            console.log("Err: ", err);
+        });
+        
+  };
 
     //mobile check
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
@@ -145,7 +160,7 @@ function Main(props) {
                                 ?<span className="product-price">Soldout.</span> 
                                 :
                                 <>
-                                    <div className='product_price_wrapper' style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+                                    <div className='product_price_wrapper' style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:'9px'}}>
                                         <div>
                                             {product.marketPrice !== null 
                                                 ? <div className="product-marketPrice">{AddComma(product.marketPrice)} won</div>  
@@ -172,6 +187,23 @@ function Main(props) {
                                     }
                                 </span> 
                             }
+                            {/* 리뷰수 & 구매수 */}
+                            <div className='product_price_wrapper' style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+                                <div>
+                                    {product.sellCount !== null 
+                                        ? <span className="product-reviewAndsellNum">구매 {product.sellCount} </span>  
+                                        : null 
+                                    }
+                                    
+                                        {reviewAll && reviewAll.filter(item => String(item.response_result) === String(product.id)).length > 0 
+                                        ? <span className="product-reviewAndsellNum">
+                                            | 리뷰 {reviewAll && reviewAll.filter(item => String(item.response_result) === String(product.id)).length}
+                                        </span>
+                                        : null
+                                        }
+                                    
+                                </div>
+                            </div>
                             <div className="product-footer">
                                 <div className="product-seller">
                                     <img
@@ -196,6 +228,7 @@ function Main(props) {
         dispatch(productOptionActions.setProductOptionsSV(products.id));
         setproduct_list(products);
         productsOptionsAll(ItemFetchLength);
+        fetchreviewAll();
         fetchCartItem();
         setLoading(false);
     }, []);
@@ -207,8 +240,6 @@ function Main(props) {
     }
     //퍼센트 계산
     function PdSalePercent(price,maketPrice) {
-        console.log(price);
-        console.log(maketPrice);
         return Math.round((1 - ( price/ maketPrice )) * 100)
     }
     
@@ -223,10 +254,11 @@ function Main(props) {
     const changePage = ({ selected }) => {
         setPageNumber(selected);
     };
-    if (isproductsOptionsAll == null){
+    if (isproductsOptionsAll == null || reviewAll == null){
         return <div>Loading...</div>
     }
-    
+    console.log("products : ",products);
+    console.log("reviewAll : ",reviewAll);
     return(
         <div>
             { loading ? <div>Loading...</div>

@@ -138,6 +138,13 @@
     text-align: left;
     font-family: 'Noto Sans KR';
   }
+  .product-reviewAndsellNum {
+    color:#dfdfdf;
+    font-size: 12px!important;
+    text-align: left;
+    font-family: 'Noto Sans KR';
+    color: #9f9f9f;
+  }
   
   .product-seller {
     display: flex;
@@ -166,7 +173,7 @@
     color: rgb(136,136,136);
   }
   .product-headline{
-    padding: 130px 0px 50px;
+    padding: 20px 0px 50px;
     text-align: center;
     color: blacks;
     font-weight: 100;
@@ -356,6 +363,7 @@
     }
     .product-img{
       object-fit: contain !important;
+      border-radius: 24px;
     }
     
   }
