@@ -178,6 +178,18 @@
   color: white;
   border-radius: 50%;
 }
+.cartCount2{
+  font-size: 12px;
+  position: absolute;
+  top: 20%;
+  padding-right: 3px;
+  right: 4%;
+  width: 15px;
+  height: 15px;
+  background-color: black;
+  color: white;
+  border-radius: 50%;
+}
 .cartCount_in_a{
   padding:inherit!important;
 }
@@ -267,5 +279,10 @@
   }
   .menuBar{
     min-width:inherit !important;
+  }
+  .cartCount{
+    top: 11% !important;
+    left: 14% !important;
+    padding-left: 3px !important;
   }
 }

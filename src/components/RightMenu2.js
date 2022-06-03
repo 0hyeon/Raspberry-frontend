@@ -105,20 +105,22 @@ if(sessionStorage.getItem('user_id') == null){
                 </Menu.Item>
                 <Menu.Item key="cart">
                     <Link to="/CartPage" className="cartCount_in_a RM_2a_link" onClick={() => props.onClose()}>
-                        {isLogin ? <ShoppingCartOutlined /> : null}
+                        {isLogin ? <ShoppingCartOutlined /> : <ShoppingCartOutlined />}
                         {/* {isLogin ? <cartCount /> : null}
                         <cartCount /> */}
                         {isLogin 
                             ? <div className="cartCount">{user.cartItem.length}</div> 
-                            : null
+                            : <div className="cartCount">{user.cartItem.length}</div> 
                         }
                     </Link>
-                <ReactAudioPlayer
-                    src={BGM}
-                    loop
-                    controls
-                    // autoPlay
-                />
+                </Menu.Item>
+                <Menu.Item key="Bgm">
+                    <ReactAudioPlayer
+                        src={BGM}
+                        loop
+                        controls
+                        // autoPlay
+                    />
                 </Menu.Item>
             </Menu>
         </div>

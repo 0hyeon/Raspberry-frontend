@@ -6,8 +6,10 @@ import "../css/navbar.css";
 import { Drawer, Button} from 'antd';
 import { Link } from "react-router-dom";
 import { InstagramOutlined } from "@ant-design/icons";
+import { useDispatch, useSelector,connect } from "react-redux";
 const Navbar = (props) => {
   
+  const user = useSelector(state => state.allProducts)
   const [visible, setVisible] = useState(false);
 
   const showDrawer = () => {
@@ -42,6 +44,7 @@ const Navbar = (props) => {
             <Button className="barsMenu" type="primary" onClick={showDrawer}>
               <span className="barsBtn"></span>
             </Button>
+            <div className="cartCount2">{user.cartItem.length}</div> 
             <Drawer
               title="Menu"
               placement="right"

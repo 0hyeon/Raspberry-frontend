@@ -119,6 +119,8 @@ function ProductPage() {
 
   const [isSoldOut, setSoldOut] = useState(false);
 
+  //
+  const [isAlreadyCart, setisAlreadyCart] = useState("");
 
   
   const togglePopup = (e,anything) => {
@@ -246,7 +248,6 @@ function ProductPage() {
       }
       
     }else{
-      alert('go dev');
       if(state.allProducts.cartItem.length === 0){
         const inputDate2 = {
           id,
@@ -255,7 +256,7 @@ function ProductPage() {
           it_Detail_size: isShowSizeName, 
           it_id: isProductId,
           it_name: product.name,
-          it_option_id: "122",
+          it_option_id: isProductId,
           it_sc_price: Number(product.price),
           it_sc_qty: null,
           it_sc_stock: isnowProductNum,
@@ -270,10 +271,15 @@ function ProductPage() {
             inputDate2
           ]
         }
-        console.log("state.allProducts.cartItem",state.allProducts.cartItem);
-        console.log("body3 :",body3);
+        // console.log("state.allProducts.cartItem",state.allProducts.cartItem);
+        // console.log("body3 :",body3);
         
         dispatch(setCartItem(body3));
+        if(window.confirm('장바구니 저장완료 계속 쇼핑 하시겠습니까?')){
+          return;
+        }else{
+          history.push("/CartPage");
+        }
       }else{
         //빈배열을 만든다.
         const inputDate3 = {
@@ -283,7 +289,7 @@ function ProductPage() {
           it_Detail_size: isShowSizeName, 
           it_id: isProductId,
           it_name: product.name,
-          it_option_id: "122",
+          it_option_id: isProductId,
           it_sc_price: Number(product.price),
           it_sc_qty: null,
           it_sc_stock: isnowProductNum,
@@ -292,24 +298,46 @@ function ProductPage() {
           result: null,
           thumb_name: product.imageUrl,
         };
-        console.log("inputDate3 : ",inputDate3);
-        alert("this is else!");
+        // console.log("inputDate3 : ",inputDate3);
+        
 
         //state를 불러서 push에담는다 
         const acceptarray9 = state.allProducts.cartItem;
-        console.log("acceptarray9 : ",acceptarray9);
-        // const [acceptarray] = state.allProducts.cartItem;
-// console.log("acceptarray : ",acceptarray);
+
+        // let difference = acceptarray9.filter(x => !isAlreadyCart.includes(x)); // 결과 1
+        // console.log("difference :",difference);
+        // console.log("inputDate3.it_option_id :",inputDate3.it_option_id);// 클릭한 상품의 option_id //10
+        // console.log("acceptarray9 before : ", acceptarray9);
+        const acceptarray10 = acceptarray9.filter(it_id=>it_id.it_option_id === inputDate3.it_option_id)
+        // console.log("acceptarray10 :",acceptarray10);
+        if ( acceptarray10.length !== 0){
+          if(window.confirm('이미 추가된 상품입니다. 계속 쇼핑 하시겠습니까?')){
+            return;
+          }else{
+            history.push("/CartPage");
+          }
+
+          return;
+        }
+        // console.log("acceptarray10 : ",acceptarray10);
+        
+
+        // }
         //현재 누를걸 불러서 push에 담는다 
         acceptarray9.push(inputDate3);
-        console.log("acceptarray9 : ",acceptarray9);
+        // console.log("acceptarray9 after : ",acceptarray9);//담긴후 카트 배열 
         let body4 = {
           "cartItem": 
             acceptarray9
-          
         }
-        console.log("body4 : ",body4);
+        // console.log("body4 : ",body4);
         dispatch(setCartItem(body4));
+        
+        if(window.confirm('장바구니 저장완료 계속 쇼핑 하시겠습니까?')){
+          return;
+        }else{
+          history.push("/CartPage");
+        }
       }
       
     }

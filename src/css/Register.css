@@ -1,6 +1,6 @@
 .registerTop{
     font-family: 'Uiyeun';
-    margin: 30px 0 20px;
+    margin: 70px 0 20px;
     font-size: 37px;
 }
 .input_id{
@@ -37,7 +37,7 @@ label{
     position: absolute !important;
     top: 50% !important;
     left: 50% !important;
-    transform: translate(-50%, -50%) !important;
+    transform: translate(-50%, -34%) !important;
 }
 .OrderPage_productArea{
     border-top: 1px solid #909090;
@@ -88,7 +88,7 @@ label{
     vertical-align: bottom;
     margin-right: 4px;
 }
-@media screen and (max-width:800px) {
+@media screen and (max-width:767px) {
     .OrderPage_productArea_wrapper_right{
         margin-left: 12px !important;
         width: 243px !important;
@@ -99,5 +99,6 @@ label{
     .postCode_btn{
         top: 14% !important;
         right: 2% !important;
+        margin-top: -229px !important;
     }
 }

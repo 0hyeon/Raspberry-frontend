@@ -153,9 +153,9 @@ function CartPage(props) {
                 <table id="sod_list" className="table">
                     <thead>
                         <tr className="sod_list_head">
-                            <th scope="col" width="*" className="text_left">상품명</th>
-                            <th scope="col" width="15%" className="second_td">수량</th>
-                            <th scope="col" width="25%">가격</th>
+                            <th scope="col" width="15%" className="text_left">상품명</th>
+                            <th scope="col" width="30%" className="second_td">수량</th>
+                            <th scope="col" width="20%">가격</th>
                             <th scope="col" width="25%">배송비</th>
                             <th scope="col" width="10%">삭제</th>
                         </tr>
