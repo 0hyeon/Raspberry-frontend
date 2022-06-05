@@ -66,8 +66,8 @@
 }
 @media (max-width: 767px) {
     #popupDom{
-        position: absolute !important;
-        top: 20% !important;
+        position: fixed !important;
+        top: 47% !important;
         left: 0% !important;
         transform: inherit !important;
         width: 100% !important;

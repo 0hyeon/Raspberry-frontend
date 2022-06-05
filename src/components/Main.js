@@ -151,22 +151,23 @@ function Main(props) {
                                 ?<span className="product-name" style={{textDecoration: 'line-through' }}>{product.name}</span> 
                                 :<span className="product-name">{product.name}</span>
                             }
+                            
+                            
                             {product.soldout === 1 
                                 ?null
                                 :<span className="product-subName">{product.subDescription}</span>
                             }
-                            
                             {product.soldout === 1 
                                 ?<span className="product-price">Soldout.</span> 
                                 :
                                 <>
                                     <div className='product_price_wrapper' style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:'9px'}}>
                                         <div>
+                                            <div className="product-price">{AddComma(product.price)} won</div> 
                                             {product.marketPrice !== null 
                                                 ? <div className="product-marketPrice">{AddComma(product.marketPrice)} won</div>  
                                                 : null 
                                             }
-                                            <div className="product-price">{AddComma(product.price)} won</div> 
                                         </div>
                                         {product.marketPrice !== null 
                                             ? <div className="productSalePercent">{PdSalePercent(product.price,product.marketPrice)}%</div> 
@@ -176,6 +177,7 @@ function Main(props) {
                                 </>
                                 
                             }
+                            
                             {product.soldout === 1 
                                 ? null
                                 :<span className="product-Colors">
@@ -250,6 +252,8 @@ function Main(props) {
     
 
     const changePage = ({ selected }) => {
+        var location = document.querySelector("#product-list-arrivals").offsetTop;
+        window.scrollTo({top:location, behavior:'smooth'});
         setPageNumber(selected);
     };
     if (isproductsOptionsAll == null || reviewAll == null){
@@ -264,7 +268,7 @@ function Main(props) {
                 <>
                     <MainPage />
                     <BestCategory />
-                    <h1 className="product-headline">New Arrivals.</h1>
+                    <h1 className="product-headline" id="product-list-arrivals">New Arrivals.</h1>
                     <div className="product-list-wrapper" id="product-list">
                         {displayUsers}
                         <ReactPaginate

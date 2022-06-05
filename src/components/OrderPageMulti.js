@@ -108,10 +108,11 @@ function OrderPageMulti() {
             }else if(phone_naming.length < 10 ){
                 alert('핸드폰번호를 확인해주세요.')
                 return;
-            }else if(email_naming == ""){
-                alert('이메일을 입력해주세요.')
-                return;
             }
+            // else if(email_naming == ""){
+            //     alert('이메일을 입력해주세요.')
+            //     return;
+            // }
             setpayMethod(data.picked)
             // axios.post(`${API_URL}/v1/user_inform`, data).then(()=>{
             //     console.log(data);
@@ -230,10 +231,12 @@ function OrderPageMulti() {
             }else if(phone_naming.length < 10 ){
                 setsiwpeOrder(false);
                 return;
-            }else if(email_naming == ""){
-                setsiwpeOrder(false);
-                return;
-            }else{
+            }
+            // else if(email_naming == ""){
+            //     setsiwpeOrder(false);
+            //     return;
+            // }
+            else{
                 setsiwpeOrder(true);
             }
             console.log(inputValEmail);

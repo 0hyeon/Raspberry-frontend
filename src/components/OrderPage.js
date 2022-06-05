@@ -104,10 +104,12 @@ function OrderPage() {
             }else if(phone_naming.length < 10 ){
                 alert('핸드폰번호를 확인해주세요.')
                 return;
-            }else if(email_naming == ""){
-                alert('이메일을 입력해주세요.')
-                return;
-            }else if(isAllChecked == false){
+            }
+            // else if(email_naming == ""){
+            //     alert('이메일을 입력해주세요.')
+            //     return;
+            // }
+            else if(isAllChecked == false){
                 alert('약관을 모두동의해주세요')
                 return;
             }
@@ -229,10 +231,12 @@ function OrderPage() {
             }else if(phone_naming.length < 10 ){
                 setsiwpeOrder(false);
                 return;
-            }else if(email_naming == ""){
-                setsiwpeOrder(false);
-                return;
-            }else if(isAllChecked == false){
+            }
+            // else if(email_naming == ""){
+            //     setsiwpeOrder(false);
+            //     return;
+            // }
+            else if(isAllChecked == false){
                 setsiwpeOrder(false);
                 if(Session !== null){
                     setsiwpeOrder(true);    

@@ -967,6 +967,9 @@ function ProductPage() {
     const changePage2 = ({ selected2 }) => {
         setPageNumber2(selected2);
     };
+    function PdSalePercent(price,maketPrice) {
+      return Math.round((1 - ( price/ maketPrice )) * 100)
+    }
   return (
     // <div style={{background:'url(http://localhost:8000/uploads/c2eb3b9de2d11.jpg)'}}>
     <div style={{background:'url("")', backgroundSize:"cover"}}>
@@ -1007,8 +1010,16 @@ function ProductPage() {
             </div>
             
             <div id="contents-box" className= { isRectheight ? "original_header content" : "change_header content"}  >
-                <div id="name2">{product.name}</div>
-                <div id="price">{AddComma(product.price)} won</div>
+                <div style={{marginBottom:'19px'}}>
+                  <div id="name2">{product.name}</div>
+                  <div style={{display:'flex',gap:'15px',alignItems:'center',justifyContent:'space-between'}}>
+                    <div>
+                      <div className='price'>{AddComma(product.price)} won</div>
+                      <div className="margin-bottom19">{AddComma(product.marketPrice)} won</div>
+                    </div>
+                    <div className="productSalePercent">{PdSalePercent(product.price,product.marketPrice)}%</div> 
+                  </div>
+                </div>
                 
                 {/* <div id="createdAt">{dayjs(product.createdAt).format('YYYY년 MM월 DD일')}</div> */}
                 <Tabs defaultActiveKey="1" onChange={callback}>

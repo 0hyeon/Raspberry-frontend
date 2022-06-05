@@ -115,7 +115,7 @@
     font-size: 22px;
     /* font-weight: 700; */
     /* font-family: 'Malgun Gothic'; */
-    font-family: 'Roboto';
+    font-family: 'Poppins', sans-serif;
     /* font-size: 35px; */
     line-height: 1em;
     font-weight:bold;
@@ -125,13 +125,13 @@
     word-break: keep-all;
   }
   
-  #price {
+  .price {
     font-size: 16px;
-    /* font-weight: 600; */
-    margin-bottom: 10px;
+    font-weight: 600;
+    margin-left: 10px;
     color: #000000;
-    font-family: 'Noto Sans KR';
-    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    /* font-weight: 500; */
     letter-spacing: 0.01em;
   }
   
@@ -464,8 +464,13 @@
   .detail_first{
     margin: 15px 0 0px;
   }
-  #price{
-    margin-bottom: 19px !important;
+  .margin-bottom19{
+    font-size: 16px;
+    margin-left: 10px;
+    color: #000000;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.01em;
+    text-decoration: line-through;
   }
   .detail_totalbox{
     padding-top: 12px !important;
@@ -508,8 +513,8 @@
     display: none!important;
   }
   #name2{
-    margin: 22px 0 10px!important;
-    font-size:20px !important;
+    margin: 30px 0 26px!important;
+    font-size:21px !important;
   }
   #image-box > .swiper-container > .swiper-wrapper>.swiper-slide> img{
     padding: 0px 5px!important;

@@ -7,8 +7,6 @@ import {API_URL} from '../config/constants'
 import {setCartItem} from '../_actions/userAction'
 import { useLocation } from 'react-router';
 const OrderResultMobile = () => {
-    //https://rasberry-berry.com/OrderResultMobile?imp_uid=imp_318089307146&merchant_uid=mid_1652452089052&imp_success=true
-    
     const [data,setData] = useState(null);
     const [loading, setLoading] = useState(true);
     // const query = queryString.parse(location.search);
