@@ -1,7 +1,7 @@
 @import "~antd/dist/antd.css";
 
 .menuBar {
-  /* position: fixed; */
+  position: relative;
   top: 0px;
   z-index: 2;
   padding: 0 20px;
@@ -72,14 +72,14 @@
   width: 581px;
   position: absolute;
   left: 100px;
-  top: 50%;
+  /* top: 50%; */
   transform: translateY(-50%);
 }
 
 .menuCon .rightMenu {
   position: absolute;
   right: 150px;
-  top: 50%;
+  /* top: 50%; */
   transform: translateY(-50%);
 }
 
@@ -238,6 +238,11 @@
   color: inherit!important;
 }
 .anticon-instagram{display: none;}
+#Logo_style {
+  width: 73px!important;
+  /* margin-top: -22px!important; */
+  /* filter: drop-shadow(2px 4px 6px #ab4d69); */
+}
 @media (max-width: 767px) {
   .barsMenu {
     display: inline-block;
@@ -265,7 +270,6 @@
   }
   #Logo_style {
     width: 73px!important;
-    margin-top: 10px!important;
     /* filter: drop-shadow(2px 4px 6px #ab4d69); */
   }
   .RM_2a_link{

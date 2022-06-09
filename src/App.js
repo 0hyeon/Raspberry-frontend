@@ -114,7 +114,7 @@ function App () {
     if(scrollFlag){//밑으로 내릴때
       
       // headerStyle.style.backgroundColor = "inherit";
-      headerStyle.style.position = "fixed";
+      // headerStyle.style.position = "fixed";
       headerStyle.style.color = "#fff";
       headerStyle.style.transition = "all 1s linears 0s";
       // headerStyle2.style.display = "none";
@@ -127,7 +127,7 @@ function App () {
       // headerStyle.style.backgroundColor = "#000";
       // headerStyle.style.color = "#fff";
       headerStyle.style.color = "#000";
-      headerStyle.style.position = "fixed";
+      // headerStyle.style.position = "fixed";
       headerStyle2.style.display = "block";
       headerStyle2.style.top = "0";
       // headerStyle.style.backgroundColor = "inherit";

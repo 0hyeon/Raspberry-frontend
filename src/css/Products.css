@@ -112,13 +112,12 @@
     filter: drop-shadow(3px 4px 6px black);
   }
   #name2 {
-    font-size: 22px;
+    font-size: 18px;
     /* font-weight: 700; */
     /* font-family: 'Malgun Gothic'; */
     font-family: 'Poppins', sans-serif;
     /* font-size: 35px; */
     line-height: 1em;
-    font-weight:bold;
     color: #222222;
     letter-spacing: 0.01em;
     margin-bottom:16px;
@@ -126,7 +125,7 @@
   }
   
   .price {
-    font-size: 16px;
+    font-size: 19px;
     font-weight: 600;
     margin-left: 10px;
     color: #000000;
@@ -141,8 +140,8 @@
   }
   
   .description {
-    font-family: 'Uiyeun';
-    font-size: 21px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
     margin: 0;
     white-space: break-spaces;
     letter-spacing: 0.5px;
@@ -440,6 +439,22 @@
 .autoimagecenter{
   width: 100%;
 }
+.productSalePercent {
+  font-size: 23px !important;
+  font-weight: bold;
+  color: #FF9995 !important;
+  font-family: 'Poppins';
+}
+.highlighter::after {
+  content: "";
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  height: 8px;
+  width: 100%;
+  background-color: #acdcf6;
+  z-index: -1;
+}
 @media screen and (max-width:1800px) {
   #contents-box{
     /* max-height: 700px!important; */
@@ -467,7 +482,7 @@
   .margin-bottom19{
     font-size: 16px;
     margin-left: 10px;
-    color: #000000;
+    color: darkgray;
     font-family: 'Poppins', sans-serif;
     letter-spacing: 0.01em;
     text-decoration: line-through;
@@ -475,6 +490,7 @@
   .detail_totalbox{
     padding-top: 12px !important;
   }
+  
 }
 @media screen and (max-width:800px) {
   .content_wrapper{
@@ -523,10 +539,10 @@
     /* color: white!important; */
     display: none!important;
   }
-  pre > p:first-child {
+  /* pre > p:first-child {
     font-weight: bold;
     font-size: 13px;
-  }
+  } */
   .detail_Common > li {
     width: 32px !important;
     height: 32px !important;

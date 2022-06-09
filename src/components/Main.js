@@ -170,7 +170,7 @@ function Main(props) {
                                             }
                                         </div>
                                         {product.marketPrice !== null 
-                                            ? <div className="productSalePercent">{PdSalePercent(product.price,product.marketPrice)}%</div> 
+                                            ? <div className="productSalePercent2">{PdSalePercent(product.price,product.marketPrice)}%</div> 
                                             : null} 
                                         
                                     </div>

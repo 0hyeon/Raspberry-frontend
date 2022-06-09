@@ -24,7 +24,7 @@ import { Button, message,Tabs } from "antd";
 import Payment from "./Payment";
 import jwt_decode from "jwt-decode";
 import "../css/QnaDescription.css";
-import { LockOutlined,MailOutlined,CameraOutlined } from "@ant-design/icons";
+import { LockOutlined,MailOutlined,CameraOutlined,InfoCircleOutlined } from "@ant-design/icons";
 
 function ProductPage() {
   
@@ -40,7 +40,7 @@ function ProductPage() {
   const [ScrollY, setScrollY] = useState(0);
   const [BtnStatus, setBtnStatus] = useState(false); // 버튼 상태
   const [inputDate, setinputDate] = useState(null); // 버튼 상태
-  
+  const [modal, setModal] = useState(false);
   // const handleFollow = () => {
   //   setScrollY(parentRef.current.offsetHeight);
   //   console.log(ScrollY);
@@ -473,6 +473,9 @@ function ProductPage() {
   // },[dispatch]);
   
   //컬러 액티브 작동   
+  const GetSize = () => {
+    alert('get Size')
+  }
   const GetClick = (e) => {
     if(e.target.style.backgroundColor == ""){
       return;
@@ -1010,7 +1013,7 @@ function ProductPage() {
             </div>
             
             <div id="contents-box" className= { isRectheight ? "original_header content" : "change_header content"}  >
-                <div style={{marginBottom:'19px'}}>
+                <div>
                   <div id="name2">{product.name}</div>
                   <div style={{display:'flex',gap:'15px',alignItems:'center',justifyContent:'space-between'}}>
                     <div>
@@ -1018,7 +1021,18 @@ function ProductPage() {
                       <div className="margin-bottom19">{AddComma(product.marketPrice)} won</div>
                     </div>
                     <div className="productSalePercent">{PdSalePercent(product.price,product.marketPrice)}%</div> 
+                    <div style={{margin:'10px 0px',fontSize:'14px'}}>
+                      <div style={{padding:'10px 0px',fontFamily:'Poppins',fontSize:'13px'}}>
+                        {product.sellCount !== null 
+                            ? <span className="">구매수 <span style={{fontWeight:'bold'}}>{product.sellCount}</span> </span>  
+                            : null 
+                        }
+                      </div>
+                      <div style={{color:'#1890ff',textDecoration:'underline',marginBottom:'8px',cursor:'pointer'}} onClick={() => setModal(!modal)}>착장모델사이즈 <InfoCircleOutlined style={{color:'darkgray'}}/></div>
+                      {/* <div style={{color:'#1890ff',textDecoration:'underline',cursor:'pointer'}} onClick={GetSize}>실시간재고 <InfoCircleOutlined style={{color:'darkgray'}}/></div>  */}
+                    </div>
                   </div>
+                  
                 </div>
                 
                 {/* <div id="createdAt">{dayjs(product.createdAt).format('YYYY년 MM월 DD일')}</div> */}
@@ -1354,6 +1368,45 @@ function ProductPage() {
             className={BtnStatus ? "topBtn active" : "topBtn"} // 버튼 노출 여부
             onClick={handleTop}  // 버튼 클릭시 함수 호출
           >TOP</button>
+      {modal && (
+        <div
+          className="modalgogo"
+          style={{position:'fixed',background:'rgba(0,0,0,0.7)',top: '50%',left: '50%',zIndex:'1',width: '100%',height:'100vh',color:'#fff',transform: 'translate(-50%, -50%)',display:'flex',alignItems: 'center',justifyContent:'center'}}
+        >
+          <div style={{width:'100%'}}>
+            <div style={{cursor:'pointer',fontSize:'20px'}}onClick={() => setModal(!modal)}>X</div>
+            <div>
+              <div style={{width:'95%',backgroundColor: '#fff',margin:'0 auto',borderRadius: '8px',textAlign:'center'}}>
+                <div className='highlighter' style={{color: 'black',textAlign: 'center',fontWeight:'bold',fontSize: '18px',position:'relative',display:'inline-block',zIndex:'0',marginTop: '30px',marginBottom: '30px'}}>착장모델 사이즈</div>
+                <div className="scroll_area" style={{    padding: '25px 2.77%'}}>
+                    <table style={{border:'none',width:'100%'}}>
+                        <thead>
+                          <tr style={{color:'#000'}}>
+                            <th scope='col' width="20%">착장모델</th>
+                            <th scope='col' width="*">모델 사이즈</th>
+                          </tr>
+                        </thead>
+                        <tbody style={{border:'none'}}>
+                          <tr>
+                              <td align="center">
+                                  <div>
+                                      <img src="https://s3.ap-northeast-2.amazonaws.com/myapp3.com/images/insta_ji_hy.jpg" style={{width:'85px', borderRadius:'50%'}} alt='j_i_hi'/>	
+                                  </div>
+                                  <span style={{color:'#000'}}>지현</span>
+                              </td>
+                              <td style={{verticalAlign: 'middle', textAlign:'center', fontSize:'15px', color:'#A0A0A0',fontFamily: 'Poppins',    lineHeight: '1.7'}}>
+                                  Height : 160cm Top : 슬림55/S
+                                  Pants : 26inch/S Shoes : 240mm                    </td>
+                          </tr>
+                      </tbody>
+                    </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      )}
     </div>
   );
 }
