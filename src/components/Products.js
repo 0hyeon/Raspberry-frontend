@@ -24,7 +24,7 @@ import { Button, message,Tabs } from "antd";
 import Payment from "./Payment";
 import jwt_decode from "jwt-decode";
 import "../css/QnaDescription.css";
-import { LockOutlined,MailOutlined,CameraOutlined,InfoCircleOutlined } from "@ant-design/icons";
+import { LockOutlined,MailOutlined,CameraOutlined,InfoCircleOutlined,LikeOutlined } from "@ant-design/icons";
 
 function ProductPage() {
   
@@ -41,6 +41,7 @@ function ProductPage() {
   const [BtnStatus, setBtnStatus] = useState(false); // 버튼 상태
   const [inputDate, setinputDate] = useState(null); // 버튼 상태
   const [modal, setModal] = useState(false);
+  const [inventory, setInventory] = useState(false);
   // const handleFollow = () => {
   //   setScrollY(parentRef.current.offsetHeight);
   //   console.log(ScrollY);
@@ -1029,7 +1030,7 @@ function ProductPage() {
                         }
                       </div>
                       <div style={{color:'#1890ff',textDecoration:'underline',marginBottom:'8px',cursor:'pointer'}} onClick={() => setModal(!modal)}>착장모델사이즈 <InfoCircleOutlined style={{color:'darkgray'}}/></div>
-                      {/* <div style={{color:'#1890ff',textDecoration:'underline',cursor:'pointer'}} onClick={GetSize}>실시간재고 <InfoCircleOutlined style={{color:'darkgray'}}/></div>  */}
+                      <div style={{color:'#1890ff',textDecoration:'underline',cursor:'pointer'}} onClick={() => setInventory(!inventory)}>실시간재고 <InfoCircleOutlined style={{color:'darkgray'}}/></div> 
                     </div>
                   </div>
                   
@@ -1367,17 +1368,18 @@ function ProductPage() {
         <button 
             className={BtnStatus ? "topBtn active" : "topBtn"} // 버튼 노출 여부
             onClick={handleTop}  // 버튼 클릭시 함수 호출
-          >TOP</button>
+        >TOP</button>
+      {/* 착장모델 사이즈 */}
       {modal && (
         <div
           className="modalgogo"
           style={{position:'fixed',background:'rgba(0,0,0,0.7)',top: '50%',left: '50%',zIndex:'1',width: '100%',height:'100vh',color:'#fff',transform: 'translate(-50%, -50%)',display:'flex',alignItems: 'center',justifyContent:'center'}}
         >
           <div style={{width:'100%'}}>
-            <div style={{cursor:'pointer',fontSize:'20px'}}onClick={() => setModal(!modal)}>X</div>
             <div>
               <div style={{width:'95%',backgroundColor: '#fff',margin:'0 auto',borderRadius: '8px',textAlign:'center'}}>
-                <div className='highlighter' style={{color: 'black',textAlign: 'center',fontWeight:'bold',fontSize: '18px',position:'relative',display:'inline-block',zIndex:'0',marginTop: '30px',marginBottom: '30px'}}>착장모델 사이즈</div>
+                <div style={{cursor:'pointer',fontSize:'23px',textAlign: 'right',color: 'black',padding:'13px'}}onClick={() => setModal(!modal)}>X</div>
+                <div className='highlighter' style={{color: 'black',textAlign: 'center',fontWeight:'bold',fontSize: '18px',position:'relative',display:'inline-block',zIndex:'0',marginBottom: '10px'}}>착장모델 사이즈</div>
                 <div className="scroll_area" style={{    padding: '25px 2.77%'}}>
                     <table style={{border:'none',width:'100%'}}>
                         <thead>
@@ -1396,10 +1398,63 @@ function ProductPage() {
                               </td>
                               <td style={{verticalAlign: 'middle', textAlign:'center', fontSize:'15px', color:'#A0A0A0',fontFamily: 'Poppins',    lineHeight: '1.7'}}>
                                   Height : 160cm Top : 슬림55/S
-                                  Pants : 26inch/S Shoes : 240mm                    </td>
+                                  Pants : 26inch/S Shoes : 240mm
+                              </td>
                           </tr>
                       </tbody>
                     </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      )}
+      {/* 실시간배송현황 */}
+      {inventory && (
+        <div
+          className="modalgogo"
+          style={{position:'fixed',background:'rgba(0,0,0,0.7)',top: '50%',left: '50%',zIndex:'1',width: '100%',height:'100vh',color:'#fff',transform: 'translate(-50%, -50%)',display:'flex',alignItems: 'center',justifyContent:'center'}}
+        >
+          <div style={{width:'100%'}}>
+            <div>
+              <div style={{width:'95%',backgroundColor: '#fff',margin:'0 auto',borderRadius: '8px',textAlign:'center'}}>
+                <div style={{cursor:'pointer',fontSize:'23px',textAlign: 'right',color: 'black',padding:'13px'}}onClick={() => setInventory(!inventory)}>X</div>
+                <div className='highlighter' style={{color: 'black',textAlign: 'center',fontWeight:'bold',fontSize: '18px',position:'relative',display:'inline-block',zIndex:'0',marginBottom: '10px'}}>실시간 재고현황</div>
+                <div className="scroll_area" style={{    padding: '25px 2.77%'}}>
+                    <table style={{border:'none',width:'100%'}}>
+                        <thead>
+                          <tr style={{color:'#000'}}>
+                            <th scope='col' width="30%">Color</th>
+                            <th scope='col' width="30">Size</th>
+                            <th scope='col' width="*">현재고현황</th>
+                          </tr>
+                        </thead>
+                        <tbody style={{border:'none'}}>
+                        {whyerrorObject && whyerrorObject.map((product,index) => {
+                          return (
+                            <tr style={{color:'black'}} key={index}>
+                              <td style={{padding:'5px'}}>{product.colorName1}</td>
+                              <td>{product.size1}</td>
+                              <td>{product.quantity1 > 0 ? <>바로배송 <LikeOutlined style={{color:'#FF9995'}}/></> : '주문가능'}</td>
+                            </tr>
+                          )})
+                        }
+                        </tbody>
+                        
+                    </table>
+                    <ul style={{textAlign:'left',padding:'10px'}}>
+                      <br/>
+                      <li style={{color:'black'}}>
+                        <strong>주문가능 이란?</strong>
+                        <div>현재 주문은 가능하며 2~5일 정도 준비기간이 소요되는 상품입니다.</div>
+                      </li>
+                      <br/>
+                      <li style={{color:'black'}}>
+                        <strong>바로배송<LikeOutlined style={{color:'#FF9995'}}/> 이란?</strong>
+                        <div>현재 주문은 가능하며 2~5일 정도 준비기간이 소요되는 상품입니다.</div>
+                      </li>
+                    </ul>
                 </div>
               </div>
             </div>
