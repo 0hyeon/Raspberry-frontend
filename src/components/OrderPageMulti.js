@@ -60,13 +60,12 @@ function OrderPageMulti() {
 
     //이게없음
     const ProductStock = useProductOpt.map((item)=>{return(item.it_sc_stock)}).join();
-    console.log("재고",ProductStock);
 
     const ProductOrderNum = useProductOpt.map((item)=>{return(item.it_Detail_quanity)}).join();
-    console.log("주문수량",ProductOrderNum);
 
     const product_it_id = useProductOpt.map((item)=>{return(item.it_id)}).join();
-    console.log("상품it_id",product_it_id);
+
+    const product_id = useProductOpt.map((item)=>{return(item.id)}).join();
 
     // const productOptionId = useProductOpt.map((item)=>{return(item.it_id)}).join();
     // console.log("옵션의 product_id",productOptionId);
@@ -296,7 +295,6 @@ function OrderPageMulti() {
         
         // console.log("CartList.cartItem",CartList.cartItem.map((item)=> item));
         const cartList_map = CartList && CartList.map((item)=> item);
-        console.log(cartList_map);
         dispatch(productOptionActionsDetails.setProductDetailSV(cartList_map));
     }, [dispatch,CartList])
     
@@ -416,7 +414,7 @@ function OrderPageMulti() {
                     {
                         siwpeOrder 
                         ? 
-                        <Payment userName={inputVal} userAddress={htmlData} userAddressdetail={htmlDatadetail} userPhone={inputValPhone} userEmail={inputValEmail} userMemo={inputValMemo} name={Producttitle} size={Productsize} color={Productcolor} price={istotalcost + deliveryconst} product_option_id={product_option_id} ProductStock={ProductStock} ProductOrderNum={ProductOrderNum} ispayMethod={ispayMethod} product_it_id={product_it_id} style={{width:'100%'}}/> 
+                        <Payment userName={inputVal} userAddress={htmlData} userAddressdetail={htmlDatadetail} userPhone={inputValPhone} userEmail={inputValEmail} userMemo={inputValMemo} name={Producttitle} size={Productsize} color={Productcolor} price={istotalcost + deliveryconst} product_option_id={product_option_id} ProductStock={ProductStock} ProductOrderNum={ProductOrderNum} ispayMethod={ispayMethod} product_it_id={product_id} style={{width:'100%'}}/> 
                         : 
                         <button type="submit" style={{width:"100%"}}>결제하기</button>
                     }

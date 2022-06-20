@@ -1392,7 +1392,7 @@ function ProductPage() {
                           <tr>
                               <td align="center">
                                   <div>
-                                      <img src="https://s3.ap-northeast-2.amazonaws.com/myapp3.com/images/insta_ji_hy.jpg" style={{width:'85px', borderRadius:'50%'}} alt='j_i_hi'/>	
+                                      <img src="https://s3.ap-northeast-2.amazonaws.com/myapp3.com/images/insta_ji_hy.jpg" style={{width:'85px', borderRadius:'50%',padding:'8px'}} alt='j_i_hi'/>	
                                   </div>
                                   <span style={{color:'#000'}}>지현</span>
                               </td>
@@ -1452,7 +1452,7 @@ function ProductPage() {
                       <br/>
                       <li style={{color:'black'}}>
                         <strong>바로배송<LikeOutlined style={{color:'#FF9995'}}/> 이란?</strong>
-                        <div>현재 주문은 가능하며 2~5일 정도 준비기간이 소요되는 상품입니다.</div>
+                        <div>당일출고가 가능한 상품입니다.</div>
                       </li>
                     </ul>
                 </div>

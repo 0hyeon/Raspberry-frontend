@@ -78,15 +78,35 @@ const OrderSuccess = () => {
         history.push("/OrderSuccess");
     }
     function calculateProduct(it_id,color,size,ordernum){
-        
-        const it_idSeperate = it_id.split(',');
+        console.log( 'it_id : ',it_id);//9,8
+        const it_idSeperate = it_id.split(',');//['9','8']
         console.log("it_idSeperate :" ,it_idSeperate);
+        console.log("ProductsData :" ,ProductsData);
         const colorSeperate = color.split(',');
         const sizeSeperate = size.split(',');
         const ordernumSeperate = ordernum.split(',');
         const emptyArray = []
         for(let i=0;i<it_idSeperate.length; i++){
-            emptyArray.push(<strong key={i}>{`${ProductsData && ProductsData.find((item) => String(item.id) === String(it_idSeperate[i])).name},${colorSeperate[i]},${sizeSeperate[i]},${ordernumSeperate[i]}개`}<br /><br /></strong>)
+            console.log(it_idSeperate[i]);//9,8
+            emptyArray.push(
+                <strong key={i}>
+                    {console.log(ProductsData && ProductsData
+                        .filter((item) => Number(item.id) === Number(it_idSeperate[i]))
+                        .map((od) => {
+                            return (od)
+                        }))}
+                    {ProductsData && ProductsData
+                        .filter((item) => Number(item.id) === Number(it_idSeperate[i]))
+                        .map((od) => {
+                            return (od.name)
+                        })
+                    }    
+                    {
+                        `
+                        ${colorSeperate[i]},${sizeSeperate[i]},${ordernumSeperate[i]}개`
+                    }
+                    <br /><br />
+                </strong>)
         }
         return (emptyArray);
 
