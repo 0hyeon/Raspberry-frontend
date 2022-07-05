@@ -1,6 +1,7 @@
 #upload-container {
     padding-top: 100px;
-    margin-left:100px;
+    margin: 0 auto;
+    width: 80%;
   }
   
   #upload-img-placeholder {
@@ -58,7 +59,6 @@
   }
   .ant-input-lg{
     text-align: left!important;
-    width: 500px !important;
     margin-right: 20px;
   }
   .ant-form-item{

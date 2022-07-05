@@ -1,8 +1,11 @@
 #upload-container {
     padding-top: 100px;
-    margin-left:100px;
+    margin: 0 auto;
+    width: 80%;
   }
-  
+  .product-size-1,.product-size-2,.product-size-3,.product-size-4,.product-size-5,.product-size-6{
+    width: 65px!important;
+  }
   #upload-img-placeholder {
     width: 200px;
     height: 200px;
@@ -54,7 +57,6 @@
   }
   .ant-input-lg{
     text-align: left!important;
-    width: 500px !important;
     margin-right: 20px;
   }
   .ant-form-item{

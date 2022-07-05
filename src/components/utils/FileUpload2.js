@@ -23,7 +23,6 @@ const FileUpload = (props) => {
             }else{
                 alert('파일을 저장하는데 실패했습니다.');
             }
-            
         // alert("배너등록 완료");
         // history.replace('/');//이전페이지의 기록이 사라지고 대체됨
         }).catch((error) => {

@@ -24,10 +24,16 @@ function ProductsUpdate() {
   const { Option } = Select;
   const [form] = Form.useForm()
   const [isselectVal, setselectVal ] = useState(null);
+  const [isselectVal2, setselectVal2 ] = useState(null);
   function handleChange(value) {
     // console.log(`selected ${value}`);
     setselectVal(value);
     //console.log(isselectVal);
+  }
+  function handleChange2(value) {
+    console.log(`selected ${value}`);
+    setselectVal2(value);
+    console.log(isselectVal2);
   }
 
   const updateProduct = products.products && products.products.find((item) => String(item.id) === String(id)); 
@@ -47,6 +53,17 @@ function ProductsUpdate() {
   const [isSeller, setSeller] = useState(updateProduct && updateProduct.seller); 
   const [isPrice, setPrice] = useState(updateProduct && updateProduct.price);
   const [isName, setName] = useState(updateProduct && updateProduct.name);
+
+  //사이즈 input
+  const [isSize, setSize] = useState(null);
+  const [isSize1, setSize1] = useState(null);
+  const [isSize2, setSize2] = useState(null);
+  const [isSize3, setSize3] = useState(null);
+  const [isSize4, setSize4] = useState(null);
+  const [isSize5, setSize5] = useState(null);
+  const [isSize6, setSize6] = useState(null);
+  const [isSize7, setSize7] = useState(null);
+  const [isSize8, setSize8] = useState(null);
 
   const [imageUrl, setImageUrl] = useState(updateProduct && updateProduct.imageUrl);
   const [imageUrl2, setImageUrl2] = useState(updateProduct && updateProduct.imageUrl2);
@@ -118,6 +135,13 @@ function ProductsUpdate() {
     quantity2_2 : isQuantity2_2 ? isQuantity2_2 :null,
     size2_3 : isColorSize2_3 ? isColorSize2_3 :null,
     quantity2_3 : isQuantity2_3 ? isQuantity2_3 :null,
+
+    isSize: isSize ? isSize : null,
+    isSize1: isSize1 ? isSize1 : null,
+    isSize2: isSize2 ? isSize2 : null,
+    isSize3: isSize3 ? isSize3 : null,
+    isSize4: isSize4 ? isSize4 : null,
+    isSize5: isSize5 ? isSize5 : null,
 
     // color3 : isSeller ? isSeller :'',
     // colorName3 : isSeller ? isSeller :'',
@@ -200,13 +224,25 @@ function ProductsUpdate() {
       detailPage4 : detailPage4,
       detailPage5 : detailPage5,
       sizeDesc : editor_wysywic2,
+
+      sizeDetail:[isSize,
+                  isSize1,
+                  isSize2,
+                  isSize3,
+                  isSize4,
+                  isSize5,
+                  isSize6,
+                  isSize7,
+                  isSize8,
+                ],
+
       relateProduct1 : parseInt(values.relateProduct1),
       relateProduct2 : parseInt(values.relateProduct2),
       relateProduct3 : parseInt(values.relateProduct3),
       relateProduct4 : parseInt(values.relateProduct4),
       relateProduct5 : parseInt(values.relateProduct5),
       category : isselectVal,
-      soldout : 1,
+      soldout : Number(isselectVal2),
     }).then((result) =>{
       console.log(result);//제출 잘됐으면 리디렉션
       //history.replace('/');//이전페이지의 기록이 사라지고 대체됨
@@ -322,6 +358,42 @@ function ProductsUpdate() {
   const onChangeSeller = (e) => {
     setSeller(e.target.value);
     console.log('setSeller : ',e.target.value);
+  }
+  const onChangeSize = (e) => {
+    setSize(e.target.value);
+    // console.log('setSize : ',e.target.value);
+  }
+  const onChangeSize1 = (e) => {
+    setSize1(e.target.value);
+    // console.log('setSize : ',e.target.value);
+  }
+  const onChangeSize2 = (e) => {
+    setSize2(e.target.value);
+    // console.log('setSize : ',e.target.value);
+  }
+  const onChangeSize3 = (e) => {
+    setSize3(e.target.value);
+    // console.log('setSize : ',e.target.value);
+  }
+  const onChangeSize4 = (e) => {
+    setSize4(e.target.value);
+    // console.log('setSize : ',e.target.value);
+  }
+  const onChangeSize5 = (e) => {
+    setSize5(e.target.value);
+    // console.log('setSize : ',e.target.value);
+  }
+  const onChangeSize6 = (e) => {
+    setSize6(e.target.value);
+    // console.log('setSize : ',e.target.value);
+  }
+  const onChangeSize7 = (e) => {
+    setSize7(e.target.value);
+    // console.log('setSize : ',e.target.value);
+  }
+  const onChangeSize8 = (e) => {
+    setSize8(e.target.value);
+    // console.log('setSize : ',e.target.value);
   }
   const onChangePrice = (e) => {
     setPrice(e.target.value);
@@ -753,6 +825,7 @@ function ProductsUpdate() {
           />
         </Form.Item>
         <Divider />
+        
         {/* 상품가격 */}
         <Form.Item
           name="price"
@@ -1162,7 +1235,7 @@ function ProductsUpdate() {
           <QuillEditor2  quillRef2={quillRef2} htmlContent2={htmlContent2} setHtmlContent2={setHtmlContent2} api2=""/>
         </Form.Item>
         {/* 카테고리분류 */}
-        <Form.Item
+        <Form.Item 
           name="category"
           label={<div className="upload-label">카테고리 분류</div>}
           rules={[{ required: true, message: "카테고리를 등록하세요" }]}
@@ -1174,7 +1247,313 @@ function ProductsUpdate() {
             <Option value="Outerwear">Outerwear</Option>
             <Option value="Tops">Tops</Option>
             <Option value="Bottoms">Bottoms</Option>
-            <Option value="Dresses/Skirts">Dresses/Skirts</Option>
+            <Option value="Skirts">Skirts</Option>
+            <Option value="Dresses">Dresses</Option>
+            <Option value="Pants">Pants</Option>
+          </Select>
+        </Form.Item>
+        <Divider />
+        {/* 사이즈추가 */}
+        <Form.Item 
+          name="size"
+          label={<div className="upload-label">사이즈추가</div>}
+          rules={[{ required: false, message: "사이즈를 추가하세요." }]}
+          style={{pisiton:'relative'}}
+        >
+          {
+            isselectVal === 'Outerwear' ? 
+            <>
+              <img src="/images/outer.png" alt="top사이즈이미지" style={{    marginLeft: '-98px',
+    marginTop: '-27px'}}/>
+                <Input
+                className="product-size-1" 
+                style={{position:'absolute',left:'-22px',top:'62px',width:'65px !important',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize(e)}
+                defaultValue={isSize?isSize:null}
+                />
+                <Input
+                className="product-size-2" 
+                style={{position:'absolute',left:'-181px',top:'215px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize1(e)}
+                defaultValue={isSize1?isSize1:null}
+                />
+                <Input
+                className="product-size-3" 
+                style={{position:'absolute',left:'-82px',top:'238px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize2(e)}
+                defaultValue={isSize2?isSize2:null}
+                />
+                <Input
+                className="product-size-4" 
+                style={{position:'absolute',left:'-4px',top:'177px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize3(e)}
+                defaultValue={isSize3?isSize3:null}
+                />
+            </>
+            :null
+          }
+          {
+            isselectVal === 'Tops' ? 
+            <>
+              <img src="/images/top.png" alt="top사이즈이미지" style={{    marginLeft: '-98px',
+    marginTop: '-27px'}}/>
+                <Input
+                className="product-size-1" 
+                style={{position:'absolute',left:'-22px',top:'67px',width:'65px !important',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize(e)}
+                defaultValue={isSize?isSize:null}
+                />
+                <Input
+                className="product-size-2" 
+                style={{position:'absolute',left:'-90px',top:'150px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize1(e)}
+                defaultValue={isSize1?isSize1:null}
+                />
+                <Input
+                className="product-size-3" 
+                style={{position:'absolute',left:'-173px',top:'211px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize2(e)}
+                defaultValue={isSize2?isSize2:null}
+                />
+                <Input
+                className="product-size-4" 
+                style={{position:'absolute',left:'-23px',top:'198px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize3(e)}
+                defaultValue={isSize3?isSize3:null}
+                />
+            </>
+            :null
+          }
+          {
+            isselectVal === 'Bottoms' ? 
+            <>
+              <img src="/images/bottom.png" alt="top사이즈이미지" style={{    marginLeft: '-98px',
+    marginTop: '-27px'}}/>
+                <Input
+                className="product-size-1" 
+                style={{position:'absolute',left:'-22px',top:'26px',width:'65px !important',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize(e)}
+                defaultValue={isSize?isSize:null}
+                />
+                <Input
+                className="product-size-2" 
+                style={{position:'absolute',left:'-19px',top:'90px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize1(e)}
+                defaultValue={isSize1?isSize1:null}
+                />
+                <Input
+                className="product-size-3" 
+                style={{position:'absolute',left:'-65px',top:'238px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize2(e)}
+                defaultValue={isSize2?isSize2:null}
+                />
+                <Input
+                className="product-size-4" 
+                style={{position:'absolute',left:'46px',top:'151px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize3(e)}
+                defaultValue={isSize3?isSize3:null}
+                />
+                <Input
+                className="product-size-5" 
+                style={{position:'absolute',left:'46px',top:'184px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize4(e)}
+                defaultValue={isSize4?isSize4:null}
+                />
+                <Input
+                className="product-size-6" 
+                style={{position:'absolute',left:'46px',top:'384px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize5(e)}
+                defaultValue={isSize5?isSize5:null}
+                />
+            </>
+            :null
+          }
+          {
+            isselectVal === 'Pants' ? 
+            <>
+              <img src="/images/pants.png" alt="top사이즈이미지" style={{    marginLeft: '-98px',
+    marginTop: '-27px'}}/>
+                <Input
+                className="product-size-1" 
+                style={{position:'absolute',left:'62px',top:'105px',width:'65px !important',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize(e)}
+                defaultValue={isSize?isSize:null}
+                />
+                <Input
+                className="product-size-2" 
+                style={{position:'absolute',left:'62px',top:'221px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize1(e)}
+                defaultValue={isSize1?isSize1:null}
+                />
+                <Input
+                className="product-size-3" 
+                style={{position:'absolute',left:'13px',top:'266px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize2(e)}
+                defaultValue={isSize2?isSize2:null}
+                />
+                <Input
+                className="product-size-4" 
+                style={{position:'absolute',left:'101px',top:'287px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize3(e)}
+                defaultValue={isSize3?isSize3:null}
+                />
+                <Input
+                className="product-size-5" 
+                style={{position:'absolute',left:'-93px',top:'232px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize4(e)}
+                defaultValue={isSize4?isSize4:null}
+                />
+                <Input
+                className="product-size-6" 
+                style={{position:'absolute',left:'4px',top:'340px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize5(e)}
+                defaultValue={isSize5?isSize5:null}
+                />
+            </>
+            :null
+          }
+          {
+            isselectVal === 'Dresses' ? 
+            <>
+              <img src="/images/dress.png" alt="top사이즈이미지" style={{    marginLeft: '-98px',
+    marginTop: '-27px'}}/>
+                <Input
+                className="product-size-1" 
+                style={{position:'absolute',left:'76px',top:'46px',width:'65px !important',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize(e)}
+                defaultValue={isSize?isSize:null}
+                />
+                <Input
+                className="product-size-2" 
+                style={{position:'absolute',left:'116px',top:'113px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize1(e)}
+                defaultValue={isSize1?isSize1:null}
+                />
+                <Input
+                className="product-size-3" 
+                style={{position:'absolute',left:'250px',top:'235px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize2(e)}
+                defaultValue={isSize2?isSize2:null}
+                />
+                <Input
+                className="product-size-4" 
+                style={{position:'absolute',left:'182px',top:'227px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize3(e)}
+                defaultValue={isSize3?isSize3:null}
+                />
+                <Input
+                className="product-size-5" 
+                style={{position:'absolute',left:'75px',top:'142px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize4(e)}
+                defaultValue={isSize4?isSize4:null}
+                />
+                <Input
+                className="product-size-6" 
+                style={{position:'absolute',left:'75px',top:'174px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize5(e)}
+                defaultValue={isSize5?isSize5:null}
+                />
+                <Input
+                className="product-size-7" 
+                style={{position:'absolute',left:'75px',top:'206px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize6(e)}
+                defaultValue={isSize6?isSize6:null}
+                />
+                <Input
+                className="product-size-8" 
+                style={{position:'absolute',left:'4px',top:'121px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize7(e)}
+                defaultValue={isSize7?isSize7:null}
+                />
+                <Input
+                className="product-size-9" 
+                style={{position:'absolute',left:'4px',top:'172px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize8(e)}
+                defaultValue={isSize8?isSize8:null}
+                />
+            </>
+            :null
+          }
+          {
+            isselectVal === 'Skirts' ? 
+            <>
+              <img src="/images/skirt.png" alt="top사이즈이미지" style={{    marginLeft: '-98px',
+    marginTop: '-27px'}}/>
+              <Input
+                className="product-size-1" 
+                style={{position:'absolute',left:'76px',top:'84px',width:'65px !important',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize(e)}
+                defaultValue={isSize?isSize:null}
+                />
+                <Input
+                className="product-size-2" 
+                style={{position:'absolute',left:'77px',top:'202px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize1(e)}
+                defaultValue={isSize1?isSize1:null}
+                />
+                <Input
+                className="product-size-3" 
+                style={{position:'absolute',left:'-65px',top:'238px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize2(e)}
+                defaultValue={isSize2?isSize2:null}
+                />
+                <Input
+                className="product-size-4" 
+                style={{position:'absolute',left:'87px',top:'310px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize3(e)}
+                defaultValue={isSize3?isSize3:null}
+                />
+            </>
+            :null
+          }
+          
+        </Form.Item>
+        <Divider />
+        {/* 품절처리분류 */}
+        <Form.Item
+          name="soldout"
+          label={<div className="upload-label">품절 분류</div>}
+          rules={[{ required: true, message: "분류를 등록하세요" }]}
+        >
+          <Select defaultValue="disabled" style={{ width: 120 }} onChange={handleChange2} value={isselectVal2}>
+            <Option value="disabled" disabled>
+              Disabled
+            </Option>
+            <Option value="0">판매중</Option>
+            <Option value="1">품절</Option>
           </Select>
         </Form.Item>
         <Divider />

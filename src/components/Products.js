@@ -42,6 +42,7 @@ function ProductPage() {
   const [inputDate, setinputDate] = useState(null); // 버튼 상태
   const [modal, setModal] = useState(false);
   const [inventory, setInventory] = useState(false);
+  const [isSize, setSize] = useState(false);
   // const handleFollow = () => {
   //   setScrollY(parentRef.current.offsetHeight);
   //   console.log(ScrollY);
@@ -1030,7 +1031,8 @@ function ProductPage() {
                         }
                       </div>
                       <div style={{color:'#1890ff',textDecoration:'underline',marginBottom:'8px',cursor:'pointer'}} onClick={() => setModal(!modal)}>착장모델사이즈 <InfoCircleOutlined style={{color:'darkgray'}}/></div>
-                      <div style={{color:'#1890ff',textDecoration:'underline',cursor:'pointer'}} onClick={() => setInventory(!inventory)}>실시간재고 <InfoCircleOutlined style={{color:'darkgray'}}/></div> 
+                      <div style={{color:'#1890ff',textDecoration:'underline',cursor:'pointer'}} onClick={() => setInventory(!inventory)}>실시간재고 <InfoCircleOutlined style={{color:'darkgray'}}/></div>
+                      <div style={{borderRadius: '20px',fontSize: '12px',border: '1px solid #000',padding: '7px',textAlign:'center',margin:'10px auto',cursor:'pointer'}} onClick={() => setSize(!isSize)}>실측사이즈 안내</div>
                     </div>
                   </div>
                   
@@ -1421,6 +1423,57 @@ function ProductPage() {
               <div style={{width:'95%',backgroundColor: '#fff',margin:'0 auto',borderRadius: '8px',textAlign:'center'}}>
                 <div style={{cursor:'pointer',fontSize:'23px',textAlign: 'right',color: 'black',padding:'13px'}}onClick={() => setInventory(!inventory)}>X</div>
                 <div className='highlighter' style={{color: 'black',textAlign: 'center',fontWeight:'bold',fontSize: '18px',position:'relative',display:'inline-block',zIndex:'0',marginBottom: '10px'}}>실시간 재고현황</div>
+                <div className="scroll_area" style={{    padding: '25px 2.77%'}}>
+                    <table style={{border:'none',width:'100%'}}>
+                        <thead>
+                          <tr style={{color:'#000'}}>
+                            <th scope='col' width="30%">Color</th>
+                            <th scope='col' width="30">Size</th>
+                            <th scope='col' width="*">현재고현황</th>
+                          </tr>
+                        </thead>
+                        <tbody style={{border:'none'}}>
+                        {whyerrorObject && whyerrorObject.map((product,index) => {
+                          return (
+                            <tr style={{color:'black'}} key={index}>
+                              <td style={{padding:'5px'}}>{product.colorName1}</td>
+                              <td>{product.size1}</td>
+                              <td>{product.quantity1 > 0 ? <>바로배송 <LikeOutlined style={{color:'#FF9995'}}/></> : '주문가능'}</td>
+                            </tr>
+                          )})
+                        }
+                        </tbody>
+                        
+                    </table>
+                    <ul style={{textAlign:'left',padding:'10px'}}>
+                      <br/>
+                      <li style={{color:'black'}}>
+                        <strong>주문가능 이란?</strong>
+                        <div>현재 주문은 가능하며 2~5일 정도 준비기간이 소요되는 상품입니다.</div>
+                      </li>
+                      <br/>
+                      <li style={{color:'black'}}>
+                        <strong>바로배송<LikeOutlined style={{color:'#FF9995'}}/> 이란?</strong>
+                        <div>당일출고가 가능한 상품입니다.</div>
+                      </li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      )}
+      {isSize && (
+        <div
+          className="modalgogo"
+          style={{position:'fixed',background:'rgba(0,0,0,0.7)',top: '50%',left: '50%',zIndex:'1',width: '100%',height:'100vh',color:'#fff',transform: 'translate(-50%, -50%)',display:'flex',alignItems: 'center',justifyContent:'center'}}
+        >
+          <div style={{width:'100%'}}>
+            <div>
+              <div style={{width:'95%',backgroundColor: '#fff',margin:'0 auto',borderRadius: '8px',textAlign:'center'}}>
+                <div style={{cursor:'pointer',fontSize:'23px',textAlign: 'right',color: 'black',padding:'13px'}}onClick={() => setSize(!isSize)}>X</div>
+                <div className='highlighter' style={{color: 'black',textAlign: 'center',fontWeight:'bold',fontSize: '18px',position:'relative',display:'inline-block',zIndex:'0',marginBottom: '10px'}}>사이즈 안내</div>
                 <div className="scroll_area" style={{    padding: '25px 2.77%'}}>
                     <table style={{border:'none',width:'100%'}}>
                         <thead>
