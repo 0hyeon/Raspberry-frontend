@@ -24,7 +24,7 @@ import { Button, message,Tabs } from "antd";
 import Payment from "./Payment";
 import jwt_decode from "jwt-decode";
 import "../css/QnaDescription.css";
-import { LockOutlined,MailOutlined,CameraOutlined,InfoCircleOutlined,LikeOutlined } from "@ant-design/icons";
+import { LockOutlined,MailOutlined,CameraOutlined,InfoCircleOutlined,LikeOutlined,CheckOutlined } from "@ant-design/icons";
 
 function ProductPage() {
   
@@ -43,6 +43,8 @@ function ProductPage() {
   const [modal, setModal] = useState(false);
   const [inventory, setInventory] = useState(false);
   const [isSize, setSize] = useState(false);
+  const [isOnSizeEvent, setOnSizeEvent] = useState(0);
+  const [onSizeEvent2, onSizeEvent3] = useState(false);
   // const handleFollow = () => {
   //   setScrollY(parentRef.current.offsetHeight);
   //   console.log(ScrollY);
@@ -126,8 +128,8 @@ function ProductPage() {
 
   
   const togglePopup = (e,anything) => {
-    console.log("e.target :",e.target.className);
-    console.log("anything.id :",anything.id);
+    // console.log("e.target :",e.target.className);
+    // console.log("anything.id :",anything.id);
     let headerStyle2 = document.getElementsByClassName(`control${e.target.className}`)[0];
     if(headerStyle2.style.display = 'none'){
       headerStyle2.style.display = 'block' ;
@@ -141,7 +143,7 @@ function ProductPage() {
     if(headerStyle2.style.display == 'block'){
       headerStyle2.style.display = 'none !important' ;
     }
-    console.log("headerStyle2 :",headerStyle2.style.display);
+    // console.log("headerStyle2 :",headerStyle2.style.display);
     // if(e.target.className == anything.id){
     //   console.log("gogo");
     // }
@@ -474,10 +476,6 @@ function ProductPage() {
   },[parentRef,scrollPosition,clientRectheight]);
   // },[dispatch]);
   
-  //컬러 액티브 작동   
-  const GetSize = () => {
-    alert('get Size')
-  }
   const GetClick = (e) => {
     if(e.target.style.backgroundColor == ""){
       return;
@@ -504,7 +502,10 @@ function ProductPage() {
   // useEffect(() => {
     
   // }, [isProductId])
-
+  const onSizeEvent = (i,e) => {
+    setOnSizeEvent(i)
+    console.log(i);
+  }
   const GetClick2 = (e) => {//Size 클릭
     if(e.target.style.border == "none"){
       return;
@@ -614,6 +615,7 @@ function ProductPage() {
         dispatch(selectedProduct(result.data));
         // console.log("setProductColor" ,isProductColor);
         // console.log(product);
+        
       })
       .catch(function (error) {
         console.error(error);
@@ -815,13 +817,12 @@ function ProductPage() {
     fetchreviewAll();//reveiw fetch
 
     getProduct();//useEffect시 1개아이템
-
+    
     youCanAddToCart();//장바구니
     // fetchProductDetail();//해당페이지 1아이템 
     fetchProducts();//모든 아이템
     
     setProduct(product);//상품세팅
-    
     
   }, [isCartUi_View,prevClick,currentClick2,currentClick,id]);
   
@@ -975,6 +976,7 @@ function ProductPage() {
     function PdSalePercent(price,maketPrice) {
       return Math.round((1 - ( price/ maketPrice )) * 100)
     }
+    
   return (
     // <div style={{background:'url(http://localhost:8000/uploads/c2eb3b9de2d11.jpg)'}}>
     <div style={{background:'url("")', backgroundSize:"cover"}}>
@@ -1383,6 +1385,7 @@ function ProductPage() {
                 <div style={{cursor:'pointer',fontSize:'23px',textAlign: 'right',color: 'black',padding:'13px'}}onClick={() => setModal(!modal)}>X</div>
                 <div className='highlighter' style={{color: 'black',textAlign: 'center',fontWeight:'bold',fontSize: '18px',position:'relative',display:'inline-block',zIndex:'0',marginBottom: '10px'}}>착장모델 사이즈</div>
                 <div className="scroll_area" style={{    padding: '25px 2.77%'}}>
+                  
                     <table style={{border:'none',width:'100%'}}>
                         <thead>
                           <tr style={{color:'#000'}}>
@@ -1398,7 +1401,7 @@ function ProductPage() {
                                   </div>
                                   <span style={{color:'#000'}}>지현</span>
                               </td>
-                              <td style={{verticalAlign: 'middle', textAlign:'center', fontSize:'15px', color:'#A0A0A0',fontFamily: 'Poppins',    lineHeight: '1.7'}}>
+                              <td style={{verticalAlign: 'middle', textAlign:'center', fontSize:'12px', color:'#A0A0A0',fontFamily: 'Poppins',    lineHeight: '1.7'}}>
                                   Height : 160cm Top : 슬림55/S
                                   Pants : 26inch/S Shoes : 240mm
                               </td>
@@ -1424,39 +1427,43 @@ function ProductPage() {
                 <div style={{cursor:'pointer',fontSize:'23px',textAlign: 'right',color: 'black',padding:'13px'}}onClick={() => setInventory(!inventory)}>X</div>
                 <div className='highlighter' style={{color: 'black',textAlign: 'center',fontWeight:'bold',fontSize: '18px',position:'relative',display:'inline-block',zIndex:'0',marginBottom: '10px'}}>실시간 재고현황</div>
                 <div className="scroll_area" style={{    padding: '25px 2.77%'}}>
-                    <table style={{border:'none',width:'100%'}}>
-                        <thead>
-                          <tr style={{color:'#000'}}>
-                            <th scope='col' width="30%">Color</th>
-                            <th scope='col' width="30">Size</th>
-                            <th scope='col' width="*">현재고현황</th>
+                  <table style={{border:'none',width:'100%'}}>
+                      <thead>
+                        <tr style={{color:'#000'}}>
+                          <th scope='col' width="30%">Color</th>
+                          <th scope='col' width="30">Size</th>
+                          <th scope='col' width="*">현재고현황</th>
+                        </tr>
+                      </thead>
+                      <tbody style={{border:'none'}}>
+                      {whyerrorObject && whyerrorObject.map((product,index) => {
+                        return (
+                          <tr style={{color:'black'}} key={index}>
+                            <td style={{padding:'5px'}}>{product.colorName1}</td>
+                            <td>{product.size1}</td>
+                            <td>{product.quantity1 > 0 ? 
+                              <>
+                              바로배송 <LikeOutlined style={{color:'#FF9995'}}/>
+                              </> 
+                              : '주문가능'}</td>
                           </tr>
-                        </thead>
-                        <tbody style={{border:'none'}}>
-                        {whyerrorObject && whyerrorObject.map((product,index) => {
-                          return (
-                            <tr style={{color:'black'}} key={index}>
-                              <td style={{padding:'5px'}}>{product.colorName1}</td>
-                              <td>{product.size1}</td>
-                              <td>{product.quantity1 > 0 ? <>바로배송 <LikeOutlined style={{color:'#FF9995'}}/></> : '주문가능'}</td>
-                            </tr>
-                          )})
-                        }
-                        </tbody>
-                        
-                    </table>
-                    <ul style={{textAlign:'left',padding:'10px'}}>
-                      <br/>
-                      <li style={{color:'black'}}>
-                        <strong>주문가능 이란?</strong>
-                        <div>현재 주문은 가능하며 2~5일 정도 준비기간이 소요되는 상품입니다.</div>
-                      </li>
-                      <br/>
-                      <li style={{color:'black'}}>
-                        <strong>바로배송<LikeOutlined style={{color:'#FF9995'}}/> 이란?</strong>
-                        <div>당일출고가 가능한 상품입니다.</div>
-                      </li>
-                    </ul>
+                        )})
+                      }
+                      </tbody>
+                      
+                  </table>
+                  <ul style={{textAlign:'left',padding:'10px'}}>
+                    <br/>
+                    <li style={{color:'black'}}>
+                      <strong>주문가능 이란?</strong>
+                      <div>현재 주문은 가능하며 2~5일 정도 준비기간이 소요되는 상품입니다.</div>
+                    </li>
+                    <br/>
+                    <li style={{color:'black'}}>
+                      <strong>바로배송<LikeOutlined style={{color:'#FF9995'}}/> 이란?</strong>
+                      <div>당일출고가 가능한 상품입니다.</div>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
@@ -1469,50 +1476,139 @@ function ProductPage() {
           className="modalgogo"
           style={{position:'fixed',background:'rgba(0,0,0,0.7)',top: '50%',left: '50%',zIndex:'1',width: '100%',height:'100vh',color:'#fff',transform: 'translate(-50%, -50%)',display:'flex',alignItems: 'center',justifyContent:'center'}}
         >
-          <div style={{width:'100%'}}>
+          <div style={{width:'100%',maxWidth:'676px',minWidth:'250px'}}>
             <div>
               <div style={{width:'95%',backgroundColor: '#fff',margin:'0 auto',borderRadius: '8px',textAlign:'center'}}>
                 <div style={{cursor:'pointer',fontSize:'23px',textAlign: 'right',color: 'black',padding:'13px'}}onClick={() => setSize(!isSize)}>X</div>
                 <div className='highlighter' style={{color: 'black',textAlign: 'center',fontWeight:'bold',fontSize: '18px',position:'relative',display:'inline-block',zIndex:'0',marginBottom: '10px'}}>사이즈 안내</div>
-                <div className="scroll_area" style={{    padding: '25px 2.77%'}}>
-                    <table style={{border:'none',width:'100%'}}>
-                        <thead>
-                          <tr style={{color:'#000'}}>
-                            <th scope='col' width="30%">Color</th>
-                            <th scope='col' width="30">Size</th>
-                            <th scope='col' width="*">현재고현황</th>
-                          </tr>
-                        </thead>
-                        <tbody style={{border:'none'}}>
-                        {whyerrorObject && whyerrorObject.map((product,index) => {
+                <div className="scroll_area">
+                    {/*카테고리별 사이즈 가이드 이미지*/}
+                    <div style={{position:'relative',width:'250px',margin:'0 auto'}}>
+                      {product.category === 'Outerwear' ? 
+                      <>
+                        <img style={{width:'250px'}} src="/images/outer.png" alt="Outerwear이미지" />
+                      </> : null }
+                      {product.category === 'Tops' ? 
+                      <>
+                        <img style={{width:'250px'}} src="/images/top.png" alt="Tops이미지" /><div classsName=''>{product.sizeDetail}</div>
+                      </> : null }
+                      {product.category === 'Bottoms' ? 
+                      <>
+                        <img style={{width:'250px'}} src="/images/bottom.png" alt="Bottoms이미지" /><div classsName=''>{product.sizeDetail}</div>
+                      </> : null }
+                      {product.category === 'Pants' ? 
+                      <>
+                        <img style={{width:'250px'}} src="/images/pants.png" alt="Pants이미지" /><div classsName=''>{product.sizeDetail}</div>
+                      </> : null }
+                      {product.category === 'Dresses' ? 
+                      <>
+                        <img style={{width:'250px'}} src="/images/dress.png" alt="Dresses이미지" /><div classsName=''>{product.sizeDetail}</div>
+                      </> : null }
+                      {product.category === 'Skirts' ? 
+                      <>
+                        <img style={{width:'250px'}} src="/images/skirt.png" alt="Skirts이미지" /><div classsName=''>{product.sizeDetail}</div>
+                      </> : null }
+                      {product.category === 'Jumpsuit' ? 
+                      <>
+                        <img style={{width:'250px'}} src="/images/Jumpsuit.png" alt="Skirts이미지" /><div classsName=''>{product.sizeDetail}</div>
+                      </> : null }
+                      {/* cm표시 */}
+                      <div style={{padding:'15px'}}>
+                      {product.sizeDetailCategory && product.sizeDetailCategory.map((product1,index) => {
                           return (
-                            <tr style={{color:'black'}} key={index}>
-                              <td style={{padding:'5px'}}>{product.colorName1}</td>
-                              <td>{product.size1}</td>
-                              <td>{product.quantity1 > 0 ? <>바로배송 <LikeOutlined style={{color:'#FF9995'}}/></> : '주문가능'}</td>
-                            </tr>
+                            <>
+                              {/* f,m,l */}
+                              {product1.split(',')[0] ? <div style={{width:'42px',height:'42px',border:'1px solid #000',color:'black',lineHeight:'40px',display:'inline-block',fontSize:'15px',position:'relative'}}className="detail_first_li" onClick={(e) => onSizeEvent(0,e)}>{product1.split(',')[0]}{isOnSizeEvent === 0 ? <CheckOutlined style={{position:'absolute',top:'50%',left:'50%',transform: 'translate(-50%, -50%)',fontSize:'21px'}} />: null}</div> : null}
+                              {product1.split(',')[1] ? <div style={{width:'42px',height:'42px',border:'1px solid #000',color:'black',lineHeight:'40px',display:'inline-block',fontSize:'15px',position:'relative',margin:'0px 10px'}}className="detail_first_li" onClick={(e) => onSizeEvent(1,e)}>{product1.split(',')[1]}{isOnSizeEvent === 1 ? <CheckOutlined style={{position:'absolute',top:'50%',left:'50%',transform: 'translate(-50%, -50%)',fontSize:'21px'}} />: null}</div> : null}
+                              {product1.split(',')[2] ? <div style={{width:'42px',height:'42px',border:'1px solid #000',color:'black',lineHeight:'40px',display:'inline-block',fontSize:'15px',position:'relative'}}className="detail_first_li" onClick={(e) => onSizeEvent(2,e)}>{product1.split(',')[2]}{isOnSizeEvent === 2 ? <CheckOutlined style={{position:'absolute',top:'50%',left:'50%',transform: 'translate(-50%, -50%)',fontSize:'21px'}} />: null}</div> : null}
+                              {/* 11cm,12cm */}
+                              {product.category === 'Outerwear' ? 
+                              <>
+                                <div style={{position:'absolute',top: '8%',left: '45%',color:'black'}}>{product.sizeDetail[0].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '33%',left: '6%',color:'black'}}>{product.sizeDetail[1].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '30%',left: '21%',color:'black'}}>{product.sizeDetail[2].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '28%',left: '45%',color:'black'}}>{product.sizeDetail[3].split(',')[isOnSizeEvent]}</div>
+                              </>
+                              : null
+                              }
+                              {product.category === 'Tops' ? 
+                              <>
+                                <div style={{position:'absolute',top: '8%',left: '45%',color:'black'}}>{product.sizeDetail[0].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '31%',left: '6%',color:'black'}}>{product.sizeDetail[1].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '23%',left: '21%',color:'black'}}>{product.sizeDetail[2].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '28%',left: '45%',color:'black'}}>{product.sizeDetail[3].split(',')[isOnSizeEvent]}</div>
+                              </>
+                              : null
+                              }
+                              {product.category === 'Bottoms' ? 
+                              <>
+                                <div style={{position:'absolute',top: '2%',left: '45%',color:'black'}}>{product.sizeDetail[0].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '12%',left: '45%',color:'black'}}>{product.sizeDetail[1].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '23%',left: '21%',color:'black'}}>{product.sizeDetail[2].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '28%',left: '45%',color:'black'}}>{product.sizeDetail[3].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '28%',left: '45%',color:'black'}}>{product.sizeDetail[4].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '28%',left: '45%',color:'black'}}>{product.sizeDetail[5].split(',')[isOnSizeEvent]}</div>
+                              </>
+                              : null
+                              }
+                              {product.category === 'Skirts' ? 
+                              <>
+                                <div style={{position:'absolute',top: '6%',left: '45%',color:'black'}}>{product.sizeDetail[0].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '25%',left: '45%',color:'black'}}>{product.sizeDetail[1].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '42%',left: '48%',color:'black'}}>{product.sizeDetail[2].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '29%',left: '9%',color:'black'}}>{product.sizeDetail[3].split(',')[isOnSizeEvent]}</div>
+                              </>
+                              : null
+                              }
+                              {product.category === 'Dresses' ? 
+                              <>
+                                <div style={{position:'absolute',top: '1%',left: '45%',color:'black'}}>{product.sizeDetail[0].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '14.5%',left: '45%',color:'black'}}>{product.sizeDetail[1].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '30%',left: '85%',color:'black'}}>{product.sizeDetail[2].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '28%',left: '73%',color:'black'}}>{product.sizeDetail[3].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '19.5%',left: '45%',color:'black'}}>{product.sizeDetail[4].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '25.5%',left: '45%',color:'black'}}>{product.sizeDetail[5].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '11%',left: '57%',color:'black'}}>{product.sizeDetail[6].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '12%',left: '27%',color:'black'}}>{product.sizeDetail[7].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '20%',left: '27%',color:'black'}}>{product.sizeDetail[8].split(',')[isOnSizeEvent]}</div>
+                              </>
+                              : null
+                              }
+                              {product.category === 'Pants' ? 
+                              <>
+                                <div style={{position:'absolute',top: '10.5%',left: '45%',color:'black'}}>{product.sizeDetail[0].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '23.5%',left: '45%',color:'black'}}>{product.sizeDetail[1].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '28%',left: '73%',color:'black'}}>{product.sizeDetail[2].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '35%',left: '33%',color:'black'}}>{product.sizeDetail[3].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '29.5%',left: '6%',color:'black'}}>{product.sizeDetail[4].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '47%',left: '32%',color:'black'}}>{product.sizeDetail[5].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '40%',left: '45%',color:'black'}}>{product.sizeDetail[6].split(',')[isOnSizeEvent]}</div>
+                              </>
+                              : null
+                              }
+                              {product.category === 'Jumpsuit' ? 
+                              <>
+                                <div style={{position:'absolute',top: '1.5%',left: '45%',color:'black'}}>{product.sizeDetail[0].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '17.5%',left: '45%',color:'black'}}>{product.sizeDetail[1].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '18%',left: '76%',color:'black'}}>{product.sizeDetail[2].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '32%',left: '11%',color:'black'}}>{product.sizeDetail[3].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '28%',left: '45%',color:'black'}}>{product.sizeDetail[4].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '33%',left: '37%',color:'black'}}>{product.sizeDetail[5].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '12%',left: '57%',color:'black'}}>{product.sizeDetail[6].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '17%',left: '24%',color:'black'}}>{product.sizeDetail[7].split(',')[isOnSizeEvent]}</div>
+                              </>
+                              : null
+                              }
+                            </>
                           )})
                         }
-                        </tbody>
-                        
-                    </table>
-                    <ul style={{textAlign:'left',padding:'10px'}}>
-                      <br/>
-                      <li style={{color:'black'}}>
-                        <strong>주문가능 이란?</strong>
-                        <div>현재 주문은 가능하며 2~5일 정도 준비기간이 소요되는 상품입니다.</div>
-                      </li>
-                      <br/>
-                      <li style={{color:'black'}}>
-                        <strong>바로배송<LikeOutlined style={{color:'#FF9995'}}/> 이란?</strong>
-                        <div>당일출고가 가능한 상품입니다.</div>
-                      </li>
-                    </ul>
+                        <div style={{color:'black',padding:'10px'}}>사이즈는 측정방법이나 위치에 따라 1~3cm 오차가 있을 수 있습니다.</div>
+                      </div>
+                    </div>
                 </div>
               </div>
             </div>
           </div>
-          
         </div>
       )}
     </div>

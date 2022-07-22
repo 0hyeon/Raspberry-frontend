@@ -10,8 +10,11 @@ const BestCategory = () => {
   }
   const products = useSelector((state) => state.products.products);
 
-  const uniqueCategory = products.map((it)=>(it.category));
-  let uniqueCategory2 = [...new Set(uniqueCategory)]//카테고리 중복제거 
+//   const uniqueCategory = products.map((it)=>(it.category));
+//   let uniqueCategory2 = [...new Set(uniqueCategory)]//카테고리 중복제거 
+  let uniqueCategory3 = ["Dresses","Tops","Outerwear","Pants","Skirts"]//카테고리 중복제거 
+//   console.log("uniqueCategory2 : ",uniqueCategory2);
+  console.log("uniqueCategory3 : ",uniqueCategory3);
   return (
     <div style={{background:'', backgroundSize:"cover"}} className="bestCategoryWrap">
         <h1 className="product-headline">BEST CATEGORY</h1>
@@ -27,7 +30,7 @@ const BestCategory = () => {
                 barColor: "transparent"
             }}
         >
-        {uniqueCategory2.map((it,i)=>{
+        {uniqueCategory3.map((it,i)=>{
             return(<Tab label={it} key={i || 0}>
                 {products.length > 0 ? (
                     products

@@ -148,9 +148,8 @@
     line-height: 1.8;
     border-bottom: 1px solid #e8e8e8;
     /* border-top: 1px solid #aaa; */
-    padding: 0px 0px 40px;
     max-height: 45vh;
-    height: 20vh;
+    height: 15vh;
     color: black;
   }
   .SizeTabFont{
@@ -523,7 +522,7 @@
   }
   .description{
     height: 30vh!important;
-    overflow: auto !important;
+    overflow: scroll !important;
   }
   #contents-box:before{
     display: none!important;
@@ -533,7 +532,7 @@
     font-size:21px !important;
   }
   #image-box > .swiper-container > .swiper-wrapper>.swiper-slide> img{
-    padding: 0px 5px!important;
+    padding: 10px 48px!important;
   }
   .content_wrapper .swiper-button-next, .content_wrapper .swiper-button-prev{
     /* color: white!important; */

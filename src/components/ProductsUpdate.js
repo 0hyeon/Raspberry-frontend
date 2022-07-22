@@ -55,6 +55,7 @@ function ProductsUpdate() {
   const [isName, setName] = useState(updateProduct && updateProduct.name);
 
   //사이즈 input
+  const [isSizeCategory, setSizeCategory] = useState([]);
   const [isSize, setSize] = useState(null);
   const [isSize1, setSize1] = useState(null);
   const [isSize2, setSize2] = useState(null);
@@ -224,7 +225,7 @@ function ProductsUpdate() {
       detailPage4 : detailPage4,
       detailPage5 : detailPage5,
       sizeDesc : editor_wysywic2,
-
+      sizeDetailCategory : [isSizeCategory],
       sizeDetail:[isSize,
                   isSize1,
                   isSize2,
@@ -358,6 +359,10 @@ function ProductsUpdate() {
   const onChangeSeller = (e) => {
     setSeller(e.target.value);
     console.log('setSeller : ',e.target.value);
+  }
+  const onChangeSizeCategory = (e) => {
+    setSizeCategory(e.target.value);
+    // console.log('setSize : ',e.target.value);
   }
   const onChangeSize = (e) => {
     setSize(e.target.value);
@@ -1250,293 +1255,376 @@ function ProductsUpdate() {
             <Option value="Skirts">Skirts</Option>
             <Option value="Dresses">Dresses</Option>
             <Option value="Pants">Pants</Option>
+            <Option value="Jumpsuit">Jumpsuit</Option>
           </Select>
         </Form.Item>
         <Divider />
+        {/* 사이즈 대분류  */}
+        <Form.Item
+          name="sizeDetailCategory"
+          label={<div className="upload-label">추가할사이즈 (ex: F,M,L)</div>}
+          rules={[{ required: false, message: "추가할 사이즈를 입력하세요 (ex: F,M,L)" }]}
+        >
+          <Input
+            className="product-size-category"
+            size="large"
+            onChange={(e) => onChangeSizeCategory(e)}
+            defaultValue={isSizeCategory?isSizeCategory:null}
+          />
+        </Form.Item>
         {/* 사이즈추가 */}
         <Form.Item 
           name="size"
           label={<div className="upload-label">사이즈추가</div>}
           rules={[{ required: false, message: "사이즈를 추가하세요." }]}
-          style={{pisiton:'relative'}}
         >
           {
             isselectVal === 'Outerwear' ? 
-            <>
+            <div style={{position:'relative'}}>
               <img src="/images/outer.png" alt="top사이즈이미지" style={{    marginLeft: '-98px',
     marginTop: '-27px'}}/>
                 <Input
                 className="product-size-1" 
-                style={{position:'absolute',left:'-22px',top:'62px',width:'65px !important',opacity:'0.7',height:'30px'}}
+                style={{position:'absolute',left:'69px',top:'16px',width:'65px !important',opacity:'0.7',height:'30px'}}
                 size="large" 
                 onChange={(e) => onChangeSize(e)}
                 defaultValue={isSize?isSize:null}
                 />
                 <Input
                 className="product-size-2" 
-                style={{position:'absolute',left:'-181px',top:'215px',width:'65px',opacity:'0.7',height:'30px'}}
+                style={{position:'absolute',left:'-87px',top:'178px',width:'65px',opacity:'0.7',height:'30px'}}
                 size="large" 
                 onChange={(e) => onChangeSize1(e)}
                 defaultValue={isSize1?isSize1:null}
                 />
                 <Input
                 className="product-size-3" 
-                style={{position:'absolute',left:'-82px',top:'238px',width:'65px',opacity:'0.7',height:'30px'}}
+                style={{position:'absolute',left:'-18px',top:'115px',width:'65px',opacity:'0.7',height:'30px'}}
                 size="large" 
                 onChange={(e) => onChangeSize2(e)}
                 defaultValue={isSize2?isSize2:null}
                 />
                 <Input
                 className="product-size-4" 
-                style={{position:'absolute',left:'-4px',top:'177px',width:'65px',opacity:'0.7',height:'30px'}}
+                style={{position:'absolute',left:'69px',top:'142px',width:'65px',opacity:'0.7',height:'30px'}}
                 size="large" 
                 onChange={(e) => onChangeSize3(e)}
                 defaultValue={isSize3?isSize3:null}
                 />
-            </>
+            </div>
             :null
           }
           {
             isselectVal === 'Tops' ? 
-            <>
-              <img src="/images/top.png" alt="top사이즈이미지" style={{    marginLeft: '-98px',
-    marginTop: '-27px'}}/>
+            <div style={{position:'relative'}}>
+              <img src="/images/top.png" alt="top사이즈이미지" style={{    marginLeft: '-98px',marginTop: '-27px'}}/>
                 <Input
                 className="product-size-1" 
-                style={{position:'absolute',left:'-22px',top:'67px',width:'65px !important',opacity:'0.7',height:'30px'}}
+                style={{position:'absolute',left:'68px',top:'22px',width:'65px !important',opacity:'0.7',height:'30px'}}
                 size="large" 
                 onChange={(e) => onChangeSize(e)}
                 defaultValue={isSize?isSize:null}
                 />
                 <Input
                 className="product-size-2" 
-                style={{position:'absolute',left:'-90px',top:'150px',width:'65px',opacity:'0.7',height:'30px'}}
+                style={{position:'absolute',left:'-83px',top:'167px',width:'65px',opacity:'0.7',height:'30px'}}
                 size="large" 
                 onChange={(e) => onChangeSize1(e)}
                 defaultValue={isSize1?isSize1:null}
                 />
                 <Input
                 className="product-size-3" 
-                style={{position:'absolute',left:'-173px',top:'211px',width:'65px',opacity:'0.7',height:'30px'}}
+                style={{position:'absolute',left:'-13px',top:'109px',width:'65px',opacity:'0.7',height:'30px'}}
                 size="large" 
                 onChange={(e) => onChangeSize2(e)}
                 defaultValue={isSize2?isSize2:null}
                 />
                 <Input
                 className="product-size-4" 
-                style={{position:'absolute',left:'-23px',top:'198px',width:'65px',opacity:'0.7',height:'30px'}}
+                style={{position:'absolute',left:'68px',top:'151px',width:'65px',opacity:'0.7',height:'30px'}}
                 size="large" 
                 onChange={(e) => onChangeSize3(e)}
                 defaultValue={isSize3?isSize3:null}
                 />
-            </>
+            </div>
             :null
           }
           {
             isselectVal === 'Bottoms' ? 
-            <>
+            <div style={{position:'relative'}}>
               <img src="/images/bottom.png" alt="top사이즈이미지" style={{    marginLeft: '-98px',
     marginTop: '-27px'}}/>
                 <Input
                 className="product-size-1" 
-                style={{position:'absolute',left:'-22px',top:'26px',width:'65px !important',opacity:'0.7',height:'30px'}}
+                style={{position:'absolute',left:'70px',top:'-20px',width:'65px !important',opacity:'0.7',height:'30px'}}
                 size="large" 
                 onChange={(e) => onChangeSize(e)}
                 defaultValue={isSize?isSize:null}
                 />
                 <Input
                 className="product-size-2" 
-                style={{position:'absolute',left:'-19px',top:'90px',width:'65px',opacity:'0.7',height:'30px'}}
+                style={{position:'absolute',left:'70px',top:'46px',width:'65px',opacity:'0.7',height:'30px'}}
                 size="large" 
                 onChange={(e) => onChangeSize1(e)}
                 defaultValue={isSize1?isSize1:null}
                 />
                 <Input
                 className="product-size-3" 
-                style={{position:'absolute',left:'-65px',top:'238px',width:'65px',opacity:'0.7',height:'30px'}}
+                style={{position:'absolute',left:'33px',top:'78px',width:'65px',opacity:'0.7',height:'30px'}}
                 size="large" 
                 onChange={(e) => onChangeSize2(e)}
                 defaultValue={isSize2?isSize2:null}
                 />
                 <Input
                 className="product-size-4" 
-                style={{position:'absolute',left:'46px',top:'151px',width:'65px',opacity:'0.7',height:'30px'}}
+                style={{position:'absolute',left:'32px',top:'123px',width:'65px',opacity:'0.7',height:'30px'}}
                 size="large" 
                 onChange={(e) => onChangeSize3(e)}
                 defaultValue={isSize3?isSize3:null}
                 />
                 <Input
                 className="product-size-5" 
-                style={{position:'absolute',left:'46px',top:'184px',width:'65px',opacity:'0.7',height:'30px'}}
+                style={{position:'absolute',left:'30px',top:'320px',width:'65px',opacity:'0.7',height:'30px'}}
                 size="large" 
                 onChange={(e) => onChangeSize4(e)}
                 defaultValue={isSize4?isSize4:null}
                 />
                 <Input
                 className="product-size-6" 
-                style={{position:'absolute',left:'46px',top:'384px',width:'65px',opacity:'0.7',height:'30px'}}
+                style={{position:'absolute',left:'-71px',top:'172px',width:'65px',opacity:'0.7',height:'30px'}}
                 size="large" 
                 onChange={(e) => onChangeSize5(e)}
                 defaultValue={isSize5?isSize5:null}
                 />
-            </>
+            </div>
             :null
           }
           {
             isselectVal === 'Pants' ? 
-            <>
+            <div style={{position:'relative'}}>
               <img src="/images/pants.png" alt="top사이즈이미지" style={{    marginLeft: '-98px',
     marginTop: '-27px'}}/>
                 <Input
                 className="product-size-1" 
-                style={{position:'absolute',left:'62px',top:'105px',width:'65px !important',opacity:'0.7',height:'30px'}}
+                style={{position:'absolute',left:'70px',top:'43px',width:'65px !important',opacity:'0.7',height:'30px'}}
                 size="large" 
                 onChange={(e) => onChangeSize(e)}
                 defaultValue={isSize?isSize:null}
                 />
                 <Input
                 className="product-size-2" 
-                style={{position:'absolute',left:'62px',top:'221px',width:'65px',opacity:'0.7',height:'30px'}}
+                style={{position:'absolute',left:'70px',top:'120px',width:'65px',opacity:'0.7',height:'30px'}}
                 size="large" 
                 onChange={(e) => onChangeSize1(e)}
                 defaultValue={isSize1?isSize1:null}
                 />
                 <Input
                 className="product-size-3" 
-                style={{position:'absolute',left:'13px',top:'266px',width:'65px',opacity:'0.7',height:'30px'}}
+                style={{position:'absolute',left:'70px',top:'156px',width:'65px',opacity:'0.7',height:'30px'}}
                 size="large" 
                 onChange={(e) => onChangeSize2(e)}
                 defaultValue={isSize2?isSize2:null}
                 />
                 <Input
                 className="product-size-4" 
-                style={{position:'absolute',left:'101px',top:'287px',width:'65px',opacity:'0.7',height:'30px'}}
+                style={{position:'absolute',left:'24px',top:'198px',width:'65px',opacity:'0.7',height:'30px'}}
                 size="large" 
                 onChange={(e) => onChangeSize3(e)}
                 defaultValue={isSize3?isSize3:null}
                 />
                 <Input
                 className="product-size-5" 
-                style={{position:'absolute',left:'-93px',top:'232px',width:'65px',opacity:'0.7',height:'30px'}}
+                style={{position:'absolute',left:'-80px',top:'162px',width:'65px',opacity:'0.7',height:'30px'}}
                 size="large" 
                 onChange={(e) => onChangeSize4(e)}
                 defaultValue={isSize4?isSize4:null}
                 />
                 <Input
                 className="product-size-6" 
-                style={{position:'absolute',left:'4px',top:'340px',width:'65px',opacity:'0.7',height:'30px'}}
-                size="large" 
-                onChange={(e) => onChangeSize5(e)}
-                defaultValue={isSize5?isSize5:null}
-                />
-            </>
-            :null
-          }
-          {
-            isselectVal === 'Dresses' ? 
-            <>
-              <img src="/images/dress.png" alt="top사이즈이미지" style={{    marginLeft: '-98px',
-    marginTop: '-27px'}}/>
-                <Input
-                className="product-size-1" 
-                style={{position:'absolute',left:'76px',top:'46px',width:'65px !important',opacity:'0.7',height:'30px'}}
-                size="large" 
-                onChange={(e) => onChangeSize(e)}
-                defaultValue={isSize?isSize:null}
-                />
-                <Input
-                className="product-size-2" 
-                style={{position:'absolute',left:'116px',top:'113px',width:'65px',opacity:'0.7',height:'30px'}}
-                size="large" 
-                onChange={(e) => onChangeSize1(e)}
-                defaultValue={isSize1?isSize1:null}
-                />
-                <Input
-                className="product-size-3" 
-                style={{position:'absolute',left:'250px',top:'235px',width:'65px',opacity:'0.7',height:'30px'}}
-                size="large" 
-                onChange={(e) => onChangeSize2(e)}
-                defaultValue={isSize2?isSize2:null}
-                />
-                <Input
-                className="product-size-4" 
-                style={{position:'absolute',left:'182px',top:'227px',width:'65px',opacity:'0.7',height:'30px'}}
-                size="large" 
-                onChange={(e) => onChangeSize3(e)}
-                defaultValue={isSize3?isSize3:null}
-                />
-                <Input
-                className="product-size-5" 
-                style={{position:'absolute',left:'75px',top:'142px',width:'65px',opacity:'0.7',height:'30px'}}
-                size="large" 
-                onChange={(e) => onChangeSize4(e)}
-                defaultValue={isSize4?isSize4:null}
-                />
-                <Input
-                className="product-size-6" 
-                style={{position:'absolute',left:'75px',top:'174px',width:'65px',opacity:'0.7',height:'30px'}}
+                style={{position:'absolute',left:'16px',top:'273px',width:'65px',opacity:'0.7',height:'30px'}}
                 size="large" 
                 onChange={(e) => onChangeSize5(e)}
                 defaultValue={isSize5?isSize5:null}
                 />
                 <Input
                 className="product-size-7" 
-                style={{position:'absolute',left:'75px',top:'206px',width:'65px',opacity:'0.7',height:'30px'}}
+                style={{position:'absolute',left:'70px',top:'231px',width:'65px',opacity:'0.7',height:'30px'}}
                 size="large" 
                 onChange={(e) => onChangeSize6(e)}
                 defaultValue={isSize6?isSize6:null}
                 />
-                <Input
-                className="product-size-8" 
-                style={{position:'absolute',left:'4px',top:'121px',width:'65px',opacity:'0.7',height:'30px'}}
-                size="large" 
-                onChange={(e) => onChangeSize7(e)}
-                defaultValue={isSize7?isSize7:null}
-                />
-                <Input
-                className="product-size-9" 
-                style={{position:'absolute',left:'4px',top:'172px',width:'65px',opacity:'0.7',height:'30px'}}
-                size="large" 
-                onChange={(e) => onChangeSize8(e)}
-                defaultValue={isSize8?isSize8:null}
-                />
-            </>
+            </div>
             :null
           }
           {
-            isselectVal === 'Skirts' ? 
-            <>
-              <img src="/images/skirt.png" alt="top사이즈이미지" style={{    marginLeft: '-98px',
+            isselectVal === 'Dresses' ? 
+            <div style={{position:'relative'}}>
+              <img src="/images/dress.png" alt="top사이즈이미지" style={{    marginLeft: '-98px',
     marginTop: '-27px'}}/>
-              <Input
+                <Input
                 className="product-size-1" 
-                style={{position:'absolute',left:'76px',top:'84px',width:'65px !important',opacity:'0.7',height:'30px'}}
+                style={{position:'absolute',left:'71px',top:'-17px',width:'65px !important',opacity:'0.7',height:'30px'}}
                 size="large" 
                 onChange={(e) => onChangeSize(e)}
                 defaultValue={isSize?isSize:null}
                 />
                 <Input
                 className="product-size-2" 
-                style={{position:'absolute',left:'77px',top:'202px',width:'65px',opacity:'0.7',height:'30px'}}
+                style={{position:'absolute',left:'71px',top:'68px',width:'65px',opacity:'0.7',height:'30px'}}
                 size="large" 
                 onChange={(e) => onChangeSize1(e)}
                 defaultValue={isSize1?isSize1:null}
                 />
                 <Input
                 className="product-size-3" 
-                style={{position:'absolute',left:'-65px',top:'238px',width:'65px',opacity:'0.7',height:'30px'}}
+                style={{position:'absolute',left:'229px',top:'167px',width:'65px',opacity:'0.7',height:'30px'}}
                 size="large" 
                 onChange={(e) => onChangeSize2(e)}
                 defaultValue={isSize2?isSize2:null}
                 />
                 <Input
                 className="product-size-4" 
-                style={{position:'absolute',left:'87px',top:'310px',width:'65px',opacity:'0.7',height:'30px'}}
+                style={{position:'absolute',left:'181px',top:'137px',width:'65px',opacity:'0.7',height:'30px'}}
                 size="large" 
                 onChange={(e) => onChangeSize3(e)}
                 defaultValue={isSize3?isSize3:null}
                 />
-            </>
+                <Input
+                className="product-size-5" 
+                style={{position:'absolute',left:'71px',top:'101px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize4(e)}
+                defaultValue={isSize4?isSize4:null}
+                />
+                <Input
+                className="product-size-6" 
+                style={{position:'absolute',left:'71px',top:'138px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize5(e)}
+                defaultValue={isSize5?isSize5:null}
+                />
+                <Input
+                className="product-size-7" 
+                style={{position:'absolute',left:'122px',top:'41px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize6(e)}
+                defaultValue={isSize6?isSize6:null}
+                />
+                <Input
+                className="product-size-8" 
+                style={{position:'absolute',left:'8px',top:'40px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize7(e)}
+                defaultValue={isSize7?isSize7:null}
+                />
+                <Input
+                className="product-size-9" 
+                style={{position:'absolute',left:'4px',top:'98px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize8(e)}
+                defaultValue={isSize8?isSize8:null}
+                />
+            </div>
+            :null
+          }
+          {
+            isselectVal === 'Skirts' ? 
+            <div style={{position:'relative'}}>
+              <img src="/images/skirt.png" alt="top사이즈이미지" style={{    marginLeft: '-98px',
+    marginTop: '-27px'}}/>
+              <Input
+                className="product-size-1" 
+                style={{position:'absolute',left:'73px',top:'14px',width:'65px !important',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize(e)}
+                defaultValue={isSize?isSize:null}
+                />
+                <Input
+                className="product-size-2" 
+                style={{position:'absolute',left:'73px',top:'134px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize1(e)}
+                defaultValue={isSize1?isSize1:null}
+                />
+                <Input
+                className="product-size-3" 
+                style={{position:'absolute',left:'81px',top:'243px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize2(e)}
+                defaultValue={isSize2?isSize2:null}
+                />
+                <Input
+                className="product-size-4" 
+                style={{position:'absolute',left:'-69px',top:'167px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize3(e)}
+                defaultValue={isSize3?isSize3:null}
+                />
+            </div>
+            :null
+          }
+          {
+            isselectVal === 'Jumpsuit' ? 
+            <div style={{position:'relative'}}>
+              <img src="/images/Jumpsuit.png" alt="top사이즈이미지" style={{    marginLeft: '-98px',
+    marginTop: '-27px'}}/>
+                <Input
+                className="product-size-1" 
+                style={{position:'absolute',left:'71px',top:'-17px',width:'65px !important',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize(e)}
+                defaultValue={isSize?isSize:null}
+                />
+                <Input
+                className="product-size-2" 
+                style={{position:'absolute',left:'71px',top:'84px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize1(e)}
+                defaultValue={isSize1?isSize1:null}
+                />
+                <Input
+                className="product-size-3" 
+                style={{position:'absolute',left:'201px',top:'89px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize2(e)}
+                defaultValue={isSize2?isSize2:null}
+                />
+                <Input
+                className="product-size-4" 
+                style={{position:'absolute',left:'-60px',top:'175px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize3(e)}
+                defaultValue={isSize3?isSize3:null}
+                />
+                <Input
+                className="product-size-5" 
+                style={{position:'absolute',left:'71px',top:'151px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize4(e)}
+                defaultValue={isSize4?isSize4:null}
+                />
+                <Input
+                className="product-size-6" 
+                style={{position:'absolute',left:'39px',top:'188px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize5(e)}
+                defaultValue={isSize5?isSize5:null}
+                />
+                <Input
+                className="product-size-7" 
+                style={{position:'absolute',left:'122px',top:'50px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize6(e)}
+                defaultValue={isSize6?isSize6:null}
+                />
+                <Input
+                className="product-size-8" 
+                style={{position:'absolute',left:'-10px',top:'86px',width:'65px',opacity:'0.7',height:'30px'}}
+                size="large" 
+                onChange={(e) => onChangeSize7(e)}
+                defaultValue={isSize7?isSize7:null}
+                />
+            </div>
             :null
           }
           

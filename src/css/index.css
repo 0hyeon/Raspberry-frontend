@@ -365,7 +365,7 @@
     }
     .product-img{
       object-fit: cover !important;
-      border-radius: 24px;
+      /* border-radius: 24px; */
     }
     
   }

@@ -42,11 +42,6 @@ function Main(props) {
     // console.log("whyerrorObject",whyerrorObject);
     const dispatch = useDispatch();
     const [pageNumber, setPageNumber] = useState(0);
-    const [, setSelectedTab] = useState(0);
-
-    
-
-
     const productsOptionsAll = async (limitNum) => {
         let body = {
             limitNum
@@ -259,8 +254,8 @@ function Main(props) {
     if (isproductsOptionsAll == null || reviewAll == null){
         return <div>Loading...</div>
     }
-    console.log("products : ",products);
-    console.log("reviewAll : ",reviewAll);
+    // console.log("products : ",products);
+    // console.log("reviewAll : ",reviewAll);
     return(
         <div>
             { loading ? <div>Loading...</div>
