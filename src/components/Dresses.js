@@ -2,13 +2,13 @@ import React, {useState} from 'react';
 import "../css/Paging.css";
 import { useDispatch,useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import {API_URL} from "../config/constants.js";
+import axios from "axios";
 import dayjs from "dayjs";
 import ReactPaginate from "react-paginate";
 import { actionCreators as productActions } from "../_modules/product";
 import { actionCreators as productOptionActions } from "../_modules/productoptions";
-const Tops = () => {
+const DressesSkirts = () => {
     const dispatch = useDispatch();
     const [pageNumber, setPageNumber] = useState(0);
     const [loading, setLoading] = useState(true);
@@ -22,7 +22,7 @@ const Tops = () => {
         // 상품관련
         // fetchProducts();
         dispatch(productActions.setProductSV());
-        dispatch(productOptionActions.setProductOptionsSV(products.i));
+        dispatch(productOptionActions.setProductOptionsSV(products.id));
         fetchreviewAll();
         setLoading(false);
     }, []);
@@ -62,10 +62,11 @@ const Tops = () => {
             document.getElementById(`${e.target.id}`).src = process.env.NODE_ENV === 'production' ?`${imageUrl}` : `${API_URL}/${imageUrl}`;
         }
     }
+
     const displayUsers = products.slice(0,50)//50중에 
         .slice(pagesVisited, pagesVisited + usersPerPage)// 최대갯수 ~  최대갯수 + 10
-        .filter(item => item.category == "Tops").map((product) => {
-        // .filter(item => item.category == "DRESSES/SKIRTS").map((product) => {
+        // .filter(item => item.category == "NEW").map((product) => {
+        .filter(item => item.category === "Dresses").map((product) => {
             return (
                 <div className="product-card" key={product.id}>
                 {
@@ -170,7 +171,7 @@ const Tops = () => {
     return <div style={{paddingTop:"100px",textAlign:'center'}}>
         { loading ? <div>Loading...</div>  :
             <>
-                <h1 className="product-headline">Tops.</h1>
+                <h1 className="product-headline">Dresses / Skirts.</h1>
                 <div className="product-list-wrapper" id="product-list">
                     {displayUsers}
                     <ReactPaginate
@@ -191,4 +192,4 @@ const Tops = () => {
 
 };
 
-export default Tops;
+export default DressesSkirts;

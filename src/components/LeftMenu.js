@@ -59,10 +59,19 @@ const LeftMenu = (props) => {
             <Link
               style={{ color: "inherit" }}
               className=""
-              to={`/DressesSkirts`}
+              to={`/Dresses`}
               onClick={() => props.onClose()}
             >
-            Dresses/Skirts</Link>
+            Dresses</Link>
+          </Menu.Item>
+          <Menu.Item key="setting:6">
+            <Link
+              style={{ color: "inherit" }}
+              className=""
+              to={`/Skirts`}
+              onClick={() => props.onClose()}
+            >
+            Skirts</Link>
           </Menu.Item>
         {/* </MenuItemGroup> */}
        {/* </SubMenu> */}

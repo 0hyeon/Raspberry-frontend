@@ -1205,7 +1205,6 @@ function ProductPage() {
           null 
           :
           <div className="dtail_Page22">
-            <h3 className="detail_title">Other Color</h3>
             {product.detailPage2 == null? null 
             :<img src={
               process.env.NODE_ENV === 'production'
@@ -1544,10 +1543,10 @@ function ProductPage() {
                               <>
                                 <div style={{position:'absolute',top: '2%',left: '45%',color:'black'}}>{product.sizeDetail[0].split(',')[isOnSizeEvent]}</div>
                                 <div style={{position:'absolute',top: '12%',left: '45%',color:'black'}}>{product.sizeDetail[1].split(',')[isOnSizeEvent]}</div>
-                                <div style={{position:'absolute',top: '23%',left: '21%',color:'black'}}>{product.sizeDetail[2].split(',')[isOnSizeEvent]}</div>
-                                <div style={{position:'absolute',top: '28%',left: '45%',color:'black'}}>{product.sizeDetail[3].split(',')[isOnSizeEvent]}</div>
-                                <div style={{position:'absolute',top: '28%',left: '45%',color:'black'}}>{product.sizeDetail[4].split(',')[isOnSizeEvent]}</div>
-                                <div style={{position:'absolute',top: '28%',left: '45%',color:'black'}}>{product.sizeDetail[5].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '15.5%',left: '35%',color:'black'}}>{product.sizeDetail[2].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '23%',left: '34%',color:'black'}}>{product.sizeDetail[3].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '55%',left: '34%',color:'black'}}>{product.sizeDetail[4].split(',')[isOnSizeEvent]}</div>
+                                <div style={{position:'absolute',top: '31%',left: '9%',color:'black'}}>{product.sizeDetail[5].split(',')[isOnSizeEvent]}</div>
                               </>
                               : null
                               }

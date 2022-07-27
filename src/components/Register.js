@@ -79,7 +79,6 @@ function Registration() {
             const user_address2 = document.getElementById('inputdetailAdd').value;
             const user_phone = document.getElementById('inputCreatePostuser_phone').value;
             const user_address_postzone = document.getElementById('inputPostzone').value;
-            console.log("zonecode!!!!!",user_address_postzone);//undefined뜸 
             data.user_address =  user_address1;
             data.user_address_detail = user_address2;
             data.user_address_postzone = user_address_postzone;
@@ -102,7 +101,7 @@ function Registration() {
                 alert('상세주소를 입력해주세요.')
                 return;
             }else if(user_phone === ""){
-                alert('핸드폰 번호를 입력해주세요. ^^;')
+                alert('핸드폰 번호를 입력해주세요.')
                 return;
             }else if(isAllChecked == false){
                 alert('약관을 모두동의해주세요')
@@ -110,16 +109,19 @@ function Registration() {
             }
             console.log(data);
             
-            axios.post(`${API_URL}/v1/user_inform/`, data).then(()=>{
-                console.log(data);
+            axios.post(`${API_URL}/v1/user_inform/`, data,{
+                withCredentials:true
+            }).then(res => {
                 // onalertkakao(name_naming);
+
+                if(res.data.msg === 'duplicate'){
+                alert('이미가입한 이메일입니다.');
+                }else if(res.data.msg == 'ok'){
+                    alert("회원가입 완료");
+                    history.replace('/login')//이전페이지의 기록이 사라지고 대체됨
+                }
             })
-
-
             
-            alert("회원가입 완료");
-
-            history.replace('/login')//이전페이지의 기록이 사라지고 대체됨
         },[nickBtn,isAllChecked],
     );
 

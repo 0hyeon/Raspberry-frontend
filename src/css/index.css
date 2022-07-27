@@ -37,8 +37,8 @@
   }
   
   .product-card {
-    width: calc(100%/4 - 40px);
-    margin:20px 20px;
+    width: calc(100%/4 - 10px);
+    margin:5px 20px;
     /* border: 1px solid rgb(230, 230, 230); */
     /* border-radius: 12px; */
     overflow: hidden;
@@ -46,30 +46,6 @@
     text-align: center;
     /* filter: drop-shadow(2px 4px 6px #909090); */
   }
-  /* #product-list_third > .product-card {
-    width: calc(100%/3 - 20px);
-    margin:10px 10px;
-    border: 1px solid rgb(230, 230, 230);
-    border-radius: 12px;
-    overflow: hidden;
-    position: relative;
-    text-align: center;
-  } */
-  /* .product-blur{
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right:0;
-    background-color: #ffffffaa;
-    pointer-events: none;
-  } */
-  /* div > div > section:first-child {
-    pointer-events: none;
-  } */
-  /* div > div > section >sectin:last-child {
-    pointer-events: none;
-  } */
   .bestCategoryWrap > div > div:first-child > section {
     pointer-events: inherit !important;
     width: 90%;
@@ -270,7 +246,7 @@
   .ColorCircle{
     width: 13px;
     height: 13px;
-    border-radius:13px;
+    border-radius:3px;
     margin-right: 1px;
     display: inline-block;
     border: 1.5px solid #efefef;
@@ -339,8 +315,8 @@
     .product-card{
       border: none!important;
       border-radius: inherit!important;
-      width: calc(100%/2 - 5px) !important;
-      margin: 0px 2.5px 30px!important;
+      width: calc(100%/2 - 16px) !important;
+      margin: 0px 8px 20px!important;
     }
     .product-name{
       line-height: inherit!important;
@@ -354,10 +330,11 @@
       display: flex;
     }
     .product-subName{
-      font-size:11px !important;
+      font-size:13px !important;
       margin-top: inherit !important;
-      letter-spacing: 0.5px !important;
+      letter-spacing: -0.5px !important;
       text-align:left;
+      color:#333;
       word-break: keep-all;
       min-height: 37.5px;
       display: flex;
@@ -372,7 +349,7 @@
   @media screen and (max-width:550px) {
     #product-list, .product-list-wrapper {
       width: 100%!important;
-      padding:inherit!important;  
+      padding:6px!important;
     }
     .product-contents{
       padding:6px!important;

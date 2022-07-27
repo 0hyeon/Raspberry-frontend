@@ -523,7 +523,14 @@
   .description{
     height: 30vh!important;
     overflow: scroll !important;
+    
   }
+  .description::-webkit-scrollbar {
+    width: 3px;
+  }
+  .description::-webkit-scrollbar-thumb {
+    background: #a9a9a9;
+  } 
   #contents-box:before{
     display: none!important;
   }

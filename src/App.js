@@ -46,7 +46,8 @@ import OrderResultMobile from './components/OrderResultMobile';
 import Order from './components/Order';
 // const NewPage = loadable(() => import('./components/NewPage'))
 import NewPage from './components/NewPage';
-import DressesSkirts from './components/DressesSkirts';
+import Dresses from './components/Dresses';
+import Skirts from './components/Skirts';
 import Tops from './components/Tops';
 import Bottoms from './components/Bottoms';
 import OuterWear from './components/OuterWear';
@@ -248,8 +249,11 @@ function App () {
             <Route exact={true} path="/NewPage">
               <NewPage />
             </Route>
-            <Route exact={true} path="/DressesSkirts">
-              <DressesSkirts />
+            <Route exact={true} path="/Dresses">
+              <Dresses />
+            </Route>
+            <Route exact={true} path="/Skirts">
+              <Skirts />
             </Route>
             <Route exact={true} path="/OuterWear">
               <OuterWear />

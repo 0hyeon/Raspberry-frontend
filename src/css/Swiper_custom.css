@@ -79,4 +79,15 @@
     #image-box > .swiper-container > .swiper-wrapper>.swiper-slide> img{
         width: 100%!important;
     }
+    .swiper-container-horizontal > .swiper-scrollbar{
+        position: absolute;
+        width: 30%!important;
+        left: 50% !important;
+        transform: translateX(-50%);
+        background-color: #b6b6b6 !important;
+        bottom: 7% !important;
+        border-radius: 4px !important;
+        height: 4px !important;
+        overflow: hidden !important;
+    }
 }

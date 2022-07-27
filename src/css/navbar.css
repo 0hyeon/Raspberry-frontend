@@ -69,7 +69,7 @@
 } */
 
 .menuCon .leftMenu {
-  width: 581px;
+  width: 630px;
   position: absolute;
   left: 100px;
   /* top: 50%; */
@@ -179,16 +179,7 @@
   border-radius: 50%;
 }
 .cartCount2{
-  font-size: 12px;
-  position: absolute;
-  top: 20%;
-  padding-right: 3px;
-  right: 4%;
-  width: 15px;
-  height: 15px;
-  background-color: black;
-  color: white;
-  border-radius: 50%;
+  display: none;
 }
 .cartCount_in_a{
   padding:inherit!important;
@@ -244,6 +235,19 @@
   /* filter: drop-shadow(2px 4px 6px #ab4d69); */
 }
 @media (max-width: 767px) {
+  .cartCount2{
+    display: block !important;
+    font-size: 12px;
+    position: absolute;
+    top: 20%;
+    padding-right: 3px;
+    right: 4%;
+    width: 15px;
+    height: 15px;
+    background-color: black;
+    color: white;
+    border-radius: 50%;
+  }
   .barsMenu {
     display: inline-block;
   }

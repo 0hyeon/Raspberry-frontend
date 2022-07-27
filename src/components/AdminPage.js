@@ -123,7 +123,7 @@ const AdminPage = () => {
 
     return (
         <div style={{textAlign:'center'}}>
-            <h1 id="product-headline">Admin Page</h1>
+            <h1 className="product-headline">Admin Page</h1>
             <div className='product-delivery-wrapper'>
                 <ul>
                     <li>결제대기

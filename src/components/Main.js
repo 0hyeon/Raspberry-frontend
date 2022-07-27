@@ -16,11 +16,12 @@ import { actionCreators as productOptionActions } from "../_modules/productoptio
 
 import ReactPaginate from "react-paginate";
 import jwt_decode from "jwt-decode";
-
+import { RightOutlined } from "@ant-design/icons";
 import loadable from '@loadable/component'
 import { Tabs, Tab } from "@tarragon/swipeable-tabs/dist";
 
 const MainPage = loadable(() => import('../swiperSlide'));
+const MainPage2 = loadable(() => import('../swiperSlide2'));
 const BestCategory = loadable(() => import('./BestCategory'));
 
 dayjs.extend(relativeTime);//dayjs에서 확장된 기능 사용 
@@ -112,12 +113,12 @@ function Main(props) {
             document.getElementById(`${e.target.id}`).src = process.env.NODE_ENV === 'production' ?`${imageUrl}` : `${API_URL}/${imageUrl}`;
         }
     }
-    const ItemFetchLength = 50;//모든페이지에 들어가는 아이템수
-    const usersPerPage = 10;//한페이지에 보여주는 갯수
-    const pagesVisited = pageNumber * usersPerPage;// 1페이지에 1 * 10 / 2페이지에 2 * 20 //최대갯수인듯
+    const ItemFetchLength = 12;//모든페이지에 들어가는 아이템수
+    // const usersPerPage = 10;//한페이지에 보여주는 갯수
+    // const pagesVisited = pageNumber * usersPerPage;// 1페이지에 1 * 10 / 2페이지에 2 * 20 //최대갯수인듯
     
-    const displayUsers = products.slice(0,ItemFetchLength)//50중에 
-        .slice(pagesVisited, pagesVisited + usersPerPage)// 최대갯수 ~  최대갯수 + 10
+    const displayUsers = products.slice(0,ItemFetchLength)
+        // .slice(pagesVisited, pagesVisited + usersPerPage)// 최대갯수 ~  최대갯수 + 10
         .map((product) => {
             return (
                 <div className="product-card" key={product.id}>
@@ -137,8 +138,8 @@ function Main(props) {
                                     ?`${product.imageUrl}`
                                     :`${API_URL}/${product.imageUrl}`
                                 } alt="." 
-                                onMouseOver={(e) => mouserOverHover(e,product.imageUrl2,product.imageUrl)}
-                                onMouseOut={(e) => mouserOutHover(e,product.imageUrl)}
+                                onTouchStart={(e) => mouserOverHover(e,product.imageUrl2,product.imageUrl)}
+                                onTouchEnd={(e) => mouserOutHover(e,product.imageUrl)}
                             />
                         </div>
                         <div className="product-contents">
@@ -215,7 +216,7 @@ function Main(props) {
             );
         });
 
-    const pageCount = Math.ceil(products.length / usersPerPage);
+    // const pageCount = Math.ceil(products.length / usersPerPage);
     React.useEffect(function () {
         // 상품관련
         // fetchProducts();
@@ -264,9 +265,19 @@ function Main(props) {
                     <MainPage />
                     <BestCategory />
                     <h1 className="product-headline" id="product-list-arrivals">New Arrivals.</h1>
+                    <Link
+                        style={{ color: "inherit" }}
+                        
+                        to={`/NewPage`}
+                    >
+                        <h1 style={{fontSize:'15px',padding:'10px 18px 18px',fontFamily:'Poppins',fontWeight:'bold',display: 'flex',justifyContent: 'space-between',letterSpacing: '1.5px'}}>
+                            🍒라즈베리베리🍒 여름신상!
+                            <RightOutlined /> 
+                        </h1>
+                    </Link>
                     <div className="product-list-wrapper" id="product-list">
                         {displayUsers}
-                        <ReactPaginate
+                        {/* <ReactPaginate
                             previousLabel={"Previous"}
                             nextLabel={"Next"}
                             pageCount={pageCount}
@@ -276,19 +287,19 @@ function Main(props) {
                             nextLinkClassName={"nextBttn"}
                             disabledClassName={"paginationDisabled"}
                             activeClassName={"paginationActive"}
-                        />
+                        /> */}
+                        <Link
+                        style={{ color: "inherit",margin:'45px auto',width:'100%'}}
+                        to={`/NewPage`}
+                        >
+                            <div style={{borderRadius:'5px',fontSize:'15px',border:'1px solid #8d8d8d',width:'160px',height:'50px',margin:'0 auto',textAlign:'center',lineHeight:'40px'}}>More +</div>
+                        </Link>
                     </div>
-                        
                     
+                    <MainPage2 />
                 </>
             }
         </div>
     )
 }
-
-const ColorCircle = styled.span`
-    width: 20px;
-    height: 20px;
-`
-
 export default Main;

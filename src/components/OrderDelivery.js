@@ -111,7 +111,7 @@ const OrderSuccess = () => {
                             </span>
                     </Link>
                 </Td>
-                <Td>{od.mb_id}</Td>
+                <Td>{od.od_name}</Td>
                 {/*  */}
                 <Td>
                     {od.name}
