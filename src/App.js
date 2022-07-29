@@ -177,7 +177,7 @@ function App () {
   return (
     <React.Fragment>
       <ConnectedRouter history={history}>
-          <div className="backGround_Image">
+          <div className="backGround_Image" style={{overflowX:'hidden'}}>
           <Navbar /> 
           {/* {bgstart ?<audio autoplay controls src="http://localhost:8000/uploads/leemoojin.mp3" type="audio/mp3" />:null} */}
 

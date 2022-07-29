@@ -62,7 +62,8 @@ const NewPage = () => {
             document.getElementById(`${e.target.id}`).src = process.env.NODE_ENV === 'production' ?`${imageUrl}` : `${API_URL}/${imageUrl}`;
         }
     }
-    const displayUsers = products.slice(0,7)//50중에 
+    const ItemFetchLength = 12;
+    const displayUsers = products.slice(0,ItemFetchLength)//50중에 
         .slice(pagesVisited, pagesVisited + usersPerPage)// 최대갯수 ~  최대갯수 + 10
         .map((product) => {
         // .filter(item => item.category == "DRESSES/SKIRTS").map((product) => {

@@ -295,7 +295,6 @@ function Main(props) {
                             <div style={{borderRadius:'5px',fontSize:'15px',border:'1px solid #8d8d8d',width:'160px',height:'50px',margin:'0 auto',textAlign:'center',lineHeight:'40px'}}>More +</div>
                         </Link>
                     </div>
-                    
                     <MainPage2 />
                 </>
             }

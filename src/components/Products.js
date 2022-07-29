@@ -19,7 +19,6 @@ import { actionCreators as productActions } from "../_modules/product";
 import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
 import "swiper/components/pagination/pagination.scss";
-import "../css/Swiper_custom.css";
 import { Button, message,Tabs } from "antd";
 import Payment from "./Payment";
 import jwt_decode from "jwt-decode";

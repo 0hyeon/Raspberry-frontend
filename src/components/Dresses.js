@@ -62,8 +62,8 @@ const DressesSkirts = () => {
             document.getElementById(`${e.target.id}`).src = process.env.NODE_ENV === 'production' ?`${imageUrl}` : `${API_URL}/${imageUrl}`;
         }
     }
-
-    const displayUsers = products.slice(0,50)//50중에 
+    const ItemFetchLength = 12;
+    const displayUsers = products.slice(0,ItemFetchLength)//50중에 
         .slice(pagesVisited, pagesVisited + usersPerPage)// 최대갯수 ~  최대갯수 + 10
         // .filter(item => item.category == "NEW").map((product) => {
         .filter(item => item.category === "Dresses").map((product) => {
@@ -171,7 +171,7 @@ const DressesSkirts = () => {
     return <div style={{paddingTop:"100px",textAlign:'center'}}>
         { loading ? <div>Loading...</div>  :
             <>
-                <h1 className="product-headline">Dresses / Skirts.</h1>
+                <h1 className="product-headline">Dresses.</h1>
                 <div className="product-list-wrapper" id="product-list">
                     {displayUsers}
                     <ReactPaginate

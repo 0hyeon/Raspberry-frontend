@@ -9,12 +9,13 @@ import "./css/Swiper_custom.css";
 import {API_URL,S3_URL} from "./config/constants.js";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { actionCreators as productActions } from "./_modules/product";
+import { useDispatch, useSelector } from "react-redux";
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y])	// 추가
 
 function MainPage(props) {
   const [isBanner, setBanner] = useState(null);
-  const [isMobileBanner, setMobileBanner] = useState(null);
-
+  const [loading, setLoading] = useState(true);
   // const [size, setCurrentSize] = useState(null);
 
   
@@ -24,93 +25,76 @@ function MainPage(props) {
 
   //   setCurrentSize(size)
   // },[size])
-  
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.products.products);
+  function AddComma(value) {
+    return Number(value).toLocaleString('en');
+  }
+  function PdSalePercent(price,maketPrice) {
+    return Math.round((1 - ( price/ maketPrice )) * 100)
+  }
+  React.useEffect(function () {
+    // 상품관련
+    // fetchProducts();
+    dispatch(productActions.setProductSV());
+    console.log("products",products);
+    setLoading(false);
+  }, []);
   // console.log(window.innerWidth);useEffect(() => {
-    const fetchBanner = async () => { 
-        await axios
-        .get(`${API_URL}/v1/banner/fetchBanner`)
-        .then(function(res){
-            // console.log(res.data.result.imageUrl);
-
-            // console.log(res.data.result);
-            // console.log(res.data.result.filter(ct => ct.category == "pc").map((ct)=>(ct.imageUrl)));   
-            setBanner(res.data.result.filter(ct => ct.category == "pc").map((ct)=>(ct.imageUrl))[0]);   
-            setMobileBanner(res.data.result.filter(ct => ct.category == "mobile").map((ct)=>(ct.imageUrl))[0]);   
-        })
-        .catch((err) => {
-            console.log("Err: ", err);
-        });
-    };
-    useEffect(() => {
-      fetchBanner();//배너조회
-    },[])
-    if(isBanner === '' || isMobileBanner === ''){
-      return <div>Loading...</div>;
-    }
+    const ItemFetchLength = 12;
   return(
-    <div className="main_Swiper">
-        <Swiper 
-            className="banner"
-            modules={[Navigation, Pagination, Scrollbar, A11y]}
-            spaceBetween={50}
-            slidesPerView={2}
-            navigation
-            scrollbar={{ draggable: true }}
-            onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log('slide change')}
-        >
-          {window.innerWidth > 767 ? 
+    <div className="Sub_Swiper" style={{width:'100%'}}>
+        { loading ? <div>Loading...</div> :
           <>
-            {isBanner ?
-              <>
-                {isBanner && isBanner.map((bn,index)=>(
-                  <>
-                    {/* <div className='BannerList' key={index}>
-                      <img id="" src= {`${API_URL}/${bn}`} alt="."/> 
-                    </div> */}
-                    <SwiperSlide>
-                      {/* <Link to="/products/1"> */}
-                        <img src= {
-                          process.env.NODE_ENV === 'production' 
-                          ?`${bn}`
-                          :`${API_URL}/${bn}`
-                          } alt={`메인배너이미지 ${index}`}
-                        />
-                      {/* </Link> */}
-                    </SwiperSlide>
-                  </>
-                  ))}
-              </>
-            : null 
-            }
+            <img src='/images/1655805409_0.jpg' style={{position:'relative'}}></img>
+            <Swiper 
+                style={{position:'absolute',bottom: '0.8%',left: '7vw',overflow: 'inherit',width:'85vw'}}
+                className="banner"
+                modules={[Navigation, Pagination, Scrollbar, A11y]}
+                spaceBetween={10}
+                slidesPerView={3}
+                navigation
+                scrollbar={{ draggable: true }}
+                onSwiper={(swiper) => console.log(swiper)}
+                onSlideChange={() => console.log('slide change')}
+            >
+                {/* {displayUsers} */}
+                  {/* <Link to="/products/1"> */}
+                  {/* </Link> */}
+                {  products.slice(0,ItemFetchLength)//50중에 
+              .filter(item => item.category === "Dresses").map((product) => {
+                return (
+                  <SwiperSlide>
+                      <Link 
+                        to={`/products/${product.id}`}
+                        style={{ color: "inherit" }}
+                      >
+                        <div className='sub_product_wrapper'>
+                          <img
+                              id={product.id} 
+                              style={{height: 'auto',width:'100%'}} src={
+                              process.env.NODE_ENV === 'production'
+                                  ?`${product.imageUrl}`
+                                  :`${API_URL}/${product.imageUrl}`
+                              } alt="." 
+                          />
+                          <div className='sub_product_Box' style={{backgroundColor: '#fff',padding: 5,fontSize:'10px'}}>
+                            <div style={{height: 25,    overflow:'hidden',display: '-webkit-box',WebkitLineClamp:2,WebkitBoxOrient:'vertical',}}>{product.subDescription}</div>
+                            <div className='product_price_wrapper' style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+                              <div>{AddComma(product.price)} won</div>
+                              {product.marketPrice !== null 
+                              ? <div style={{    fontSize: 11,fontWeight: 700,color: '#ff9995',fontFamily: "Poppins"}} >{PdSalePercent(product.price,product.marketPrice)}%</div> 
+                              : null} 
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                  </SwiperSlide>
+                )
+              })}
+            </Swiper>
           </>
-          :
-          <>
-            {isBanner ?
-              <>
-                {isMobileBanner && isMobileBanner.map((bn,index)=>(
-                  <>
-                    {/* <div className='BannerList' key={index}>
-                      <img id="" src= {`${API_URL}/${bn}`} alt="."/> 
-                    </div> */}
-                    <SwiperSlide>
-                      {/* <Link to={`/products/${bn}`}> */}
-                        <img src= {
-                          process.env.NODE_ENV === 'production' 
-                          ?`${bn}`
-                          :`${API_URL}/${bn}`
-                          } alt={`메인배너이미지 ${index}`}
-                        />
-                      {/* </Link> */}
-                    </SwiperSlide>
-                  </>
-                  ))}
-              </>
-            : null 
-            }
-          </> 
-          }
-        </Swiper>
+        }
     </div>
   )
 }

@@ -50,7 +50,7 @@
     max-height: 600px; */
     /* object-fit: contain; */
   }
-  .swiper-slide{
+  .main_Swiper .swiper-slide{
     text-align: center;
     opacity: 0.8;
   }
