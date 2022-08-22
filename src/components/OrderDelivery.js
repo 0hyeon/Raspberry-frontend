@@ -132,7 +132,7 @@ const OrderSuccess = () => {
                 {ModifySongJangBtn && ModifySongJangBtn.params.index == od.od_id ? 
                 <Td>
                     <input type='text' style={{width:'100%'}} placeholder="송장번호를 입력해주세요." value={sjvalue}  onChange={handleFilter} />
-                    <button onClick={()=>ModifySubmit(od.od_id,od.name,od.od_addr1,od.od_cart_price,od.od_tel)} id="setAddressBtn">저장</button>
+                    <button style={{color:'white'}}onClick={()=>ModifySubmit(od.od_id,od.name,od.od_addr1,od.od_cart_price,od.od_tel)} id="setAddressBtn">저장</button>
                     <button onClick={CloseAddress} id="ClosesetAddressBtn">취소</button>
                 </Td>
                 :

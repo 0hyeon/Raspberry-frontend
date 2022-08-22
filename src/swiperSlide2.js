@@ -43,12 +43,12 @@ function MainPage(props) {
   // console.log(window.innerWidth);useEffect(() => {
     const ItemFetchLength = 12;
   return(
-    <div className="Sub_Swiper" style={{width:'100%'}}>
+    <div className="Sub_Swiper" style={{width:'100%',position:'relative'}}>
         { loading ? <div>Loading...</div> :
           <>
             <img src='/images/1655805409_0.jpg' style={{position:'relative'}}></img>
             <Swiper 
-                style={{position:'absolute',bottom: '0.8%',left: '7vw',overflow: 'inherit',width:'85vw'}}
+                style={{position:'absolute',bottom: '6.8%',left: '7vw',overflow: 'inherit',width:'85vw'}}
                 className="banner"
                 modules={[Navigation, Pagination, Scrollbar, A11y]}
                 spaceBetween={10}

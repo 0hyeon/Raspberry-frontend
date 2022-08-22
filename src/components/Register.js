@@ -42,7 +42,7 @@ function Registration() {
     };
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
     const validationSchema = Yup.object().shape({
-        user_id: Yup.string().min(2, '아이디는 2글자 이상입니다.').max(10, '아이디는 10글자를 넘지 못해요.').required('사용하실 아이디를 입력해 주세요.'),
+        user_id: Yup.string().min(2, '아이디는 2글자 이상입니다.').max(12, '아이디는 12글자를 넘지 못해요.').required('사용하실 아이디를 입력해 주세요.'),
         // user_email: Yup.string().email().min(3, '3자리 이상 입력해 주세요.').max(25, '25글자를 넘지 못해요.').required('이메일을 입력해주세요.'),
         user_pw: Yup.string().min(6, '6자리 이상 입력해 주세요.').max(15, '15자리 미만을 입력해 주세요.').required('비밀번호를 입력해 주세요.'),
         user_name: Yup.string().min(1, '1자리 이상 입력해 주세요.').max(15, '15자리 미만을 입력해 주세요.').required('이름을 입력해 주세요.'),
@@ -140,8 +140,8 @@ function Registration() {
         .then(res => {
             if(res.data.msg == '빈값'){
                 alert('내용을 입력하세요');
-            }else if(res.data.msg == '닉네임은 2글자 이상 10글자 미만 입력해주세요.'){
-                alert('닉네임은 2글자 이상 10글자 미만 입력해주세요.');
+            }else if(res.data.msg == '닉네임은 2글자 이상 13글자 미만 입력해주세요.'){
+                alert('닉네임은 2글자 이상 13글자 미만 입력해주세요.');
             }else if(res.data.msg == '중복'){
                 setNickBtn(false);
                 alert('이미 사용중인 id입니다.');

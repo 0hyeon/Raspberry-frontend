@@ -47,7 +47,7 @@ const Test = (props) => {
 
             {htmlData === null || htmlData === "" || htmlData == [] || htmlData == undefined && detailhtmlData === null || detailhtmlData === "" || detailhtmlData == [] || detailhtmlData == undefined
                 ? <button type='button' onClick={openPostCode}>우편번호 검색</button> 
-                : <button type='button' className='btn-ok' onClick={openPostCode}>(클릭시수정)</button> 
+                : <button type='button' className='btn-ok' onClick={openPostCode}>(수정)</button> 
             }
             
             {/* // 팝업 생성 기준 div */}

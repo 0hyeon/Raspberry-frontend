@@ -61,7 +61,8 @@ const OrderResult = () => {
             {loading === false ? 
                 <>
                     <strong>주문내역 : </strong>
-                    <p className="Order_success_title">주문이 성공적으로 완료되었습니다. (상단메뉴 Order 에서 확인가능합니다. )</p>
+                    <p className="Order_success_title">주문이 성공적으로 완료되었습니다.</p>
+                    <p className="Order_success_title">(상단메뉴 Order 에서 확인가능합니다)</p>
                     <p>(라즈베리베리를 이용해주셔서 감사합니다.)</p>
                     <br /> 
                     <div className='detail_result'>

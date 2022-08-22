@@ -63,3 +63,8 @@ label {
     margin: 20px 0 30px;
     display: inline-block;
 }
+@media screen and (max-width:800px) {
+    .Login_wrpper {
+        width: 100% !important;
+    }
+}

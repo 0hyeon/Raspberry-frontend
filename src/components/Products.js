@@ -23,6 +23,7 @@ import { Button, message,Tabs } from "antd";
 import Payment from "./Payment";
 import jwt_decode from "jwt-decode";
 import "../css/QnaDescription.css";
+import "../css/Swiper_custom.css";
 import { LockOutlined,MailOutlined,CameraOutlined,InfoCircleOutlined,LikeOutlined,CheckOutlined } from "@ant-design/icons";
 
 function ProductPage() {
@@ -1042,13 +1043,13 @@ function ProductPage() {
                 {/* <div id="createdAt">{dayjs(product.createdAt).format('YYYY년 MM월 DD일')}</div> */}
                 <Tabs defaultActiveKey="1" onChange={callback}>
                   <TabPane tab="DETAIL" key="1">
-                    <pre className="description" dangerouslySetInnerHTML={{ __html: `${isProductColor}` }}></pre>
+                    <pre style={{    overflowY: 'visible'}}className="description" dangerouslySetInnerHTML={{ __html: `${isProductColor}` }}></pre>
                   </TabPane>
                   <TabPane tab="SIZE" key="2">
-                    <pre className="description" dangerouslySetInnerHTML={{ __html: `${isSizeDesc}` }}></pre>
+                    <pre style={{    overflowY: 'visible'}}className="description" dangerouslySetInnerHTML={{ __html: `${isSizeDesc}` }}></pre>
                   </TabPane>
                   <TabPane tab="SHIPPING RETURN " key="3">
-                    <pre className="description">
+                    <pre style={{    overflowY: 'visible'}}className="description">
                         <ul>
                           <li>-착용흔적이 있는 제품은 당연히 교환/반품이 절대 불가 </li>
                           <li>-상품의 훼손, 멸실, 세탁, 향기, 오염, 피부각질 등 소비자에 의해 상품의 가치가 현저히 감소한 경우 </li>

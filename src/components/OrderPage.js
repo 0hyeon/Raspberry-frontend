@@ -80,7 +80,7 @@ function OrderPage() {
 
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
     const validationSchema = Yup.object().shape({
-        user_name: Yup.string().min(2, '아이디는 2글자 이상입니다.').max(10, '아이디는 10글자를 넘지 못해요.'),
+        user_name: Yup.string().min(2, '아이디는 2글자 이상입니다.').max(12, '아이디는 12글자를 넘지 못해요.'),
         user_email: Yup.string().email('이메일형식이 아닙니다.').max(255),
         user_phonenumber: Yup.string().matches(phoneRegExp, 'Phone number is not valid')
     });
@@ -122,6 +122,9 @@ function OrderPage() {
     // useEffect(()=>{
     //     setpayMethod(ispayMethod)
     // },[ispayMethod])
+    useEffect(()=>{
+        window.scrollTo(0,0);
+    },[])
     useEffect(() => {
 
         setHtmlData(document.getElementById("inputAdd").value)

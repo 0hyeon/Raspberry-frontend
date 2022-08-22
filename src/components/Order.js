@@ -155,7 +155,7 @@ const Order = () => {
             // }
         })
         .catch((error) => {
-            alert("주문내역이 없는 주문번호입니다.")
+            alert("주문내역이 없는 주문번호입니다. / 전화번호를 확인해주세요.")
             console.log(error);
         });
     }

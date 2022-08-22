@@ -83,7 +83,7 @@ function OrderPageMulti() {
 
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
     const validationSchema = Yup.object().shape({
-        user_name: Yup.string().min(2, '아이디는 2글자 이상입니다.').max(10, '아이디는 10글자를 넘지 못해요.'),
+        user_name: Yup.string().min(2, '아이디는 2글자 이상입니다.').max(12, '아이디는 12글자를 넘지 못해요.'),
         user_email: Yup.string().email('이메일형식이 아닙니다.').max(255),
         user_phonenumber: Yup.string().matches(phoneRegExp, 'Phone number is not valid')
     });
@@ -215,6 +215,9 @@ function OrderPageMulti() {
     const formik = useFormik({
         initialValues
     })
+    useEffect(()=>{
+        window.scrollTo(0,0);
+    },[])
     useEffect(() => {
             const name_naming = document.getElementById('inputCreatePostuser_name').value;
             const phone_naming = document.getElementById('inputCreatePostuser_phone').value;
@@ -329,7 +332,7 @@ function OrderPageMulti() {
                                         <div className='OrderPage_productArea_wrapper_right'>
                                             <div>{`${item.it_name} / ${item.it_Detail_color} / ${item.it_Detail_size} / ${item.it_Detail_quanity}개` }</div>
                                             <div className='OrderPage_Productprice'>{item.it_sc_price * item.it_Detail_quanity} won + 
-                                                <span style={{fontSize:'25px'}}> 배송비 </span>
+                                                <span> 배송비 </span>
                                                 <span id="deliveryconst">({deliveryconst} won)</span>
                                             </div>
                                         </div>

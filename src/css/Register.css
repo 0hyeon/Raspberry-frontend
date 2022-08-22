@@ -50,8 +50,7 @@ label{
 }
 .OrderPage_productArea_wrapper > div {
     float: left;
-    font-family: 'Uiyeun';
-    font-size: 27px;
+    font-size: 14px;
 }
 .OrderPage_productArea_wrapper_right{
     line-height: 2;
@@ -60,8 +59,6 @@ label{
     margin-left: 20px;
 }
 .OrderPage_Productprice{
-    margin-top: 30px;
-    font-size: 32px;
 }
 .contents{
     padding: 10px;
@@ -92,6 +89,7 @@ label{
     .OrderPage_productArea_wrapper_right{
         margin-left: 12px !important;
         width: 243px !important;
+        margin-top: 10px;
     }
     #popupDom > div > div {
         width: 100% !important;

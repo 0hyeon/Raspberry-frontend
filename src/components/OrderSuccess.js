@@ -158,7 +158,7 @@ const OrderSuccess = () => {
                             <Option value="상품준비중">상품준비중</Option>
                         </Select>
                         <div id='wrapperBtn'>
-                            <button onClick={()=>ModifySubmit(od.od_id,od.name,od.od_addr1,od.od_cart_price,od.od_tel)} id="setAddressBtn">저장</button>
+                            <button style={{color:'white'}}onClick={()=>ModifySubmit(od.od_id,od.name,od.od_addr1,od.od_cart_price,od.od_tel)} id="setAddressBtn">저장</button>
                             <button onClick={CloseAddress} id="ClosesetAddressBtn">취소</button>
                         </div>
                     </Td>

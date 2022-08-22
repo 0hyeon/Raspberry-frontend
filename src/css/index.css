@@ -37,8 +37,7 @@
   }
   
   .product-card {
-    width: calc(100%/4 - 10px);
-    margin:5px 20px;
+    width: calc(100%/4);
     /* border: 1px solid rgb(230, 230, 230); */
     /* border-radius: 12px; */
     overflow: hidden;
@@ -252,7 +251,7 @@
     border: 1.5px solid #efefef;
   }
   .product-subName{
-    font-size:12px ;
+    font-size:11px ;
     color: #979797;
     font-family: "Poppins";
     text-align:left;
@@ -320,7 +319,7 @@
     }
     .product-name{
       line-height: inherit!important;
-      font-size: 14px;
+      font-size: 13px;
     }
     .product-img:nth-of-type(2n-1){
 
