@@ -156,7 +156,6 @@ function Registration() {
         });
     }
     useEffect(()=>{
-        console.log("dispatch Effect작동!")
     },[dispatch])
 
     useEffect(() => {
